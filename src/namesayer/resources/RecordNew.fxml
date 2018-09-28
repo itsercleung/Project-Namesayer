@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.RecordNewController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.RecordNewController">
    <children>
-      <HBox prefHeight="500.0" prefWidth="800.0">
+      <HBox prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css">
                <children>
@@ -45,59 +45,65 @@
                         <Font size="14.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="160.0" />
+                        <Insets top="270.0" />
                      </VBox.margin>
                   </Button>
                </children>
             </VBox>
-            <VBox prefHeight="0.0" prefWidth="600.0">
+            <VBox prefHeight="0.0" prefWidth="800.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <children>
-                  <Label alignment="CENTER" opacity="0.33" prefHeight="70.0" prefWidth="600.0" text="Record New Name">
+                  <Label alignment="CENTER" opacity="0.33" prefHeight="70.0" prefWidth="800.0" text="Record New Name">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="800.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter New Name">
                            <HBox.margin>
-                              <Insets left="150.0" top="40.0" />
-                           </HBox.margin></Text>
+                              <Insets left="250.0" top="60.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font></Text>
                         <TextField fx:id="nameField">
                            <HBox.margin>
-                              <Insets left="30.0" top="35.0" />
-                           </HBox.margin></TextField>
+                              <Insets left="25.0" top="55.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font></TextField>
                      </children>
                   </HBox>
-                  <Label fx:id="label" alignment="CENTER" prefHeight="40.0" prefWidth="600.0" text="[Start Recording]" textFill="#4c58e1" />
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <Label fx:id="label" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="[Start Recording]" textFill="#4c58e1" />
+                  <HBox prefHeight="100.0" prefWidth="800.0">
                      <children>
-                        <Button fx:id="recordButton" alignment="CENTER" mnemonicParsing="false" onAction="#recordPressed" prefHeight="50.0" prefWidth="120.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Record">
+                        <Button fx:id="recordButton" alignment="CENTER" mnemonicParsing="false" onAction="#recordPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Record">
                            <HBox.margin>
-                              <Insets left="100.0" right="20.0" top="20.0" />
+                              <Insets left="155.0" right="20.0" top="20.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="listenButton" alignment="CENTER" mnemonicParsing="false" onAction="#listenPressed" prefHeight="50.0" prefWidth="120.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Listen">
+                        <Button fx:id="listenButton" alignment="CENTER" mnemonicParsing="false" onAction="#listenPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Listen">
                            <HBox.margin>
                               <Insets right="20.0" top="20.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#savePressed" prefHeight="50.0" prefWidth="120.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Save">
+                        <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#savePressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Save">
                            <HBox.margin>
                               <Insets top="20.0" />
                            </HBox.margin>
                         </Button>
                      </children>
                   </HBox>
-                  <Label alignment="CENTER" opacity="0.75" prefWidth="600.0" text="Tip: Enter name and press [Record] (records for 3 seconds)">
+                  <Label alignment="CENTER" opacity="0.75" prefWidth="800.0" text="Tip: Enter name and press [Record] (records for 3 seconds)">
                      <font>
                         <Font size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="150.0" />
+                        <Insets top="240.0" />
                      </VBox.margin>
                   </Label>
                </children>

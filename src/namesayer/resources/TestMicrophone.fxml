@@ -69,12 +69,12 @@
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font></Label>
-                  <Label fx:id="testLabel" alignment="CENTER" prefHeight="40.0" prefWidth="600.0" text="[Start test]" textFill="#4c58e1" />
+                  <Label fx:id="testLabel" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="[Start test]" textFill="#4c58e1" />
                   <HBox prefHeight="50.0" prefWidth="200.0">
                      <children>
                         <Label text="Mic Level">
                            <HBox.margin>
-                              <Insets left="145.0" />
+                              <Insets left="260.0" />
                            </HBox.margin></Label>
                         <ProgressBar fx:id="micLevel" minHeight="20.0" prefWidth="200.0" progress="0.0">
                            <HBox.margin>
@@ -93,12 +93,12 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="testButton" alignment="CENTER" mnemonicParsing="false" onAction="#testPressed" prefHeight="50.0" prefWidth="120.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Test">
+                        <Button fx:id="testButton" alignment="CENTER" mnemonicParsing="false" onAction="#testPressed" prefHeight="60.0" prefWidth="160.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Test">
                            <HBox.margin>
-                              <Insets left="170.0" right="20.0" top="20.0" />
+                              <Insets left="230.0" right="20.0" top="20.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="listenButton" alignment="CENTER" mnemonicParsing="false" onAction="#listenPressed" prefHeight="50.0" prefWidth="120.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Listen">
+                        <Button fx:id="listenButton" alignment="CENTER" mnemonicParsing="false" onAction="#listenPressed" prefHeight="60.0" prefWidth="160.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Listen">
                            <HBox.margin>
                               <Insets top="20.0" />
                            </HBox.margin>
@@ -109,7 +109,7 @@
                      </VBox.margin>
                   </HBox>
                   <MediaView fx:id="mediaTest" fitHeight="100.0" fitWidth="600.0" visible="false" />
-                  <Label alignment="CENTER" opacity="0.79" prefHeight="40.0" prefWidth="600.0" text="TIP: It is best to have your microphone level on or over the [Black Line]">
+                  <Label alignment="CENTER" opacity="0.79" prefHeight="40.0" prefWidth="800.0" text="TIP: It is best to have your microphone level on or over the [Black Line]">
                      <font>
                         <Font size="15.0" />
                      </font>

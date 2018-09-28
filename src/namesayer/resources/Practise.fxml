@@ -64,7 +64,7 @@
                   </Label>
                   <HBox prefHeight="450.0" prefWidth="600.0">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="800.0">
+                        <TableView fx:id="nameTable" prefHeight="200.0" prefWidth="800.0">
                           <columns>
                             <TableColumn fx:id="nameCol" minWidth="59.0" prefWidth="160.0" text="Name" />
                               <TableColumn fx:id="createdCol" minWidth="59.0" prefWidth="160.0" text="Created by" />
