@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.ToggleSwitch?>
+
+<AnchorPane fx:id="mainRoot" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.PractiseController">
+   <children>
+      <HBox prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css">
+               <children>
+                  <Button fx:id="practiseButton" mnemonicParsing="false" onAction="#practisePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Practise">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="60.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="testMicrophoneButton" mnemonicParsing="false" onAction="#testMicrophonePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Test Microphone">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="recordNameButton" mnemonicParsing="false" onAction="#recordNamePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Record New Name">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Exit">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="270.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="0.0" prefWidth="800.0">
+               <children>
+                  <Label alignment="CENTER" opacity="0.33" prefHeight="41.0" prefWidth="800.0" text="Practise">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox prefHeight="450.0" prefWidth="600.0">
+                     <children>
+                        <TableView prefHeight="200.0" prefWidth="800.0">
+                          <columns>
+                            <TableColumn fx:id="nameCol" minWidth="59.0" prefWidth="160.0" text="Name" />
+                              <TableColumn fx:id="createdCol" minWidth="59.0" prefWidth="160.0" text="Created by" />
+                            <TableColumn fx:id="dateCol" minWidth="59.0" prefWidth="160.0" text="Date" />
+                              <TableColumn fx:id="timeCol" minWidth="59.0" prefWidth="160.0" text="Time" />
+                              <TableColumn fx:id="ratingCol" prefWidth="160.0" text="Rating" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </HBox>
+                  <VBox prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                           <children>
+                              <Button fx:id="playNames" mnemonicParsing="false" onAction="#pressedPlayNames" prefHeight="60.0" prefWidth="140.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Practise">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" top="17.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="60.0" prefWidth="140.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Clear">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="17.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <VBox prefHeight="100.0" prefWidth="300.0">
+                                 <children>
+                                    <HBox prefHeight="30.0" prefWidth="300.0">
+                                       <children>
+                                          <Label text="Search">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField prefWidth="200.0">
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <ToggleSwitch fx:id="toggleRandomise" prefWidth="120.0" text="Randomise">
+                                       <VBox.margin>
+                                          <Insets left="20.0" right="2.0" top="10.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </ToggleSwitch>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="40.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

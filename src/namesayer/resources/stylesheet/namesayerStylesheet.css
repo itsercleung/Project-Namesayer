@@ -1,0 +1,18 @@
+Button{
+    -fx-background-color: #00796B;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+}
+
+Button:hover{
+    -fx-background-color: #00695C;
+}
+
+VBox{
+    -fx-background-color: #009688;
+}
+
+HBox{
+    -fx-background-color: #009688;
+}
+
