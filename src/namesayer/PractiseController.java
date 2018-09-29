@@ -1,6 +1,8 @@
 package namesayer;
 
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,7 +36,6 @@ public class PractiseController implements Initializable {
     @FXML private TableColumn<Name, String> timeCol;
     @FXML private TableColumn<Name, Rating> ratingCol;
     @FXML private TableView<Name> nameTable;
-    @FXML private TextField searchText;
     @FXML private Button clearButton;
     @FXML private ToggleSwitch toggleRandomise;
     @FXML private Button playNames;
