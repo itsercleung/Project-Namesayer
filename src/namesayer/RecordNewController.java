@@ -79,10 +79,10 @@ public class RecordNewController implements Initializable {
     //(2) Else simply record the name
     @FXML
     private void recordPressed(ActionEvent event) {
-        String regex = "([ a-zA-Z0-9_-])*"; // letters, spaces, numbers, underscores and hyphens
-        name = nameField.getText().trim();
+        String regex = "([ a-zA-Z0-9-])*"; // letters, spaces, numbers hyphens
+        name = nameField.getText().trim().toLowerCase();
         if (!name.matches(regex) || name.isEmpty()) {
-            label.setText("[Invalid Name: Name must have letters, spaces, numbers, underscores and/or hyphens]");
+            label.setText("[Invalid Name: Name must have letters, spaces, numbers and/or hyphens]");
             return;
         }
 
@@ -93,7 +93,7 @@ public class RecordNewController implements Initializable {
 
         // get number of versions of name
         int version = 0;
-        String command = "cd data/names; ls | grep *_" + name.toLowerCase() + ".wav | wc -l";
+        String command = "cd data/names; ls | grep _" + name + ".wav | wc -l";
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", command);
         try {
             Process process = builder.start();

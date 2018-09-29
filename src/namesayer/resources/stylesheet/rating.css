@@ -1,7 +1,0 @@
-.rating > .container > .button {
-    -fx-background-image: url("../icons/star.png");
-}
-
-.rating > .container > .button.strong {
-    -fx-background-image: url("../icons/selectedStar.png");
-}

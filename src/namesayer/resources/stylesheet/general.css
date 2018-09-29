@@ -1,0 +1,25 @@
+.rating > .container > .button {
+    -fx-background-image: url("../icons/star.png");
+}
+
+.rating > .container > .button.strong {
+    -fx-background-image: url("../icons/selectedStar.png");
+}
+
+.rating :disabled {
+    -fx-opacity: 1;
+}
+
+Button :disabled {
+    -fx-background-color: rgba(33,33,33,0.6);
+}
+
+Button{
+    -fx-background-color: #212121;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+}
+
+Button:hover{
+    -fx-background-color: #FF5252;
+}

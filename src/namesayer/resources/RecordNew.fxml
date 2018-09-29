@@ -14,9 +14,9 @@
    <children>
       <HBox prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css">
+            <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
                <children>
-                  <Button fx:id="practiseButton" mnemonicParsing="false" onAction="#practisePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Practise">
+                  <Button fx:id="practiseButton" mnemonicParsing="false" onAction="#practisePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Practise">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -24,7 +24,7 @@
                         <Insets top="60.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="testMicrophoneButton" mnemonicParsing="false" onAction="#testMicrophonePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Test Microphone">
+                  <Button fx:id="testMicrophoneButton" mnemonicParsing="false" onAction="#testMicrophonePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Test Microphone">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -32,7 +32,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="recordNameButton" mnemonicParsing="false" onAction="#recordNamePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Record New Name">
+                  <Button fx:id="recordNameButton" mnemonicParsing="false" onAction="#recordNamePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Record New Name">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -40,7 +40,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Exit">
+                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Exit">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -81,24 +81,24 @@
                   <Label fx:id="label" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="[Start Recording]" textFill="#4c58e1" />
                   <HBox prefHeight="100.0" prefWidth="800.0">
                      <children>
-                        <Button fx:id="recordButton" alignment="CENTER" mnemonicParsing="false" onAction="#recordPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Record">
+                        <Button fx:id="recordButton" alignment="CENTER" mnemonicParsing="false" onAction="#recordPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Record">
                            <HBox.margin>
                               <Insets left="155.0" right="20.0" top="20.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="listenButton" alignment="CENTER" mnemonicParsing="false" onAction="#listenPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Listen">
+                        <Button fx:id="listenButton" alignment="CENTER" mnemonicParsing="false" onAction="#listenPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Listen">
                            <HBox.margin>
                               <Insets right="20.0" top="20.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#savePressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Save">
+                        <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#savePressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Save">
                            <HBox.margin>
                               <Insets top="20.0" />
                            </HBox.margin>
                         </Button>
                      </children>
                   </HBox>
-                  <Label alignment="CENTER" opacity="0.75" prefWidth="800.0" text="Tip: Enter name and press [Record] (records for 3 seconds)">
+                  <Label alignment="CENTER" opacity="0.75" prefWidth="800.0" text="TIP: Enter name and press [Record] (records for 3 seconds)">
                      <font>
                         <Font size="15.0" />
                      </font>

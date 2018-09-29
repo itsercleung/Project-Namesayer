@@ -12,9 +12,9 @@
    <children>
       <HBox prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css">
+            <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
                <children>
-                  <Button fx:id="practiseButton" mnemonicParsing="false" onAction="#practisePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Practise">
+                  <Button fx:id="practiseButton" mnemonicParsing="false" onAction="#practisePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Practise">
                      <VBox.margin>
                         <Insets top="60.0" />
                      </VBox.margin>
@@ -22,7 +22,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="testMicrophoneButton" mnemonicParsing="false" onAction="#testMicrophonePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Test Microphone">
+                  <Button fx:id="testMicrophoneButton" mnemonicParsing="false" onAction="#testMicrophonePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Test Microphone">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -30,7 +30,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="recordNameButton" mnemonicParsing="false" onAction="#recordNamePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Record New Name">
+                  <Button fx:id="recordNameButton" mnemonicParsing="false" onAction="#recordNamePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Record New Name">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -38,7 +38,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/namesayerStylesheet.css" text="Exit">
+                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Exit">
                      <VBox.margin>
                         <Insets top="270.0" />
                      </VBox.margin>

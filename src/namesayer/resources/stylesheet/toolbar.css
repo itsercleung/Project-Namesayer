@@ -1,0 +1,28 @@
+Button{
+    -fx-background-color: #212121;
+    -fx-border-color: white;
+    -fx-border-width: 0 0 0 3px;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+}
+
+Button:hover{
+    -fx-background-color: #FF5252;
+}
+
+VBox{
+    -fx-background-color: #212121;
+}
+
+HBox{
+    -fx-background-color: #212121;
+}
+
+* :disabled {
+    -fx-opacity: 1;
+    -fx-background-color: rgba(33,33,33,0.8);
+    -fx-text-fill: rgba(255,255,255,0.7);
+    -fx-border-color: #FF5252;
+    -fx-border-width: 0 0 0 3px;
+}
+
