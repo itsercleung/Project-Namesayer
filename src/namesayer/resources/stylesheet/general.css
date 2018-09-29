@@ -66,6 +66,8 @@ ToggleSwitch:selected .thumb-area {
 }
 
 .table-view {
-    -fx-accent: rgba(33,33,33,0.5);
+    -fx-accent: rgba(33, 33, 33, 0.5);
     -fx-focus-color: transparent;
+    -fx-selection-bar: #f8b4b4;
+    -fx-selection-bar-non-focused: #f8b4b4;
 }

@@ -1,8 +1,6 @@
 package namesayer;
 
 import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,7 +35,6 @@ public class PractiseController implements Initializable {
     @FXML private TableColumn<Name, String> timeCol;
     @FXML private TableColumn<Name, Rating> ratingCol;
     @FXML private TableView<Name> nameTable;
-    @FXML private Button clearButton;
     @FXML private ToggleSwitch toggleRandomise;
     @FXML private Button playNames;
     @FXML private AnchorPane mainRoot;
@@ -264,9 +261,8 @@ public class PractiseController implements Initializable {
                 */
         });
 
-        //Selecting multiple rows of tableView
+        //Selecting multiple rows of tableView and setting to PracticeList
         nameTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
         nameTable.setRowFactory(param -> {
             TableRow<Name> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -277,7 +273,6 @@ public class PractiseController implements Initializable {
                     } else {
                         namePlaylist.remove(name);
                     }
-                    System.out.println(namePlaylist);
                 }
             });
             return row;
@@ -292,7 +287,6 @@ public class PractiseController implements Initializable {
                 node = node.getParent();
             }
 
-            // if is part of a row or the row,
             // handle event instead of using standard handling
             if (node instanceof TableRow) {
                 // prevent further handling

@@ -63,7 +63,7 @@ public class Recorder implements Runnable {
                     peak = lastPeak * 0.875f;
                 }
                 lastPeak = peak;
-                meter.setProgress(peak * 1.25);
+                meter.setProgress(peak * 1.4);
             }
         }
     }
