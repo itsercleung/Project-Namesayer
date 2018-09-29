@@ -13,6 +13,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import namesayer.util.Name;
@@ -44,6 +45,7 @@ public class PractiseController implements Initializable {
 
     private ObservableList<Name> nameList = FXCollections.observableArrayList(); //List of all names
     private List<String> playList = new ArrayList<>(); //List of all names user selected
+    private List<Name> namePlaylist = new ArrayList<>();
     private boolean isRandomised = false;
     private String currSelectedName; //Current name row selected by user
 
@@ -105,7 +107,8 @@ public class PractiseController implements Initializable {
 
     @FXML
     private void clearButtonPressed(ActionEvent actionEvent) {
-
+        nameTable.getSelectionModel().clearSelection();
+        namePlaylist.clear();
     }
 
     @FXML
@@ -263,16 +266,25 @@ public class PractiseController implements Initializable {
 
         //Selecting multiple rows of tableView
         nameTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        nameTable.setRowFactory(param -> {
+            TableRow<Name> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
+                    Name name = row.getItem();
+                    if (!namePlaylist.contains(name)) {
+                        namePlaylist.add(name);
+                    } else {
+                        namePlaylist.remove(name);
+                    }
+                    System.out.println(namePlaylist);
+                }
+            });
+            return row;
+        });
+
         nameTable.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
             Node node = evt.getPickResult().getIntersectedNode();
-
-            if (selectionModel.getSelectedItem() != null) {
-                currSelectedName = selectionModel.getSelectedItem().getCreated() + "_" +
-                        selectionModel.getSelectedItem().getDate() + "_" +
-                        selectionModel.getSelectedItem().getTime() + "_" +
-                        selectionModel.getSelectedItem().getName() + ".wav";
-                playList.add(currSelectedName);
-            }
 
             // go up from the target node until a row is found or it's clear the
             // target node wasn't a node.
@@ -296,7 +308,6 @@ public class PractiseController implements Initializable {
                     //If user deselects then name should be removed from list
                     int index = row.getIndex();
                     if (row.isSelected()) {
-                        while (playList.remove(currSelectedName)) {}
                         tv.getSelectionModel().clearSelection(index);
                     } else {
                         tv.getSelectionModel().select(index);
