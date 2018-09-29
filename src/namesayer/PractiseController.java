@@ -13,6 +13,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import namesayer.util.Name;
@@ -30,22 +31,35 @@ import java.util.*;
 
 public class PractiseController implements Initializable {
 
-    @FXML private TableColumn<Name, String> nameCol;
-    @FXML private TableColumn<Name, String> createdCol;
-    @FXML private TableColumn<Name, String> dateCol;
-    @FXML private TableColumn<Name, String> timeCol;
-    @FXML private TableColumn<Name, Rating> ratingCol;
-    @FXML private TableView<Name> nameTable;
-    @FXML private Button clearButton;
-    @FXML private ToggleSwitch toggleRandomise;
-    @FXML private Button playNames;
-    @FXML private AnchorPane mainRoot;
-    @FXML private Button practiseButton;
+    @FXML
+    private TableColumn<Name, String> nameCol;
+    @FXML
+    private TableColumn<Name, String> createdCol;
+    @FXML
+    private TableColumn<Name, String> dateCol;
+    @FXML
+    private TableColumn<Name, String> timeCol;
+    @FXML
+    private TableColumn<Name, Rating> ratingCol;
+    @FXML
+    private TableView<Name> nameTable;
+    @FXML
+    private Button clearButton;
+    @FXML
+    private ToggleSwitch toggleRandomise;
+    @FXML
+    private Button playNames;
+    @FXML
+    private AnchorPane mainRoot;
+    @FXML
+    private Button practiseButton;
 
     private ObservableList<Name> nameList = FXCollections.observableArrayList(); //List of all names
     private List<String> playList = new ArrayList<>(); //List of all names user selected
     private boolean isRandomised = false;
     private String currSelectedName; //Current name row selected by user
+
+    private List<Name> namePlaylist = new ArrayList<>();
 
     @FXML
     private void exitPressed(ActionEvent event) {
@@ -85,8 +99,8 @@ public class PractiseController implements Initializable {
         //Output List<String> into audioList.txt
         try {
             FileWriter writer = new FileWriter("temp/audioList.txt");
-            for(String str: playList) {
-                writer.write(str+"\n");
+            for (String str : playList) {
+                writer.write(str + "\n");
             }
             writer.close();
         } catch (IOException e) {
@@ -105,7 +119,8 @@ public class PractiseController implements Initializable {
 
     @FXML
     private void clearButtonPressed(ActionEvent actionEvent) {
-
+        nameTable.getSelectionModel().clearSelection();
+        namePlaylist.clear();
     }
 
     @FXML
@@ -131,7 +146,7 @@ public class PractiseController implements Initializable {
             int extIndex = parts[3].indexOf(".");
 
             //Set standard parts into each category
-            Name nameObject = new Name(parts[3].substring(0,extIndex),parts[0],parts[1],parts[2],makeRating(0));
+            Name nameObject = new Name(parts[3].substring(0, extIndex), parts[0], parts[1], parts[2], makeRating(0));
             nameList.add(nameObject);
 
             //Set onto table
@@ -184,7 +199,7 @@ public class PractiseController implements Initializable {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     if (line.length() == newName.length()) {
-                        if (line.substring(0, line.length()-3).equals(newName.substring(0, newName.length()-3))) {
+                        if (line.substring(0, line.length() - 3).equals(newName.substring(0, newName.length() - 3))) {
                             lines.set(lineCount, newName);
                             Files.write(path, lines);
                         }
@@ -263,6 +278,25 @@ public class PractiseController implements Initializable {
 
         //Selecting multiple rows of tableView
         nameTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        // select/unselect row adds to or removes the selected object
+        nameTable.setRowFactory(param -> {
+            TableRow<Name> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
+                    Name name = row.getItem();
+                    if (!namePlaylist.contains(name)) {
+                        namePlaylist.add(name);
+                    } else {
+                        namePlaylist.remove(name);
+                    }
+
+                    System.out.println(namePlaylist);
+                }
+            });
+            return row;
+        });
+
         nameTable.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
             Node node = evt.getPickResult().getIntersectedNode();
 
