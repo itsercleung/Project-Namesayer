@@ -284,6 +284,7 @@ public class PractiseController implements Initializable {
             TableRow<Name> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
+                    // get the currently selected row
                     Name name = row.getItem();
                     if (!namePlaylist.contains(name)) {
                         namePlaylist.add(name);
