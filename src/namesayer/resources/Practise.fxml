@@ -66,11 +66,11 @@
                      <children>
                         <TableView fx:id="nameTable" prefHeight="200.0" prefWidth="800.0" stylesheets="@stylesheet/general.css">
                           <columns>
-                            <TableColumn fx:id="nameCol" minWidth="59.0" prefWidth="160.0" text="Name" />
-                              <TableColumn fx:id="createdCol" minWidth="50.0" prefWidth="151.0" text="Created by" />
-                            <TableColumn fx:id="dateCol" minWidth="50.0" prefWidth="151.0" text="Date (dd/mm/yyyy)" />
-                              <TableColumn fx:id="timeCol" minWidth="50.0" prefWidth="151.0" text="Time (hr/min/sec)" />
-                              <TableColumn fx:id="ratingCol" editable="false" prefWidth="185.0" text="Rating" />
+                            <TableColumn fx:id="nameCol" minWidth="59.0" prefWidth="150.0" text="Name" />
+                              <TableColumn fx:id="createdCol" minWidth="50.0" prefWidth="145.0" text="Created by" />
+                            <TableColumn fx:id="dateCol" minWidth="50.0" prefWidth="145.0" text="Date (dd/mm/yyyy)" />
+                              <TableColumn fx:id="timeCol" minWidth="50.0" prefWidth="145.0" text="Time (hr/min/sec)" />
+                              <TableColumn fx:id="ratingCol" editable="false" prefWidth="190.0" text="Rating" />
                           </columns>
                         </TableView>
                      </children>

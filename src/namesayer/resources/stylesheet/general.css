@@ -23,3 +23,31 @@ Button{
 Button:hover{
     -fx-background-color: #FF5252;
 }
+
+.table-view .column-header-background {
+    -fx-background-color: #212121;
+}
+
+.table-view .column-header .label{
+    -fx-alignment:CENTER_LEFT
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: #212121;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 10pt;
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+
+.table-view {
+    -fx-accent: rgba(33,33,33,0.5);
+    -fx-focus-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
