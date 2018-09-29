@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.login.LoginController">
+   <children>
+      <Text layoutX="149.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NameSayer">
+         <font>
+            <Font size="52.0" />
+         </font>
+      </Text>
+      <Text layoutX="218.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Crappy Select User Menu" />
+      <Button fx:id="loginButton" layoutX="143.0" layoutY="332.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Login" />
+      <Button fx:id="newUserButton" layoutX="319.0" layoutY="332.0" mnemonicParsing="false" onAction="#newUserButtonClicked" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="New User" />
+      <ListView fx:id="userList" layoutX="200.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>
