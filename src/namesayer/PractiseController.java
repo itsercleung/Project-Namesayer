@@ -299,6 +299,7 @@ public class PractiseController implements Initializable {
         });
 
         nameTable.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
+            // TODO clean this up to remove unnecessary name string functioning
             Node node = evt.getPickResult().getIntersectedNode();
 
             if (selectionModel.getSelectedItem() != null) {
