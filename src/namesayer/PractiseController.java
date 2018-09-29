@@ -250,12 +250,6 @@ public class PractiseController implements Initializable {
         //When user selects table row, get all column content
         TableView.TableViewSelectionModel<Name> selectionModel = nameTable.getSelectionModel();
         selectionModel.selectedItemProperty().addListener((Observable observable) -> {
-            if (selectionModel.getSelectedItem() != null) {
-                currSelectedName = selectionModel.getSelectedItem().getCreated() + "_" +
-                        selectionModel.getSelectedItem().getDate() + "_" +
-                        selectionModel.getSelectedItem().getTime() + "_" +
-                        selectionModel.getSelectedItem().getName() + ".wav";
-
                 /*//When user sets rating of specific name, update rating text file
                 Rating rating = selectionModel.getSelectedItem().getRating();
                 rating.ratingProperty().addListener(new ChangeListener<Number>() {
@@ -265,13 +259,20 @@ public class PractiseController implements Initializable {
                     }
                 });
                 */
-            }
         });
 
         //Selecting multiple rows of tableView
         nameTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         nameTable.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
             Node node = evt.getPickResult().getIntersectedNode();
+
+            if (selectionModel.getSelectedItem() != null) {
+                currSelectedName = selectionModel.getSelectedItem().getCreated() + "_" +
+                        selectionModel.getSelectedItem().getDate() + "_" +
+                        selectionModel.getSelectedItem().getTime() + "_" +
+                        selectionModel.getSelectedItem().getName() + ".wav";
+                playList.add(currSelectedName);
+            }
 
             // go up from the target node until a row is found or it's clear the
             // target node wasn't a node.
@@ -292,9 +293,10 @@ public class PractiseController implements Initializable {
                 tv.requestFocus();
 
                 if (!row.isEmpty()) {
-                    // handle selection for non-empty nodes
+                    //If user deselects then name should be removed from list
                     int index = row.getIndex();
                     if (row.isSelected()) {
+                        while (playList.remove(currSelectedName)) {}
                         tv.getSelectionModel().clearSelection(index);
                     } else {
                         tv.getSelectionModel().select(index);
@@ -302,6 +304,5 @@ public class PractiseController implements Initializable {
                 }
             }
         });
-
     }
 }
