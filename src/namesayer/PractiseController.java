@@ -264,13 +264,21 @@ public class PractiseController implements Initializable {
         //Selecting multiple rows of tableView and setting to PracticeList
         nameTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         nameTable.setRowFactory(param -> {
+
+
             TableRow<Name> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
                     Name name = row.getItem();
                     if (!namePlaylist.contains(name)) {
+                        if (namePlaylist.isEmpty()) {
+                            playNames.setDisable(false);
+                        }
                         namePlaylist.add(name);
                     } else {
+                        if (namePlaylist.size() == 1) {
+                            playNames.setDisable(true);// last item being removed
+                        }
                         namePlaylist.remove(name);
                     }
                 }
@@ -279,7 +287,7 @@ public class PractiseController implements Initializable {
         });
 
         nameTable.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
-            Node node = evt.getPickResult().getIntersectedNode();
+                        Node node = evt.getPickResult().getIntersectedNode();
 
             // go up from the target node until a row is found or it's clear the
             // target node wasn't a node.
