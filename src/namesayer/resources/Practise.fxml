@@ -64,13 +64,13 @@
                   </Label>
                   <HBox prefHeight="450.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
                      <children>
-                        <TableView fx:id="nameTable" prefHeight="200.0" prefWidth="800.0" stylesheets="@stylesheet/general.css">
+                        <TableView fx:id="nameTable" pickOnBounds="false" prefHeight="443.0" prefWidth="846.0" stylesheets="@stylesheet/general.css">
                           <columns>
-                            <TableColumn fx:id="nameCol" minWidth="59.0" prefWidth="150.0" text="Name" />
-                              <TableColumn fx:id="createdCol" minWidth="50.0" prefWidth="145.0" text="Created by" />
-                            <TableColumn fx:id="dateCol" minWidth="50.0" prefWidth="145.0" text="Date (dd/mm/yyyy)" />
-                              <TableColumn fx:id="timeCol" minWidth="50.0" prefWidth="145.0" text="Time (hr/min/sec)" />
-                              <TableColumn fx:id="ratingCol" editable="false" prefWidth="190.0" text="Rating" />
+                            <TableColumn fx:id="nameCol" minWidth="59.0" prefWidth="150.0" text="NAME" />
+                              <TableColumn fx:id="createdCol" minWidth="50.0" prefWidth="145.0" text="CREATED BY" />
+                            <TableColumn fx:id="dateCol" minWidth="50.0" prefWidth="145.0" text="DATE" />
+                              <TableColumn fx:id="timeCol" minWidth="50.0" prefWidth="145.0" text="TIME" />
+                              <TableColumn fx:id="ratingCol" editable="false" prefWidth="190.0" text="RATING" />
                           </columns>
                         </TableView>
                      </children>
@@ -82,35 +82,27 @@
                               <Insets left="40.0" />
                            </VBox.margin>
                            <children>
-                              <Button fx:id="playNames" mnemonicParsing="false" onAction="#pressedPlayNames" prefHeight="60.0" prefWidth="140.0" stylesheets="@stylesheet/general.css" text="Practise">
+                              <Button fx:id="playNames" mnemonicParsing="false" onAction="#pressedPlayNames" prefHeight="50.0" prefWidth="140.0" stylesheets="@stylesheet/general.css" text="Practise">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets right="5.0" top="17.0" />
+                                    <Insets right="5.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="60.0" prefWidth="140.0" stylesheets="@stylesheet/general.css" text="Clear">
+                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="50.0" prefWidth="140.0" stylesheets="@stylesheet/general.css" text="Clear">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets left="10.0" top="17.0" />
+                                    <Insets left="10.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
                               <VBox prefHeight="100.0" prefWidth="300.0">
                                  <children>
                                     <HBox prefHeight="30.0" prefWidth="300.0">
                                        <children>
-                                          <Label text="Search">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                             <HBox.margin>
-                                                <Insets left="20.0" right="15.0" top="15.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField prefWidth="200.0">
+                                          <TextField fx:id="searchText" prefWidth="300.0" promptText="Search" stylesheets="@stylesheet/general.css">
                                              <HBox.margin>
                                                 <Insets top="10.0" />
                                              </HBox.margin>
@@ -120,9 +112,9 @@
                                           <Insets top="10.0" />
                                        </padding>
                                     </HBox>
-                                    <ToggleSwitch fx:id="toggleRandomise" prefWidth="120.0" text="Randomise">
+                                    <ToggleSwitch fx:id="toggleRandomise" prefWidth="120.0" stylesheets="@stylesheet/general.css" text="Randomise">
                                        <VBox.margin>
-                                          <Insets left="20.0" right="2.0" top="10.0" />
+                                          <Insets right="2.0" top="5.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font size="14.0" />
