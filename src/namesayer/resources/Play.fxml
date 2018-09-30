@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.Rating?>
+
+<AnchorPane fx:id="mainRoot" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.PlayController">
+   <children>
+      <HBox prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
+               <children>
+                  <Button fx:id="exitButton1" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Back">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="530.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="800.0">
+               <children>
+                  <Label alignment="CENTER" opacity="0.45" prefHeight="70.0" prefWidth="800.0" text="Practice Playlist">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="nameTable" pickOnBounds="false" prefHeight="370.0" prefWidth="846.0" stylesheets="@stylesheet/general.css">
+                     <columns>
+                        <TableColumn fx:id="nameCol" minWidth="59.0" prefWidth="150.0" text="NAME" />
+                        <TableColumn fx:id="createdCol" minWidth="50.0" prefWidth="145.0" text="CREATED BY" />
+                        <TableColumn fx:id="dateCol" minWidth="50.0" prefWidth="145.0" text="DATE" />
+                        <TableColumn fx:id="timeCol" minWidth="50.0" prefWidth="145.0" text="TIME" />
+                        <TableColumn fx:id="ratingCol" editable="false" prefWidth="190.0" text="RATING" />
+                     </columns>
+                  </TableView>
+                  <Label fx:id="playLabel" alignment="CENTER" opacity="0.83" prefHeight="40.0" prefWidth="800.0" text="PLAYING:">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="60.0" prefWidth="800.0">
+                     <children>
+                        <Button fx:id="prevButton" mnemonicParsing="false" onAction="#prevPressed" prefHeight="60.0" prefWidth="80.0" stylesheets="@stylesheet/general.css">
+                           <tooltip><Tooltip text="Previous" /></tooltip>
+                           <HBox.margin>
+                              <Insets left="180.0" right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="stopButton" mnemonicParsing="false" onAction="#stopPressed" prefHeight="60.0" prefWidth="80.0" stylesheets="@stylesheet/general.css">
+                           <tooltip>
+                              <Tooltip text="Stop" />
+                           </tooltip>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="playButton" mnemonicParsing="false" onAction="#playPressed" prefHeight="60.0" prefWidth="80.0" stylesheets="@stylesheet/general.css">
+                           <tooltip><Tooltip text="Play" /></tooltip>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextPressed" prefHeight="60.0" prefWidth="80.0" stylesheets="@stylesheet/general.css">
+                           <tooltip><Tooltip text="Next" /></tooltip>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="recordButton" mnemonicParsing="false" onAction="#recordPressed" prefHeight="60.0" prefWidth="80.0" stylesheets="@stylesheet/general.css">
+                           <tooltip>
+                              <Tooltip text="Record" />
+                           </tooltip>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="20.0" prefWidth="800.0">
+                           <children>
+                              <Label alignment="CENTER" opacity="0.8" prefWidth="200.0" text="QUALITY RATING:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="-60.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Rating fx:id="audioRating" prefHeight="22.0" prefWidth="176.0" rating="0.0" stylesheets="@stylesheet/general.css">
+                                 <HBox.margin>
+                                    <Insets left="-30.0" />
+                                 </HBox.margin>
+                              </Rating>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

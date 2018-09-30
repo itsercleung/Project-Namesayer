@@ -76,23 +76,8 @@ public class PractiseController implements Initializable {
     }
 
     @FXML
-    private void pressedPlayNames(ActionEvent actionEvent) {
-        //Deciding if randomisation is toggled on/off to shuffle playList of selected items
-        if (isRandomised) {
-            Collections.shuffle(playList);
-        }
-        //Output List<String> into audioList.txt
-        try {
-            FileWriter writer = new FileWriter("temp/audioList.txt");
-            for(String str: playList) {
-                writer.write(str+"\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //Load Play pane
+    private void pressedPlayNames(ActionEvent event) {
+        //record new practise pane
         AnchorPane playRoot = null;
         try {
             playRoot = FXMLLoader.load(getClass().getResource("resources/Play.fxml"));
