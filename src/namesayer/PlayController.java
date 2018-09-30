@@ -42,12 +42,12 @@ public class PlayController implements Initializable {
     @FXML private TableColumn<Name, String> timeCol;
     @FXML private TableColumn<Name, Rating> ratingCol;
     @FXML private Label playLabel;
-    @FXML private Button exitButton;
     @FXML private Button prevButton;
     @FXML private Button playButton;
-    @FXML private Button stopButton;
+    @FXML private Button stopButton; //TODO: Find way to stop thread (during play) once user presses STOP
     @FXML private Button nextButton;
     @FXML private Button recordButton;
+    @FXML private Button mergeButton; //TODO: Concat two (or more?) names from the table
     @FXML private Rating audioRating;
 
     private PractiseController practiseController = new PractiseController();
@@ -74,7 +74,7 @@ public class PlayController implements Initializable {
             nextButton.setDisable(true);
         }
         prevButton.setDisable(false);
-        playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentName).getName());
+        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentName).getName());
         nameTable.getSelectionModel().select(currentName);
 
         ratingUpdate(); //Update with current name rating
@@ -88,7 +88,7 @@ public class PlayController implements Initializable {
             prevButton.setDisable(true);
         }
         nextButton.setDisable(false);
-        playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentName).getName());
+        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentName).getName());
         nameTable.getSelectionModel().select(currentName);
 
         ratingUpdate(); //Update with current name rating
@@ -173,6 +173,11 @@ public class PlayController implements Initializable {
         }
     }
 
+    @FXML
+    void mergePressed(ActionEvent event) {
+
+    }
+
     //Update editable rating component
     private void ratingUpdate() {
         try {
@@ -214,9 +219,10 @@ public class PlayController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Setting table and rating updates
+        //Setting table and rating updates and labels
         populateTableView();
         ratingUpdate();
+        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentName).getName());
 
         //Accounting for single audio in which button is disabled
         if (practiseController.getPlayList().size() == 1) {

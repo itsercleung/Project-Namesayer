@@ -18,12 +18,20 @@
          <children>
             <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
                <children>
+                  <Button fx:id="mergeButton" mnemonicParsing="false" onAction="#mergePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Merge Names">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="70.0" />
+                     </VBox.margin>
+                  </Button>
                   <Button fx:id="exitButton1" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Back">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="530.0" />
+                        <Insets top="400.0" />
                      </VBox.margin>
                   </Button>
                </children>
