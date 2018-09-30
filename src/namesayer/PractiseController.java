@@ -41,8 +41,8 @@ public class PractiseController implements Initializable {
     @FXML private Button practiseButton;
 
     private ObservableList<Name> nameList = FXCollections.observableArrayList(); //List of all names
-    private List<String> playList = new ArrayList<>(); //List of all names user selected
-    private List<Name> namePlaylist = new ArrayList<>();
+    private List<Name> namePlaylist = new ArrayList<>(); //List of all names user selected
+    private List<String> playList = new ArrayList<>();
     private boolean isRandomised = false;
     private String currSelectedName; //Current name row selected by user
 
@@ -77,6 +77,10 @@ public class PractiseController implements Initializable {
 
     @FXML
     private void pressedPlayNames(ActionEvent event) {
+        //Randomise toggle on/off randomises selected play list
+        if (isRandomised) {
+            Collections.shuffle(playList);
+        }
         //record new practise pane
         AnchorPane playRoot = null;
         try {
