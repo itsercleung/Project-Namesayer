@@ -106,6 +106,7 @@ public class PractiseController implements Initializable {
     private void clearButtonPressed(ActionEvent actionEvent) {
         nameTable.getSelectionModel().clearSelection();
         namePlaylist.clear();
+        playNames.setDisable(true);
     }
 
     @FXML
@@ -167,7 +168,6 @@ public class PractiseController implements Initializable {
             String currentAudio = new String(bytes);
 
             //Makes new line if audio has no existing rating otherwise overwrite rating
-            System.out.println(currentAudio);
             if (!currentAudio.contains(currSelectedName)) {
                 writer.write(currSelectedName + "-" + rating + "\n");
                 writer.close();
@@ -264,8 +264,6 @@ public class PractiseController implements Initializable {
         //Selecting multiple rows of tableView and setting to PracticeList
         nameTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         nameTable.setRowFactory(param -> {
-
-
             TableRow<Name> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
@@ -288,7 +286,6 @@ public class PractiseController implements Initializable {
 
         nameTable.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
                         Node node = evt.getPickResult().getIntersectedNode();
-
             // go up from the target node until a row is found or it's clear the
             // target node wasn't a node.
             while (node != null && node != nameTable && !(node instanceof TableRow)) {

@@ -71,3 +71,13 @@ ToggleSwitch:selected .thumb-area {
     -fx-selection-bar: #f8b4b4;
     -fx-selection-bar-non-focused: #f8b4b4;
 }
+
+/* Microphone */
+.jfx-progress-bar > .track, .jfx-progress-bar > .bar {
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}
+
+.jfx-progress-bar > .bar {
+    -fx-background-color: #FF5252;
+}

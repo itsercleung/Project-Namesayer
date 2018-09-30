@@ -13,13 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Window;
 import namesayer.util.Recorder;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.TargetDataLine;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -60,7 +55,7 @@ public class TestMicrophoneController implements Initializable {
 
                         //Once steps (1)-(2) complete testlabel will show complete
                         testLabel.setText("[Test complete]");
-                        testLabel.setStyle("-fx-text-fill: green");
+                        testLabel.setStyle("-fx-text-fill: #6AE368");
                     }
                 });
             }
@@ -79,7 +74,7 @@ public class TestMicrophoneController implements Initializable {
     void testPressed(ActionEvent event) {
         //Set label to show test is currently ongoing
         testLabel.setText("[Testing]");
-        testLabel.setStyle("-fx-text-fill: red");
+        testLabel.setStyle("-fx-text-fill: #FF5252");
         testButton.setDisable(true);
 
         //Create test.wav file with samplingRate variable to adjust (could possibly adjust for "loudness")
@@ -143,8 +138,8 @@ public class TestMicrophoneController implements Initializable {
         testMicrophoneButton.setDisable(true);
         listenButton.setDisable(true);
 
+        //Initial mic properties
         micLevel.setProgress(0);
-
         recorder = new Recorder(micLevel);
         Thread thread = new Thread(recorder);
         thread.setDaemon(true); // hax but not graceful shutdown of thread
