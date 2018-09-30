@@ -40,11 +40,11 @@
                   </Label>
                   <TableView fx:id="nameTable" pickOnBounds="false" prefHeight="370.0" prefWidth="846.0" stylesheets="@stylesheet/general.css">
                      <columns>
-                        <TableColumn fx:id="nameCol" minWidth="59.0" prefWidth="150.0" text="NAME" />
-                        <TableColumn fx:id="createdCol" minWidth="50.0" prefWidth="145.0" text="CREATED BY" />
-                        <TableColumn fx:id="dateCol" minWidth="50.0" prefWidth="145.0" text="DATE" />
-                        <TableColumn fx:id="timeCol" minWidth="50.0" prefWidth="145.0" text="TIME" />
-                        <TableColumn fx:id="ratingCol" editable="false" prefWidth="190.0" text="RATING" />
+                        <TableColumn fx:id="nameCol" editable="false" minWidth="59.0" prefWidth="150.0" sortable="false" text="NAME" />
+                        <TableColumn fx:id="createdCol" editable="false" minWidth="50.0" prefWidth="145.0" sortable="false" text="CREATED BY" />
+                        <TableColumn fx:id="dateCol" editable="false" minWidth="50.0" prefWidth="145.0" sortable="false" text="DATE" />
+                        <TableColumn fx:id="timeCol" editable="false" minWidth="50.0" prefWidth="145.0" sortable="false" text="TIME" />
+                        <TableColumn fx:id="ratingCol" editable="false" prefWidth="190.0" sortable="false" text="RATING" />
                      </columns>
                   </TableView>
                   <Label fx:id="playLabel" alignment="CENTER" opacity="0.83" prefHeight="40.0" prefWidth="800.0" text="PLAYING:">

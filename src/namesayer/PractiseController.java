@@ -1,6 +1,5 @@
 package namesayer;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +22,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -41,10 +39,9 @@ public class PractiseController implements Initializable {
     @FXML private Button practiseButton;
 
     private ObservableList<Name> nameList = FXCollections.observableArrayList(); //List of all names
-    private List<Name> namePlaylist = new ArrayList<>(); //List of all names user selected
-    private List<String> playList = new ArrayList<>();
+    private static List<Name> namePlaylist = new ArrayList<>(); //List of all names user selected [NAME]
+    private static List<String> playList = new ArrayList<>(); //List of all names [String}
     private boolean isRandomised = false;
-    private String currSelectedName; //Current name row selected by user
 
     @FXML
     private void exitPressed(ActionEvent event) {
@@ -79,8 +76,15 @@ public class PractiseController implements Initializable {
     private void pressedPlayNames(ActionEvent event) {
         //Randomise toggle on/off randomises selected play list
         if (isRandomised) {
+            Collections.shuffle(namePlaylist);
             Collections.shuffle(playList);
         }
+
+        //Update playList with all selected names
+        for (Name names : namePlaylist) {
+            playList.add(names.toString());
+        }
+
         //record new practise pane
         AnchorPane playRoot = null;
         try {
@@ -110,7 +114,7 @@ public class PractiseController implements Initializable {
         mainRoot.getChildren().setAll(practiseRoot);
     }
 
-    private void populateListView() {
+    public void populateTableView() {
         //Getting names of all name files in data/names
         File namesFolder = new File("data/names");
         File[] listOfNames = namesFolder.listFiles();
@@ -148,45 +152,6 @@ public class PractiseController implements Initializable {
         return rating;
     }
 
-    //Update rating if user makes rate of specific audio row
-    public void ratingPressed(String rating) {
-        //Append the listed poorQualityAudio if the audio hasn't been rated already
-        try {
-            FileWriter writer = new FileWriter("data/ratingAudio.txt", true);
-            byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
-            String currentAudio = new String(bytes);
-
-            //Makes new line if audio has no existing rating otherwise overwrite rating
-            if (!currentAudio.contains(currSelectedName)) {
-                writer.write(currSelectedName + "-" + rating + "\n");
-                writer.close();
-            } else if (currentAudio.contains(currSelectedName)) {
-                String newName = currSelectedName + "-" + rating;
-                Scanner scanner = new Scanner(currentAudio);
-                int lineCount = 0;
-
-                //Creating list to append to specific line
-                Path path = Paths.get("data/ratingAudio.txt");
-                List<String> lines = Files.readAllLines(path);
-
-                //Find line of audio and replace it with different rating
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    if (line.length() == newName.length()) {
-                        if (line.substring(0, line.length()-3).equals(newName.substring(0, newName.length()-3))) {
-                            lines.set(lineCount, newName);
-                            Files.write(path, lines);
-                        }
-                    }
-                    lineCount++;
-                }
-                scanner.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     //Provides update to existing ratings to names that user has already done in the past
     public void ratingUpdate() {
         //If txt doesnt exist then make one and append TITLE
@@ -219,13 +184,25 @@ public class PractiseController implements Initializable {
         }
     }
 
+    public List<Name> getNamePlaylist() {
+        return namePlaylist;
+    }
+
+    public List<String> getPlayList() {
+        return playList;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Clear selectedLists
+        namePlaylist.clear();
+        playList.clear();
+
         practiseButton.setDisable(true);
         playNames.setDisable(true);
 
-        populateListView(); //Populate and update lists
-        ratingUpdate();
+        populateTableView(); //Populate and update lists
+        ratingUpdate(); //Populate existing rating of audio
 
         //Assigns boolean value to isRandomised depending on toggleRandomise component
         toggleRandomise.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -234,20 +211,6 @@ public class PractiseController implements Initializable {
             } else {
                 isRandomised = false; // off
             }
-        });
-
-        //When user selects table row, get all column content
-        TableView.TableViewSelectionModel<Name> selectionModel = nameTable.getSelectionModel();
-        selectionModel.selectedItemProperty().addListener((Observable observable) -> {
-                /*//When user sets rating of specific name, update rating text file
-                Rating rating = selectionModel.getSelectedItem().getRating();
-                rating.ratingProperty().addListener(new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                        ratingPressed(newValue.toString());
-                    }
-                });
-                */
         });
 
         //Selecting multiple rows of tableView and setting to PracticeList
