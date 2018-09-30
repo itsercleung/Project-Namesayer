@@ -1,5 +1,6 @@
 package namesayer;
 
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -18,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import namesayer.util.Name;
+import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
 
 import java.io.FileWriter;
@@ -80,7 +82,31 @@ public class PlayController implements Initializable {
 
     @FXML
     void playPressed(ActionEvent event) {
-
+        //Play audio files from filteredNames of the users selected
+        new Thread() {
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        playButton.setDisable(true);
+                        recordButton.setDisable(true);
+                        String path = "data/names/" + practiseController.getNamePlaylist().get(currentName).toString();
+                        PlayAudio playAudio = new PlayAudio(path);
+                        playAudio.playAudio();
+                    }
+                });
+                try {
+                    Thread.sleep(2500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        playButton.setDisable(false);
+                        recordButton.setDisable(false);
+                    }
+                });
+            }
+        }.start();
     }
 
     @FXML
