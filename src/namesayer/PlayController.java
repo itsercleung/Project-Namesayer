@@ -53,7 +53,6 @@ public class PlayController implements Initializable {
     private PractiseController practiseController = new PractiseController();
     private int currentName = 0; //Current name being played
     private String currSelectedName; //Current name row selected by user
-
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
 
     @FXML
@@ -77,7 +76,22 @@ public class PlayController implements Initializable {
         prevButton.setDisable(false);
         playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentName).getName());
         nameTable.getSelectionModel().select(currentName);
-        nonColRatingUpdate(); //Update with current name rating
+
+        ratingUpdate(); //Update with current name rating
+    }
+
+    @FXML
+    void prevPressed(ActionEvent event) {
+        //Switching to prev selected audio files
+        currentName--;
+        if (currentName == 0) {
+            prevButton.setDisable(true);
+        }
+        nextButton.setDisable(false);
+        playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentName).getName());
+        nameTable.getSelectionModel().select(currentName);
+
+        ratingUpdate(); //Update with current name rating
     }
 
     @FXML
@@ -110,20 +124,6 @@ public class PlayController implements Initializable {
     }
 
     @FXML
-    void prevPressed(ActionEvent event) {
-        //Switching to prev selected audio files
-        currentName--;
-        if (currentName == 0) {
-            prevButton.setDisable(true);
-        }
-        nextButton.setDisable(false);
-        playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentName).getName());
-        nameTable.getSelectionModel().select(currentName);
-
-        nonColRatingUpdate(); //Update with current name rating
-    }
-
-    @FXML
     void recordPressed(ActionEvent event) {
 
     }
@@ -140,6 +140,7 @@ public class PlayController implements Initializable {
             FileWriter writer = new FileWriter("data/ratingAudio.txt", true);
             byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
+            currSelectedName = practiseController.getNamePlaylist().get(currentName).toString();
 
             //Makes new line if audio has no existing rating otherwise overwrite rating
             if (!currentAudio.contains(currSelectedName)) {
@@ -173,7 +174,7 @@ public class PlayController implements Initializable {
     }
 
     //Update editable rating component
-    private void nonColRatingUpdate() {
+    private void ratingUpdate() {
         try {
             byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
@@ -184,7 +185,9 @@ public class PlayController implements Initializable {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     if (line.substring(0, line.length() - 4).equals(practiseController.getNamePlaylist().get(currentName).toString())) {
-                        audioRating.setRating(Double.parseDouble(line.substring(line.length() - 3)));
+                        double rating = Double.parseDouble(line.substring(line.length() - 3));
+                        selectedList.get(currentName).getRating().setRating(rating); //Set column rating
+                        audioRating.setRating(rating); //Set adjustable rating
                     }
                 }
             }
@@ -213,14 +216,13 @@ public class PlayController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //Setting table and rating updates
         populateTableView();
-        practiseController.ratingUpdate();
-        nonColRatingUpdate();
+        ratingUpdate();
 
         //Accounting for single audio in which button is disabled
         if (practiseController.getPlayList().size() == 1) {
             nextButton.setDisable(true);
         }
-        prevButton.setDisable(true); //Must be disabled initially, to fixate count=0 if statement
+        prevButton.setDisable(true);
         nameTable.getSelectionModel().select(currentName);
         currSelectedName = practiseController.getNamePlaylist().get(currentName).toString();
 
@@ -229,6 +231,7 @@ public class PlayController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 ratingPressed(newValue.toString());
+                ratingUpdate();
             }
         });
 
