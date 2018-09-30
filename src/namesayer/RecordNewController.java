@@ -29,6 +29,8 @@ public class RecordNewController implements Initializable {
     @FXML private AnchorPane root;
     @FXML private TextField nameField;
     @FXML private Label label;
+    @FXML
+    private Button stopRecordingButton;
 
     private String name;
     private String officialName;
@@ -172,6 +174,11 @@ public class RecordNewController implements Initializable {
             CreateTempAudio createTempAudio = new CreateTempAudio(officialName);
             createTempAudio.createSingleAudio();
         }
+    }
+
+    @FXML
+    private void stopRecordingButtonPressed() {
+
     }
 
     //Listen to temp recording to see if user wants to save
