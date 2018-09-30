@@ -1,5 +1,10 @@
 package namesayer.login;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class User {
     private String username;
     private int points;
@@ -26,9 +31,31 @@ public class User {
 
     }
 
-    // save user to file
-    public void saveUser() {
+    // save user to file (should be result of button click...)
+    public void saveUser() throws IOException {
+        File directory = new File("./data/usernames");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        String path = "./data/usernames/"+username;
+        File usernameTxt = new File(path);
+        if(usernameTxt.exists()) {
+            return;
+        }
 
+        // add username and points
+        FileWriter fw = new FileWriter(usernameTxt);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(username);
+        bw.newLine();
+        bw.write(0);
+        bw.close();
+        fw.close();
+    }
+
+    @Override
+    public String toString() {
+       return this.username ;
     }
 
     public void updateUser() {

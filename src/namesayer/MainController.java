@@ -17,7 +17,15 @@ public class MainController implements Initializable {
 
     @FXML
     private void exitPressed(ActionEvent event) {
-        System.exit(0);
+        //System.exit(0);
+        // testing login menu
+        AnchorPane testMicrophoneRoot = null;
+        try {
+            testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(testMicrophoneRoot);
     }
 
     @FXML
