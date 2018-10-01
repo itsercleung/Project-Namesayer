@@ -44,7 +44,7 @@ public class PlayController implements Initializable {
     @FXML private Label playLabel;
     @FXML private Button prevButton;
     @FXML private Button playButton;
-    @FXML private Button stopButton; //TODO: Find way to stop thread (during play) once user presses STOP
+    @FXML private Button stopButton;
     @FXML private Button nextButton;
     @FXML private Button recordButton;
     @FXML private Button mergeButton; //TODO: Concat two (or more?) names from the table
@@ -54,6 +54,7 @@ public class PlayController implements Initializable {
     private int currentName = 0; //Current name being played
     private String currSelectedName; //Current name row selected by user
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
+    private PlayAudio playAudio;
 
     @FXML
     void exitPressed(ActionEvent event) {
@@ -104,7 +105,7 @@ public class PlayController implements Initializable {
                         playButton.setDisable(true);
                         recordButton.setDisable(true);
                         String path = "data/names/" + practiseController.getNamePlaylist().get(currentName).toString();
-                        PlayAudio playAudio = new PlayAudio(path);
+                        playAudio = new PlayAudio(path);
                         playAudio.playAudio();
                     }
                 });
@@ -130,7 +131,9 @@ public class PlayController implements Initializable {
 
     @FXML
     void stopPressed(ActionEvent event) {
-
+        playAudio.stopAudio();
+        playButton.setDisable(false);
+        recordButton.setDisable(false);
     }
 
     //Update rating if user makes rate of specific audio row
