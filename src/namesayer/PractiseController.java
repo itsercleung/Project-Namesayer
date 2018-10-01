@@ -2,6 +2,8 @@ package namesayer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,12 +36,14 @@ public class PractiseController implements Initializable {
     @FXML private TableView<Name> nameTable;
     @FXML private ToggleSwitch toggleRandomise;
     @FXML private Button playNames;
-    @FXML private AnchorPane mainRoot;
     @FXML private Button practiseButton;
+    @FXML private TextField searchTextField;
+    @FXML private AnchorPane mainRoot;
 
     private ObservableList<Name> nameList = FXCollections.observableArrayList(); //List of all names
     private static List<Name> namePlaylist = new ArrayList<>(); //List of all names user selected [NAME]
     private static List<String> playList = new ArrayList<>(); //List of all names [String}
+    private SortedList<Name> sortedNames;
     private boolean isRandomised = false;
 
     @FXML
@@ -140,6 +144,19 @@ public class PractiseController implements Initializable {
         }
     }
 
+    //Reselect names that have been selected by user
+    private void selectUpdate() {
+        int i = 0; //Index where selectedName is at on table
+        for (Name sortedName : sortedNames) {
+            for (Name selectedName : namePlaylist) {
+                if (sortedName.toString().equals(selectedName.toString())) {
+                    nameTable.getSelectionModel().select(i);
+                }
+            }
+            i++;
+        }
+    }
+
     //When user sets rating on a name then makeRating set
     private Rating makeRating(double rate) {
         Rating rating = new Rating();
@@ -200,8 +217,9 @@ public class PractiseController implements Initializable {
         practiseButton.setDisable(true);
         playNames.setDisable(true);
 
-        populateTableView(); //Populate and update lists
-        ratingUpdate(); //Populate existing rating of audio
+        //Populate lists and ratings
+        populateTableView();
+        ratingUpdate();
 
         //Assigns boolean value to isRandomised depending on toggleRandomise component
         toggleRandomise.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -235,10 +253,8 @@ public class PractiseController implements Initializable {
             return row;
         });
 
-        nameTable.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
-                        Node node = evt.getPickResult().getIntersectedNode();
-            // go up from the target node until a row is found or it's clear the
-            // target node wasn't a node.
+        //Select multiple names method - 2
+        nameTable.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> { Node node = evt.getPickResult().getIntersectedNode();
             while (node != null && node != nameTable && !(node instanceof TableRow)) {
                 node = node.getParent();
             }
@@ -247,11 +263,8 @@ public class PractiseController implements Initializable {
             if (node instanceof TableRow) {
                 // prevent further handling
                 evt.consume();
-
                 TableRow row = (TableRow) node;
                 TableView tv = row.getTableView();
-
-                // focus the tableview
                 tv.requestFocus();
 
                 if (!row.isEmpty()) {
@@ -265,5 +278,30 @@ public class PractiseController implements Initializable {
                 }
             }
         });
+
+        // attempt to auto filter list based on user input
+        // put the name list in a filteredlist
+        //TODO this filter removes all currently selected names
+        FilteredList<Name> filteredList = new FilteredList<>(nameList, p -> true);
+        // set filter predicate when filter changes
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(name -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    selectUpdate();
+                    return true; // display all names if empty textfield
+                }
+                else if (name.getName().contains(newValue)) {
+                    selectUpdate();
+                    return true; // textfield input is in list
+                }
+                selectUpdate();
+                return false;
+            });
+        });
+
+        // magic, puts filteredlist into a sortedlist and display on table
+        sortedNames = new SortedList<>(filteredList);
+        sortedNames.comparatorProperty().bind(nameTable.comparatorProperty());
+        nameTable.setItems(sortedNames);
     }
 }
