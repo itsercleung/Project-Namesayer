@@ -44,7 +44,6 @@ public class PractiseController implements Initializable {
     private static List<Name> namePlaylist = new ArrayList<>(); //List of all names user selected [NAME]
     private static List<String> playList = new ArrayList<>(); //List of all names [String}
     private SortedList<Name> sortedNames;
-    private boolean searchEmpty = true;
     private boolean isRandomised = false;
 
     @FXML
