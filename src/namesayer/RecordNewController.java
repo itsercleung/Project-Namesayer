@@ -29,11 +29,11 @@ public class RecordNewController implements Initializable {
     @FXML private AnchorPane root;
     @FXML private TextField nameField;
     @FXML private Label label;
-    @FXML
-    private Button stopRecordingButton;
+    @FXML private Button stopRecordingButton;
 
     private String name;
     private String officialName;
+    private PlayAudio playAudio;
 
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
@@ -178,7 +178,7 @@ public class RecordNewController implements Initializable {
 
     @FXML
     private void stopRecordingButtonPressed() {
-
+        playAudio.stopAudio();
     }
 
     //Listen to temp recording to see if user wants to save
@@ -208,8 +208,8 @@ public class RecordNewController implements Initializable {
         }.start();
 
         String path = "./temp/" + officialName + ".wav";
-        PlayAudio pa = new PlayAudio(path);
-        pa.playAudio();
+        playAudio = new PlayAudio(path);
+        playAudio.playAudio();
     }
 
     //Once saved, place into unfilteredNames folder
