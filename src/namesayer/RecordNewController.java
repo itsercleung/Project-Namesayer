@@ -1,6 +1,8 @@
 package namesayer;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -250,8 +252,13 @@ public class RecordNewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        recordNameButton.setDisable(true);
+        //recordNameButton.setDisable(true);
         listenButton.setDisable(true);
         saveButton.setDisable(true);
+        stopRecordingButton.setDisable(true);
+
+        // bind record name button so if text field is empty, disable button
+        BooleanBinding isInvalid = Bindings.createBooleanBinding(() -> nameField.getText().trim().isEmpty(), nameField.textProperty());
+        recordButton.disableProperty().bind(isInvalid);
     }
 }

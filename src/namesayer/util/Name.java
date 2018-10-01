@@ -13,7 +13,7 @@ public class Name {
         this.name = name;
         this.created = created;
         this.date = date;
-        this.time = time;
+        this.time = time.replace("-",":"); // looks better
         this.rating = rating;
     }
 
