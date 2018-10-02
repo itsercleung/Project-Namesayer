@@ -201,7 +201,6 @@ public class PractiseController implements Initializable {
 
                 // splitting string by "-" and/or " "
                 String[] allNames;
-                final String concatNames; //If user enters multiple names in search (add to list if available)
                 int countNames = 1;
                 if (newValue.contains("-") || newValue.contains(" ")) {
                     allNames = newValue.split("[-\\s+]"); // whitespace delimiter with hyphen
