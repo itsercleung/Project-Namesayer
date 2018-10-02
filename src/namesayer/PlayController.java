@@ -71,7 +71,7 @@ public class PlayController implements Initializable {
     void nextPressed(ActionEvent event) {
         //Switching to next selected audio files
         currentName++;
-        if (currentName == practiseController.getPlayList().size() - 1) {
+        if (currentName == practiseController.getNamePlaylist().size() - 1) {
             nextButton.setDisable(true);
         }
         prevButton.setDisable(false);
@@ -228,7 +228,7 @@ public class PlayController implements Initializable {
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentName).getName());
 
         //Accounting for single audio in which button is disabled
-        if (practiseController.getPlayList().size() == 1) {
+        if (practiseController.getNamePlaylist().size() == 1) {
             nextButton.setDisable(true);
         }
         prevButton.setDisable(true);

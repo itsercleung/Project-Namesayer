@@ -9,6 +9,10 @@ public class Name {
     private String time;
     private Rating rating;
 
+    public Name(String name) {
+        this.name = name;
+    }
+
     public Name(String name, String created, String date, String time, Rating rating) {
         this.name = name;
         this.created = created;
