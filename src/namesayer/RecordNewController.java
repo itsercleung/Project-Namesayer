@@ -241,6 +241,7 @@ public class RecordNewController implements Initializable {
         listenButton.setDisable(true);
         saveButton.setDisable(true);
         nameField.setDisable(true);
+        stopRecordingButton.setDisable(false); // stop recording is exception
     }
 
     private void enableButtons() {
@@ -248,17 +249,20 @@ public class RecordNewController implements Initializable {
         listenButton.setDisable(false);
         saveButton.setDisable(false);
         nameField.setDisable(false);
+        stopRecordingButton.setDisable(true);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //recordNameButton.setDisable(true);
+        recordNameButton.setDisable(true);
         listenButton.setDisable(true);
         saveButton.setDisable(true);
         stopRecordingButton.setDisable(true);
 
+        /*
         // bind record name button so if text field is empty, disable button
         BooleanBinding isInvalid = Bindings.createBooleanBinding(() -> nameField.getText().trim().isEmpty(), nameField.textProperty());
         recordButton.disableProperty().bind(isInvalid);
+        */
     }
 }
