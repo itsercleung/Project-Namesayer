@@ -13,6 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import namesayer.util.Name;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -25,7 +27,7 @@ public class PractiseController implements Initializable {
 
     @FXML private ToggleSwitch toggleRandomise;
     @FXML private Button playNames;
-    @FXML private Button practiseButton;
+    @FXML private Button practiseButton, uploadButton;
     @FXML private TextField searchTextField;
     @FXML private AnchorPane mainRoot;
     @FXML private ListView<String> searchNamesView;
@@ -52,6 +54,15 @@ public class PractiseController implements Initializable {
             e.printStackTrace();
         }
         mainRoot.getChildren().setAll(testMicrophoneRoot);
+    }
+
+    @FXML
+    private void uploadButtonClicked(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        Stage stage = (Stage) uploadButton.getScene().getWindow();
+        File textFile = fc.showOpenDialog(stage); // should be txt file
+
+        //TODO continue upload txt function obviously
     }
 
     @FXML
