@@ -1,5 +1,8 @@
 package namesayer;
 
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -28,8 +31,9 @@ public class PractiseController implements Initializable {
     @FXML private ListView<String> searchNamesView;
     @FXML private ListView<String> selectedNamesView;
 
-    private ObservableList<String> nameList = FXCollections.observableArrayList(); //List of all names
-    private static List<Name> namePlaylist = new ArrayList<>(); //List of all names user selected
+    private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
+    private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
+    private static List<Name> namePlaylist = new ArrayList<>();
     private FilteredList<String> filteredData;
     private boolean isRandomised = false;
 
@@ -110,7 +114,7 @@ public class PractiseController implements Initializable {
             //Check if duplicate (or already in list)
             boolean dupFlag = false;
             Name nameObject = new Name(parts[3].substring(0, extIndex));
-            for (String stringName : nameList) {
+            for (String stringName : searchNameList) {
                 if (nameObject.getName().equalsIgnoreCase(stringName)) {
                     dupFlag = true;
                 }
@@ -118,10 +122,10 @@ public class PractiseController implements Initializable {
             //If not duplicate add to list
             if (!dupFlag) {
                 String upperName = nameObject.getName().toUpperCase(); //Consistency with cases
-                nameList.add(upperName);
+                searchNameList.add(upperName);
             }
         }
-        Collections.sort(nameList);
+        Collections.sort(searchNameList);
     }
 
     private void changeHeightView() {
@@ -143,6 +147,7 @@ public class PractiseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //Clear selectedLists
         namePlaylist.clear();
+        selectedNameList.clear();
         searchNamesView.setVisible(false);
 
         practiseButton.setDisable(true);
@@ -160,12 +165,31 @@ public class PractiseController implements Initializable {
             }
         });
 
-        //TODO: Handle user clicking something from [searchNamesView] and updating [selectNamesView] (if clicked on name, add name to selectedNamesView, and clear search and view)
+        //Add selected name from search onto selectedNamesList and update such view
+        searchNamesView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (searchNamesView.getSelectionModel().getSelectedItem() != null) {
+                    selectedNameList.add(searchNamesView.getSelectionModel().getSelectedItem());
+                    selectedNamesView.setItems(selectedNameList);
+                    searchNamesView.setVisible(false);
+
+                    //Clear textfield in main thread
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchTextField.clear();
+                            mainRoot.requestFocus();
+                        }
+                    });
+                }
+            }
+        });
 
         //Filtering and search function
         //TODO: Able to handle user input of ("-" and " ") characters. Maybe do : (if all names exist in database, show the combination on searchNamesView)
         //TODO: I guess if searchNamesView is empty from users search input, then do the process of seeing if the combination exists in database (could possibly add a method to make this easier).
-        filteredData = new FilteredList<>(nameList, p -> true);
+        filteredData = new FilteredList<>(searchNameList, p -> true);
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(name ->{
                 // If filter text is empty, display all persons.
