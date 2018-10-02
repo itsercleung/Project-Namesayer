@@ -198,6 +198,17 @@ public class PractiseController implements Initializable {
                     return true;
                 }
 
+                // splitting string by "-" and/or " "
+                String[] allNames;
+                if (newValue.contains("-") || newValue.contains(" ")) {
+                    allNames = newValue.split("[-\\s+]"); // whitespace delimiter with hyphen
+                    for (String singleName : allNames) {
+                        if (name.toLowerCase().contains(singleName)) {
+                            return true; // if all names with "-" or " " exist
+                        }
+                    }
+                }
+
                 // Compare first name and last name of every client with filter text.
                 // and if filter matches first name then RETURN
                 changeHeightView();
