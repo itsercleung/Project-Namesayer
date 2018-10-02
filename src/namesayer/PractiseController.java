@@ -279,9 +279,6 @@ public class PractiseController implements Initializable {
             }
         });
 
-        // attempt to auto filter list based on user input
-        // put the name list in a filteredlist
-        //TODO this filter removes all currently selected names
         FilteredList<Name> filteredList = new FilteredList<>(nameList, p -> true);
         // set filter predicate when filter changes
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
