@@ -22,7 +22,6 @@ import namesayer.util.Name;
 import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -50,8 +49,8 @@ public class PlayController implements Initializable {
 
     private PractiseController practiseController = new PractiseController();
     private int currentNameNum = 0; //Current name being played
+    private String currSelectedName; //Current name row selected by user
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
-    private String currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString(); //Current name row selected by user
     private PlayAudio playAudio;
 
     @FXML
@@ -73,7 +72,7 @@ public class PlayController implements Initializable {
             nextButton.setDisable(true);
         }
         prevButton.setDisable(false);
-        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+        playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
 
         ratingUpdate(); //Update with current name rating
@@ -87,7 +86,7 @@ public class PlayController implements Initializable {
             prevButton.setDisable(true);
         }
         nextButton.setDisable(false);
-        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+        playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
 
         ratingUpdate(); //Update with current name rating
@@ -95,7 +94,7 @@ public class PlayController implements Initializable {
 
     @FXML
     void playPressed(ActionEvent event) {
-        //Play audio files from filteredNames of the users selected
+//Play audio files from filteredNames of the users selected
         new Thread() {
             public void run() {
                 Platform.runLater(new Runnable() {
@@ -103,6 +102,8 @@ public class PlayController implements Initializable {
                         playButton.setDisable(true);
                         recordButton.setDisable(true);
                         stopButton.setDisable(false);
+                        prevButton.setDisable(true);
+                        nextButton.setDisable(true);
                         String path = "data/names/" + practiseController.getNamePlaylist().get(currentNameNum).toString();
                         playAudio = new PlayAudio(path);
                         playAudio.playAudio();
@@ -118,6 +119,8 @@ public class PlayController implements Initializable {
                         playButton.setDisable(false);
                         recordButton.setDisable(false);
                         stopButton.setDisable(true);
+                        prevButton.setDisable(false);
+                        nextButton.setDisable(false);
                     }
                 });
             }
@@ -131,8 +134,7 @@ public class PlayController implements Initializable {
 
     @FXML
     void stopPressed(ActionEvent event) {
-        //If STOP pressed stop Audio method called and buttons reset
-        playAudio.stopAudio();
+
         playButton.setDisable(false);
         recordButton.setDisable(false);
         stopButton.setDisable(true);
@@ -145,6 +147,7 @@ public class PlayController implements Initializable {
             FileWriter writer = new FileWriter("data/ratingAudio.txt", true);
             byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
+            currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString();
 
             //Makes new line if audio has no existing rating otherwise overwrite rating
             if (!currentAudio.contains(currSelectedName)) {
@@ -179,17 +182,6 @@ public class PlayController implements Initializable {
 
     //Update editable rating component
     private void ratingUpdate() {
-        //If txt doesnt exist then make one and append TITLE
-        File pqFile = new File("data/ratingAudio.txt");
-        if (!pqFile.exists()) {
-            try {
-                pqFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //Read rating audio, and update names according to their existing ratings
         try {
             byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
@@ -227,7 +219,7 @@ public class PlayController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Setting table and rating updates and labels
+        //Setting table and rating updates
         populateTableView();
         ratingUpdate();
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
