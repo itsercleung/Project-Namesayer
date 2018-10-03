@@ -110,7 +110,7 @@ public class PlayController implements Initializable {
                     }
                 });
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -134,12 +134,7 @@ public class PlayController implements Initializable {
 
     @FXML
     void stopPressed(ActionEvent event) {
-        playAudio.stopAudio();
-        playButton.setDisable(false);
-        recordButton.setDisable(false);
-        stopButton.setDisable(true);
-        prevButton.setDisable(false);
-        nextButton.setDisable(false);
+        //TODO
     }
 
     //Update rating if user makes rate of specific audio row

@@ -1,5 +1,6 @@
 package namesayer;
 
+import com.jfoenix.controls.JFXPopup;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;

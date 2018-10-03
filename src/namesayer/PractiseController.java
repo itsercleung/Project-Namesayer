@@ -357,8 +357,6 @@ public class PractiseController implements Initializable {
         });
 
         //Filtering and search function
-        //TODO: Able to handle user input of ("-" and " ") characters. Maybe do : (if all names exist in database, show the combination on searchNamesView)
-        //TODO: I guess if searchNamesView is empty from users search input, then do the process of seeing if the combination exists in database (could possibly add a method to make this easier).
         filteredData = new FilteredList<>(searchNameList, p -> true);
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
 
@@ -380,10 +378,8 @@ public class PractiseController implements Initializable {
                     // get the filter list of names and add concat name to top of result list
                     List list = filteredData.getSource(); // TESTING: this might be a bad idea?
                     if (!list.contains(concatName)) {
-                        list.add(0, concatName);
+                        list.add(0, "[Combine name]: " + concatName);
                     }
-
-                    System.out.println(concatName);
                 }
             }
 
