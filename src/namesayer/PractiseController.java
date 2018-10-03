@@ -336,6 +336,12 @@ public class PractiseController implements Initializable {
 
                 if (wordCount == dispConcat.length && wordCount > 1) {
                     concatName = String.join(" ", dispConcat);
+                    // get the filter list of names and add concat name to top of result list
+                    List list = filteredData.getSource(); // TESTING: this might be a bad idea?
+                    if (!list.contains(concatName)) {
+                        list.add(0,concatName);
+                    }
+
                     System.out.println(concatName);
                 }
             }
