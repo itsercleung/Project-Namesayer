@@ -21,6 +21,7 @@ import org.controlsfx.control.Rating;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -30,13 +31,20 @@ import java.util.*;
 
 public class PractiseController implements Initializable {
 
-    @FXML private ToggleSwitch toggleRandomise;
-    @FXML private Button playNames;
-    @FXML private Button practiseButton, uploadButton;
-    @FXML private TextField searchTextField;
-    @FXML private AnchorPane mainRoot;
-    @FXML private ListView<String> searchNamesView;
-    @FXML private ListView<String> selectedNamesView;
+    @FXML
+    private ToggleSwitch toggleRandomise;
+    @FXML
+    private Button playNames;
+    @FXML
+    private Button practiseButton, uploadButton;
+    @FXML
+    private TextField searchTextField;
+    @FXML
+    private AnchorPane mainRoot;
+    @FXML
+    private ListView<String> searchNamesView;
+    @FXML
+    private ListView<String> selectedNamesView;
 
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
@@ -65,11 +73,46 @@ public class PractiseController implements Initializable {
     @FXML
     private void uploadButtonClicked(ActionEvent event) {
         FileChooser fc = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Text files", "*.txt");
+        fc.setTitle("Select Text (.txt) File");
+        fc.getExtensionFilters().add(filter);
         Stage stage = (Stage) uploadButton.getScene().getWindow();
         File textFile = fc.showOpenDialog(stage); // should be txt file
 
         //TODO continue upload txt function obviously
+        Scanner reader = null;
+        try {
+            reader = new Scanner(textFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        while (reader.hasNextLine()) {
+            String name = reader.nextLine();
+            name.toLowerCase();
+            if (searchNameList.contains(name)) {
+                selectedNameList.add(name);
+            } else if (name.contains(" ") || name.contains("-")) {
+                // TODO deal with concat names
+                String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
+                boolean canConcat = true;
+                for (String singleName : names) {
+                    // go through list of names, if it is a concatable name, then add it
+                    if (!searchNameList.contains(singleName)) {
+                        canConcat = false;
+                        break;
+                    }
+                }
+
+                if (canConcat) {
+                    selectedNameList.add(name);
+                }
+
+            }
+        }
+        selectedNamesView.setItems(selectedNameList);
     }
+
 
     @FXML
     private void recordNamePressed(ActionEvent event) {
@@ -212,20 +255,19 @@ public class PractiseController implements Initializable {
                 String chosenName = listOfHighRankName.get(random.nextInt(listOfHighRankName.size()));
                 String[] parts = chosenName.split("_");
                 int extIndex = parts[3].indexOf(".");
-                namePlaylist.add(new Name(parts[3].substring(0, extIndex),parts[0], parts[1], parts[2], makeRating(0))); //Make new Name object according to selected name file
-            }
-            else if (!listOfHighRankName.isEmpty()) {
+                namePlaylist.add(new Name(parts[3].substring(0, extIndex), parts[0], parts[1], parts[2], makeRating(0))); //Make new Name object according to selected name file
+            } else if (!listOfHighRankName.isEmpty()) {
                 String chosenName = listOfHighRankName.get(0);
                 String[] parts = chosenName.split("_");
                 int extIndex = parts[3].indexOf(".");
-                namePlaylist.add(new Name(parts[3].substring(0, extIndex),parts[0], parts[1], parts[2], makeRating(0)));
+                namePlaylist.add(new Name(parts[3].substring(0, extIndex), parts[0], parts[1], parts[2], makeRating(0)));
             }
             //Else there is no high rank for following name, thus get any name in previous list
             else {
                 String chosenName = listOfSameName.get(0);
                 String[] parts = chosenName.split("_");
                 int extIndex = parts[3].indexOf(".");
-                namePlaylist.add(new Name(parts[3].substring(0, extIndex),parts[0], parts[1], parts[2], makeRating(0)));
+                namePlaylist.add(new Name(parts[3].substring(0, extIndex), parts[0], parts[1], parts[2], makeRating(0)));
             }
         }
 
@@ -257,8 +299,7 @@ public class PractiseController implements Initializable {
         double currentHeight = filteredData.size() * 23.5;
         if (currentHeight >= maxHeight) {
             searchNamesView.setMaxHeight(165);
-        }
-        else {
+        } else {
             searchNamesView.setMaxHeight(currentHeight);
         }
     }
@@ -339,7 +380,7 @@ public class PractiseController implements Initializable {
                     // get the filter list of names and add concat name to top of result list
                     List list = filteredData.getSource(); // TESTING: this might be a bad idea?
                     if (!list.contains(concatName)) {
-                        list.add(0,concatName);
+                        list.add(0, concatName);
                     }
 
                     System.out.println(concatName);
@@ -347,9 +388,9 @@ public class PractiseController implements Initializable {
             }
 
             //Handle single word names through user search
-            filteredData.setPredicate(name ->{
+            filteredData.setPredicate(name -> {
                 // If filter text is empty, display all persons.
-                if (newValue.equals("") || newValue.isEmpty()){
+                if (newValue.equals("") || newValue.isEmpty()) {
                     searchNamesView.setVisible(false);
                     return true;
                 }
