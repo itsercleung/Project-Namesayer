@@ -136,6 +136,12 @@ public class PractiseController implements Initializable {
         Collections.sort(searchNameList);
     }
 
+    /* Makes playlist from selectedList names:
+       (1) Use name to find all audio files associating with name
+       (2) Get list of all audio files associating with name
+       (3) Create a Name object for each element in list
+       (4) Put into namePlayList to PLAY
+    */
     private void makePlayList() {
         //Getting names of all name files in data/names
         File namesFolder = new File("data/names");

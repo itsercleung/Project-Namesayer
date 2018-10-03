@@ -94,7 +94,7 @@ public class PlayController implements Initializable {
 
     @FXML
     void playPressed(ActionEvent event) {
-//Play audio files from filteredNames of the users selected
+        //Play audio files from filteredNames of the users selected
         new Thread() {
             public void run() {
                 Platform.runLater(new Runnable() {
@@ -135,9 +135,6 @@ public class PlayController implements Initializable {
     @FXML
     void stopPressed(ActionEvent event) {
 
-        playButton.setDisable(false);
-        recordButton.setDisable(false);
-        stopButton.setDisable(true);
     }
 
     //Update rating if user makes rate of specific audio row
