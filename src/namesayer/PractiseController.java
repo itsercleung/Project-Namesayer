@@ -19,8 +19,11 @@ import org.controlsfx.control.Rating;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class PractiseController implements Initializable {
@@ -91,9 +94,12 @@ public class PractiseController implements Initializable {
 
     @FXML
     private void clearButtonPressed(ActionEvent actionEvent) {
+        //Clear all to initial state
         namePlaylist.clear();
         selectedNameList.clear();
         playNames.setDisable(true);
+        toggleRandomise.setDisable(true);
+        toggleRandomise.setSelected(false);
         System.out.println(concatName);
     }
 
@@ -160,22 +166,66 @@ public class PractiseController implements Initializable {
                     listOfSameName.add(fileName);
                 }
             }
-            System.out.println(listOfSameName);
+
+            //Look at existing ranks and pick the better ranks of names to play
+            List<String> listOfHighRankName = new ArrayList<>();
+            try {
+                byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
+                String currentAudio = new String(bytes);
+                if (!listOfSameName.isEmpty() && listOfSameName.size() > 1) {
+
+                    //Go through current listOfSameName and find ranks from 3-5 or unranked (0) to filter
+                    for (String currName : listOfSameName) {
+                        if (currentAudio.contains(currName)) {
+                            Scanner scanner = new Scanner(currentAudio);
+                            while (scanner.hasNextLine()) {
+                                String line = scanner.nextLine();
+                                if (line.substring(0, line.length() - 4).equals(currName)) {
+                                    double rating = Double.parseDouble(line.substring(line.length() - 3));
+                                    //If 3,4,5 OR 0 then accept as high rank
+                                    if (rating >= 3 || rating == 0) {
+                                        listOfHighRankName.add(currName);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             //If listOfSameName is not empty or has more than 1 item, select a random file according to ranking
-            if (!listOfSameName.isEmpty() && listOfSameName.size() > 1) {
-                Random randomiser = new Random();
-                String chosenName = listOfSameName.get(randomiser.nextInt(listOfSameName.size()));
+            if (!listOfHighRankName.isEmpty() && listOfHighRankName.size() > 1) {
+                Random random = new Random();
+                String chosenName = listOfHighRankName.get(random.nextInt(listOfHighRankName.size()));
                 String[] parts = chosenName.split("_");
                 int extIndex = parts[3].indexOf(".");
                 namePlaylist.add(new Name(parts[3].substring(0, extIndex),parts[0], parts[1], parts[2], makeRating(0))); //Make new Name object according to selected name file
             }
-            else if (!listOfSameName.isEmpty()) {
+            else if (!listOfHighRankName.isEmpty()) {
+                String chosenName = listOfHighRankName.get(0);
+                String[] parts = chosenName.split("_");
+                int extIndex = parts[3].indexOf(".");
+                namePlaylist.add(new Name(parts[3].substring(0, extIndex),parts[0], parts[1], parts[2], makeRating(0)));
+            }
+            //Else there is no high rank for following name, thus get any name in previous list
+            else {
                 String chosenName = listOfSameName.get(0);
                 String[] parts = chosenName.split("_");
                 int extIndex = parts[3].indexOf(".");
-                namePlaylist.add(new Name(parts[3].substring(0, extIndex),parts[0], parts[1], parts[2], makeRating(0))); //Make new Name object according to selected name file
+                namePlaylist.add(new Name(parts[3].substring(0, extIndex),parts[0], parts[1], parts[2], makeRating(0)));
             }
-            System.out.println(namePlaylist);
+        }
+
+        //Sort namePlayList (can be randomized if user toggles)
+        if (namePlaylist.size() > 0) {
+            Collections.sort(namePlaylist, new Comparator<Name>() {
+                @Override
+                public int compare(final Name object1, final Name object2) {
+                    return object1.getName().compareTo(object2.getName());
+                }
+            });
         }
     }
 
@@ -214,6 +264,7 @@ public class PractiseController implements Initializable {
         searchNamesView.setVisible(false);
         practiseButton.setDisable(true);
         playNames.setDisable(true);
+        toggleRandomise.setDisable(true);
 
         //Populate and get information from directory
         populateList();
@@ -236,6 +287,9 @@ public class PractiseController implements Initializable {
                     selectedNamesView.setItems(selectedNameList);
                     searchNamesView.setVisible(false);
                     playNames.setDisable(false); //Enables play button once a name is selected
+                    if (selectedNameList.size() > 1) {
+                        toggleRandomise.setDisable(false);
+                    }
 
                     //Clear textfield in main thread
                     Platform.runLater(new Runnable() {
