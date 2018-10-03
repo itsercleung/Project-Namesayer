@@ -252,6 +252,7 @@ public class PractiseController implements Initializable {
         }
     }
 
+    //Used in PlayController to get current selected Playlist of users
     public List<Name> getNamePlaylist() {
         return namePlaylist;
     }
