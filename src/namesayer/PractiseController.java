@@ -97,6 +97,7 @@ public class PractiseController implements Initializable {
     @FXML
     private void clearButtonPressed(ActionEvent actionEvent) {
         namePlaylist.clear();
+        selectedNameList.clear();
         playNames.setDisable(true);
     }
 
@@ -132,7 +133,7 @@ public class PractiseController implements Initializable {
             }
             //If not duplicate add to list
             if (!dupFlag) {
-                String upperName = nameObject.getName().toUpperCase(); //Consistency with cases
+                String upperName = nameObject.getName().toLowerCase(); //Consistency with cases
                 searchNameList.add(upperName);
             }
         }
@@ -211,12 +212,17 @@ public class PractiseController implements Initializable {
 
                 // splitting string by "-" and/or " "
                 String[] allNames;
+                int countNames = 1;
                 if (newValue.contains("-") || newValue.contains(" ")) {
                     allNames = newValue.split("[-\\s+]"); // whitespace delimiter with hyphen
                     for (String singleName : allNames) {
-                        if (name.toLowerCase().contains(singleName)) {
-                            return true; // if all names with "-" or " " exist
+                        if (name.toLowerCase().equals(singleName.toLowerCase())) {
+                            countNames++;
                         }
+                    }
+                    //If both names exist in database, put inside search list for user to select
+                    if (countNames == allNames.length) {
+                        return true;
                     }
                 }
 
