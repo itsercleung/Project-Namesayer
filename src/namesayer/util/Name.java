@@ -17,7 +17,7 @@ public class Name {
         this.name = name;
         this.created = created;
         this.date = date;
-        this.time = time.replace("-",":"); // looks better
+        this.time = time;
         this.rating = rating;
     }
 
@@ -29,14 +29,6 @@ public class Name {
         return created;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
     public Rating getRating() {
         return rating;
     }
@@ -44,10 +36,6 @@ public class Name {
     public void setName(String name) { this.name = name; }
 
     public void setCreated(String created) { this.created = created; }
-
-    public void setDate(String date) { this.date = date; }
-
-    public void setTime(String time) { this.time = time; }
 
     public void setRating(Rating rating) {
         this.rating = rating;
