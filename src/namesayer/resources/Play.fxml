@@ -18,20 +18,12 @@
          <children>
             <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
                <children>
-                  <Button fx:id="mergeButton" mnemonicParsing="false" onAction="#mergePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Merge Names">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="70.0" />
-                     </VBox.margin>
-                  </Button>
                   <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Back">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="400.0" />
+                        <Insets top="530.0" />
                      </VBox.margin>
                   </Button>
                </children>
@@ -46,15 +38,20 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <TableView fx:id="nameTable" pickOnBounds="false" prefHeight="370.0" prefWidth="846.0" stylesheets="@stylesheet/general.css">
-                     <columns>
-                        <TableColumn fx:id="nameCol" editable="false" minWidth="59.0" prefWidth="150.0" sortable="false" text="NAME" />
-                        <TableColumn fx:id="createdCol" editable="false" minWidth="50.0" prefWidth="145.0" sortable="false" text="CREATED BY" />
-                        <TableColumn fx:id="dateCol" editable="false" minWidth="50.0" prefWidth="145.0" sortable="false" text="DATE" />
-                        <TableColumn fx:id="timeCol" editable="false" minWidth="50.0" prefWidth="145.0" sortable="false" text="TIME" />
-                        <TableColumn fx:id="ratingCol" editable="false" prefWidth="190.0" sortable="false" text="RATING" />
-                     </columns>
-                  </TableView>
+                  <HBox prefHeight="350.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="nameTable" pickOnBounds="false" prefHeight="100.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
+                           <columns>
+                              <TableColumn fx:id="nameCol" editable="false" minWidth="59.0" prefWidth="180.0" sortable="false" text="NAME" />
+                              <TableColumn fx:id="createdCol" editable="false" minWidth="50.0" prefWidth="180.0" sortable="false" text="CREATED BY" />
+                              <TableColumn fx:id="ratingCol" editable="false" prefWidth="200.0" sortable="false" text="RATING" />
+                           </columns>
+                        </TableView>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="100.0" />
+                     </VBox.margin>
+                  </HBox>
                   <Label fx:id="playLabel" alignment="CENTER" opacity="0.83" prefHeight="40.0" prefWidth="800.0" text="PLAYING:">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />

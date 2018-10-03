@@ -11,9 +11,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import namesayer.util.Name;
+import org.controlsfx.control.Rating;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
@@ -34,6 +36,7 @@ public class PractiseController implements Initializable {
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
     private static List<Name> namePlaylist = new ArrayList<>();
+    private String concatName = "";
     private FilteredList<String> filteredData;
     private boolean isRandomised = false;
 
@@ -68,6 +71,9 @@ public class PractiseController implements Initializable {
 
     @FXML
     private void pressedPlayNames(ActionEvent event) {
+        //Create namePlayList according to selectedNames
+        makePlayList();
+
         //Randomise toggle on/off randomises selected play list
         if (isRandomised) {
             Collections.shuffle(namePlaylist);
@@ -88,6 +94,7 @@ public class PractiseController implements Initializable {
         namePlaylist.clear();
         selectedNameList.clear();
         playNames.setDisable(true);
+        System.out.println(concatName);
     }
 
     @FXML
@@ -129,6 +136,55 @@ public class PractiseController implements Initializable {
         Collections.sort(searchNameList);
     }
 
+    private void makePlayList() {
+        //Getting names of all name files in data/names
+        File namesFolder = new File("data/names");
+        File[] listOfNames = namesFolder.listFiles();
+
+        //Get all name files with same name as selectedName
+        for (String name : selectedNameList) {
+            List<String> listOfSameName = new ArrayList<>();
+            for (File file : listOfNames) {
+                String fileName = file.getName();
+                String[] parts = fileName.split("_");
+                int extIndex = parts[3].indexOf(".");
+
+                //If equal add to current List of same name
+                if (name.equals(parts[3].substring(0, extIndex).toLowerCase())) {
+                    listOfSameName.add(fileName);
+                }
+            }
+            System.out.println(listOfSameName);
+            //If listOfSameName is not empty or has more than 1 item, select a random file according to ranking
+            if (!listOfSameName.isEmpty() && listOfSameName.size() > 1) {
+                Random randomiser = new Random();
+                String chosenName = listOfSameName.get(randomiser.nextInt(listOfSameName.size()));
+                String[] parts = chosenName.split("_");
+                int extIndex = parts[3].indexOf(".");
+                namePlaylist.add(new Name(parts[3].substring(0, extIndex),parts[0], parts[1], parts[2], makeRating(0))); //Make new Name object according to selected name file
+            }
+            else if (!listOfSameName.isEmpty()) {
+                String chosenName = listOfSameName.get(0);
+                String[] parts = chosenName.split("_");
+                int extIndex = parts[3].indexOf(".");
+                namePlaylist.add(new Name(parts[3].substring(0, extIndex),parts[0], parts[1], parts[2], makeRating(0))); //Make new Name object according to selected name file
+            }
+            System.out.println(namePlaylist);
+        }
+    }
+
+    //When user sets rating on a name then makeRating set
+    private Rating makeRating(double rate) {
+        Rating rating = new Rating();
+        rating.setOrientation(Orientation.HORIZONTAL);
+        rating.setUpdateOnHover(false);
+        rating.setPartialRating(false);
+        rating.setRating(rate);
+        rating.setDisable(true);
+        return rating;
+    }
+
+    //Dynamically changes height of the listView (scales up to be similar to a search drop down)
     private void changeHeightView() {
         double maxHeight = 165;
         double currentHeight = filteredData.size() * 23.5;
@@ -146,11 +202,10 @@ public class PractiseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Clear selectedLists
+        //Clear selectedLists and setup components
         namePlaylist.clear();
         selectedNameList.clear();
         searchNamesView.setVisible(false);
-
         practiseButton.setDisable(true);
         playNames.setDisable(true);
 
@@ -174,6 +229,7 @@ public class PractiseController implements Initializable {
                     selectedNameList.add(searchNamesView.getSelectionModel().getSelectedItem());
                     selectedNamesView.setItems(selectedNameList);
                     searchNamesView.setVisible(false);
+                    playNames.setDisable(false); //Enables play button once a name is selected
 
                     //Clear textfield in main thread
                     Platform.runLater(new Runnable() {
@@ -192,6 +248,27 @@ public class PractiseController implements Initializable {
         //TODO: I guess if searchNamesView is empty from users search input, then do the process of seeing if the combination exists in database (could possibly add a method to make this easier).
         filteredData = new FilteredList<>(searchNameList, p -> true);
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            //IF "-" or " " exists from user input and such words exist in database, get the concatenated version and display on search
+            String[] dispConcat;
+            int wordCount = 0;
+            if (newValue.contains("-") || newValue.contains(" ")) {
+                dispConcat = newValue.split("[-\\s+]"); // whitespace delimiter with hyphen
+                for (String singleName : dispConcat) {
+                    for (String names : searchNameList) {
+                        if (names.toLowerCase().equals(singleName.toLowerCase())) {
+                            wordCount++;
+                        }
+                    }
+                }
+
+                if (wordCount == dispConcat.length && wordCount > 1) {
+                    concatName = String.join(" ", dispConcat);
+                    System.out.println(concatName);
+                }
+            }
+
+            //Handle single word names through user search
             filteredData.setPredicate(name ->{
                 // If filter text is empty, display all persons.
                 if (newValue.equals("") || newValue.isEmpty()){
@@ -201,17 +278,12 @@ public class PractiseController implements Initializable {
 
                 // splitting string by "-" and/or " "
                 String[] allNames;
-                int countNames = 1;
                 if (newValue.contains("-") || newValue.contains(" ")) {
                     allNames = newValue.split("[-\\s+]"); // whitespace delimiter with hyphen
                     for (String singleName : allNames) {
-                        if (name.toLowerCase().equals(singleName.toLowerCase())) {
-                            countNames++;
+                        if (name.toLowerCase().contains(singleName.toLowerCase())) {
+                            return true;
                         }
-                    }
-                    //If both names exist in database, put inside search list for user to select
-                    if (countNames == allNames.length) {
-                        return true;
                     }
                 }
 
@@ -223,7 +295,9 @@ public class PractiseController implements Initializable {
                 return name.toLowerCase().contains(lowerCaseFilter);
             });
         });
-        SortedList<String> sortedList = new SortedList<>(filteredData); //Using sortedList to handle display view
+
+        //Adding search results to sortedList
+        SortedList<String> sortedList = new SortedList<>(filteredData);
         searchNamesView.setItems(sortedList);
     }
 }
