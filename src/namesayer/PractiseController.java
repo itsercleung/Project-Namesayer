@@ -70,6 +70,116 @@ public class PractiseController implements Initializable {
         mainRoot.getChildren().setAll(testMicrophoneRoot);
     }
 
+    //record new practise pane
+    @FXML
+    private void recordNamePressed(ActionEvent event) {
+        AnchorPane practiseRoot = null;
+        try {
+            practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(practiseRoot);
+    }
+
+    //Load play practise pane
+    @FXML
+    private void pressedPlayNames(ActionEvent event) {
+        //Create namePlayList according to selectedNames
+        makePlayList();
+
+        //Randomise toggle on/off randomises selected play list
+        if (isRandomised) {
+            Collections.shuffle(namePlaylist);
+        }
+
+        AnchorPane playRoot = null;
+        try {
+            playRoot = FXMLLoader.load(getClass().getResource("resources/Play.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(playRoot);
+    }
+
+    //Clear all to initial state
+    @FXML
+    private void clearButtonPressed(ActionEvent actionEvent) {
+        namePlaylist.clear();
+        selectedNameList.clear();
+        playNames.setDisable(true);
+        toggleRandomise.setDisable(true);
+        toggleRandomise.setSelected(false);
+    }
+
+    //Load practise pane
+    @FXML
+    private void practisePressed(ActionEvent event) {
+        AnchorPane practiseRoot = null;
+        try {
+            practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(practiseRoot);
+    }
+
+    //Getting names of all name files in data/names
+    private void populateList() {
+        File namesFolder = new File("data/names");
+        File[] listOfNames = namesFolder.listFiles();
+
+        for (File file : listOfNames) {
+            String fileName = file.getName();
+            String[] parts = fileName.split("_");
+            int extIndex = parts[3].indexOf(".");
+
+            //Check if duplicate (or already in list)
+            boolean dupFlag = false;
+            Name nameObject = new Name(parts[3].substring(0, extIndex));
+            for (String stringName : searchNameList) {
+                if (nameObject.getName().equalsIgnoreCase(stringName)) {
+                    dupFlag = true;
+                }
+            }
+            //If not duplicate add to list
+            if (!dupFlag) {
+                String upperName = nameObject.getName().toLowerCase(); //Consistency with cases
+                searchNameList.add(upperName);
+            }
+        }
+        Collections.sort(searchNameList);
+    }
+
+    //When user sets rating on a name then makeRating set
+    private Rating makeRating(double rate) {
+        Rating rating = new Rating();
+        rating.setOrientation(Orientation.HORIZONTAL);
+        rating.setUpdateOnHover(false);
+        rating.setPartialRating(false);
+        rating.setRating(rate);
+        rating.setDisable(true);
+        return rating;
+    }
+
+    //Dynamically changes height of the listView (scales up to be similar to a search drop down)
+    private void changeHeightView() {
+        double maxHeight = 165;
+        double currentHeight = filteredData.size() * 23.5;
+        if (currentHeight >= maxHeight) {
+            searchNamesView.setMaxHeight(165);
+        } else {
+            searchNamesView.setMaxHeight(currentHeight);
+        }
+    }
+
+    //Used in PlayController to get current selected Playlist of users
+    public List<Name> getNamePlaylist() {
+        return namePlaylist;
+    }
+
+    //User may have option to upload txt file for all names requested (as long as the name currently exists in system) and
+    //meets line requires for each name.
     @FXML
     private void uploadButtonClicked(ActionEvent event) {
         FileChooser fc = new FileChooser();
@@ -113,94 +223,11 @@ public class PractiseController implements Initializable {
         selectedNamesView.setItems(selectedNameList);
     }
 
-
-    @FXML
-    private void recordNamePressed(ActionEvent event) {
-        //record new practise pane
-        AnchorPane practiseRoot = null;
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(practiseRoot);
-    }
-
-    @FXML
-    private void pressedPlayNames(ActionEvent event) {
-        //Create namePlayList according to selectedNames
-        makePlayList();
-
-        //Randomise toggle on/off randomises selected play list
-        if (isRandomised) {
-            Collections.shuffle(namePlaylist);
-        }
-
-        //record new practise pane
-        AnchorPane playRoot = null;
-        try {
-            playRoot = FXMLLoader.load(getClass().getResource("resources/Play.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(playRoot);
-    }
-
-    @FXML
-    private void clearButtonPressed(ActionEvent actionEvent) {
-        //Clear all to initial state
-        namePlaylist.clear();
-        selectedNameList.clear();
-        playNames.setDisable(true);
-        toggleRandomise.setDisable(true);
-        toggleRandomise.setSelected(false);
-    }
-
-    @FXML
-    private void practisePressed(ActionEvent event) {
-        //Load practise pane
-        AnchorPane practiseRoot = null;
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(practiseRoot);
-    }
-
-    private void populateList() {
-        //Getting names of all name files in data/names
-        File namesFolder = new File("data/names");
-        File[] listOfNames = namesFolder.listFiles();
-
-        for (File file : listOfNames) {
-            String fileName = file.getName();
-            String[] parts = fileName.split("_");
-            int extIndex = parts[3].indexOf(".");
-
-            //Check if duplicate (or already in list)
-            boolean dupFlag = false;
-            Name nameObject = new Name(parts[3].substring(0, extIndex));
-            for (String stringName : searchNameList) {
-                if (nameObject.getName().equalsIgnoreCase(stringName)) {
-                    dupFlag = true;
-                }
-            }
-            //If not duplicate add to list
-            if (!dupFlag) {
-                String upperName = nameObject.getName().toLowerCase(); //Consistency with cases
-                searchNameList.add(upperName);
-            }
-        }
-        Collections.sort(searchNameList);
-    }
-
     /* Makes playlist from selectedList names:
-       (1) Use name to find all audio files associating with name
-       (2) Get list of all audio files associating with name
-       (3) Create a Name object for each element in list
-       (4) Put into namePlayList to PLAY
-    */
+   (1) Use name to find all audio files associating with name
+   (2) Get list of all audio files associating with name
+   (3) Create a Name object for each element in list
+   (4) Put into namePlayList to PLAY */
     private void makePlayList() {
         //Getting names of all name files in data/names
         File namesFolder = new File("data/names");
@@ -294,14 +321,26 @@ public class PractiseController implements Initializable {
                     }
                     allHRNameList.add(HRNameList);
                 }
-                
+
                 //Combine the two names into one list (chosen randomly if a name has duplicates)
                 for (List<String> list : allHRNameList) {
                     Random random = new Random();
                     String chosenName = list.get(random.nextInt(list.size()));
                     chosenCombNames.add(chosenName);
                 }
-                System.out.println(chosenCombNames);
+
+                //Make Name object and add to selectionList (combination)
+                String chosenName = chosenCombNames.get(0);
+                String[] parts = chosenName.split("_");
+                for (int i = 1; i < chosenCombNames.size(); i++) {
+                    chosenName = chosenCombNames.get(i);
+                    String[] addParts = chosenName.split("_");
+                    parts[0] = parts[0] + " " + addParts[0];
+                    parts[1] = parts[1] + " " + addParts[1];
+                    parts[2] = parts[2] + " " + addParts[2];
+                    parts[3] = parts[3].substring(0,parts[3].lastIndexOf(".")) + " " + addParts[3].substring(0,addParts[3].lastIndexOf("."));
+                }
+                namePlaylist.add(new Name(parts[3], parts[0], parts[1], parts[2], makeRating(0)));
             }
             //(3b) - (4) If listOfSameName is not empty or has an item, select a random file according to ranking
             else {
@@ -331,33 +370,6 @@ public class PractiseController implements Initializable {
                 }
             });
         }
-    }
-
-    //When user sets rating on a name then makeRating set
-    private Rating makeRating(double rate) {
-        Rating rating = new Rating();
-        rating.setOrientation(Orientation.HORIZONTAL);
-        rating.setUpdateOnHover(false);
-        rating.setPartialRating(false);
-        rating.setRating(rate);
-        rating.setDisable(true);
-        return rating;
-    }
-
-    //Dynamically changes height of the listView (scales up to be similar to a search drop down)
-    private void changeHeightView() {
-        double maxHeight = 165;
-        double currentHeight = filteredData.size() * 23.5;
-        if (currentHeight >= maxHeight) {
-            searchNamesView.setMaxHeight(165);
-        } else {
-            searchNamesView.setMaxHeight(currentHeight);
-        }
-    }
-
-    //Used in PlayController to get current selected Playlist of users
-    public List<Name> getNamePlaylist() {
-        return namePlaylist;
     }
 
     @Override
