@@ -154,7 +154,6 @@ public class PractiseController implements Initializable {
         playNames.setDisable(true);
         toggleRandomise.setDisable(true);
         toggleRandomise.setSelected(false);
-        System.out.println(concatName);
     }
 
     @FXML
@@ -207,9 +206,14 @@ public class PractiseController implements Initializable {
         File namesFolder = new File("data/names");
         File[] listOfNames = namesFolder.listFiles();
 
-        //Get all name files with same name as selectedName
+        //(1) Get all name files with same name as selectedName
         for (String name : selectedNameList) {
-            List<String> listOfSameName = new ArrayList<>();
+            //Split names if combination
+            if (name.contains("[Combine name]: ")) {
+                name = name.replace("[Combine name]: ", "");
+            }
+
+            List<String> listOfSameName = new ArrayList<>(); //Duplicate names for each entry
             for (File file : listOfNames) {
                 String fileName = file.getName();
                 String[] parts = fileName.split("_");
@@ -219,9 +223,18 @@ public class PractiseController implements Initializable {
                 if (name.equals(parts[3].substring(0, extIndex).toLowerCase())) {
                     listOfSameName.add(fileName);
                 }
+                //If name is combination split into parts to compare
+                else if (name.contains(" ")) {
+                    String[] names = name.split(" ");
+                    for (String combName : names) {
+                        if (combName.equals(parts[3].substring(0, extIndex).toLowerCase())) {
+                            listOfSameName.add(fileName);
+                        }
+                    }
+                }
             }
 
-            //Look at existing ranks and pick the better ranks of names to play
+            //(2) Look at existing ranks and pick the better ranks of names to play
             List<String> listOfHighRankName = new ArrayList<>();
             try {
                 byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
@@ -243,24 +256,39 @@ public class PractiseController implements Initializable {
                                 }
                             }
                         }
+                        //Name audio isn't in rating system, thus treat as UNRANKED
+                        else {
+                            listOfHighRankName.add(currName);
+                        }
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            //If listOfSameName is not empty or has more than 1 item, select a random file according to ranking
-            if (!listOfHighRankName.isEmpty() && listOfHighRankName.size() > 1) {
+            //(3a) If list has two different names (randomly select one for each name)
+            String[] names = name.split(" ");
+            List<List<String>> allHRNameList = new ArrayList<>(); //Stores lists of each name with high rank (HR)
+            if (names.length > 1) {
+                for (String combName : names) {
+                    List<String> HRNameList = new ArrayList<>();
+                    for (String rankNames : listOfHighRankName) {
+                        if (combName.toLowerCase().equals(rankNames.substring(rankNames.lastIndexOf("_") + 1, rankNames.lastIndexOf(".")).toLowerCase())) {
+                            HRNameList.add(rankNames);
+                        }
+                    }
+                    allHRNameList.add(HRNameList);
+                }
+                System.out.println(allHRNameList);
+            }
+
+            //(3b) - (4) If listOfSameName is not empty or has an item, select a random file according to ranking
+            if (!listOfHighRankName.isEmpty()) {
                 Random random = new Random();
                 String chosenName = listOfHighRankName.get(random.nextInt(listOfHighRankName.size()));
                 String[] parts = chosenName.split("_");
                 int extIndex = parts[3].indexOf(".");
                 namePlaylist.add(new Name(parts[3].substring(0, extIndex), parts[0], parts[1], parts[2], makeRating(0))); //Make new Name object according to selected name file
-            } else if (!listOfHighRankName.isEmpty()) {
-                String chosenName = listOfHighRankName.get(0);
-                String[] parts = chosenName.split("_");
-                int extIndex = parts[3].indexOf(".");
-                namePlaylist.add(new Name(parts[3].substring(0, extIndex), parts[0], parts[1], parts[2], makeRating(0)));
             }
             //Else there is no high rank for following name, thus get any name in previous list
             else {
@@ -349,6 +377,8 @@ public class PractiseController implements Initializable {
                         @Override
                         public void run() {
                             searchTextField.clear();
+                            searchNameList.clear();
+                            populateList();
                             mainRoot.requestFocus();
                         }
                     });
@@ -374,7 +404,7 @@ public class PractiseController implements Initializable {
                 }
 
                 if (wordCount == dispConcat.length && wordCount > 1) {
-                    concatName = String.join(" ", dispConcat);
+                    concatName = String.join(" ", dispConcat).toLowerCase();
                     // get the filter list of names and add concat name to top of result list
                     List list = filteredData.getSource(); // TESTING: this might be a bad idea?
                     if (!list.contains(concatName)) {
