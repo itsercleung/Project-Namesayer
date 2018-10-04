@@ -407,7 +407,7 @@ public class PractiseController implements Initializable {
                     concatName = String.join(" ", dispConcat).toLowerCase();
                     // get the filter list of names and add concat name to top of result list
                     List list = filteredData.getSource(); // TESTING: this might be a bad idea?
-                    if (!list.contains(concatName)) {
+                    if (!list.contains("[Combine name]: " + concatName)) {
                         list.add(0, "[Combine name]: " + concatName);
                     }
                 }
