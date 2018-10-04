@@ -22,7 +22,6 @@ import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -31,20 +30,13 @@ import java.util.*;
 
 public class PractiseController implements Initializable {
 
-    @FXML
-    private ToggleSwitch toggleRandomise;
-    @FXML
-    private Button playNames;
-    @FXML
-    private Button practiseButton, uploadButton;
-    @FXML
-    private TextField searchTextField;
-    @FXML
-    private AnchorPane mainRoot;
-    @FXML
-    private ListView<String> searchNamesView;
-    @FXML
-    private ListView<String> selectedNamesView;
+    @FXML private ToggleSwitch toggleRandomise;
+    @FXML private Button playNames;
+    @FXML private Button practiseButton, uploadButton;
+    @FXML private TextField searchTextField;
+    @FXML private AnchorPane mainRoot;
+    @FXML private ListView<String> searchNamesView;
+    @FXML private ListView<String> selectedNamesView;
 
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
@@ -58,9 +50,9 @@ public class PractiseController implements Initializable {
         System.exit(0);
     }
 
+    //Load testMicrophone pane
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
-        //Load testMicrophone pane
         AnchorPane testMicrophoneRoot = null;
         try {
             testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/TestMicrophone.fxml"));
@@ -85,8 +77,7 @@ public class PractiseController implements Initializable {
     //Load play practise pane
     @FXML
     private void pressedPlayNames(ActionEvent event) {
-        //Create namePlayList according to selectedNames
-        makePlayList();
+        makePlayList(); //Create namePlayList according to selectedNames
 
         //Randomise toggle on/off randomises selected play list
         if (isRandomised) {
@@ -332,13 +323,14 @@ public class PractiseController implements Initializable {
                 //Make Name object and add to selectionList (combination)
                 String chosenName = chosenCombNames.get(0);
                 String[] parts = chosenName.split("_");
+                parts[3] = parts[3].substring(0,parts[3].lastIndexOf("."));
                 for (int i = 1; i < chosenCombNames.size(); i++) {
                     chosenName = chosenCombNames.get(i);
                     String[] addParts = chosenName.split("_");
                     parts[0] = parts[0] + " " + addParts[0];
                     parts[1] = parts[1] + " " + addParts[1];
                     parts[2] = parts[2] + " " + addParts[2];
-                    parts[3] = parts[3].substring(0,parts[3].lastIndexOf(".")) + " " + addParts[3].substring(0,addParts[3].lastIndexOf("."));
+                    parts[3] = parts[3] + " " + addParts[3].substring(0,addParts[3].lastIndexOf("."));
                 }
                 namePlaylist.add(new Name(parts[3], parts[0], parts[1], parts[2], makeRating(0)));
             }
@@ -467,8 +459,7 @@ public class PractiseController implements Initializable {
                     }
                 }
 
-                // Compare first name and last name of every client with filter text.
-                // and if filter matches first name then RETURN
+                // Compare first name and last name of every client with filter text - if filter matches first name then RETURN
                 changeHeightView();
                 String lowerCaseFilter = newValue.toLowerCase();
                 searchNamesView.setVisible(true);

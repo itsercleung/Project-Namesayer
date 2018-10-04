@@ -42,6 +42,6 @@ public class Name {
     }
 
     public String toString() {
-        return created + "_" + date + "_" + time + "_" + name + ".wav";
+        return created + "_" + date + "_" + time + "_" + name;
     }
 }

@@ -27,6 +27,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -98,14 +99,40 @@ public class PlayController implements Initializable {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
+                        //Set appropriate button layout
                         playButton.setDisable(true);
                         recordButton.setDisable(true);
                         stopButton.setDisable(false);
                         prevButton.setDisable(true);
                         nextButton.setDisable(true);
-                        String path = "data/names/" + practiseController.getNamePlaylist().get(currentNameNum).toString();
-                        playAudio = new PlayAudio(path);
-                        playAudio.playAudio();
+
+                        //Deal with playing name
+                        String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
+                        String path = "data/names/" + nameAudio;
+                        if (!nameAudio.contains(" ")) {
+                            playAudio = new PlayAudio(path);
+                            playAudio.playAudio();
+                        }
+                        else {
+                            List<String> combineNameList = new ArrayList<>();
+                            String[] hypParts = nameAudio.split("_");
+                            String[] spcParts = hypParts[3].split(" ");
+                            int nameCount = spcParts.length;
+
+                            for (int i = 0; i < nameCount ; i++) {
+                                String name = "";
+                                for (String part : hypParts) {
+                                    String[] spaceParts = part.split(" ");
+                                    name = name + "_" + spaceParts[i];
+                                }
+                                if (name.contains(".wav")) {
+                                    name = name.substring(0,name.lastIndexOf("."));
+                                }
+                                combineNameList.add(name.substring(1));
+                            }
+                        }
+
+
                     }
                 });
                 try {
@@ -143,7 +170,7 @@ public class PlayController implements Initializable {
             FileWriter writer = new FileWriter("data/ratingAudio.txt", true);
             byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
-            currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString();
+            currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
 
             //Makes new line if audio has no existing rating otherwise overwrite rating
             if (!currentAudio.contains(currSelectedName)) {
@@ -183,11 +210,11 @@ public class PlayController implements Initializable {
             String currentAudio = new String(bytes);
 
             //Once current audio is found in txt, extract its rating and update for audioRating component.
-            if (currentAudio.contains(practiseController.getNamePlaylist().get(currentNameNum).toString())) {
+            if (currentAudio.contains(practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav")) {
                 Scanner scanner = new Scanner(currentAudio);
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
-                    if (line.substring(0, line.length() - 4).equals(practiseController.getNamePlaylist().get(currentNameNum).toString())) {
+                    if (line.substring(0, line.length() - 4).equals(practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav")) {
                         double rating = Double.parseDouble(line.substring(line.length() - 3));
                         selectedList.get(currentNameNum).getRating().setRating(rating); //Set column rating
                         audioRating.setRating(rating); //Set adjustable rating
@@ -227,7 +254,7 @@ public class PlayController implements Initializable {
         prevButton.setDisable(true);
         stopButton.setDisable(true);
         nameTable.getSelectionModel().select(currentNameNum);
-        currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString();
+        currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
 
         //When user selects rating, update
         audioRating.ratingProperty().addListener(new ChangeListener<Number>() {
