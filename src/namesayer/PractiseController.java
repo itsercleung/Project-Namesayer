@@ -235,7 +235,7 @@ public class PractiseController implements Initializable {
             }
 
             //(2) Look at existing ranks and pick the better ranks of names to play
-            List<String> listOfHighRankName = new ArrayList<>();
+            List<String> listOfHRNames = new ArrayList<>();
             try {
                 byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
                 String currentAudio = new String(bytes);
@@ -251,14 +251,14 @@ public class PractiseController implements Initializable {
                                     double rating = Double.parseDouble(line.substring(line.length() - 3));
                                     //If 3,4,5 OR 0 then accept as high rank
                                     if (rating >= 3 || rating == 0) {
-                                        listOfHighRankName.add(currName);
+                                        listOfHRNames.add(currName);
                                     }
                                 }
                             }
                         }
                         //Name audio isn't in rating system, thus treat as UNRANKED
                         else {
-                            listOfHighRankName.add(currName);
+                            listOfHRNames.add(currName);
                         }
                     }
                 }
@@ -268,34 +268,57 @@ public class PractiseController implements Initializable {
 
             //(3a) If list has two different names (randomly select one for each name)
             String[] names = name.split(" ");
-            List<List<String>> allHRNameList = new ArrayList<>(); //Stores lists of each name with high rank (HR)
             if (names.length > 1) {
+                List<List<String>> allHRNameList = new ArrayList<>(); //Stores lists of each name with high rank (HR) OR if no HR then add all
+                List<String> chosenCombNames = new ArrayList<>(); //Randomly chosen list
                 for (String combName : names) {
+
+                    //Get all HR names associated with the name
                     List<String> HRNameList = new ArrayList<>();
-                    for (String rankNames : listOfHighRankName) {
+                    for (String rankNames : listOfHRNames) {
                         if (combName.toLowerCase().equals(rankNames.substring(rankNames.lastIndexOf("_") + 1, rankNames.lastIndexOf(".")).toLowerCase())) {
                             HRNameList.add(rankNames);
                         }
                     }
+
+                    //If name has no HR associated then get any of its duplicates
+                    if (HRNameList.isEmpty()) {
+                        int indexLR = 0;
+                        for (String string : listOfSameName) {
+                            if (string.toLowerCase().contains(combName)) {
+                                HRNameList.add(listOfSameName.get(indexLR));
+                                break;
+                            }
+                            indexLR++;
+                        }
+                    }
                     allHRNameList.add(HRNameList);
                 }
-                System.out.println(allHRNameList);
+                
+                //Combine the two names into one list (chosen randomly if a name has duplicates)
+                for (List<String> list : allHRNameList) {
+                    Random random = new Random();
+                    String chosenName = list.get(random.nextInt(list.size()));
+                    chosenCombNames.add(chosenName);
+                }
+                System.out.println(chosenCombNames);
             }
-
             //(3b) - (4) If listOfSameName is not empty or has an item, select a random file according to ranking
-            if (!listOfHighRankName.isEmpty()) {
-                Random random = new Random();
-                String chosenName = listOfHighRankName.get(random.nextInt(listOfHighRankName.size()));
-                String[] parts = chosenName.split("_");
-                int extIndex = parts[3].indexOf(".");
-                namePlaylist.add(new Name(parts[3].substring(0, extIndex), parts[0], parts[1], parts[2], makeRating(0))); //Make new Name object according to selected name file
-            }
-            //Else there is no high rank for following name, thus get any name in previous list
             else {
-                String chosenName = listOfSameName.get(0);
-                String[] parts = chosenName.split("_");
-                int extIndex = parts[3].indexOf(".");
-                namePlaylist.add(new Name(parts[3].substring(0, extIndex), parts[0], parts[1], parts[2], makeRating(0)));
+                if (!listOfHRNames.isEmpty()) {
+                    Random random = new Random();
+                    String chosenName = listOfHRNames.get(random.nextInt(listOfHRNames.size()));
+                    String[] parts = chosenName.split("_");
+                    int extIndex = parts[3].indexOf(".");
+                    namePlaylist.add(new Name(parts[3].substring(0, extIndex), parts[0], parts[1], parts[2], makeRating(0))); //Make new Name object according to selected name file
+                }
+                //Else there is no high rank for following name, thus get any name in previous list
+                else {
+                    String chosenName = listOfSameName.get(0);
+                    String[] parts = chosenName.split("_");
+                    int extIndex = parts[3].indexOf(".");
+                    namePlaylist.add(new Name(parts[3].substring(0, extIndex), parts[0], parts[1], parts[2], makeRating(0)));
+                }
             }
         }
 
