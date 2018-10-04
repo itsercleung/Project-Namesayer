@@ -34,30 +34,18 @@ import java.util.Scanner;
 
 public class PlayController implements Initializable {
 
-    @FXML
-    private AnchorPane mainRoot;
-    @FXML
-    private TableView<Name> nameTable;
-    @FXML
-    private TableColumn<Name, String> nameCol;
-    @FXML
-    private TableColumn<Name, String> createdCol;
-    @FXML
-    private TableColumn<Name, Rating> ratingCol;
-    @FXML
-    private Label playLabel;
-    @FXML
-    private Button prevButton;
-    @FXML
-    private Button playButton;
-    @FXML
-    private Button stopButton;
-    @FXML
-    private Button nextButton;
-    @FXML
-    private Button recordButton;
-    @FXML
-    private Rating audioRating;
+    @FXML private AnchorPane mainRoot;
+    @FXML private TableView<Name> nameTable;
+    @FXML private TableColumn<Name, String> nameCol;
+    @FXML private TableColumn<Name, String> createdCol;
+    @FXML private TableColumn<Name, Rating> ratingCol;
+    @FXML private Label playLabel;
+    @FXML private Button prevButton;
+    @FXML private Button playButton;
+    @FXML private Button stopButton;
+    @FXML private Button nextButton;
+    @FXML private Button recordButton;
+    @FXML private Rating audioRating;
 
     private PractiseController practiseController = new PractiseController();
     private int currentNameNum = 0; //Current name being played
@@ -82,6 +70,10 @@ public class PlayController implements Initializable {
 
     @FXML
     void nextPressed(ActionEvent event) {
+        //Delete temp combined names if they exist
+        MainController mainController = new MainController();
+        mainController.deleteTemp();
+
         //Switching to next selected audio files
         currentNameNum++;
         if (currentNameNum == practiseController.getNamePlaylist().size() - 1) {
@@ -92,14 +84,14 @@ public class PlayController implements Initializable {
         nameTable.getSelectionModel().select(currentNameNum);
 
         ratingUpdate(); //Update with current name rating
-
-        //Delete temp combined names if they exist
-        MainController mainController = new MainController();
-        mainController.deleteTemp();
     }
 
     @FXML
     void prevPressed(ActionEvent event) {
+        //Delete temp combined names if they exist
+        MainController mainController = new MainController();
+        mainController.deleteTemp();
+
         //Switching to prev selected audio files
         currentNameNum--;
         if (currentNameNum == 0) {
@@ -110,10 +102,6 @@ public class PlayController implements Initializable {
         nameTable.getSelectionModel().select(currentNameNum);
 
         ratingUpdate(); //Update with current name rating
-
-        //Delete temp combined names if they exist
-        MainController mainController = new MainController();
-        mainController.deleteTemp();
     }
 
     @FXML
@@ -128,13 +116,16 @@ public class PlayController implements Initializable {
                         recordButton.setDisable(true);
                         stopButton.setDisable(false);
 
-                        //Deal with playing name
                         String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
                         String path = "data/names/" + nameAudio;
+                        //If current name isn't combination
                         if (!nameAudio.contains(" ")) {
                             playAudio = new PlayAudio(path);
                             playAudio.playAudio();
-                        } else {
+
+                        }
+                        //Else if name is combination - section names into appropriate format
+                        else {
                             List<String> combineNameList = new ArrayList<>();
                             String[] hypParts = nameAudio.split("_");
                             String[] spcParts = hypParts[3].split(" ");
@@ -156,6 +147,7 @@ public class PlayController implements Initializable {
                             //Use list to clip audio, merge and normalize
                             PlayAudio playAudio = new PlayAudio(combineNameList);
                             playAudio.playCombinedAudio();
+                            playAudio.playAudio();
                         }
                     }
                 });

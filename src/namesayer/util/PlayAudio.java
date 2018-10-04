@@ -7,6 +7,10 @@ import java.util.List;
 import javafx.concurrent.Task;
 import sun.audio.*;
 
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+
 //Input of a string with destination of audio file to play - uses AudioStream and AudioPlayer for .wav files
 public class PlayAudio {
     private String audio;
@@ -19,19 +23,7 @@ public class PlayAudio {
 
     public PlayAudio(List<String> combineAudio) {
         this.combineAudio = combineAudio;
-        audio = "combine.wav";
-
-        //Combine audio clips together
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter("temp/combineAudio.txt");
-            for (String str : combineAudio) {
-                writer.write("file '" + str + "s.wav'\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        audio = "temp/combine.wav";
     }
 
     public void playAudio() {
@@ -57,9 +49,8 @@ public class PlayAudio {
         for (String audio : combineAudio) {
             String silenceAudio = "cd data/names\n" +
                     "cp " + audio + ".wav ../../temp/" + audio + ".wav\n" +
-                    "ffmpeg -y -hide_banner -i ../../temp/" + audio + ".wav -af silenceremove=1:0:-50dB ../../temp/" + audio + "s.wav\n" +
-                    "cd temp/\n" +
-                    "ffmpeg -f concat -safe 0 -i combineAudio.txt -c copy combine.wav\n";
+                    "cd ../../temp\n" +
+                    "ffmpeg -hide_banner -i " + audio + ".wav -af silenceremove=1:0:-30dB:1:5:-30dB " + audio + "CONCAT.wav\n";
             ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", silenceAudio);
             try {
                 processBuilder.start();
@@ -68,6 +59,29 @@ public class PlayAudio {
             }
         }
 
+        //Combine audio clips together
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("temp/combineAudio.txt");
+            for (String str : combineAudio) {
+                writer.write("file '" + str + "CONCAT.wav'\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Concatenate from txt file
+        String concatAudio = "cd temp/\n" +
+                "ffmpeg -f concat -safe 0 -i combineAudio.txt -c copy combine.wav\n";
+        ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", concatAudio);
+        try {
+            processBuilder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        playAudio();
     }
 
     public void stopAudio() {
