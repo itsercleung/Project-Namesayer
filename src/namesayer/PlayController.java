@@ -34,18 +34,30 @@ import java.util.Scanner;
 
 public class PlayController implements Initializable {
 
-    @FXML private AnchorPane mainRoot;
-    @FXML private TableView<Name> nameTable;
-    @FXML private TableColumn<Name, String> nameCol;
-    @FXML private TableColumn<Name, String> createdCol;
-    @FXML private TableColumn<Name, Rating> ratingCol;
-    @FXML private Label playLabel;
-    @FXML private Button prevButton;
-    @FXML private Button playButton;
-    @FXML private Button stopButton;
-    @FXML private Button nextButton;
-    @FXML private Button recordButton;
-    @FXML private Rating audioRating;
+    @FXML
+    private AnchorPane mainRoot;
+    @FXML
+    private TableView<Name> nameTable;
+    @FXML
+    private TableColumn<Name, String> nameCol;
+    @FXML
+    private TableColumn<Name, String> createdCol;
+    @FXML
+    private TableColumn<Name, Rating> ratingCol;
+    @FXML
+    private Label playLabel;
+    @FXML
+    private Button prevButton;
+    @FXML
+    private Button playButton;
+    @FXML
+    private Button stopButton;
+    @FXML
+    private Button nextButton;
+    @FXML
+    private Button recordButton;
+    @FXML
+    private Rating audioRating;
 
     private PractiseController practiseController = new PractiseController();
     private int currentNameNum = 0; //Current name being played
@@ -55,6 +67,10 @@ public class PlayController implements Initializable {
 
     @FXML
     void exitPressed(ActionEvent event) {
+        //Delete temp combined names if they exist
+        MainController mainController = new MainController();
+        mainController.deleteTemp();
+
         AnchorPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
@@ -76,6 +92,10 @@ public class PlayController implements Initializable {
         nameTable.getSelectionModel().select(currentNameNum);
 
         ratingUpdate(); //Update with current name rating
+
+        //Delete temp combined names if they exist
+        MainController mainController = new MainController();
+        mainController.deleteTemp();
     }
 
     @FXML
@@ -90,6 +110,10 @@ public class PlayController implements Initializable {
         nameTable.getSelectionModel().select(currentNameNum);
 
         ratingUpdate(); //Update with current name rating
+
+        //Delete temp combined names if they exist
+        MainController mainController = new MainController();
+        mainController.deleteTemp();
     }
 
     @FXML
@@ -103,8 +127,6 @@ public class PlayController implements Initializable {
                         playButton.setDisable(true);
                         recordButton.setDisable(true);
                         stopButton.setDisable(false);
-                        prevButton.setDisable(true);
-                        nextButton.setDisable(true);
 
                         //Deal with playing name
                         String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
@@ -112,27 +134,29 @@ public class PlayController implements Initializable {
                         if (!nameAudio.contains(" ")) {
                             playAudio = new PlayAudio(path);
                             playAudio.playAudio();
-                        }
-                        else {
+                        } else {
                             List<String> combineNameList = new ArrayList<>();
                             String[] hypParts = nameAudio.split("_");
                             String[] spcParts = hypParts[3].split(" ");
                             int nameCount = spcParts.length;
 
-                            for (int i = 0; i < nameCount ; i++) {
+                            //Reformat and place into combineNameList
+                            for (int i = 0; i < nameCount; i++) {
                                 String name = "";
                                 for (String part : hypParts) {
                                     String[] spaceParts = part.split(" ");
                                     name = name + "_" + spaceParts[i];
                                 }
                                 if (name.contains(".wav")) {
-                                    name = name.substring(0,name.lastIndexOf("."));
+                                    name = name.substring(0, name.lastIndexOf("."));
                                 }
                                 combineNameList.add(name.substring(1));
                             }
+
+                            //Use list to clip audio, merge and normalize
+                            PlayAudio playAudio = new PlayAudio(combineNameList);
+                            playAudio.playCombinedAudio();
                         }
-
-
                     }
                 });
                 try {
@@ -145,8 +169,6 @@ public class PlayController implements Initializable {
                         playButton.setDisable(false);
                         recordButton.setDisable(false);
                         stopButton.setDisable(true);
-                        prevButton.setDisable(false);
-                        nextButton.setDisable(false);
                     }
                 });
             }
@@ -189,7 +211,7 @@ public class PlayController implements Initializable {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     if (line.length() == newName.length()) {
-                        if (line.substring(0, line.length()-3).equals(newName.substring(0, newName.length()-3))) {
+                        if (line.substring(0, line.length() - 3).equals(newName.substring(0, newName.length() - 3))) {
                             lines.set(lineCount, newName);
                             Files.write(path, lines);
                         }
@@ -220,8 +242,7 @@ public class PlayController implements Initializable {
                         audioRating.setRating(rating); //Set adjustable rating
                     }
                 }
-            }
-            else {
+            } else {
                 audioRating.setRating(0.0);
             }
         } catch (IOException e) {

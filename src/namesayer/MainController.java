@@ -64,8 +64,7 @@ public class MainController implements Initializable {
         mainRoot.getChildren().setAll(practiseRoot);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void deleteTemp() {
         //Delete temp files on startup
         File temp = new File("temp/");
         if (temp.exists() && temp.isDirectory()) {
@@ -74,8 +73,12 @@ public class MainController implements Initializable {
                 File currentFile = new File(temp.getPath(),s);
                 currentFile.delete();
             }
-            temp.delete();
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        deleteTemp(); //On startup delete temp files in folder
 
         //Creating temp folder and data folder
         new File("./temp").mkdirs();
