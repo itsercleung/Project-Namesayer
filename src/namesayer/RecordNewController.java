@@ -92,6 +92,11 @@ public class RecordNewController implements Initializable {
             return;
         }
 
+        // patching playback issue
+        if (name.contains(" ")) {
+            name = name.replace(" ","_");
+        }
+
         //Setup official name for saved recording
         DateFormat dateFormat = new SimpleDateFormat("_dd-MM-yyyy_HH-mm-ss_");
         Date date = new Date();
