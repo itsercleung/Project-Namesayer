@@ -25,7 +25,6 @@ public class PlayAudio {
     public PlayAudio(List<String> combineAudio) {
         this.combineAudio = combineAudio;
         audio = "temp/combine.wav";
-
         //Combine audio clips together
         FileWriter writer = null;
         try {

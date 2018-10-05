@@ -180,38 +180,50 @@ public class PractiseController implements Initializable {
         Stage stage = (Stage) uploadButton.getScene().getWindow();
         File textFile = fc.showOpenDialog(stage); // should be txt file
 
-        //TODO continue upload txt function obviously
-        Scanner reader = null;
-        try {
-            reader = new Scanner(textFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if (textFile == null) {
+            // handle cancellation properly
+
         }
+        else {
+            Scanner reader = null;
+            try {
+                reader = new Scanner(textFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
-        while (reader.hasNextLine()) {
-            String name = reader.nextLine();
-            name.toLowerCase();
-            if (searchNameList.contains(name)) {
-                selectedNameList.add(name);
-            } else if (name.contains(" ") || name.contains("-")) {
-                // TODO deal with concat names
-                String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
-                boolean canConcat = true;
-                for (String singleName : names) {
-                    // go through list of names, if it is a concatable name, then add it
-                    if (!searchNameList.contains(singleName)) {
-                        canConcat = false;
-                        break;
-                    }
-                }
-
-                if (canConcat) {
+            while (reader.hasNextLine()) {
+                String name = reader.nextLine();
+                //If single name is within database then add
+                if (searchNameList.contains(name.toLowerCase())) {
                     selectedNameList.add(name);
                 }
+                //If multiple names (through " " and "-") then analyze the separate names
+                else if (name.contains(" ") || name.contains("-")) {
+                    // TODO deal with concat names
+                    String[] names = name.split("[-\\s+]");
+                    boolean canConcat = true;
 
+                    //Go through list of names, if it is a concatable name, then add it
+                    for (String singleName : names) {
+                        if (!searchNameList.contains(singleName.toLowerCase())) {
+                            canConcat = false;
+                            break;
+                        }
+                    }
+                    if (canConcat) {
+                        selectedNameList.add(name);
+                    }
+
+                }
+            }
+            //Add to selected list and turn on appropriate selections
+            selectedNamesView.setItems(selectedNameList);
+            playNames.setDisable(false);
+            if (selectedNameList.size() > 1) {
+                toggleRandomise.setDisable(false);
             }
         }
-        selectedNamesView.setItems(selectedNameList);
     }
 
     /* Makes playlist from selectedList names:
@@ -220,13 +232,11 @@ public class PractiseController implements Initializable {
    (3) Create a Name object for each element in list
    (4) Put into namePlayList to PLAY */
     private void makePlayList() {
-        //Getting names of all name files in data/names
         File namesFolder = new File("data/names");
         File[] listOfNames = namesFolder.listFiles();
 
         //(1) Get all name files with same name as selectedName
         for (String name : selectedNameList) {
-            //Split names if combination
             if (name.contains("[COMBINE]: ")) {
                 name = name.replace("[COMBINE]: ", "");
             }
