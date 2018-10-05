@@ -133,21 +133,19 @@ public class PlayController implements Initializable {
 
                             //Reformat and place into combineNameList
                             for (int i = 0; i < nameCount; i++) {
-                                String name = "";
+                                StringBuilder name = new StringBuilder();
                                 for (String part : hypParts) {
                                     String[] spaceParts = part.split(" ");
-                                    name = name + "_" + spaceParts[i];
+                                    name.append("_").append(spaceParts[i]);
                                 }
-                                if (name.contains(".wav")) {
-                                    name = name.substring(0, name.lastIndexOf("."));
+                                if (name.toString().contains(".wav")) {
+                                    name = new StringBuilder(name.substring(0, name.lastIndexOf(".")));
                                 }
                                 combineNameList.add(name.substring(1));
                             }
 
-                            //Use list to clip audio, merge and normalize
                             PlayAudio playAudio = new PlayAudio(combineNameList);
                             playAudio.playCombinedAudio();
-                            playAudio.playAudio();
                         }
                     }
                 });
