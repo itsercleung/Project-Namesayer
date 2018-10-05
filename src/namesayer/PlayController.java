@@ -144,7 +144,7 @@ public class PlayController implements Initializable {
                                 combineNameList.add(name.substring(1));
                             }
 
-                            PlayAudio playAudio = new PlayAudio(combineNameList);
+                            playAudio = new PlayAudio(combineNameList);
                             playAudio.playCombinedAudio();
                         }
                     }
@@ -168,11 +168,16 @@ public class PlayController implements Initializable {
     @FXML
     void recordPressed(ActionEvent event) {
         // TODO to record user practise
+        // TODO also a play/save should be in same screen?
     }
 
     @FXML
     void stopPressed(ActionEvent event) {
         //TODO
+        playAudio.stopAudio();
+        playButton.setDisable(false);
+        recordButton.setDisable(false);
+        stopButton.setDisable(true);
     }
 
     //Update rating if user makes rate of specific audio row
