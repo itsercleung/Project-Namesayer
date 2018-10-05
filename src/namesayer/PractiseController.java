@@ -173,6 +173,7 @@ public class PractiseController implements Initializable {
     //meets line requires for each name.
     @FXML
     private void uploadButtonClicked(ActionEvent event) {
+        // let the user select TXT files to upload
         FileChooser fc = new FileChooser();
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Text files", "*.txt");
         fc.setTitle("Select Text (.txt) File");
@@ -180,7 +181,10 @@ public class PractiseController implements Initializable {
         Stage stage = (Stage) uploadButton.getScene().getWindow();
         File textFile = fc.showOpenDialog(stage); // should be txt file
 
-        //TODO continue upload txt function obviously
+        if (textFile == null) {
+            return;
+        }
+
         Scanner reader = null;
         try {
             reader = new Scanner(textFile);
@@ -188,6 +192,7 @@ public class PractiseController implements Initializable {
             e.printStackTrace();
         }
 
+        // go through text file and check if name is in names db
         while (reader.hasNextLine()) {
             String name = reader.nextLine();
             name.toLowerCase();

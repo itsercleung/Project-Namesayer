@@ -35,6 +35,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void loginButtonClicked(ActionEvent event) {
+        // gets currently selected name to login to
 
     }
 
@@ -59,14 +60,15 @@ public class LoginController implements Initializable {
 
         File[] dirfiles = directory.listFiles();
         ObservableList<User> users = FXCollections.observableArrayList();
+        Scanner reader;
 
         if (dirfiles != null) {
             for (File file : dirfiles) {
                 try {
                     // gets user name and points, adds to listview
-                    Scanner scanner = new Scanner(file);
-                    String username = scanner.next();
-                    int points = Integer.valueOf(scanner.next());
+                    reader = new Scanner(file);
+                    String username = reader.next();
+                    int points = Integer.valueOf(reader.next());
                     users.add(new User(username,points));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
