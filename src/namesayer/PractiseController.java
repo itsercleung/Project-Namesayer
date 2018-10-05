@@ -181,10 +181,10 @@ public class PractiseController implements Initializable {
         Stage stage = (Stage) uploadButton.getScene().getWindow();
         File textFile = fc.showOpenDialog(stage); // should be txt file
 
+        //If user cancels, return gracefully
         if (textFile == null) {
             return;
         }
-
         Scanner reader = null;
         try {
             reader = new Scanner(textFile);
@@ -195,25 +195,23 @@ public class PractiseController implements Initializable {
         // go through text file and check if name is in names db
         while (reader.hasNextLine()) {
             String name = reader.nextLine();
-            name.toLowerCase();
-            if (searchNameList.contains(name)) {
+
+            if (searchNameList.contains(name.toLowerCase())) {
                 selectedNameList.add(name);
             } else if (name.contains(" ") || name.contains("-")) {
-                // TODO deal with concat names
                 String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
                 boolean canConcat = true;
+
+                // go through list of names, if it is a name that exists in database, then add it
                 for (String singleName : names) {
-                    // go through list of names, if it is a concatable name, then add it
-                    if (!searchNameList.contains(singleName)) {
+                    if (!searchNameList.contains(singleName.toLowerCase())) {
                         canConcat = false;
                         break;
                     }
                 }
-
                 if (canConcat) {
                     selectedNameList.add(name);
                 }
-
             }
         }
         selectedNamesView.setItems(selectedNameList);
@@ -250,7 +248,7 @@ public class PractiseController implements Initializable {
                 else if (name.contains(" ")) {
                     String[] names = name.split(" ");
                     for (String combName : names) {
-                        if (combName.equals(parts[3].substring(0, extIndex).toLowerCase())) {
+                        if (combName.toLowerCase().equals(parts[3].substring(0, extIndex).toLowerCase())) {
                             listOfSameName.add(fileName);
                         }
                     }
@@ -308,7 +306,7 @@ public class PractiseController implements Initializable {
                     if (HRNameList.isEmpty()) {
                         int indexLR = 0;
                         for (String string : listOfSameName) {
-                            if (string.toLowerCase().contains(combName)) {
+                            if (string.toLowerCase().contains(combName.toLowerCase())) {
                                 HRNameList.add(listOfSameName.get(indexLR));
                                 break;
                             }

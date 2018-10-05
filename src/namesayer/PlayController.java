@@ -144,8 +144,10 @@ public class PlayController implements Initializable {
                                 combineNameList.add(name.substring(1));
                             }
 
+                            //Run appropriate methods with given name list and play
                             playAudio = new PlayAudio(combineNameList);
                             playAudio.playCombinedAudio();
+                            playAudio.playAudio();
                         }
                     }
                 });
