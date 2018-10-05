@@ -1,9 +1,7 @@
 package namesayer;
 
-import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,13 +28,12 @@ public class RecordNewController implements Initializable {
 
     @FXML private Button listenButton, recordButton, saveButton, recordNameButton;
     @FXML private AnchorPane root;
-    @FXML private TextField nameField;
+    @FXML private JFXTextField nameField;
     @FXML private Label label;
     @FXML private Button stopRecordingButton;
 
     private String name;
     private String officialName;
-    private PlayAudio playAudio;
     private CreateTempAudio createTempAudio;
 
     @FXML
@@ -217,7 +214,7 @@ public class RecordNewController implements Initializable {
         }.start();
 
         String path = "./temp/" + officialName + ".wav";
-        playAudio = new PlayAudio(path);
+        PlayAudio playAudio = new PlayAudio(path);
         playAudio.playAudio();
     }
 

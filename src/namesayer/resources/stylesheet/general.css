@@ -81,3 +81,15 @@ ToggleSwitch:selected .thumb-area {
 .jfx-progress-bar > .bar {
     -fx-background-color: #FF5252;
 }
+
+#testNote {
+    -fx-background-color: #212121;
+}
+
+#text1 {
+    -fx-text-fill: white;
+}
+
+#text2 {
+    -fx-text-fill: white;
+}

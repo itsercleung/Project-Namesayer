@@ -61,15 +61,34 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="(1) Press [Test] to record 3 sec: ">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font></Label>
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="(2) Press [Listen] to hear your 3 sec recording:">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font></Label>
-                  <Label fx:id="testLabel" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="[Start test]" textFill="#4c58e1" />
+                  <HBox prefHeight="142.0" prefWidth="800.0">
+                     <children>
+                        <VBox fx:id="testNote" prefHeight="117.0" prefWidth="363.0" stylesheets="@stylesheet/general.css">
+                           <children>
+                              <Label fx:id="text1" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="(1) Press [Test] to record 3 sec: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="text2" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="(2) Press [Listen] to hear your 3 sec recording:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="testLabel" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="[Start test]" textFill="WHITE" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="215.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="40.0" />
+                     </VBox.margin>
+                  </HBox>
                   <HBox prefHeight="50.0" prefWidth="200.0">
                      <children>
                         <Label text="Mic Level">
@@ -95,7 +114,7 @@
                      <children>
                         <Button fx:id="testButton" alignment="CENTER" mnemonicParsing="false" onAction="#testPressed" prefHeight="60.0" prefWidth="170.0" stylesheets="@stylesheet/general.css" text="Test">
                            <HBox.margin>
-                              <Insets left="215.0" right="20.0" top="20.0" />
+                              <Insets left="215.0" right="20.0" top="15.0" />
                            </HBox.margin>
                            <VBox.margin>
                               <Insets right="5.0" top="-15.0" />
@@ -103,7 +122,7 @@
                         </Button>
                         <Button fx:id="listenButton" alignment="CENTER" mnemonicParsing="false" onAction="#listenPressed" prefHeight="60.0" prefWidth="170.0" stylesheets="@stylesheet/general.css" text="Listen">
                            <HBox.margin>
-                              <Insets top="20.0" />
+                              <Insets top="15.0" />
                            </HBox.margin>
                         </Button>
                      </children>
@@ -111,7 +130,7 @@
                         <Insets left="3.0" right="5.0" top="-15.0" />
                      </VBox.margin>
                   </HBox>
-                  <MediaView fx:id="mediaTest" fitHeight="100.0" fitWidth="600.0" visible="false" />
+                  <MediaView fx:id="mediaTest" fitWidth="600.0" visible="false" />
                   <Label alignment="CENTER" opacity="0.79" prefHeight="40.0" prefWidth="800.0" text="TIP: It is best to have your microphone level on or over the [Black Line]">
                      <font>
                         <Font size="15.0" />

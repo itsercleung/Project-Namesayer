@@ -1,5 +1,7 @@
 package namesayer;
 
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -35,10 +37,10 @@ public class PractiseController implements Initializable {
     @FXML private ToggleSwitch toggleRandomise;
     @FXML private Button playNames;
     @FXML private Button practiseButton, uploadButton;
-    @FXML private TextField searchTextField;
+    @FXML private JFXTextField searchTextField;
     @FXML private AnchorPane mainRoot;
-    @FXML private ListView<String> searchNamesView;
-    @FXML private ListView<String> selectedNamesView;
+    @FXML private JFXListView<String> searchNamesView;
+    @FXML private JFXListView<String> selectedNamesView;
 
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
@@ -155,10 +157,10 @@ public class PractiseController implements Initializable {
 
     //Dynamically changes height of the listView (scales up to be similar to a search drop down)
     private void changeHeightView() {
-        double maxHeight = 165;
-        double currentHeight = filteredData.size() * 23.5;
+        double maxHeight = 180;
+        double currentHeight = filteredData.size() * 30;
         if (currentHeight >= maxHeight) {
-            searchNamesView.setMaxHeight(165);
+            searchNamesView.setMaxHeight(180);
         } else {
             searchNamesView.setMaxHeight(currentHeight);
         }
@@ -198,7 +200,6 @@ public class PractiseController implements Initializable {
 
             if (searchNameList.contains(name.toLowerCase())) {
                 selectedNameList.add(name.toLowerCase());
-                System.out.println(selectedNameList);
             } else if (name.contains(" ") || name.contains("-")) {
                 String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
                 boolean canConcat = true;
@@ -256,8 +257,6 @@ public class PractiseController implements Initializable {
                 }
             }
 
-            System.out.println(listOfSameName);
-
             //(2) Look at existing ranks and pick the better ranks of names to play
             List<String> listOfHRNames = new ArrayList<>();
             try {
@@ -289,8 +288,6 @@ public class PractiseController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            System.out.println(listOfHRNames);
 
             //(3a) If list has two different names (randomly select one for each name)
             String[] names = name.split(" ");
@@ -473,7 +470,7 @@ public class PractiseController implements Initializable {
         SortedList<String> sortedList = new SortedList<>(filteredData);
         searchNamesView.setItems(sortedList);
 
-        // bind appropiate conditions to each button
+        // bind appropriate conditions to each button
         playNames.disableProperty().bind(Bindings.isEmpty(selectedNameList));
         toggleRandomise.disableProperty().bind(Bindings.size(selectedNameList).lessThan(2));
     }
