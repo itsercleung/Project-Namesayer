@@ -8,6 +8,7 @@ public class Name {
     private String date;
     private String time;
     private Rating rating;
+    private String createdDesc;
 
     public Name(String name) {
         this.name = name;
@@ -19,6 +20,14 @@ public class Name {
         this.date = date;
         this.time = time;
         this.rating = rating;
+
+        //Setting created to single name (depending if name is single or concat)
+        if (!created.contains(" ")) {
+            createdDesc = created;
+        }
+        else if (created.contains(" ")) {
+            createdDesc = "[COMBINED]";
+        }
     }
 
     public String getName() {
@@ -31,6 +40,10 @@ public class Name {
 
     public Rating getRating() {
         return rating;
+    }
+
+    public String getCreatedDesc() {
+        return createdDesc;
     }
 
     public void setName(String name) { this.name = name; }

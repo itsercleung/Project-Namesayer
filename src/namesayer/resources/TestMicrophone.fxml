@@ -100,9 +100,9 @@
                               <Insets left="10.0" top="5.0" />
                            </HBox.margin>
                         </JFXProgressBar>
-                        <Line endX="10.0" rotate="90.0" scaleY="2.0">
+                        <Line endX="8.5" rotate="90.0" scaleY="4.0">
                            <HBox.margin>
-                              <Insets left="-109.0" top="8.0" />
+                              <Insets left="-109.0" top="9.5" />
                            </HBox.margin>
                         </Line>
                      </children>

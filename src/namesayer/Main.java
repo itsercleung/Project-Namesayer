@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
     @Override
@@ -12,6 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("resources/Main.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("NameSayer");
+        //Add this when login is doneprimaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
         root.requestFocus();
     }

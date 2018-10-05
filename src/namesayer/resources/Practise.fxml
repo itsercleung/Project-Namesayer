@@ -54,17 +54,17 @@
             </VBox>
             <VBox prefHeight="0.0" prefWidth="800.0" stylesheets="@stylesheet/general.css">
                <children>
-                  <Label alignment="CENTER" opacity="0.33" prefHeight="41.0" prefWidth="800.0" text="Practise">
+                  <Label alignment="CENTER" opacity="0.33" prefHeight="50.0" prefWidth="800.0" text="Practise">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="10.0" top="20.0" />
+                        <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
                   <HBox prefHeight="80.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="searchTextField" focusColor="#ff5252" minHeight="42.0" prefWidth="300.0" promptText="Search any name (case-insensitive)">
+                        <JFXTextField fx:id="searchTextField" focusColor="#ff5252" minHeight="42.0" prefWidth="300.0" promptText="Search any name (case-insensitive)" stylesheets="@stylesheet/general.css">
                            <HBox.margin>
                               <Insets left="140.0" top="5.0" />
                            </HBox.margin>

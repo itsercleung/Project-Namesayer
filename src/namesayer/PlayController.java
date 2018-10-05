@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
@@ -82,8 +83,7 @@ public class PlayController implements Initializable {
         prevButton.setDisable(false);
         playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
-
-        ratingUpdate(); //Update with current name rating
+        updateRatingComponent(); //Change rating component
     }
 
     @FXML
@@ -100,8 +100,37 @@ public class PlayController implements Initializable {
         nextButton.setDisable(false);
         playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
+        updateRatingComponent(); //Change rating component
+    }
 
-        ratingUpdate(); //Update with current name rating
+
+    @FXML
+    void rowClicked(MouseEvent event) {
+        //Delete temp combined names if they exist
+        MainController mainController = new MainController();
+        mainController.deleteTemp();
+
+        //Set selectedName index on what row user selects
+        currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
+        int i = 0;
+        for (Name currName : selectedList) {
+            if (currName.toString().equals(currSelectedName)) {
+                currentNameNum = i;
+            }
+            i++;
+        }
+
+        //Disable buttons if they're boundaries
+        prevButton.setDisable(false);
+        nextButton.setDisable(false);
+        if (currentNameNum == 0) {
+            prevButton.setDisable(true);
+        }
+        else if (currentNameNum == practiseController.getNamePlaylist().size() - 1) {
+            nextButton.setDisable(true);
+        }
+        playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+        updateRatingComponent(); //Change rating component
     }
 
     @FXML
@@ -175,7 +204,6 @@ public class PlayController implements Initializable {
 
     @FXML
     void stopPressed(ActionEvent event) {
-        //TODO
         playAudio.stopAudio();
         playButton.setDisable(false);
         recordButton.setDisable(false);
@@ -229,19 +257,43 @@ public class PlayController implements Initializable {
             String currentAudio = new String(bytes);
 
             //Once current audio is found in txt, extract its rating and update for audioRating component.
-            if (currentAudio.contains(practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav")) {
+            for (int i = 0; i < selectedList.size(); i++) {
+                if (currentAudio.contains(practiseController.getNamePlaylist().get(i).toString() + ".wav")) {
+                    Scanner scanner = new Scanner(currentAudio);
+                    while (scanner.hasNextLine()) {
+                        String line = scanner.nextLine();
+                        if (line.substring(0, line.length() - 4).equals(practiseController.getNamePlaylist().get(i).toString() + ".wav")) {
+                            double rating = Double.parseDouble(line.substring(line.length() - 3));
+                            selectedList.get(i).getRating().setRating(rating); //Set column rating
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Update rating change on rateable component
+    private void updateRatingComponent() {
+        try {
+            byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
+            String currentAudio = new String(bytes);
+            String currentPlay = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
+
+            if (currentAudio.contains(currentPlay)) {
                 Scanner scanner = new Scanner(currentAudio);
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
-                    if (line.substring(0, line.length() - 4).equals(practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav")) {
+                    if (line.substring(0, line.length() - 4).equals(currentPlay)) {
                         double rating = Double.parseDouble(line.substring(line.length() - 3));
-                        selectedList.get(currentNameNum).getRating().setRating(rating); //Set column rating
                         audioRating.setRating(rating); //Set adjustable rating
                     }
                 }
             } else {
                 audioRating.setRating(0.0);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -254,7 +306,7 @@ public class PlayController implements Initializable {
         //Set onto table using selectedList
         nameTable.setItems(selectedList);
         nameCol.setCellValueFactory(new PropertyValueFactory<Name, String>("name"));
-        createdCol.setCellValueFactory(new PropertyValueFactory<Name, String>("created"));
+        createdCol.setCellValueFactory(new PropertyValueFactory<Name, String>("createdDesc"));
         ratingCol.setCellValueFactory(new PropertyValueFactory<Name, Rating>("rating"));
     }
 
@@ -263,6 +315,7 @@ public class PlayController implements Initializable {
         //Setting table and rating updates
         populateTableView();
         ratingUpdate();
+        updateRatingComponent();
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
 
         //Accounting for single audio in which button is disabled

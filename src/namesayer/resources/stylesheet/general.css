@@ -24,6 +24,10 @@ Button:hover {
     -fx-background-color: #FF5252;
 }
 
+.text-field {
+    -fx-prompt-text-fill: gray;
+}
+
 TextField {
     -fx-focus-color: transparent;
 }
