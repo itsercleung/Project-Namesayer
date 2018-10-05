@@ -197,7 +197,8 @@ public class PractiseController implements Initializable {
             String name = reader.nextLine();
 
             if (searchNameList.contains(name.toLowerCase())) {
-                selectedNameList.add(name);
+                selectedNameList.add(name.toLowerCase());
+                System.out.println(selectedNameList);
             } else if (name.contains(" ") || name.contains("-")) {
                 String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
                 boolean canConcat = true;
@@ -255,6 +256,8 @@ public class PractiseController implements Initializable {
                 }
             }
 
+            System.out.println(listOfSameName);
+
             //(2) Look at existing ranks and pick the better ranks of names to play
             List<String> listOfHRNames = new ArrayList<>();
             try {
@@ -286,6 +289,8 @@ public class PractiseController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            System.out.println(listOfHRNames);
 
             //(3a) If list has two different names (randomly select one for each name)
             String[] names = name.split(" ");
