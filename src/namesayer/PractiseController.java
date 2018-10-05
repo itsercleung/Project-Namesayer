@@ -1,6 +1,8 @@
 package namesayer;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -98,8 +100,6 @@ public class PractiseController implements Initializable {
     private void clearButtonPressed(ActionEvent actionEvent) {
         namePlaylist.clear();
         selectedNameList.clear();
-        playNames.setDisable(true);
-        toggleRandomise.setDisable(true);
         toggleRandomise.setSelected(false);
     }
 
@@ -376,8 +376,6 @@ public class PractiseController implements Initializable {
         selectedNameList.clear();
         searchNamesView.setVisible(false);
         practiseButton.setDisable(true);
-        playNames.setDisable(true);
-        toggleRandomise.setDisable(true);
 
         //Populate and get information from directory
         populateList();
@@ -399,10 +397,6 @@ public class PractiseController implements Initializable {
                     selectedNameList.add(searchNamesView.getSelectionModel().getSelectedItem());
                     selectedNamesView.setItems(selectedNameList);
                     searchNamesView.setVisible(false);
-                    playNames.setDisable(false); //Enables play button once a name is selected
-                    if (selectedNameList.size() > 1) {
-                        toggleRandomise.setDisable(false);
-                    }
 
                     //Clear textfield in main thread
                     Platform.runLater(new Runnable() {
@@ -475,5 +469,10 @@ public class PractiseController implements Initializable {
         //Adding search results to sortedList
         SortedList<String> sortedList = new SortedList<>(filteredData);
         searchNamesView.setItems(sortedList);
+
+        // bind appropiate conditions to each button
+        playNames.disableProperty().bind(Bindings.isEmpty(selectedNameList));
+        toggleRandomise.disableProperty().bind(Bindings.size(selectedNameList).lessThan(2));
     }
+
 }
