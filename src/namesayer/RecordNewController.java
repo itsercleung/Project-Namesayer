@@ -37,6 +37,7 @@ public class RecordNewController implements Initializable {
     private String name;
     private String officialName;
     private PlayAudio playAudio;
+    private CreateTempAudio createTempAudio;
 
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
@@ -145,7 +146,7 @@ public class RecordNewController implements Initializable {
                            });
                        }
                    }.start();
-                   CreateTempAudio createTempAudio = new CreateTempAudio(officialName);
+                   createTempAudio = new CreateTempAudio(officialName);
                    createTempAudio.createSingleAudio();
                }
             });
@@ -174,14 +175,14 @@ public class RecordNewController implements Initializable {
                     });
                 }
             }.start();
-            CreateTempAudio createTempAudio = new CreateTempAudio(officialName);
+            createTempAudio = new CreateTempAudio(officialName);
             createTempAudio.createSingleAudio();
         }
     }
 
     @FXML
     private void stopRecordingButtonPressed() {
-        playAudio.stopAudio();
+        createTempAudio.stopRecording();
     }
 
     //Listen to temp recording to see if user wants to save

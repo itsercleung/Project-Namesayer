@@ -6,6 +6,8 @@ import java.io.IOException;
 
 public class CreateTempAudio {
     private String name;
+    private Thread thread;
+    private Task task;
 
     public CreateTempAudio(String name) {
         this.name = name;
@@ -16,7 +18,7 @@ public class CreateTempAudio {
         String userAudio = "cd temp\n" +
                 "ffmpeg -loglevel quiet -y -f alsa -i default -t 3 -ab 16 -ar 22050 -ac 1 " + name + ".wav";
 
-        Task task = new Task<Void>() {
+        task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", userAudio);
@@ -29,7 +31,18 @@ public class CreateTempAudio {
                 return null;
             }
         };
-        new Thread (task).start();
+        thread = new Thread (task);
+        thread.start();
+    }
+
+    // TODO figure a way to stop recording halfway if the user decides.
+    // kill thread? ffmpeg feature?
+    // another way is to count the time between record and stop and cut out
+    // the time
+
+    public void stopRecording() {
+        task.cancel(); //???
+        thread.interrupt();// doesn't work
     }
 
 }
