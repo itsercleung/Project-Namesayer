@@ -38,7 +38,7 @@ public class NewUserController implements Initializable {
         //Load practise pane
         AnchorPane newRoot = null;
         try {
-            newRoot = FXMLLoader.load(getClass().getResource("../resources/Login.fxml"));
+            newRoot = FXMLLoader.load(getClass().getResource("../resources/Main.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,7 +50,7 @@ public class NewUserController implements Initializable {
         //Load practise pane
         AnchorPane newRoot = null;
         try {
-            newRoot = FXMLLoader.load(getClass().getResource("../resources/Login.fxml"));
+            newRoot = FXMLLoader.load(getClass().getResource("../resources/Main.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

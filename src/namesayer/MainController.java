@@ -34,7 +34,9 @@ public class MainController implements Initializable {
     @FXML
     void loginButtonClicked(ActionEvent event) {
         // gets currently selected name to login to
-
+        User user = userList.getSelectionModel().getSelectedItem();
+        UserUtils.setCurrentLoginUser(user);
+        UserUtils.updateUser(userText,pointsText,user);
     }
 
     @FXML
@@ -42,7 +44,7 @@ public class MainController implements Initializable {
         //Load new user pane
         AnchorPane newRoot = null;
         try {
-            newRoot = FXMLLoader.load(getClass().getResource("../resources/NewUser.fxml"));
+            newRoot = FXMLLoader.load(getClass().getResource("./resources/NewUser.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
