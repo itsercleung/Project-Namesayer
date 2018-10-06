@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -145,6 +147,10 @@ public class TestMicrophoneController implements Initializable {
         thread.setDaemon(true); // hax but not graceful shutdown of thread
         thread.start();
 
+        Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
+        listenButton.setGraphic(new ImageView(play));
+        Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
+        testButton.setGraphic(new ImageView(rec));
     }
 }
 
