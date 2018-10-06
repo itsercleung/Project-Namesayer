@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
@@ -37,6 +38,20 @@ public class RecordNewController implements Initializable {
     private String name;
     private String officialName;
     private CreateTempAudio createTempAudio;
+
+    @FXML private Text userText, pointsText;
+
+    @FXML
+    private void homePressed(ActionEvent event) {
+        AnchorPane main = null;
+
+        try {
+            main = FXMLLoader.load(getClass().getResource("resources/Main.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        root.getChildren().setAll(main);
+    }
 
     @FXML
     private void testMicrophonePressed(ActionEvent event) {

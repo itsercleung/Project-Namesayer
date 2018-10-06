@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Text;
 import namesayer.util.Recorder;
 
 import java.io.File;
@@ -33,6 +34,23 @@ public class TestMicrophoneController implements Initializable {
     @FXML private ProgressBar micLevel;
 
     private Recorder recorder = null;
+
+    @FXML private Text userText, pointsText;
+
+    @FXML
+    private void homePressed(ActionEvent event) {
+        AnchorPane main = null;
+
+        try {
+            main = FXMLLoader.load(getClass().getResource("resources/Main.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(main);
+    }
+
+    @FXML
+    private void testMicrophonePressed(ActionEvent event){}
 
     @FXML
     void listenPressed(ActionEvent event) {

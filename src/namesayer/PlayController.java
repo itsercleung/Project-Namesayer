@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
@@ -65,6 +66,8 @@ public class PlayController implements Initializable {
     private JFXButton recordSubButton = new JFXButton("RECORD");
     private JFXButton saveButton = new JFXButton("SAVE NEW");
     private String tempAudioName = null; // for recording
+
+    @FXML private Text userText, pointsText;
 
     @FXML
     void exitPressed(ActionEvent event) {

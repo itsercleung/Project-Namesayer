@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import namesayer.util.Name;
@@ -50,6 +51,20 @@ public class PractiseController implements Initializable {
     private String concatName = "";
     private FilteredList<String> filteredData;
     private boolean isRandomised = false;
+
+    @FXML private Text userText, pointsText;
+
+    @FXML
+    private void homePressed(ActionEvent event) {
+        AnchorPane main = null;
+
+        try {
+            main = FXMLLoader.load(getClass().getResource("resources/Main.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(main);
+    }
 
     @FXML
     private void exitPressed(ActionEvent event) {

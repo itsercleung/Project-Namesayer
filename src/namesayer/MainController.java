@@ -4,7 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +16,31 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     @FXML private AnchorPane mainRoot;
+    @FXML private Text userText, pointsText;
+    @FXML private Button homeButton;
+
+    @FXML
+    void loginButtonClicked(ActionEvent event) {
+        // gets currently selected name to login to
+
+    }
+
+    @FXML
+    void newUserButtonClicked(ActionEvent event) {
+        //Load new user pane
+        AnchorPane newRoot = null;
+        try {
+            newRoot = FXMLLoader.load(getClass().getResource("../resources/NewUser.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(newRoot);
+    }
+
+    @FXML
+    private void homePressed(ActionEvent event) {
+
+    }
 
     @FXML
     private void exitPressed(ActionEvent event) {
@@ -78,6 +105,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        homeButton.setDisable(true);
         deleteTemp(); //On startup delete temp files in folder
 
         //If txt doesnt exist then make one and append TITLE
