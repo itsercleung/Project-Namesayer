@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.PlayAudio;
@@ -263,10 +265,11 @@ public class RecordNewController implements Initializable {
         saveButton.setDisable(true);
         stopRecordingButton.setDisable(true);
 
-        /*
-        // bind record name button so if text field is empty, disable button
-        BooleanBinding isInvalid = Bindings.createBooleanBinding(() -> nameField.getText().trim().isEmpty(), nameField.textProperty());
-        recordButton.disableProperty().bind(isInvalid);
-        */
+        Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
+        recordButton.setGraphic(new ImageView(rec));
+        Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
+        listenButton.setGraphic(new ImageView(play));
+        Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
+        saveButton.setGraphic(new ImageView(save));
     }
 }

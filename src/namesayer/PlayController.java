@@ -187,15 +187,7 @@ public class PlayController implements Initializable {
         // TODO: Possibly let user toggle popup (so if they click out of it, it should stay there) We could make a menu out of that maybe.
         // TODO: What do you think??
 
-        initRecordPopup();
         recordPopup.show(recordButton,JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
-
-    }
-
-    private void initRecordPopup() {
-        // this method will prepare the buttons within the popup
-        VBox box = new VBox(recordSubButton, playOldButton, playNewButton, saveButton); // can make HBox
-        recordPopup.setPopupContent(box);
 
     }
 
@@ -374,6 +366,11 @@ public class PlayController implements Initializable {
             audio.concatCombinedAudio();
         }
 
+        // for jfxpopup
+        VBox box = new VBox(recordSubButton, playOldButton, playNewButton, saveButton); // can make HBox
+        recordPopup.setPopupContent(box);
+        recordPopup.setStyle("-fx-background-color: #212121;"); // TODO not sure how to turn bakcground colour
+
         //Set icons to specific buttons from resources/icons (credited in description).
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         playButton.setGraphic(new ImageView(play));
@@ -385,5 +382,11 @@ public class PlayController implements Initializable {
         nextButton.setGraphic(new ImageView(next));
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
         recordButton.setGraphic(new ImageView(rec));
+
+        recordSubButton.setGraphic(new ImageView(rec));
+        playOldButton.setGraphic(new ImageView(play));
+        playNewButton.setGraphic(new ImageView(play));
+        Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
+        saveButton.setGraphic(new ImageView(save));
     }
 }
