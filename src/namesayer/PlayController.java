@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import namesayer.util.CreateTempAudio;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
@@ -33,10 +34,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class PlayController implements Initializable {
 
@@ -63,6 +63,8 @@ public class PlayController implements Initializable {
     private JFXButton playOldButton = new JFXButton("PLAY OLD"); // placeholders, can put way better looking buttons
     private JFXButton playNewButton = new JFXButton("PLAY NEW");
     private JFXButton recordSubButton = new JFXButton("RECORD");
+    private JFXButton saveButton = new JFXButton("SAVE NEW");
+    private String tempAudioName = null; // for recording
 
     @FXML
     void exitPressed(ActionEvent event) {
@@ -192,7 +194,7 @@ public class PlayController implements Initializable {
 
     private void initRecordPopup() {
         // this method will prepare the buttons within the popup
-        VBox box = new VBox(recordSubButton, playOldButton, playNewButton); // can make HBox
+        VBox box = new VBox(recordSubButton, playOldButton, playNewButton, saveButton); // can make HBox
         recordPopup.setPopupContent(box);
 
     }
@@ -331,10 +333,39 @@ public class PlayController implements Initializable {
             }
         });
 
+        // logic that deals with the JFXPopup for record button
+        recordButton.setDisable(true);
+        saveButton.setDisable(true);
         playOldButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 playMethod();
+            }
+        });
+
+        playNewButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                String path = "./temp/" +tempAudioName + ".wav";
+                PlayAudio playAudio = new PlayAudio(path);
+                playAudio.playAudio();
+            }
+        });
+
+        recordSubButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                playNewButton.setDisable(false);
+                saveButton.setDisable(false);
+
+                //Setup official name for saved recording
+                DateFormat dateFormat = new SimpleDateFormat("_dd-MM-yyyy_HH-mm-ss_");
+                Date date = new Date();
+                tempAudioName = "user" + dateFormat.format(date) +
+                        practiseController.getNamePlaylist().get(currentNameNum).getName();
+
+                CreateTempAudio cta = new CreateTempAudio(tempAudioName);
+                cta.createSingleAudio();
             }
         });
 
