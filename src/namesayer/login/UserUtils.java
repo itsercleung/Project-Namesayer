@@ -37,47 +37,52 @@ public class UserUtils {
 
             userList.setItems(users);
         }
-        //return userList;
     }
 
     public static void setCurrentLoginUser(User user) {
         String path = "./data/CurrentUser.txt";
         File currentUser = new File(path);
         try {
-            FileWriter fw = new FileWriter(currentUser, true);
+            FileWriter fw = new FileWriter(currentUser, false);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.append(user.getUsername());
+            bw.write(user.getUsername());
             bw.close();
+            fw.close();
         } catch (IOException ioe) {
 
         }
     }
 
-    public static User getCurrentLoginUser() {
+    public static User getCurrentLoginUser(Text userText, Text pointsText) {
         String path = "./data/CurrentUser.txt";
         File currentUser = new File(path);
-        File directory = new File("./data/usernames");
-        File[] dirfiles = directory.listFiles();
-        Scanner reader;
 
         try {
-            reader = new Scanner(currentUser);
+            // get current user name
+            Scanner reader = new Scanner(currentUser);
             String username = reader.next();
             reader.close();
 
-            for (File file : dirfiles) {
-                if (file.getName().equals(username)) {
-                    int points = Integer.valueOf(reader.next());
-                    return new User(username, points);
-                }
-            }
+            // get user info from data
+            path = "./data/usernames/"+username+".txt";
+            File userInfo = new File(path);
+            reader = new Scanner(userInfo);
+            reader.nextLine();
+            String number = reader.next();
 
+            int points = Integer.parseInt(number);
+            reader.close();
+
+            userText.setText("User: "+username);
+            pointsText.setText("Points: "+points);
+            return new User(username, points);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
         return null;
     }
+
 
     public static boolean createUser(String name) {
         String path = "./data/usernames/" + name + ".txt";
@@ -106,5 +111,20 @@ public class UserUtils {
     public static void updateUser(Text username, Text points, User user) {
         username.setText("User: " + user.getUsername());
         points.setText("Points: " + user.getPoints());
+
+        // TODO update user textfile points as well
+        String path = "./data/usernames/" + user.getUsername() + ".txt";
+        File usernameTxt = new File(path);
+
+        try {
+            FileWriter fw = new FileWriter(usernameTxt, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(user.getUsername());
+            bw.newLine();
+            bw.write(String.valueOf(user.getPoints()));
+            bw.close();
+        } catch (IOException ioe) {
+
+        }
     }
 }
