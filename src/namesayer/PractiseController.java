@@ -414,6 +414,7 @@ public class PractiseController implements Initializable {
         //Clear selectedLists and setup components
         namePlaylist.clear();
         selectedNameList.clear();
+        playAudioList.clear();
         searchNamesView.setVisible(false);
         practiseButton.setDisable(true);
 
