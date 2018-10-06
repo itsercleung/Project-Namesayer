@@ -8,9 +8,10 @@ import javafx.scene.text.Text;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Call these utility functions via UserUtils.<method>()
+ */
 public class UserUtils {
-
-    // call these utility functions via UserUtils.<method>()
 
     public static void getUserList(ListView<User> userList) {
         File directory = new File("./data/usernames");
@@ -39,6 +40,9 @@ public class UserUtils {
         }
     }
 
+    /**
+     * Sets current user upon logging in
+     */
     public static void setCurrentLoginUser(User user) {
         String path = "./data/CurrentUser.txt";
         File currentUser = new File(path);
@@ -53,6 +57,10 @@ public class UserUtils {
         }
     }
 
+    /**
+     * getCurrentLoginUser gets and updates the currently selected user,
+     * for each new view
+     */
     public static User getCurrentLoginUser(Text userText, Text pointsText) {
         String path = "./data/CurrentUser.txt";
         File currentUser = new File(path);
@@ -83,7 +91,6 @@ public class UserUtils {
         return null;
     }
 
-
     public static boolean createUser(String name) {
         String path = "./data/usernames/" + name + ".txt";
         File usernameTxt = new File(path);
@@ -107,12 +114,14 @@ public class UserUtils {
         return true;
     }
 
-    // sets or updates user information on the Text at bottom left corner
-    public static void updateUser(Text username, Text points, User user) {
-        username.setText("User: " + user.getUsername());
-        points.setText("Points: " + user.getPoints());
+    /**
+     * updateUser sets or updates user information on the Text
+     * at bottom left corner.
+     */
+    public static void updateUser(User user, Text userText, Text pointsText) {
+        userText.setText("User: " + user.getUsername());
+        pointsText.setText("Points: " + user.getPoints());
 
-        // TODO update user textfile points as well
         String path = "./data/usernames/" + user.getUsername() + ".txt";
         File usernameTxt = new File(path);
 
@@ -126,5 +135,13 @@ public class UserUtils {
         } catch (IOException ioe) {
 
         }
+    }
+
+    /**
+     * updateUser will add points to user and updates the GUI points
+     */
+    public static void updateUser(User user, Points points, Text userText, Text pointsText) {
+        user.addPoints(points);
+        UserUtils.updateUser(user,userText,pointsText);
     }
 }

@@ -36,7 +36,7 @@ public class MainController implements Initializable {
         // gets currently selected name to login to
         User user = userList.getSelectionModel().getSelectedItem();
         UserUtils.setCurrentLoginUser(user);
-        UserUtils.updateUser(userText,pointsText,user);
+        UserUtils.updateUser(user,userText,pointsText);
     }
 
     @FXML

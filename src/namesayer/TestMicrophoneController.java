@@ -16,6 +16,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
+import namesayer.login.User;
+import namesayer.login.UserUtils;
 import namesayer.util.Recorder;
 
 import java.io.File;
@@ -36,6 +38,7 @@ public class TestMicrophoneController implements Initializable {
     private Recorder recorder = null;
 
     @FXML private Text userText, pointsText;
+    private User user;
 
     @FXML
     private void homePressed(ActionEvent event) {
@@ -169,6 +172,9 @@ public class TestMicrophoneController implements Initializable {
         listenButton.setGraphic(new ImageView(play));
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
         testButton.setGraphic(new ImageView(rec));
+
+        // user info
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }
 

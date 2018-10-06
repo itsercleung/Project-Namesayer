@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import namesayer.login.User;
+import namesayer.login.UserUtils;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
@@ -40,6 +42,7 @@ public class RecordNewController implements Initializable {
     private CreateTempAudio createTempAudio;
 
     @FXML private Text userText, pointsText;
+    private User user;
 
     @FXML
     private void homePressed(ActionEvent event) {
@@ -196,6 +199,8 @@ public class RecordNewController implements Initializable {
             }.start();
             createTempAudio = new CreateTempAudio(officialName);
             createTempAudio.createSingleAudio();
+
+
         }
     }
 
@@ -286,5 +291,8 @@ public class RecordNewController implements Initializable {
         listenButton.setGraphic(new ImageView(play));
         Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
         saveButton.setGraphic(new ImageView(save));
+
+        // user info
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }
