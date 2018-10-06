@@ -3,6 +3,7 @@ package namesayer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +13,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -59,6 +62,7 @@ public class PlayController implements Initializable {
     private String currSelectedName; //Current name row selected by user
     private PlayAudio playAudio;
 
+    //Record sidebar function
     private JFXPopup recordPopup = new JFXPopup();
     private JFXButton playOldButton = new JFXButton("PLAY OLD"); // placeholders, can put way better looking buttons
     private JFXButton playNewButton = new JFXButton("PLAY NEW");
@@ -155,7 +159,6 @@ public class PlayController implements Initializable {
                         if (!nameAudio.contains(" ")) {
                             playAudio = new PlayAudio("data/names/" + nameAudio);
                             playAudio.playAudio();
-
                         }
                         //Else if name is combination - section names into appropriate format
                         else {
@@ -182,20 +185,29 @@ public class PlayController implements Initializable {
 
     @FXML
     void recordPressed(ActionEvent event) {
-        // TODO to recordSubButton user practise
-        // TODO also a play/save should be in same screen?
-        // TODO: Possibly let user toggle popup (so if they click out of it, it should stay there) We could make a menu out of that maybe.
-        // TODO: What do you think??
+        //Button sizes and style
+        recordSubButton.setMinSize(130.0, 40);
+        playNewButton.setMinSize(130.0, 40);
+        playOldButton.setMinSize(130.0, 40);
+        saveButton.setMinSize(130.0, 40);
 
-        recordPopup.show(recordButton,JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+        recordSubButton.setFocusTraversable(false);
+        playNewButton.setFocusTraversable(false);
+        playOldButton.setFocusTraversable(false);
+        saveButton.setFocusTraversable(false);
 
+        recordSubButton.setOnMouseEntered(e -> recordSubButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;"));
+        recordSubButton.setOnMouseExited(e -> recordSubButton.setStyle("-fx-background-color: transparent"));
+
+        //Setting popup position and size
+        recordPopup.show(recordButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+        recordPopup.getPopupContent().setPrefWidth(130);
     }
 
     @FXML
     void stopPressed(ActionEvent event) {
         playAudio.stopAudio();
         playButton.setDisable(false);
-        recordButton.setDisable(false);
         stopButton.setDisable(true);
     }
 
@@ -326,7 +338,6 @@ public class PlayController implements Initializable {
         });
 
         // logic that deals with the JFXPopup for record button
-        recordButton.setDisable(true);
         saveButton.setDisable(true);
         playOldButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -335,10 +346,11 @@ public class PlayController implements Initializable {
             }
         });
 
+        playNewButton.setDisable(true);
         playNewButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                String path = "./temp/" +tempAudioName + ".wav";
+                String path = "./temp/" + tempAudioName.replace(" ","") + ".wav";
                 PlayAudio playAudio = new PlayAudio(path);
                 playAudio.playAudio();
             }
@@ -351,11 +363,7 @@ public class PlayController implements Initializable {
                 saveButton.setDisable(false);
 
                 //Setup official name for saved recording
-                DateFormat dateFormat = new SimpleDateFormat("_dd-MM-yyyy_HH-mm-ss_");
-                Date date = new Date();
-                tempAudioName = "user" + dateFormat.format(date) +
-                        practiseController.getNamePlaylist().get(currentNameNum).getName();
-
+                tempAudioName = "user_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
                 CreateTempAudio cta = new CreateTempAudio(tempAudioName);
                 cta.createSingleAudio();
             }
@@ -366,12 +374,12 @@ public class PlayController implements Initializable {
             audio.concatCombinedAudio();
         }
 
-        // for jfxpopup
+        //INIT JFX-POPUP
         VBox box = new VBox(recordSubButton, playOldButton, playNewButton, saveButton); // can make HBox
         recordPopup.setPopupContent(box);
-        recordPopup.setStyle("-fx-background-color: #212121;"); // TODO not sure how to turn bakcground colour
 
         //Set icons to specific buttons from resources/icons (credited in description).
+        //Set icons for play menu
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         playButton.setGraphic(new ImageView(play));
         Image stop = new Image(getClass().getResourceAsStream("resources/icons/stop.png"));
@@ -380,13 +388,21 @@ public class PlayController implements Initializable {
         prevButton.setGraphic(new ImageView(prev));
         Image next = new Image(getClass().getResourceAsStream("resources/icons/next.png"));
         nextButton.setGraphic(new ImageView(next));
-        Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
-        recordButton.setGraphic(new ImageView(rec));
 
-        recordSubButton.setGraphic(new ImageView(rec));
-        playOldButton.setGraphic(new ImageView(play));
-        playNewButton.setGraphic(new ImageView(play));
-        Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
-        saveButton.setGraphic(new ImageView(save));
+        Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
+        Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
+        recordButton.setGraphic(new ImageView(rec));
+        recordButton.setOnMouseEntered(e -> recordButton.setGraphic(new ImageView(recHover)));
+        recordButton.setOnMouseExited(e -> recordButton.setGraphic(new ImageView(rec)));
+
+        //Set icons for side menu
+        Image recSub = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
+        recordSubButton.setGraphic(new ImageView(recSub));
+        Image playOld = new Image(getClass().getResourceAsStream("resources/icons/playOld.png"));
+        playOldButton.setGraphic(new ImageView(playOld));
+        Image playNew = new Image(getClass().getResourceAsStream("resources/icons/playNew.png"));
+        playNewButton.setGraphic(new ImageView(playNew));
+        Image saveNew = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
+        saveButton.setGraphic(new ImageView(saveNew));
     }
 }
