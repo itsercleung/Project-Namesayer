@@ -64,19 +64,19 @@
                   </Label>
                   <HBox prefHeight="80.0" prefWidth="200.0">
                      <children>
-                        <JFXTextField fx:id="searchTextField" focusColor="#ff5252" minHeight="42.0" prefWidth="300.0" promptText="Search any name (case-insensitive)" stylesheets="@stylesheet/general.css">
+                        <JFXTextField fx:id="searchTextField" focusColor="#ff5252" minHeight="50.0" prefWidth="300.0" promptText="Search any name (case-insensitive)" stylesheets="@stylesheet/general.css">
                            <HBox.margin>
-                              <Insets left="140.0" top="5.0" />
+                              <Insets left="140.0" right="-3.0" top="5.0" />
                            </HBox.margin>
                         </JFXTextField>
-                        <Line endX="-50.0" endY="-50.0" rotate="90.0" scaleY="3.0" startX="-100.0" startY="-50.0">
+                        <Line endX="-37.0" endY="-50.0" rotate="90.0" scaleY="3.0" startX="-100.0" startY="-50.0">
                            <HBox.margin>
-                              <Insets top="28.0" />
+                              <Insets top="30.0" />
                            </HBox.margin>
                         </Line>
-                        <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#uploadButtonClicked" prefHeight="45.0" prefWidth="140.0" stylesheets="@stylesheet/general.css" text="Upload Names">
+                        <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#uploadButtonClicked" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Upload Names">
                            <HBox.margin>
-                              <Insets left="3.0" top="5.0" />
+                              <Insets left="-5.0" />
                            </HBox.margin>
                         </Button>
                      </children>
@@ -84,16 +84,19 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <Label opacity="0.78" text="PRACTICE PLAYLIST">
+                  <Label fx:id="titleLabel" alignment="CENTER" prefHeight="40.0" prefWidth="315.0" stylesheets="@stylesheet/general.css" text="PRACTICE PLAYLIST">
                      <VBox.margin>
-                        <Insets left="325.0" />
+                        <Insets left="240.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
                   </Label>
-                  <HBox prefHeight="330.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
+                  <HBox prefHeight="300.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
                      <children>
-                        <VBox prefHeight="330.0" prefWidth="301.0">
+                        <VBox prefHeight="330.0" prefWidth="316.0">
                            <children>
-                              <JFXListView fx:id="selectedNamesView" prefHeight="334.0" prefWidth="250.0" stylesheets="@stylesheet/general.css">
+                              <JFXListView fx:id="selectedNamesView" prefHeight="290.0" prefWidth="325.0" stylesheets="@stylesheet/general.css">
                                  <VBox.margin>
                                     <Insets top="40.0" />
                                  </VBox.margin>
@@ -107,12 +110,12 @@
                            <children>
                               <JFXListView fx:id="searchNamesView" prefHeight="200.0" stylesheets="@stylesheet/search.css">
                                  <VBox.margin>
-                                    <Insets top="-21.0" />
+                                    <Insets top="-28.0" />
                                  </VBox.margin>
                               </JFXListView>
                            </children>
                            <HBox.margin>
-                              <Insets left="-401.0" />
+                              <Insets left="-416.0" />
                            </HBox.margin>
                         </VBox>
                      </children>
@@ -135,7 +138,7 @@
                               <Insets left="40.0" />
                            </VBox.margin>
                            <children>
-                              <Button fx:id="playNames" mnemonicParsing="false" onAction="#pressedPlayNames" prefHeight="50.0" prefWidth="140.0" stylesheets="@stylesheet/general.css" text="Practise">
+                              <Button fx:id="playNames" mnemonicParsing="false" onAction="#pressedPlayNames" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Practise">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -143,7 +146,7 @@
                                     <Insets left="203.0" right="5.0" top="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="50.0" prefWidth="140.0" stylesheets="@stylesheet/general.css" text="Clear">
+                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Clear">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

@@ -38,9 +38,9 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <HBox prefHeight="350.0" prefWidth="200.0">
+                  <HBox prefHeight="290.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="nameTable" onMouseClicked="#rowClicked" pickOnBounds="false" prefHeight="100.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
+                        <TableView fx:id="nameTable" onMouseClicked="#rowClicked" pickOnBounds="false" prefHeight="120.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
                            <columns>
                               <TableColumn fx:id="nameCol" editable="false" minWidth="59.0" prefWidth="220.0" sortable="false" text="NAME" />
                               <TableColumn fx:id="createdCol" editable="false" minWidth="50.0" prefWidth="150.0" sortable="false" text="CREATED BY" />
@@ -52,15 +52,39 @@
                         <Insets left="100.0" />
                      </VBox.margin>
                   </HBox>
-                  <Label fx:id="playLabel" alignment="CENTER" opacity="0.83" prefHeight="40.0" prefWidth="800.0" text="PLAYING:">
+                  <Label fx:id="playLabel" alignment="CENTER" prefHeight="40.0" prefWidth="600.0" stylesheets="@stylesheet/general.css" text="PLAYING:">
                      <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets bottom="30.0" left="100.0" top="10.0" />
                      </VBox.margin>
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <HBox prefHeight="60.0" prefWidth="800.0">
+                  <VBox prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="20.0" prefWidth="800.0">
+                           <children>
+                              <Label alignment="CENTER" opacity="0.8" prefWidth="200.0" text="QUALITY RATING:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="-55.0" right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Rating fx:id="audioRating" prefHeight="22.0" prefWidth="176.0" rating="0.0" stylesheets="@stylesheet/general.css">
+                                 <HBox.margin>
+                                    <Insets left="-30.0" />
+                                 </HBox.margin>
+                              </Rating>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </VBox>
+                  <HBox prefHeight="55.0" prefWidth="800.0">
                      <children>
                         <Button fx:id="prevButton" mnemonicParsing="false" onAction="#prevPressed" prefHeight="60.0" prefWidth="80.0" stylesheets="@stylesheet/general.css">
                            <tooltip><Tooltip text="Previous" /></tooltip>
@@ -98,33 +122,9 @@
                         </Button>
                      </children>
                      <VBox.margin>
-                        <Insets />
+                        <Insets top="-5.0" />
                      </VBox.margin>
                   </HBox>
-                  <VBox prefHeight="50.0" prefWidth="100.0">
-                     <children>
-                        <HBox alignment="CENTER" prefHeight="20.0" prefWidth="800.0">
-                           <children>
-                              <Label alignment="CENTER" opacity="0.8" prefWidth="200.0" text="QUALITY RATING:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="-55.0" right="5.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Rating fx:id="audioRating" prefHeight="22.0" prefWidth="176.0" rating="0.0" stylesheets="@stylesheet/general.css">
-                                 <HBox.margin>
-                                    <Insets left="-30.0" />
-                                 </HBox.margin>
-                              </Rating>
-                           </children>
-                        </HBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </VBox>
                </children>
             </VBox>
          </children>

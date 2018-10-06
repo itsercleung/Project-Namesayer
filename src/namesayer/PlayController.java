@@ -81,7 +81,7 @@ public class PlayController implements Initializable {
             nextButton.setDisable(true);
         }
         prevButton.setDisable(false);
-        playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
         updateRatingComponent(); //Change rating component
     }
@@ -98,7 +98,7 @@ public class PlayController implements Initializable {
             prevButton.setDisable(true);
         }
         nextButton.setDisable(false);
-        playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
         updateRatingComponent(); //Change rating component
     }
@@ -129,7 +129,7 @@ public class PlayController implements Initializable {
         else if (currentNameNum == practiseController.getNamePlaylist().size() - 1) {
             nextButton.setDisable(true);
         }
-        playLabel.setText("Currently playing " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         updateRatingComponent(); //Change rating component
     }
 

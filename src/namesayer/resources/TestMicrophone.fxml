@@ -77,7 +77,7 @@
                      <children>
                         <Label text="Mic Level">
                            <HBox.margin>
-                              <Insets left="237.0" />
+                              <Insets left="235.0" />
                            </HBox.margin></Label>
                         <JFXProgressBar fx:id="micLevel" prefHeight="10.0" stylesheets="@stylesheet/general.css">
                            <HBox.margin>
@@ -96,15 +96,15 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="testButton" alignment="CENTER" mnemonicParsing="false" onAction="#testPressed" prefHeight="60.0" prefWidth="170.0" stylesheets="@stylesheet/general.css" text="Test">
+                        <Button fx:id="testButton" alignment="CENTER" mnemonicParsing="false" onAction="#testPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Test">
                            <HBox.margin>
-                              <Insets left="215.0" right="20.0" top="15.0" />
+                              <Insets left="235.0" right="20.0" top="15.0" />
                            </HBox.margin>
                            <VBox.margin>
                               <Insets right="5.0" top="-15.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="listenButton" alignment="CENTER" mnemonicParsing="false" onAction="#listenPressed" prefHeight="60.0" prefWidth="170.0" stylesheets="@stylesheet/general.css" text="Listen">
+                        <Button fx:id="listenButton" alignment="CENTER" mnemonicParsing="false" onAction="#listenPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Listen">
                            <HBox.margin>
                               <Insets top="15.0" />
                            </HBox.margin>

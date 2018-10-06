@@ -224,3 +224,15 @@ ToggleSwitch:selected .thumb-area {
 #text2 {
     -fx-text-fill: white;
 }
+
+#playLabel {
+    -fx-background-color: rgba(0,0,0,0.8);
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+}
+
+#titleLabel {
+    -fx-background-color: rgba(0,0,0,0.8);
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+}
