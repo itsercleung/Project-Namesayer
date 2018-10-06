@@ -42,8 +42,8 @@
                      <children>
                         <TableView fx:id="nameTable" onMouseClicked="#rowClicked" pickOnBounds="false" prefHeight="100.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
                            <columns>
-                              <TableColumn fx:id="nameCol" editable="false" minWidth="59.0" prefWidth="180.0" sortable="false" text="NAME" />
-                              <TableColumn fx:id="createdCol" editable="false" minWidth="50.0" prefWidth="180.0" sortable="false" text="CREATED BY" />
+                              <TableColumn fx:id="nameCol" editable="false" minWidth="59.0" prefWidth="220.0" sortable="false" text="NAME" />
+                              <TableColumn fx:id="createdCol" editable="false" minWidth="50.0" prefWidth="150.0" sortable="false" text="CREATED BY" />
                               <TableColumn fx:id="ratingCol" editable="false" prefWidth="200.0" sortable="false" text="RATING" />
                            </columns>
                         </TableView>

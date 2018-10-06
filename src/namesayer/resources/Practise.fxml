@@ -93,7 +93,7 @@
                      <children>
                         <VBox prefHeight="330.0" prefWidth="301.0">
                            <children>
-                              <JFXListView fx:id="selectedNamesView" prefHeight="334.0" prefWidth="250.0">
+                              <JFXListView fx:id="selectedNamesView" prefHeight="334.0" prefWidth="250.0" stylesheets="@stylesheet/general.css">
                                  <VBox.margin>
                                     <Insets top="40.0" />
                                  </VBox.margin>
@@ -105,7 +105,7 @@
                         </VBox>
                         <VBox prefHeight="250.0" prefWidth="300.0">
                            <children>
-                              <JFXListView fx:id="searchNamesView" prefHeight="200.0">
+                              <JFXListView fx:id="searchNamesView" prefHeight="200.0" stylesheets="@stylesheet/search.css">
                                  <VBox.margin>
                                     <Insets top="-21.0" />
                                  </VBox.margin>

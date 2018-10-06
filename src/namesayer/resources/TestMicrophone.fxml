@@ -61,39 +61,23 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <HBox prefHeight="142.0" prefWidth="800.0">
-                     <children>
-                        <VBox fx:id="testNote" prefHeight="117.0" prefWidth="363.0" stylesheets="@stylesheet/general.css">
-                           <children>
-                              <Label fx:id="text1" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="(1) Press [Test] to record 3 sec: ">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label fx:id="text2" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="(2) Press [Listen] to hear your 3 sec recording:">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="testLabel" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="[Start test]" textFill="WHITE" />
-                           </children>
-                           <HBox.margin>
-                              <Insets left="215.0" />
-                           </HBox.margin>
-                        </VBox>
-                     </children>
+                  <HBox prefHeight="30.0" prefWidth="800.0">
                      <VBox.margin>
                         <Insets bottom="20.0" top="40.0" />
                      </VBox.margin>
                   </HBox>
+                  <Label fx:id="testLabel" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="[Start test]" textFill="#282828">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="-7.0" />
+                     </padding></Label>
                   <HBox prefHeight="50.0" prefWidth="200.0">
                      <children>
                         <Label text="Mic Level">
                            <HBox.margin>
-                              <Insets left="235.0" />
+                              <Insets left="237.0" />
                            </HBox.margin></Label>
                         <JFXProgressBar fx:id="micLevel" prefHeight="10.0" stylesheets="@stylesheet/general.css">
                            <HBox.margin>
@@ -136,7 +120,7 @@
                         <Font size="15.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="105.0" />
+                        <Insets top="190.0" />
                      </VBox.margin></Label>
                </children>
                <HBox.margin>
