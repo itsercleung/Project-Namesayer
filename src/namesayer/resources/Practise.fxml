@@ -92,9 +92,9 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <HBox prefHeight="300.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
+                  <HBox prefHeight="270.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
                      <children>
-                        <VBox prefHeight="330.0" prefWidth="316.0">
+                        <VBox prefHeight="300.0" prefWidth="316.0">
                            <children>
                               <JFXListView fx:id="selectedNamesView" prefHeight="290.0" prefWidth="325.0" stylesheets="@stylesheet/general.css">
                                  <VBox.margin>
@@ -110,7 +110,7 @@
                            <children>
                               <JFXListView fx:id="searchNamesView" prefHeight="200.0" stylesheets="@stylesheet/search.css">
                                  <VBox.margin>
-                                    <Insets top="-28.0" />
+                                    <Insets top="-33.0" />
                                  </VBox.margin>
                               </JFXListView>
                            </children>
@@ -120,10 +120,10 @@
                         </VBox>
                      </children>
                      <VBox.margin>
-                        <Insets top="-30.0" />
+                        <Insets top="-35.0" />
                      </VBox.margin>
                   </HBox>
-                  <VBox prefHeight="100.0" prefWidth="100.0" stylesheets="@stylesheet/general.css">
+                  <VBox prefHeight="110.0" prefWidth="100.0" stylesheets="@stylesheet/general.css">
                      <children>
                         <ToggleSwitch fx:id="toggleRandomise" prefWidth="120.0" stylesheets="@stylesheet/general.css" text="Randomise">
                            <font>
@@ -133,7 +133,7 @@
                               <Insets left="243.0" top="15.0" />
                            </VBox.margin>
                         </ToggleSwitch>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox prefHeight="70.0" prefWidth="200.0">
                            <VBox.margin>
                               <Insets left="40.0" />
                            </VBox.margin>
@@ -161,6 +161,14 @@
                         <Insets />
                      </VBox.margin>
                   </VBox>
+                  <Label alignment="CENTER" opacity="0.79" prefHeight="40.0" prefWidth="800.0" text="TIP: Enter full names for a combination!">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
                <HBox.margin>
                   <Insets />

@@ -126,7 +126,7 @@ public class PlayController implements Initializable {
         if (currentNameNum == 0) {
             prevButton.setDisable(true);
         }
-        else if (currentNameNum == practiseController.getNamePlaylist().size() - 1) {
+        if (currentNameNum == practiseController.getNamePlaylist().size() - 1) {
             nextButton.setDisable(true);
         }
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
