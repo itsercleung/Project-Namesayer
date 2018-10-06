@@ -46,6 +46,20 @@ public class PlayAudio {
     }
 
     public void filterCombinedAudio() {
+        //Silence noise sections of each audio
+        for (String nameAudio : combineAudio) {
+            String silenceAudio = "cp data/names/" + nameAudio + ".wav temp/" + nameAudio + ".wav\n" +
+                    "ffmpeg -hide_banner -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-50dB:1:5:-50dB:0 temp/" + nameAudio + "CONCAT.wav\n";
+            ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", silenceAudio);
+            try {
+                processBuilder.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void concatCombinedAudio() {
         //Combine audio clips together
         FileWriter writer = null;
         try {
@@ -58,22 +72,9 @@ public class PlayAudio {
             e.printStackTrace();
         }
 
-        //Silence noise sections of each audio
-        for (String nameAudio : combineAudio) {
-            String silenceAudio = "cp data/names/" + nameAudio + ".wav temp/" + nameAudio + ".wav\n" +
-                    "ffmpeg -hide_banner -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-35dB:1:5:-35dB:0 temp/" + nameAudio + "CONCAT.wav\n";
-            ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", silenceAudio);
-            try {
-                processBuilder.start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void concatCombinedAudio() {
         //Concatenate from txt file
-        String concatAudio = "ffmpeg -f concat -safe 0 -i temp/combineAudio.txt -c copy temp/" + audio.replace(" ", "") + " \n";
+        String concatAudio = "ffmpeg -f concat -i temp/combineAudio.txt -c copy temp/" + audio.replace(" ", "") + " \n" +
+                "rm temp/combineAudio.txt";
         ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", concatAudio);
         try {
             Process process = processBuilder.start();

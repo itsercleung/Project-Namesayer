@@ -54,9 +54,9 @@ public class PlayController implements Initializable {
     @FXML private Rating audioRating;
 
     private PractiseController practiseController = new PractiseController();
+    private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
     private int currentNameNum = 0; //Current name being played
     private String currSelectedName; //Current name row selected by user
-    private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
     private PlayAudio playAudio;
 
     private JFXPopup recordPopup = new JFXPopup();
@@ -149,16 +149,16 @@ public class PlayController implements Initializable {
                         stopButton.setDisable(false);
 
                         String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
-                        String path = "data/names/" + nameAudio;
                         //If current name isn't combination
                         if (!nameAudio.contains(" ")) {
-                            playAudio = new PlayAudio(path);
+                            playAudio = new PlayAudio("data/names/" + nameAudio);
                             playAudio.playAudio();
 
                         }
                         //Else if name is combination - section names into appropriate format
                         else {
-
+                            playAudio = new PlayAudio("temp/" + nameAudio.replace(" ", ""));
+                            playAudio.playAudio();
                         }
                     }
                 });
@@ -337,6 +337,11 @@ public class PlayController implements Initializable {
                 playMethod();
             }
         });
+
+        //Concat multiple names selected
+        for (PlayAudio audio : practiseController.getPlayAudioList()) {
+            audio.concatCombinedAudio();
+        }
 
         //Set icons to specific buttons from resources/icons (credited in description).
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));

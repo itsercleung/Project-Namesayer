@@ -46,6 +46,7 @@ public class PractiseController implements Initializable {
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
     private static List<Name> namePlaylist = new ArrayList<>();
+    private static List<PlayAudio> playAudioList = new ArrayList<>();
     private String concatName = "";
     private FilteredList<String> filteredData;
     private boolean isRandomised = false;
@@ -216,11 +217,6 @@ public class PractiseController implements Initializable {
         selectedNamesView.setItems(selectedNameList);
     }
 
-    //Used in PlayController to get current selected Playlist of users
-    public List<Name> getNamePlaylist() {
-        return namePlaylist;
-    }
-
     /* Makes playlist from selectedList names:
    (1) Use name to find all audio files associating with name
    (2) Get list of all audio files associating with name
@@ -376,10 +372,7 @@ public class PractiseController implements Initializable {
             String nameAudio = playName.toString() + ".wav";
 
             //If current name isn't combination
-            if (!nameAudio.contains(" ")) {
-
-            }
-            else if (nameAudio.contains(" ")) {
+            if (nameAudio.contains(" ")) {
                 List<String> combineNameList = new ArrayList<>();
                 String[] hypParts = nameAudio.split("_");
                 String[] spcParts = hypParts[3].split(" ");
@@ -401,9 +394,19 @@ public class PractiseController implements Initializable {
                 //Run appropriate methods with given name list and play
                 PlayAudio playAudio = new PlayAudio(combineNameList, nameAudio);
                 playAudio.filterCombinedAudio();
-                playAudio.concatCombinedAudio();
+                playAudioList.add(playAudio);
             }
         }
+    }
+
+    //Used in PlayController to get current selected Playlist of users
+    public List<Name> getNamePlaylist() {
+        return namePlaylist;
+    }
+
+    //Used to concat existing PlayAudio
+    public List<PlayAudio> getPlayAudioList() {
+        return playAudioList;
     }
 
     @Override
