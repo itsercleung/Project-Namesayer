@@ -73,7 +73,7 @@ public class PlayAudio {
 
         //Concatenate from txt file
         String concatAudio = "cd temp/\n" +
-                "ffmpeg -f concat -safe 0 -i combineAudio.txt -c copy combine.wav\n";
+                "ffmpeg -f concat -i combineAudio.txt -c copy combine.wav\n";
         ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", concatAudio);
         try {
             processBuilder.start();

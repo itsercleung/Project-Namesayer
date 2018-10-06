@@ -1,11 +1,14 @@
 package namesayer;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
@@ -53,6 +57,11 @@ public class PlayController implements Initializable {
     private String currSelectedName; //Current name row selected by user
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
     private PlayAudio playAudio;
+
+    private JFXPopup recordPopup = new JFXPopup();
+    private JFXButton playOldButton = new JFXButton("PLAY OLD"); // placeholders, can put way better looking buttons
+    private JFXButton playNewButton = new JFXButton("PLAY NEW");
+    private JFXButton recordSubButton = new JFXButton("RECORD");
 
     @FXML
     void exitPressed(ActionEvent event) {
@@ -135,6 +144,11 @@ public class PlayController implements Initializable {
 
     @FXML
     void playPressed(ActionEvent event) {
+        playMethod();
+    }
+
+    // for code reuse
+    private void playMethod() {
         //Play audio files from filteredNames of the users selected
         new Thread() {
             public void run() {
@@ -198,8 +212,20 @@ public class PlayController implements Initializable {
 
     @FXML
     void recordPressed(ActionEvent event) {
-        // TODO to record user practise
+        // TODO to recordSubButton user practise
         // TODO also a play/save should be in same screen?
+
+        initRecordPopup();
+        recordPopup.show(recordButton,JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+
+
+    }
+
+    private void initRecordPopup() {
+        // this method will prepare the buttons within the popup
+        VBox box = new VBox(recordSubButton, playOldButton, playNewButton); // can make HBox
+        recordPopup.setPopupContent(box);
+
     }
 
     @FXML
@@ -333,6 +359,13 @@ public class PlayController implements Initializable {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 ratingPressed(newValue.toString());
                 ratingUpdate();
+            }
+        });
+
+        playOldButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                playMethod();
             }
         });
 
