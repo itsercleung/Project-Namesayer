@@ -26,6 +26,7 @@ import namesayer.util.Name;
 import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -80,10 +81,6 @@ public class PlayController implements Initializable {
 
     @FXML
     void nextPressed(ActionEvent event) {
-        //Delete temp combined names if they exist
-        MainController mainController = new MainController();
-        mainController.deleteTemp();
-
         //Switching to next selected audio files
         currentNameNum++;
         if (currentNameNum == practiseController.getNamePlaylist().size() - 1) {
@@ -97,10 +94,6 @@ public class PlayController implements Initializable {
 
     @FXML
     void prevPressed(ActionEvent event) {
-        //Delete temp combined names if they exist
-        MainController mainController = new MainController();
-        mainController.deleteTemp();
-
         //Switching to prev selected audio files
         currentNameNum--;
         if (currentNameNum == 0) {
@@ -115,10 +108,6 @@ public class PlayController implements Initializable {
 
     @FXML
     void rowClicked(MouseEvent event) {
-        //Delete temp combined names if they exist
-        MainController mainController = new MainController();
-        mainController.deleteTemp();
-
         //Set selectedName index on what row user selects
         currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
         int i = 0;
@@ -169,28 +158,7 @@ public class PlayController implements Initializable {
                         }
                         //Else if name is combination - section names into appropriate format
                         else {
-                            List<String> combineNameList = new ArrayList<>();
-                            String[] hypParts = nameAudio.split("_");
-                            String[] spcParts = hypParts[3].split(" ");
-                            int nameCount = spcParts.length;
 
-                            //Reformat and place into combineNameList
-                            for (int i = 0; i < nameCount; i++) {
-                                StringBuilder name = new StringBuilder();
-                                for (String part : hypParts) {
-                                    String[] spaceParts = part.split(" ");
-                                    name.append("_").append(spaceParts[i]);
-                                }
-                                if (name.toString().contains(".wav")) {
-                                    name = new StringBuilder(name.substring(0, name.lastIndexOf(".")));
-                                }
-                                combineNameList.add(name.substring(1));
-                            }
-
-                            //Run appropriate methods with given name list and play
-                            playAudio = new PlayAudio(combineNameList);
-                            playAudio.playCombinedAudio();
-                            playAudio.playAudio();
                         }
                     }
                 });
@@ -214,10 +182,11 @@ public class PlayController implements Initializable {
     void recordPressed(ActionEvent event) {
         // TODO to recordSubButton user practise
         // TODO also a play/save should be in same screen?
+        // TODO: Possibly let user toggle popup (so if they click out of it, it should stay there) We could make a menu out of that maybe.
+        // TODO: What do you think??
 
         initRecordPopup();
         recordPopup.show(recordButton,JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
-
 
     }
 

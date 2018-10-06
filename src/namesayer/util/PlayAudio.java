@@ -22,20 +22,9 @@ public class PlayAudio {
         this.audio = audio;
     }
 
-    public PlayAudio(List<String> combineAudio) {
+    public PlayAudio(List<String> combineAudio, String audio) {
         this.combineAudio = combineAudio;
-        audio = "temp/combine.wav";
-        //Combine audio clips together
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter("temp/combineAudio.txt");
-            for (String str : combineAudio) {
-                writer.write("file '" + str + "CONCAT.wav'\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.audio = audio;
     }
 
     public void playAudio() {
@@ -56,13 +45,23 @@ public class PlayAudio {
         new Thread(task).start();
     }
 
-    public void playCombinedAudio() {
+    public void filterCombinedAudio() {
+        //Combine audio clips together
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("temp/combineAudio.txt");
+            for (String str : combineAudio) {
+                writer.write("file '" + str + "CONCAT.wav'\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //Silence noise sections of each audio
         for (String nameAudio : combineAudio) {
-            String silenceAudio = "cd data/names\n" +
-                    "cp " + nameAudio + ".wav ../../temp/" + nameAudio + ".wav\n" +
-                    "cd ../../temp\n" +
-                    "ffmpeg -hide_banner -i " + nameAudio + ".wav -af silenceremove=1:0:-35dB:1:5:-35dB:0 " + nameAudio + "CONCAT.wav\n";
+            String silenceAudio = "cp data/names/" + nameAudio + ".wav temp/" + nameAudio + ".wav\n" +
+                    "ffmpeg -hide_banner -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-35dB:1:5:-35dB:0 temp/" + nameAudio + "CONCAT.wav\n";
             ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", silenceAudio);
             try {
                 processBuilder.start();
@@ -70,14 +69,16 @@ public class PlayAudio {
                 e.printStackTrace();
             }
         }
+    }
 
+    public void concatCombinedAudio() {
         //Concatenate from txt file
-        String concatAudio = "cd temp/\n" +
-                "ffmpeg -f concat -i combineAudio.txt -c copy combine.wav\n";
+        String concatAudio = "ffmpeg -f concat -safe 0 -i temp/combineAudio.txt -c copy temp/" + audio.replace(" ", "") + " \n";
         ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", concatAudio);
         try {
-            processBuilder.start();
-        } catch (IOException e) {
+            Process process = processBuilder.start();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

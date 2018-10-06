@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import namesayer.util.Name;
+import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -82,6 +83,7 @@ public class PractiseController implements Initializable {
     @FXML
     private void pressedPlayNames(ActionEvent event) {
         makePlayList(); //Create namePlayList according to selectedNames
+        filterSelectedVideos();
 
         //Randomise toggle on/off randomises selected play list
         if (isRandomised) {
@@ -166,11 +168,6 @@ public class PractiseController implements Initializable {
         }
     }
 
-    //Used in PlayController to get current selected Playlist of users
-    public List<Name> getNamePlaylist() {
-        return namePlaylist;
-    }
-
     //User may have option to upload txt file for all names requested (as long as the name currently exists in system) and
     //meets line requires for each name.
     @FXML
@@ -217,6 +214,11 @@ public class PractiseController implements Initializable {
             }
         }
         selectedNamesView.setItems(selectedNameList);
+    }
+
+    //Used in PlayController to get current selected Playlist of users
+    public List<Name> getNamePlaylist() {
+        return namePlaylist;
     }
 
     /* Makes playlist from selectedList names:
@@ -366,6 +368,41 @@ public class PractiseController implements Initializable {
                     return object1.getName().compareTo(object2.getName());
                 }
             });
+        }
+    }
+
+    private void filterSelectedVideos() {
+        for (Name playName : namePlaylist) {
+            String nameAudio = playName.toString() + ".wav";
+
+            //If current name isn't combination
+            if (!nameAudio.contains(" ")) {
+
+            }
+            else if (nameAudio.contains(" ")) {
+                List<String> combineNameList = new ArrayList<>();
+                String[] hypParts = nameAudio.split("_");
+                String[] spcParts = hypParts[3].split(" ");
+                int nameCount = spcParts.length;
+
+                //Reformat and place into combineNameList
+                for (int i = 0; i < nameCount; i++) {
+                    StringBuilder name = new StringBuilder();
+                    for (String part : hypParts) {
+                        String[] spaceParts = part.split(" ");
+                        name.append("_").append(spaceParts[i]);
+                    }
+                    if (name.toString().contains(".wav")) {
+                        name = new StringBuilder(name.substring(0, name.lastIndexOf(".")));
+                    }
+                    combineNameList.add(name.substring(1));
+                }
+
+                //Run appropriate methods with given name list and play
+                PlayAudio playAudio = new PlayAudio(combineNameList, nameAudio);
+                playAudio.filterCombinedAudio();
+                playAudio.concatCombinedAudio();
+            }
         }
     }
 
