@@ -1,23 +1,35 @@
 package namesayer;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import namesayer.login.User;
+import namesayer.login.UserUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class MainController implements Initializable {
 
-    @FXML private AnchorPane mainRoot;
-    @FXML private Text userText, pointsText;
-    @FXML private Button homeButton;
+    @FXML
+    private AnchorPane mainRoot;
+    @FXML
+    private Text userText, pointsText;
+    @FXML
+    private Button homeButton;
+    @FXML
+    private ListView<User> userList;
 
     @FXML
     void loginButtonClicked(ActionEvent event) {
@@ -96,8 +108,8 @@ public class MainController implements Initializable {
         File temp = new File("temp/");
         if (temp.exists() && temp.isDirectory()) {
             String[] entries = temp.list();
-            for(String s: entries){
-                File currentFile = new File(temp.getPath(),s);
+            for (String s : entries) {
+                File currentFile = new File(temp.getPath(), s);
                 currentFile.delete();
             }
         }
@@ -123,5 +135,7 @@ public class MainController implements Initializable {
         new File("./data").mkdirs();
         new File("./data/names").mkdirs();
 
+        UserUtils.getUserList(userList);
     }
+
 }
