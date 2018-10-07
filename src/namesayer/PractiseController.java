@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import namesayer.util.Name;
@@ -53,7 +54,18 @@ public class PractiseController implements Initializable {
 
     @FXML
     private void exitPressed(ActionEvent event) {
-        System.exit(0);
+        StackPane loginRoot = null;
+        try {
+            loginRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(loginRoot);
+    }
+
+    @FXML
+    void helpPressed(ActionEvent event) {
+
     }
 
     //Load testMicrophone pane

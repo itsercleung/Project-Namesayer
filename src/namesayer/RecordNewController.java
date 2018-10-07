@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.PlayAudio;
@@ -40,6 +41,22 @@ public class RecordNewController implements Initializable {
     private String officialName;
     private CreateTempAudio createTempAudio;
     private JFXSnackbar message;
+
+    @FXML
+    void exitPressed(ActionEvent event) {
+        StackPane loginRoot = null;
+        try {
+            loginRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        root.getChildren().setAll(loginRoot);
+    }
+
+    @FXML
+    void helpPressed(ActionEvent event) {
+
+    }
 
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
@@ -76,11 +93,6 @@ public class RecordNewController implements Initializable {
             e.printStackTrace();
         }
         root.getChildren().setAll(practiseRoot);
-    }
-
-    @FXML
-    void exitPressed(ActionEvent event) {
-        System.exit(0);
     }
 
     //Allows user to record given the string of the nameField: (1) If name already exists, assign the name with version
