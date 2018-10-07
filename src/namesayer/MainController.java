@@ -1,17 +1,11 @@
 package namesayer;
 
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import namesayer.util.HelpDialog;
 
 import java.io.File;
@@ -26,15 +20,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void exitPressed(ActionEvent event) {
-        //System.exit(0);
-        // testing login menu
-        AnchorPane testMicrophoneRoot = null;
-        try {
-            testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(testMicrophoneRoot);
+        System.exit(0);
     }
 
     @FXML

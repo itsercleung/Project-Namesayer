@@ -12,9 +12,11 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import namesayer.util.HelpDialog;
 import namesayer.util.Recorder;
 
 import java.io.File;
@@ -25,6 +27,7 @@ import java.util.ResourceBundle;
 public class TestMicrophoneController implements Initializable {
 
     @FXML private AnchorPane mainRoot;
+    @FXML private StackPane stackPane;
     @FXML private Button testMicrophoneButton;
     @FXML private Button listenButton;
     @FXML private Button testButton;
@@ -33,6 +36,19 @@ public class TestMicrophoneController implements Initializable {
     @FXML private ProgressBar micLevel;
 
     private Recorder recorder = null;
+
+    @FXML
+    private void exitPressed(ActionEvent event) {
+        recorder.stop();
+        System.exit(0);
+    }
+
+    @FXML
+    void helpPressed(ActionEvent event) {
+        recorder.stop();
+        HelpDialog helpDialog = new HelpDialog();
+        helpDialog.showHelpDialog(stackPane);
+    }
 
     //When user completes test, let them play back recording to hear if their mic is viable 
     @FXML
@@ -102,12 +118,6 @@ public class TestMicrophoneController implements Initializable {
             }
         };
         new Thread(task).start();
-    }
-
-    @FXML
-    private void exitPressed(ActionEvent event) {
-        recorder.stop();
-        System.exit(0);
     }
 
     //Load practise pane

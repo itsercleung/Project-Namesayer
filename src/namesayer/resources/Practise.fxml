@@ -7,174 +7,188 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane fx:id="mainRoot" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.PractiseController">
+<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.PractiseController">
    <children>
-      <HBox prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="mainRoot" prefHeight="600.0" prefWidth="1000.0">
          <children>
-            <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
+            <HBox prefHeight="500.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="practiseButton" mnemonicParsing="false" onAction="#practisePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Practise">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="60.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="testMicrophoneButton" mnemonicParsing="false" onAction="#testMicrophonePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Test Microphone">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="recordNameButton" mnemonicParsing="false" onAction="#recordNamePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Record New Name">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Exit">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="270.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox prefHeight="0.0" prefWidth="800.0" stylesheets="@stylesheet/general.css">
-               <children>
-                  <Label alignment="CENTER" opacity="0.33" prefHeight="50.0" prefWidth="800.0" text="Practise">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox prefHeight="80.0" prefWidth="200.0">
+                  <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
                      <children>
-                        <JFXTextField fx:id="searchTextField" focusColor="#ff5252" minHeight="50.0" prefWidth="300.0" promptText="Search any name (case-insensitive)" stylesheets="@stylesheet/general.css">
-                           <HBox.margin>
-                              <Insets left="140.0" right="-3.0" top="5.0" />
-                           </HBox.margin>
-                        </JFXTextField>
-                        <Line endX="-37.0" endY="-50.0" rotate="90.0" scaleY="3.0" startX="-100.0" startY="-50.0">
-                           <HBox.margin>
-                              <Insets top="30.0" />
-                           </HBox.margin>
-                        </Line>
-                        <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#uploadButtonClicked" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Upload Names">
-                           <HBox.margin>
-                              <Insets left="-5.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <Label fx:id="titleLabel" alignment="CENTER" prefHeight="40.0" prefWidth="315.0" stylesheets="@stylesheet/general.css" text="PRACTICE PLAYLIST">
-                     <VBox.margin>
-                        <Insets left="240.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <HBox prefHeight="270.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
-                     <children>
-                        <VBox prefHeight="300.0" prefWidth="316.0">
-                           <children>
-                              <JFXListView fx:id="selectedNamesView" prefHeight="290.0" prefWidth="325.0" stylesheets="@stylesheet/general.css">
-                                 <VBox.margin>
-                                    <Insets top="40.0" />
-                                 </VBox.margin>
-                              </JFXListView>
-                           </children>
-                           <HBox.margin>
-                              <Insets left="240.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox prefHeight="250.0" prefWidth="300.0">
-                           <children>
-                              <JFXListView fx:id="searchNamesView" prefHeight="200.0" stylesheets="@stylesheet/search.css">
-                                 <VBox.margin>
-                                    <Insets top="-33.0" />
-                                 </VBox.margin>
-                              </JFXListView>
-                           </children>
-                           <HBox.margin>
-                              <Insets left="-416.0" />
-                           </HBox.margin>
-                        </VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="-35.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <VBox prefHeight="110.0" prefWidth="100.0" stylesheets="@stylesheet/general.css">
-                     <children>
-                        <ToggleSwitch fx:id="toggleRandomise" prefWidth="120.0" stylesheets="@stylesheet/general.css" text="Randomise">
+                        <Button fx:id="practiseButton" mnemonicParsing="false" onAction="#practisePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Practise">
                            <font>
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets left="243.0" top="15.0" />
+                              <Insets top="60.0" />
                            </VBox.margin>
-                        </ToggleSwitch>
-                        <HBox prefHeight="70.0" prefWidth="200.0">
+                        </Button>
+                        <Button fx:id="testMicrophoneButton" mnemonicParsing="false" onAction="#testMicrophonePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Test Microphone">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                            <VBox.margin>
-                              <Insets left="40.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="recordNameButton" mnemonicParsing="false" onAction="#recordNamePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Record New Name">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <HBox prefHeight="60.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="playNames" mnemonicParsing="false" onAction="#pressedPlayNames" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Practise">
+                              <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/toolbar.css" text="Exit">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
-                                 <HBox.margin>
-                                    <Insets left="203.0" right="5.0" top="10.0" />
-                                 </HBox.margin>
                               </Button>
-                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Clear">
+                              <Button fx:id="helpButton" mnemonicParsing="false" onAction="#helpPressed" prefHeight="60.0" prefWidth="90.0" stylesheets="@stylesheet/toolbar.css" text="?">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="270.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="0.0" prefWidth="800.0" stylesheets="@stylesheet/general.css">
+                     <children>
+                        <Label alignment="CENTER" opacity="0.33" prefHeight="50.0" prefWidth="800.0" text="Practise">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox prefHeight="80.0" prefWidth="200.0">
+                           <children>
+                              <JFXTextField fx:id="searchTextField" focusColor="#ff5252" minHeight="50.0" prefWidth="300.0" promptText="Search any name (case-insensitive)" stylesheets="@stylesheet/general.css">
                                  <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
+                                    <Insets left="140.0" right="-3.0" top="5.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                              <Line endX="-37.0" endY="-50.0" rotate="90.0" scaleY="3.0" startX="-100.0" startY="-50.0">
+                                 <HBox.margin>
+                                    <Insets top="30.0" />
+                                 </HBox.margin>
+                              </Line>
+                              <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#uploadButtonClicked" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Upload Names">
+                                 <HBox.margin>
+                                    <Insets left="-5.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
                         </HBox>
+                        <Label fx:id="titleLabel" alignment="CENTER" prefHeight="40.0" prefWidth="315.0" stylesheets="@stylesheet/general.css" text="PRACTICE PLAYLIST">
+                           <VBox.margin>
+                              <Insets left="240.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="270.0" prefWidth="600.0" stylesheets="@stylesheet/general.css">
+                           <children>
+                              <VBox prefHeight="300.0" prefWidth="316.0">
+                                 <children>
+                                    <JFXListView fx:id="selectedNamesView" prefHeight="290.0" prefWidth="325.0" stylesheets="@stylesheet/general.css">
+                                       <VBox.margin>
+                                          <Insets top="40.0" />
+                                       </VBox.margin>
+                                    </JFXListView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="240.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox prefHeight="250.0" prefWidth="300.0">
+                                 <children>
+                                    <JFXListView fx:id="searchNamesView" prefHeight="200.0" stylesheets="@stylesheet/search.css">
+                                       <VBox.margin>
+                                          <Insets top="-33.0" />
+                                       </VBox.margin>
+                                    </JFXListView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="-416.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="-35.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox prefHeight="110.0" prefWidth="100.0" stylesheets="@stylesheet/general.css">
+                           <children>
+                              <ToggleSwitch fx:id="toggleRandomise" prefWidth="120.0" stylesheets="@stylesheet/general.css" text="Randomise">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="243.0" top="15.0" />
+                                 </VBox.margin>
+                              </ToggleSwitch>
+                              <HBox prefHeight="70.0" prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets left="40.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <Button fx:id="playNames" mnemonicParsing="false" onAction="#pressedPlayNames" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Practise">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="203.0" right="5.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Clear">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </VBox>
+                        <Label alignment="CENTER" opacity="0.79" prefHeight="40.0" prefWidth="800.0" text="TIP: Enter full names for a combination!">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
                      </children>
-                     <VBox.margin>
+                     <HBox.margin>
                         <Insets />
-                     </VBox.margin>
+                     </HBox.margin>
                   </VBox>
-                  <Label alignment="CENTER" opacity="0.79" prefHeight="40.0" prefWidth="800.0" text="TIP: Enter full names for a combination!">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </Label>
                </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </VBox>
+            </HBox>
          </children>
-      </HBox>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>

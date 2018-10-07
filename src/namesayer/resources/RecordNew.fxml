@@ -41,14 +41,23 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Exit">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
+                  <HBox prefHeight="60.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/toolbar.css" text="Exit">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="helpButton" mnemonicParsing="false" onAction="#helpPressed" prefHeight="60.0" prefWidth="90.0" stylesheets="@stylesheet/toolbar.css" text="?">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
                      <VBox.margin>
                         <Insets top="270.0" />
                      </VBox.margin>
-                  </Button>
+                  </HBox>
                </children>
             </VBox>
             <VBox fx:id="vbox" prefHeight="0.0" prefWidth="800.0">
