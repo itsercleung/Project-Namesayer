@@ -120,6 +120,54 @@ public class PractiseController implements Initializable {
         mainRoot.getChildren().setAll(practiseRoot);
     }
 
+    //User may have option to upload txt file for all names requested (as long as the name currently exists in system) and
+    //meets line requires for each name.
+    @FXML
+    private void uploadButtonClicked(ActionEvent event) {
+        // let the user select TXT files to upload
+        FileChooser fc = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Text files", "*.txt");
+        fc.setTitle("Select Text (.txt) File");
+        fc.getExtensionFilters().add(filter);
+        Stage stage = (Stage) uploadButton.getScene().getWindow();
+        File textFile = fc.showOpenDialog(stage); // should be txt file
+
+        //If user cancels, return gracefully
+        if (textFile == null) {
+            return;
+        }
+        Scanner reader = null;
+        try {
+            reader = new Scanner(textFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // go through text file and check if name is in names db
+        while (reader.hasNextLine()) {
+            String name = reader.nextLine();
+
+            if (searchNameList.contains(name.toLowerCase())) {
+                selectedNameList.add(name.toLowerCase());
+            } else if (name.contains(" ") || name.contains("-")) {
+                String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
+                boolean canConcat = true;
+
+                // go through list of names, if it is a name that exists in database, then add it
+                for (String singleName : names) {
+                    if (!searchNameList.contains(singleName.toLowerCase())) {
+                        canConcat = false;
+                        break;
+                    }
+                }
+                if (canConcat) {
+                    selectedNameList.add(name);
+                }
+            }
+        }
+        selectedNamesView.setItems(selectedNameList);
+    }
+
     //Getting names of all name files in data/names
     private void populateList() {
         File namesFolder = new File("data/names");
@@ -167,54 +215,6 @@ public class PractiseController implements Initializable {
         } else {
             searchNamesView.setMaxHeight(currentHeight);
         }
-    }
-
-    //User may have option to upload txt file for all names requested (as long as the name currently exists in system) and
-    //meets line requires for each name.
-    @FXML
-    private void uploadButtonClicked(ActionEvent event) {
-        // let the user select TXT files to upload
-        FileChooser fc = new FileChooser();
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Text files", "*.txt");
-        fc.setTitle("Select Text (.txt) File");
-        fc.getExtensionFilters().add(filter);
-        Stage stage = (Stage) uploadButton.getScene().getWindow();
-        File textFile = fc.showOpenDialog(stage); // should be txt file
-
-        //If user cancels, return gracefully
-        if (textFile == null) {
-            return;
-        }
-        Scanner reader = null;
-        try {
-            reader = new Scanner(textFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        // go through text file and check if name is in names db
-        while (reader.hasNextLine()) {
-            String name = reader.nextLine();
-
-            if (searchNameList.contains(name.toLowerCase())) {
-                selectedNameList.add(name.toLowerCase());
-            } else if (name.contains(" ") || name.contains("-")) {
-                String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
-                boolean canConcat = true;
-
-                // go through list of names, if it is a name that exists in database, then add it
-                for (String singleName : names) {
-                    if (!searchNameList.contains(singleName.toLowerCase())) {
-                        canConcat = false;
-                        break;
-                    }
-                }
-                if (canConcat) {
-                    selectedNameList.add(name);
-                }
-            }
-        }
-        selectedNamesView.setItems(selectedNameList);
     }
 
     /* Makes playlist from selectedList names:
@@ -456,7 +456,6 @@ public class PractiseController implements Initializable {
         //Filtering and search function
         filteredData = new FilteredList<>(searchNameList, p -> true);
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-
             //IF "-" or " " exists from user input and such words exist in database, get the concatenated version and display on search
             String[] dispConcat;
             int wordCount = 0;

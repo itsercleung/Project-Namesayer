@@ -27,6 +27,7 @@ public class PlayAudio {
         this.audio = audio;
     }
 
+    //Play audio given the path from (String audio) field
     public void playAudio() {
         Task task = new Task<Void>() {
             @Override
@@ -45,12 +46,11 @@ public class PlayAudio {
         new Thread(task).start();
     }
 
+    //Silence noise sections of each audio
     public void filterCombinedAudio() {
-
         Task task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                //Silence noise sections of each audio
                 for (String nameAudio : combineAudio) {
                     String silenceAudio = "cp data/names/" + nameAudio + ".wav temp/" + nameAudio + ".wav\n" +
                             "ffmpeg -hide_banner -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-50dB:1:5:-50dB:0 temp/" + nameAudio + "CONCAT.wav\n";
@@ -67,8 +67,8 @@ public class PlayAudio {
         new Thread (task).start();
     }
 
+    //Combine audio clips together - (1) Write onto txt file (2) Concat from txt file
     public void concatCombinedAudio() {
-        //Combine audio clips together
         FileWriter writer = null;
         try {
             writer = new FileWriter("temp/combineAudio.txt");
@@ -91,6 +91,7 @@ public class PlayAudio {
         }
     }
 
+    //Stop audio thread from playing
     public void stopAudio() {
         AudioPlayer.player.stop(audioStream);
     }

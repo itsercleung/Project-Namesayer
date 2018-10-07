@@ -4,6 +4,8 @@ import javafx.concurrent.Task;
 
 import java.io.IOException;
 
+//CREATETEMPAUDIO Class: Creates temporary audio files given the name. Can be used for making test audio files, or
+//initial audio files that could be saved depending on the users choice.
 public class CreateTempAudio {
     private String name;
     private Thread thread;
@@ -39,7 +41,6 @@ public class CreateTempAudio {
     // kill thread? ffmpeg feature?
     // another way is to count the time between record and stop and cut out
     // the time
-
     public void stopRecording() {
         task.cancel(); //???
         thread.interrupt();// doesn't work

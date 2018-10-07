@@ -34,6 +34,7 @@ public class TestMicrophoneController implements Initializable {
 
     private Recorder recorder = null;
 
+    //When user completes test, let them play back recording to hear if their mic is viable 
     @FXML
     void listenPressed(ActionEvent event) {
         //When button is pressed disable button until audio is finished playing
@@ -57,7 +58,7 @@ public class TestMicrophoneController implements Initializable {
 
                         //Once steps (1)-(2) complete testlabel will show complete
                         testLabel.setText("[Test complete]");
-                        testLabel.setStyle("-fx-text-fill: #6AE368");
+                        testLabel.setStyle("-fx-text-fill: #6AE368"); //Nice spotify colour
                     }
                 });
             }
@@ -72,6 +73,7 @@ public class TestMicrophoneController implements Initializable {
         player.play();
     }
 
+    //Records users microphone and puts resultant recording into temp file for user to hear
     @FXML
     void testPressed(ActionEvent event) {
         //Set label to show test is currently ongoing
@@ -108,10 +110,10 @@ public class TestMicrophoneController implements Initializable {
         System.exit(0);
     }
 
+    //Load practise pane
     @FXML
     private void practisePressed(ActionEvent event) {
         recorder.stop();
-        //Load practise pane
         AnchorPane practiseRoot = null;
 
         try {
@@ -122,10 +124,10 @@ public class TestMicrophoneController implements Initializable {
         mainRoot.getChildren().setAll(practiseRoot);
     }
 
+    //record new practise pane
     @FXML
     private void recordNamePressed(ActionEvent event) {
         recorder.stop();
-        //record new practise pane
         AnchorPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
@@ -137,6 +139,7 @@ public class TestMicrophoneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Initial default properties for buttons
         testMicrophoneButton.setDisable(true);
         listenButton.setDisable(true);
 
@@ -150,6 +153,7 @@ public class TestMicrophoneController implements Initializable {
         //Setting image icons to buttons
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
+
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
         Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
         testButton.setGraphic(new ImageView(rec));

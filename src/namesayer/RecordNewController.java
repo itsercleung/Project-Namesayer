@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.PlayAudio;
@@ -34,7 +33,6 @@ public class RecordNewController implements Initializable {
     @FXML private Button listenButton, recordButton, saveButton, recordNameButton;
     @FXML private AnchorPane root;
     @FXML private JFXTextField nameField;
-    @FXML private Label label;
     @FXML private Button stopRecordingButton;
     @FXML private VBox vbox;
 
@@ -158,7 +156,6 @@ public class RecordNewController implements Initializable {
                                    String messageString = "[Recorded " + name + "]";
                                    message.close();
                                    message.show(messageString, 10000);
-                                   //label.setText(messageString);
                                    enableButtons();
                                }
                            });
@@ -193,7 +190,6 @@ public class RecordNewController implements Initializable {
                             String messageString = "[Recorded " + name + "]";
                             message.close();
                             message.show(messageString, 10000);
-                            //label.setText(messageString);
                             enableButtons();
                         }
                     });
@@ -307,7 +303,8 @@ public class RecordNewController implements Initializable {
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
 
+        //Styling message box
         message = new JFXSnackbar(vbox);
-        message.setStyle("-fx-font-size: 20pt;");
+        message.setStyle("-fx-font-size: 14.5pt;");
     }
 }

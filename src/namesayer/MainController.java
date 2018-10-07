@@ -64,8 +64,8 @@ public class MainController implements Initializable {
         mainRoot.getChildren().setAll(practiseRoot);
     }
 
+    //Method to delete all existing temp files within the folder
     public void deleteTemp() {
-        //Delete temp files on startup
         File temp = new File("temp/");
         if (temp.exists() && temp.isDirectory()) {
             String[] entries = temp.list();

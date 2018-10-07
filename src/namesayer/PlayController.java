@@ -331,7 +331,13 @@ public class PlayController implements Initializable {
             }
         });
 
-        // logic that deals with the JFXPopup for record button
+        //Concat multiple names selected
+        for (PlayAudio audio : practiseController.getPlayAudioList()) {
+            audio.concatCombinedAudio();
+        }
+
+        //JFXPOPUP BUTTON ACTIONS
+        //PLAYOLD - plays current names audio file
         saveButton.setDisable(true);
         playOldButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -340,6 +346,7 @@ public class PlayController implements Initializable {
             }
         });
 
+        //PLAYNEW - plays users recorded version of name file (if exists)
         playNewButton.setDisable(true);
         playNewButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -350,6 +357,7 @@ public class PlayController implements Initializable {
             }
         });
 
+        //RECORD - records user trying to pronounce PLAYOLD name
         recordSubButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -362,11 +370,6 @@ public class PlayController implements Initializable {
                 cta.createSingleAudio();
             }
         });
-
-        //Concat multiple names selected
-        for (PlayAudio audio : practiseController.getPlayAudioList()) {
-            audio.concatCombinedAudio();
-        }
 
         //INIT JFX-POPUP
         VBox box = new VBox(recordSubButton, playOldButton, playNewButton, saveButton); // can make HBox
@@ -409,6 +412,7 @@ public class PlayController implements Initializable {
         playOldButton.setFocusTraversable(false);
         saveButton.setFocusTraversable(false);
 
+        //Setting mouse hover events
         recordSubButton.setOnMouseEntered(e -> {
             recordSubButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
             recordSubButton.setGraphic(new ImageView(recSubHover));
