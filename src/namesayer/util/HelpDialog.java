@@ -18,8 +18,18 @@ public class HelpDialog {
             dialog.close();
         });
 
-        dialogLayout.setHeading(new Label("Help"));
+        dialogLayout.setHeading(new Label("?"));
+        Label pracHead = new Label("Practice: ");
+        Label pracBody = new Label("(1) Search for name (or combined) or Upload txt \n" +
+                "(2) Decide to Randomize PLAYLIST \n" +
+                "(3) Click Practice and Enjoy!");
+        dialogLayout.setBody(pracHead);
+        dialogLayout.setBody(pracBody);
         dialogLayout.setActions(button);
         dialog.show();
+
+        //Label styles
+        pracHead.setStyle("-fx-font-size: 14px;" + "-fx-font-style: bold");
+        pracBody.setStyle("-fx-font-size: 13px;");
     }
 }

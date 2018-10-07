@@ -53,7 +53,7 @@ public class PlayAudio {
             protected Void call() throws Exception {
                 for (String nameAudio : combineAudio) {
                     String silenceAudio = "cp data/names/" + nameAudio + ".wav temp/" + nameAudio + ".wav\n" +
-                            "ffmpeg -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-45dB:1:5:-45dB temp/" + nameAudio + "CONCAT.wav\n";
+                            "ffmpeg -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-45dB:1:5:-45dB:0 temp/" + nameAudio + "CONCAT.wav\n";
                     ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", silenceAudio);
                     try {
                         processBuilder.start();

@@ -3,7 +3,6 @@ package namesayer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,8 +12,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -38,8 +35,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class PlayController implements Initializable {
@@ -195,7 +190,6 @@ public class PlayController implements Initializable {
         //Setting popup position and size
         recordPopup.show(recordButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
         recordPopup.getPopupContent().setPrefWidth(130);
-
     }
 
     //Re-enable default setup buttons
@@ -266,7 +260,7 @@ public class PlayController implements Initializable {
 
             //Once current audio is found in txt, extract its rating and update for audioRating component.
             for (int i = 0; i < selectedList.size(); i++) {
-                if (currentAudio.contains(practiseController.getNamePlaylist().get(i).toString() + ".wav")) {
+                if (currentAudio.contains(practiseController.getNamePlaylist().get(i).toString() + ".wav") && !practiseController.getNamePlaylist().get(i).toString().contains(" ")) {
                     Scanner scanner = new Scanner(currentAudio);
                     while (scanner.hasNextLine()) {
                         String line = scanner.nextLine();
@@ -289,7 +283,7 @@ public class PlayController implements Initializable {
             String currentAudio = new String(bytes);
             String currentPlay = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
 
-            if (currentAudio.contains(currentPlay)) {
+            if (currentAudio.contains(currentPlay) && !currentAudio.contains(" ")) {
                 Scanner scanner = new Scanner(currentAudio);
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
@@ -298,7 +292,8 @@ public class PlayController implements Initializable {
                         audioRating.setRating(rating); //Set adjustable rating
                     }
                 }
-            } else {
+            }
+            else {
                 audioRating.setRating(0.0);
             }
 
@@ -378,9 +373,40 @@ public class PlayController implements Initializable {
                 saveButton.setDisable(false);
 
                 //Setup official name for saved recording
-                tempAudioName = "user_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
-                CreateTempAudio cta = new CreateTempAudio(tempAudioName);
-                cta.createSingleAudio();
+                new Thread() {
+                    public void run() {
+                        Platform.runLater(new Runnable() {
+                            public void run() {
+                                //Disable buttons
+                                playNewButton.setDisable(true);
+                                playOldButton.setDisable(true);
+                                recordSubButton.setDisable(true);
+                                saveButton.setDisable(true);
+                                playButton.setDisable(true);
+
+                                tempAudioName = "user_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
+                                CreateTempAudio cta = new CreateTempAudio(tempAudioName);
+                                cta.createSingleAudio();
+                            }
+                        });
+                        try {
+                            Thread.sleep(3000); //For until test.wav finishes
+                        }
+                        catch(InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Platform.runLater(new Runnable() {
+                            public void run() {
+                                //Reenable buttons
+                                playNewButton.setDisable(false);
+                                playOldButton.setDisable(false);
+                                recordSubButton.setDisable(false);
+                                saveButton.setDisable(false);
+                                playButton.setDisable(false);
+                            }
+                        });
+                    }
+                }.start();
             }
         });
 
