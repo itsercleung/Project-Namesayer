@@ -1,5 +1,6 @@
 package namesayer;
 
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
@@ -33,10 +36,12 @@ public class RecordNewController implements Initializable {
     @FXML private JFXTextField nameField;
     @FXML private Label label;
     @FXML private Button stopRecordingButton;
+    @FXML private VBox vbox;
 
     private String name;
     private String officialName;
     private CreateTempAudio createTempAudio;
+    private JFXSnackbar message;
 
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
@@ -84,10 +89,14 @@ public class RecordNewController implements Initializable {
     //(2) Else simply record the name
     @FXML
     private void recordPressed(ActionEvent event) {
-        String regex = "([ a-zA-Z0-9-])*"; // letters, spaces, numbers hyphens
+        String regex = "([a-zA-Z0-9])*"; // letters, numbers
         name = nameField.getText().trim().toLowerCase();
         if (!name.matches(regex) || name.isEmpty()) {
-            label.setText("[Invalid Name: Name must have letters, spaces, numbers and/or hyphens]");
+            String error = "[Invalid Name: Name must have letters or numbers only]";
+            if (message != null) {message.close();}
+            message.show(error,10000);
+            //label.setText(error);
+
             return;
         }
 
@@ -127,8 +136,10 @@ public class RecordNewController implements Initializable {
                    return;
                }
                else if (response == ButtonType.OK) {
-                   label.setText("[Recording " + name + "]");
-
+                   String messageString = "[Recording " + name + "]";
+                   message.close();
+                   message.show(messageString, 10000);
+                   //label.setText(messageString);
                    new Thread() {
                        public void run() {
                            Platform.runLater(new Runnable() {
@@ -144,7 +155,10 @@ public class RecordNewController implements Initializable {
                            }
                            Platform.runLater(new Runnable() {
                                public void run() {
-                                   label.setText("[Recorded " + name + "]");
+                                   String messageString = "[Recorded " + name + "]";
+                                   message.close();
+                                   message.show(messageString, 10000);
+                                   //label.setText(messageString);
                                    enableButtons();
                                }
                            });
@@ -161,7 +175,10 @@ public class RecordNewController implements Initializable {
                 public void run() {
                     Platform.runLater(new Runnable() {
                         public void run() {
-                            label.setText("[Recording " + name + "]");
+                            String messageString = "[Recording " + name + "]";
+                            message.close();
+                            message.show(messageString, 10000);
+                            //label.setText(messageString);
                             disableButtons();
                         }
                     });
@@ -173,7 +190,10 @@ public class RecordNewController implements Initializable {
                     }
                     Platform.runLater(new Runnable() {
                         public void run() {
-                            label.setText("[Recorded " + name + "]");
+                            String messageString = "[Recorded " + name + "]";
+                            message.close();
+                            message.show(messageString, 10000);
+                            //label.setText(messageString);
                             enableButtons();
                         }
                     });
@@ -196,7 +216,10 @@ public class RecordNewController implements Initializable {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        label.setText("[Listening to " + name + "]");
+                        String messageString = "[Listening to " + name + "]";
+                        message.close();
+                        message.show(messageString, 10000);
+                        //label.setText(messageString);
                         disableButtons();
                         stopRecordingButton.setDisable(true);
                     }
@@ -209,7 +232,10 @@ public class RecordNewController implements Initializable {
                 }
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        label.setText("[Listened to " + name + "]");
+                        String messageString = "[Listened to " + name + "]";
+                        message.close();
+                        message.show(messageString, 10000);
+                        //label.setText(messageString);
                         enableButtons();
                     }
                 });
@@ -224,7 +250,10 @@ public class RecordNewController implements Initializable {
     //Once saved, place into unfilteredNames folder
     @FXML
     void savePressed(ActionEvent event) {
-        label.setText("[Saved name as " + name + "]");
+        String messageString = "[Saved name as " + name + "]";
+        message.close();
+        message.show(messageString, 10000);
+        //label.setText(messageString);
         try {
             Files.move(Paths.get("./temp/" + officialName + ".wav"),
                     Paths.get("data/names/" + officialName + ".wav"),
@@ -277,5 +306,8 @@ public class RecordNewController implements Initializable {
         saveButton.setGraphic(new ImageView(save));
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
+
+        message = new JFXSnackbar(vbox);
+        message.setStyle("-fx-font-size: 20pt;");
     }
 }
