@@ -122,23 +122,13 @@ public class MainController implements Initializable {
         homeButton.setDisable(true);
         deleteTemp(); //On startup delete temp files in folder
 
-        //If txt doesnt exist then make one and append TITLE
-        File pqFile = new File("data/ratingAudio.txt");
-        if (!pqFile.exists()) {
-            try {
-                pqFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         //Creating temp folder and data folder
         new File("./temp").mkdirs();
         new File("./data").mkdirs();
         new File("./data/names").mkdirs();
+        new File("./data/usernames").mkdirs();
 
         UserUtils.getCurrentLoginUser(userText,pointsText);
         UserUtils.getUserList(userList);
     }
-
 }

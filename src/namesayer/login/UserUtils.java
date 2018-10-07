@@ -44,8 +44,17 @@ public class UserUtils {
      * Sets current user upon logging in
      */
     public static void setCurrentLoginUser(User user) {
+        //If txt doesnt exist then make one and append TITLE
         String path = "./data/CurrentUser.txt";
         File currentUser = new File(path);
+        if (!currentUser.exists()) {
+            try {
+                currentUser.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
             FileWriter fw = new FileWriter(currentUser, false);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -64,30 +73,42 @@ public class UserUtils {
     public static User getCurrentLoginUser(Text userText, Text pointsText) {
         String path = "./data/CurrentUser.txt";
         File currentUser = new File(path);
-
-        try {
-            // get current user name
-            Scanner reader = new Scanner(currentUser);
-            String username = reader.next();
-            reader.close();
-
-            // get user info from data
-            path = "./data/usernames/"+username+".txt";
-            File userInfo = new File(path);
-            reader = new Scanner(userInfo);
-            reader.nextLine();
-            String number = reader.next();
-
-            int points = Integer.parseInt(number);
-            reader.close();
-
-            userText.setText("User: "+username);
-            pointsText.setText("Points: "+points);
-            return new User(username, points);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if (!currentUser.exists()) {
+            try {
+                currentUser.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
+        //Check if file is non empty
+        if (currentUser.isFile()) {
+            long size = currentUser.length();
+            if (size != 0) {
+                try {
+                    // get current user name
+                    Scanner reader = new Scanner(currentUser);
+                    String username = reader.next();
+                    reader.close();
+
+                    // get user info from data
+                    path = "./data/usernames/" + username + ".txt";
+                    File userInfo = new File(path);
+                    reader = new Scanner(userInfo);
+                    reader.nextLine();
+                    String number = reader.next();
+
+                    int points = Integer.parseInt(number);
+                    reader.close();
+
+                    userText.setText("User: " + username);
+                    pointsText.setText("Points: " + points);
+                    return new User(username, points);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return null;
     }
 
@@ -107,10 +128,9 @@ public class UserUtils {
             bw.newLine();
             bw.append("0");
             bw.close();
-        } catch (IOException ioe) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
         return true;
     }
 
