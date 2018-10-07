@@ -153,7 +153,7 @@ public class RecordNewController implements Initializable {
                            }
                            Platform.runLater(new Runnable() {
                                public void run() {
-                                   label.setText("[Recorded " + name + "]");
+                                   //label.setText("[Recorded " + name + "]");
                                    enableButtons();
                                }
                            });
@@ -170,7 +170,7 @@ public class RecordNewController implements Initializable {
                 public void run() {
                     Platform.runLater(new Runnable() {
                         public void run() {
-                            label.setText("[Recording " + name + "]");
+                            //label.setText("[Recording " + name + "]");
                             disableButtons();
                         }
                     });
@@ -207,7 +207,7 @@ public class RecordNewController implements Initializable {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        label.setText("[Listening to " + name + "]");
+                        //label.setText("[Listening to " + name + "]");
                         disableButtons();
                     }
                 });
@@ -219,7 +219,7 @@ public class RecordNewController implements Initializable {
                 }
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        label.setText("[Listened to " + name + "]");
+                        //label.setText("[Listened to " + name + "]");
                         enableButtons();
                     }
                 });
