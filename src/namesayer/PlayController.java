@@ -23,12 +23,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import namesayer.login.UserUtils;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -37,7 +37,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class PlayController implements Initializable {
 
@@ -389,7 +392,9 @@ public class PlayController implements Initializable {
         recordSubButton.setGraphic(new ImageView(rec));
         playOldButton.setGraphic(new ImageView(play));
         playNewButton.setGraphic(new ImageView(play));
-        Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
-        saveButton.setGraphic(new ImageView(save));
+        //Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
+        //saveButton.setGraphic(new ImageView(save));
+
+        UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }
