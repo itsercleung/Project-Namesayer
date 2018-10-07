@@ -68,7 +68,7 @@
                               <Insets left="200.0" top="60.0" />
                            </HBox.margin>
                            <font>
-                              <Font size="14.0" />
+                              <Font size="15.0" />
                            </font></Text>
                         <JFXTextField fx:id="nameField" focusColor="#ff5252" prefHeight="30.0" prefWidth="275.0" promptText="Spaces and hyphens unsupported" stylesheets="@stylesheet/general.css" unFocusColor="#2f2f2f">
                            <HBox.margin>
@@ -110,14 +110,6 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Label alignment="CENTER" opacity="0.75" prefWidth="800.0" text="TIP: Enter name and press [Record] (records for 3 seconds)">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="190.0" />
-                     </VBox.margin>
-                  </Label>
                </children>
             </VBox>
          </children>
