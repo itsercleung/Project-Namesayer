@@ -188,7 +188,7 @@ public class PlayController implements Initializable {
         saveButton.setMinSize(130.0, 40);
 
         //Setting popup position and size
-        recordPopup.show(recordButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+        recordPopup.show(recordButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT,80,-70);
         recordPopup.getPopupContent().setPrefWidth(130);
     }
 
