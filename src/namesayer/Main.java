@@ -14,6 +14,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("NameSayer");
         //Add this when login is done primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setResizable(false);
         primaryStage.show();
         root.requestFocus();
     }
