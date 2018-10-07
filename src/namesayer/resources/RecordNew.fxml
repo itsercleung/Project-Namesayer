@@ -80,7 +80,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="0.0" prefWidth="800.0">
+            <VBox fx:id="vbox" prefHeight="0.0" prefWidth="800.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

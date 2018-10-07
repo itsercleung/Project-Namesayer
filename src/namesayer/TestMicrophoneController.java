@@ -16,6 +16,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Text;
+import namesayer.login.User;
+import namesayer.login.UserUtils;
 import namesayer.util.Recorder;
 
 import java.io.File;
@@ -32,8 +35,10 @@ public class TestMicrophoneController implements Initializable {
     @FXML private MediaView mediaTest;
     @FXML private Label testLabel;
     @FXML private ProgressBar micLevel;
+    @FXML private Text userText, pointsText;
 
     private Recorder recorder = null;
+    private User user;
 
     //When user completes test, let them play back recording to hear if their mic is viable 
     @FXML
@@ -172,6 +177,8 @@ public class TestMicrophoneController implements Initializable {
         testButton.setGraphic(new ImageView(rec));
         testButton.setOnMouseEntered(e -> testButton.setGraphic(new ImageView(recHover)));
         testButton.setOnMouseExited(e -> testButton.setGraphic(new ImageView(rec)));
+
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }
 

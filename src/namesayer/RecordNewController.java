@@ -12,6 +12,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import namesayer.login.User;
+import namesayer.login.UserUtils;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
@@ -34,11 +38,14 @@ public class RecordNewController implements Initializable {
     @FXML private AnchorPane mainRoot;
     @FXML private JFXTextField nameField;
     @FXML private Button stopRecordingButton;
+    @FXML private Text userText,pointsText;
+    @FXML private VBox vbox;
 
     private String name;
     private String officialName;
     private CreateTempAudio createTempAudio;
     private JFXSnackbar message;
+    private User user;
 
     @FXML
     void exitPressed(ActionEvent event) {
@@ -300,6 +307,8 @@ public class RecordNewController implements Initializable {
         saveButton.setDisable(true);
         stopRecordingButton.setDisable(true);
 
+        message = new JFXSnackbar(vbox);
+
         //Set icons to specific buttons from resources/icons (credited in description).
         //Set icons for record new menu
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
@@ -311,5 +320,7 @@ public class RecordNewController implements Initializable {
         saveButton.setGraphic(new ImageView(save));
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
+
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }
