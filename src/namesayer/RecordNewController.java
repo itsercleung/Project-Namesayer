@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import namesayer.login.Points;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
 import namesayer.util.CreateTempAudio;
@@ -200,7 +201,6 @@ public class RecordNewController implements Initializable {
             createTempAudio = new CreateTempAudio(officialName);
             createTempAudio.createSingleAudio();
 
-
         }
     }
 
@@ -260,6 +260,9 @@ public class RecordNewController implements Initializable {
         saveButton.setDisable(true);
         listenButton.setDisable(true);
         nameField.clear();
+
+        // update user score
+        UserUtils.updateUser(user, Points.CREATE_NAME,userText,pointsText);
     }
 
     private void disableButtons() {

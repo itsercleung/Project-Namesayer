@@ -22,7 +22,7 @@ public class User {
         return this.points;
     }
 
-    public void addPoints(Points points) {this.points += points.getPoints();}
+    protected void addPoints(Points points) {this.points += points.getPoints();}
 /* Deprecated: moved to userutils
     public void updateScore(Points points) {
         this.points += points.getPoints();

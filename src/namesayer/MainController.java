@@ -137,6 +137,7 @@ public class MainController implements Initializable {
         new File("./data").mkdirs();
         new File("./data/names").mkdirs();
 
+        UserUtils.getCurrentLoginUser(userText,pointsText);
         UserUtils.getUserList(userList);
     }
 
