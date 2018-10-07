@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.RecordNewController">
+<AnchorPane fx:id="mainRoot" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.RecordNewController">
    <children>
       <HBox prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -61,37 +61,6 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <VBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User: default">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="30.0" top="30.0" />
-                           </VBox.margin>
-                        </Text>
-                        <Text fx:id="pointsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Points: 0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="29.0" top="10.0" />
-                           </VBox.margin>
-                        </Text>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="60.0" />
-                     </VBox.margin>
-                  </VBox>
-                  <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Home">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
                   <HBox prefHeight="60.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/toolbar.css" text="Logout">
@@ -106,7 +75,7 @@
                         </Button>
                      </children>
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="250.0" />
                      </VBox.margin>
                   </HBox>
                </children>

@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
@@ -32,10 +31,9 @@ import java.util.ResourceBundle;
 public class RecordNewController implements Initializable {
 
     @FXML private Button listenButton, recordButton, saveButton, recordNameButton;
-    @FXML private AnchorPane root;
+    @FXML private AnchorPane mainRoot;
     @FXML private JFXTextField nameField;
     @FXML private Button stopRecordingButton;
-    @FXML private VBox vbox;
 
     private String name;
     private String officialName;
@@ -50,7 +48,7 @@ public class RecordNewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        root.getChildren().setAll(loginRoot);
+        mainRoot.getChildren().setAll(loginRoot);
     }
 
     @FXML
@@ -68,7 +66,7 @@ public class RecordNewController implements Initializable {
             e.printStackTrace();
         }
 
-        root.getChildren().setAll(testMicrophoneRoot);
+        mainRoot.getChildren().setAll(testMicrophoneRoot);
     }
 
     @FXML
@@ -80,7 +78,7 @@ public class RecordNewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        root.getChildren().setAll(practiseRoot);
+        mainRoot.getChildren().setAll(practiseRoot);
     }
 
     @FXML
@@ -92,7 +90,7 @@ public class RecordNewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        root.getChildren().setAll(practiseRoot);
+        mainRoot.getChildren().setAll(practiseRoot);
     }
 
     //Allows user to record given the string of the nameField: (1) If name already exists, assign the name with version
@@ -106,7 +104,6 @@ public class RecordNewController implements Initializable {
             if (message != null) {message.close();}
             message.show(error,10000);
             //label.setText(error);
-
             return;
         }
 
@@ -314,9 +311,5 @@ public class RecordNewController implements Initializable {
         saveButton.setGraphic(new ImageView(save));
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
-
-        //Styling message box
-        message = new JFXSnackbar(vbox);
-        message.setStyle("-fx-font-size: 14.5pt;");
     }
 }

@@ -29,15 +29,8 @@ public class NewUserController implements Initializable {
     @FXML
     void registerButtonPressed(ActionEvent event) {
         UserUtils.createUser(usernameField.getText());
-
-        //Load practise pane
-        AnchorPane newRoot = null;
-        try {
-            newRoot = FXMLLoader.load(getClass().getResource("../resources/Main.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        root.getChildren().setAll(newRoot);
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
