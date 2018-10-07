@@ -33,7 +33,7 @@
 1. While Practising, click the `red microphone`.
 2. Press `Record` to record your pronunciation of name.
 3. Compare your pronunciation by pressing `Play New`, the name you recorded and `Play Old` the name in the database.
-4. You can save your pronunciation by pressing `Add Name`
+4. You can save your pronunciation by pressing `Add Name`.
 
 ### To Add an Existing name to the database.
 1. While practising name(s), click the `Add Name` to record existing name.
