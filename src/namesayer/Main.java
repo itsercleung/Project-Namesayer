@@ -13,7 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("resources/Main.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("NameSayer");
-        //Add this when login is done primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
         primaryStage.show();
         root.requestFocus();
