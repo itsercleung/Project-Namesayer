@@ -53,7 +53,7 @@ public class PlayAudio {
             protected Void call() throws Exception {
                 for (String nameAudio : combineAudio) {
                     String silenceAudio = "cp data/names/" + nameAudio + ".wav temp/" + nameAudio + ".wav\n" +
-                            "ffmpeg -hide_banner -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-50dB:1:5:-50dB:0 temp/" + nameAudio + "CONCAT.wav\n";
+                            "ffmpeg -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-45dB:1:5:-45dB temp/" + nameAudio + "CONCAT.wav\n";
                     ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", silenceAudio);
                     try {
                         processBuilder.start();
@@ -81,7 +81,7 @@ public class PlayAudio {
         }
 
         //Concatenate from txt file
-        String concatAudio = "ffmpeg -f concat -i temp/combineAudio.txt -c copy temp/" + audio.replace(" ", "") + " \n";
+        String concatAudio = "ffmpeg -f concat -safe 0 -i temp/combineAudio.txt -c copy temp/" + audio.replace(" ", "") + " \n";
         ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", concatAudio);
         try {
             Process process = processBuilder.start();
