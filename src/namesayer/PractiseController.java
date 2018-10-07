@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,11 +18,14 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import namesayer.util.HelpDialog;
+import namesayer.login.User;
+import namesayer.login.UserUtils;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
+import namesayer.util.Recorder;
 import org.controlsfx.control.Rating;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -42,9 +44,9 @@ public class PractiseController implements Initializable {
     @FXML private Button practiseButton, uploadButton;
     @FXML private JFXTextField searchTextField;
     @FXML private AnchorPane mainRoot;
-    @FXML private StackPane stackPane;
     @FXML private JFXListView<String> searchNamesView;
     @FXML private JFXListView<String> selectedNamesView;
+    @FXML private Text userText, pointsText;
 
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
@@ -53,22 +55,28 @@ public class PractiseController implements Initializable {
     private String concatName = "";
     private FilteredList<String> filteredData;
     private boolean isRandomised = false;
+    private User user;
 
     @FXML
     private void exitPressed(ActionEvent event) {
-        System.exit(0);
+        StackPane loginRoot = null;
+        try {
+            loginRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(loginRoot);
     }
 
     @FXML
     void helpPressed(ActionEvent event) {
-        HelpDialog helpDialog = new HelpDialog();
-        helpDialog.showHelpDialog(stackPane);
+
     }
 
     //Load testMicrophone pane
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
-        StackPane testMicrophoneRoot = null;
+        AnchorPane testMicrophoneRoot = null;
         try {
             testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/TestMicrophone.fxml"));
         } catch (IOException e) {
@@ -80,7 +88,7 @@ public class PractiseController implements Initializable {
     //record new practise pane
     @FXML
     private void recordNamePressed(ActionEvent event) {
-        StackPane practiseRoot = null;
+        AnchorPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
         } catch (IOException e) {
@@ -522,6 +530,8 @@ public class PractiseController implements Initializable {
         // bind appropriate conditions to each button
         playNames.disableProperty().bind(Bindings.isEmpty(selectedNameList));
         toggleRandomise.disableProperty().bind(Bindings.size(selectedNameList).lessThan(2));
+
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 
 }
