@@ -62,7 +62,7 @@ NOTE: Rating has an effect on your Play List - if the rating is bad, the system 
 <hr>
 ---
 
-###Tutorial Popup
+### Tutorial Popup
 ![NameSayer](src/namesayer/resources/images/tips.png)
 
 1. On the bottom left of the navigation bar, look for the `?` button
@@ -71,7 +71,7 @@ NOTE: Rating has an effect on your Play List - if the rating is bad, the system 
 <hr>
 ---
 
-###Thanks to:
+### Thanks to:
 Music Icons made by Daniele De Santis from: [https://www.flaticon.com/packs/music] <br/>
 Microphone Icon made by Smashicons from: [https://www.flaticon.com/free-icon/microphone_149427#term=record&page=1&position=1] <br/>
 Star Icon made by Dave Gandy from: [https://www.flaticon.com/free-icon/star_25291#term=star&page=1&position=39] <br/>

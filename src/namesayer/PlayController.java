@@ -411,6 +411,13 @@ public class PlayController implements Initializable {
             }
         });
 
+        saveButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                //TODO:
+            }
+        });
+
         //INIT JFX-POPUP
         VBox box = new VBox(recordSubButton, playOldButton, playNewButton, saveButton); // can make HBox
         recordPopup.setPopupContent(box);
