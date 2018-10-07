@@ -25,9 +25,9 @@
 ### To Listen and Practise saying a name/names
 1. On the left side menu, press `Practise`
 2. Type the name(s) you want to practise on the list and press `Practise`.
-2a. You can type full names (first, middle and last names), and the search will automatically concatenate the name if each individual name exists in database.
-2b. You can also upload a list of names, each name on its own line, with a maximum character length of 50 and a maximum of 30 names.
-3. Press the play triangle to listen and practise saying name.
+3. You can type full names (first, middle and last names), and the search will automatically concatenate the name if each individual name exists in database.
+4. You can also upload a list of names, each name on its own line, with a maximum character length of 50 and a maximum of 30 names.
+5. Press the play triangle to listen and practise saying name.
 
 ### To Compare the Pronunciations of names.
 1. While Practising, click the `red microphone`.
