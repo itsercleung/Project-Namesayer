@@ -1,5 +1,6 @@
 package namesayer;
 
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -95,7 +96,26 @@ public class MainController implements Initializable {
         new File("./temp").mkdirs();
         new File("./data").mkdirs();
         new File("./data/names").mkdirs();
-        new File("./data/usernames").mkdirs();
 
+        //Moving default base names into database
+        String moveNames = "cd src/defaultnames\n" +
+                "for fileName in *.wav; do\n" +
+                "  cp -p $fileName ../../data/names/$fileName\n" +
+                "done";
+
+        Task task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", moveNames);
+                try {
+                    Process process = processBuilder.start();
+                    process.waitFor();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+        new Thread (task).start();
     }
 }
