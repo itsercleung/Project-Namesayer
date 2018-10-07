@@ -64,7 +64,7 @@ public class PlayController implements Initializable {
 
     //Record sidebar function
     private JFXPopup recordPopup = new JFXPopup();
-    private JFXButton playOldButton = new JFXButton("PLAY OLD"); // placeholders, can put way better looking buttons
+    private JFXButton playOldButton = new JFXButton(" PLAY OLD"); // placeholders, can put way better looking buttons
     private JFXButton playNewButton = new JFXButton("PLAY NEW");
     private JFXButton recordSubButton = new JFXButton("RECORD");
     private JFXButton saveButton = new JFXButton("SAVE NEW");
@@ -191,23 +191,17 @@ public class PlayController implements Initializable {
         playOldButton.setMinSize(130.0, 40);
         saveButton.setMinSize(130.0, 40);
 
-        recordSubButton.setFocusTraversable(false);
-        playNewButton.setFocusTraversable(false);
-        playOldButton.setFocusTraversable(false);
-        saveButton.setFocusTraversable(false);
-
-        recordSubButton.setOnMouseEntered(e -> recordSubButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;"));
-        recordSubButton.setOnMouseExited(e -> recordSubButton.setStyle("-fx-background-color: transparent"));
-
         //Setting popup position and size
         recordPopup.show(recordButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
         recordPopup.getPopupContent().setPrefWidth(130);
     }
 
+    //Re-enable default setup buttons
     @FXML
     void stopPressed(ActionEvent event) {
         playAudio.stopAudio();
         playButton.setDisable(false);
+        recordButton.setDisable(false);
         stopButton.setDisable(true);
     }
 
@@ -397,12 +391,61 @@ public class PlayController implements Initializable {
 
         //Set icons for side menu
         Image recSub = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
+        Image recSubHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
         recordSubButton.setGraphic(new ImageView(recSub));
         Image playOld = new Image(getClass().getResourceAsStream("resources/icons/playOld.png"));
+        Image playOldHover = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         playOldButton.setGraphic(new ImageView(playOld));
         Image playNew = new Image(getClass().getResourceAsStream("resources/icons/playNew.png"));
+        Image playNewHover = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         playNewButton.setGraphic(new ImageView(playNew));
         Image saveNew = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
+        Image saveNewHover = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
         saveButton.setGraphic(new ImageView(saveNew));
+
+        //Setting styles for side menu bar buttons and EVENTS on hover
+        recordSubButton.setFocusTraversable(false);
+        playNewButton.setFocusTraversable(false);
+        playOldButton.setFocusTraversable(false);
+        saveButton.setFocusTraversable(false);
+
+        recordSubButton.setOnMouseEntered(e -> {
+            recordSubButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
+            recordSubButton.setGraphic(new ImageView(recSubHover));
+        });
+        recordSubButton.setOnMouseExited(e -> {
+            recordSubButton.setStyle("-fx-background-color: transparent");
+            recordSubButton.setGraphic(new ImageView(recSub));
+        });
+
+        playNewButton.setOnMouseEntered(e -> {
+            playNewButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
+            playNewButton.setGraphic(new ImageView(playNewHover));
+        });
+
+        playNewButton.setOnMouseExited(e -> {
+            playNewButton.setStyle("-fx-background-color: transparent");
+            playNewButton.setGraphic(new ImageView(playNew));
+        });
+
+        playOldButton.setOnMouseEntered(e -> {
+            playOldButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
+            playOldButton.setGraphic(new ImageView(playOldHover));
+        });
+
+        playOldButton.setOnMouseExited(e -> {
+            playOldButton.setStyle("-fx-background-color: transparent");
+            playOldButton.setGraphic(new ImageView(playOld));
+        });
+
+        saveButton.setOnMouseEntered(e -> {
+            saveButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
+            saveButton.setGraphic(new ImageView(saveNewHover));
+        });
+
+        saveButton.setOnMouseExited(e -> {
+            saveButton.setStyle("-fx-background-color: transparent");
+            saveButton.setGraphic(new ImageView(saveNew));
+        });
     }
 }
