@@ -19,14 +19,14 @@
          <children>
             <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
                <children>
-                  <VBox prefHeight="100.0" prefWidth="200.0">
+                  <VBox prefHeight="60.0" prefWidth="200.0">
                      <children>
                         <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User: default">
                            <font>
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets left="30.0" top="30.0" />
+                              <Insets left="10.0" top="10.0" />
                            </VBox.margin>
                         </Text>
                         <Text fx:id="pointsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Points: 0">
@@ -34,20 +34,17 @@
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets left="29.0" top="10.0" />
+                              <Insets left="10.0" top="2.0" />
                            </VBox.margin>
                         </Text>
                      </children>
-                     <VBox.margin>
-                        <Insets top="360.0" />
-                     </VBox.margin>
                   </VBox>
                   <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Back">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="60.0" />
+                        <Insets top="470.0" />
                      </VBox.margin>
                   </Button>
                </children>
@@ -78,7 +75,7 @@
                   </HBox>
                   <Label fx:id="playLabel" alignment="CENTER" prefHeight="40.0" prefWidth="600.0" stylesheets="@stylesheet/general.css" text="PLAYING:">
                      <VBox.margin>
-                        <Insets bottom="30.0" left="100.0" top="10.0" />
+                        <Insets bottom="20.0" left="100.0" top="10.0" />
                      </VBox.margin>
                      <font>
                         <Font size="16.0" />
