@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,10 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import namesayer.util.HelpDialog;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
@@ -43,8 +42,6 @@ public class PractiseController implements Initializable {
     @FXML private AnchorPane mainRoot;
     @FXML private JFXListView<String> searchNamesView;
     @FXML private JFXListView<String> selectedNamesView;
-    @FXML private StackPane stackPane;
-
 
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
@@ -56,24 +53,7 @@ public class PractiseController implements Initializable {
 
     @FXML
     private void exitPressed(ActionEvent event) {
-        StackPane loginRoot = null;
-        try {
-            loginRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(loginRoot);
-    }
-
-    @FXML
-    void helpPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void helpPressed(ActionEvent event) {
-        HelpDialog helpDialog = new HelpDialog();
-        helpDialog.showHelpDialog(stackPane);
+        System.exit(0);
     }
 
     //Load testMicrophone pane

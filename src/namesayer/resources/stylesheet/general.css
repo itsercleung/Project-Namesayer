@@ -170,7 +170,6 @@ ToggleSwitch:selected .thumb-area {
     -fx-background-color :transparent;
     -fx-background-radius : 0.0em;
     -fx-padding :0.0 12.0 0.0 0.0;
-
 }
 
 .table-view .scroll-bar .increment-arrow,
@@ -213,6 +212,7 @@ ToggleSwitch:selected .thumb-area {
     -fx-background-color: #FF5252;
 }
 
+/* LABELS */
 #testNote {
     -fx-background-color: #212121;
 }
@@ -232,6 +232,12 @@ ToggleSwitch:selected .thumb-area {
 }
 
 #titleLabel {
+    -fx-background-color: rgba(0,0,0,0.8);
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+}
+
+#testLabel {
     -fx-background-color: rgba(0,0,0,0.8);
     -fx-background-radius: 5px;
     -fx-text-fill: white;

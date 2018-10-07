@@ -2,6 +2,8 @@ package namesayer.util;
 
 import org.controlsfx.control.Rating;
 
+//NAME Class: Stores all properties of each audio file. Can use tableView to provide information, or if we need to compare
+//such objects, or if we need to rename an audio name file appropriately using toString().
 public class Name {
     private String name;
     private String created;
@@ -38,6 +40,10 @@ public class Name {
         return created;
     }
 
+    public String getDate() { return date; }
+
+    public String getTime() { return time; }
+
     public Rating getRating() {
         return rating;
     }
@@ -53,6 +59,9 @@ public class Name {
     public void setRating(Rating rating) {
         this.rating = rating;
     }
+
+    //If name is concat, we can replace the createdBy section with [COMBINATION] of users choice
+    public String replaceDesc() { return date + "_" + time + "_" + name; }
 
     public String toString() {
         return created + "_" + date + "_" + time + "_" + name;
