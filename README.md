@@ -8,7 +8,7 @@ Recommended to read README through markdown support
 1. Place `Group36.jar` into appropriate working folder
 2. Extract names database into folder named `names` in the same directory as Assignment3.jar (default set already there)
 3. Onto command line, change directory (`cd`) to appropriate folder
-4. Type `java -jar NameSayer.jar`
+4. Type `java -jar Group36.jar`
 5. Have fun!
 
 <hr>
