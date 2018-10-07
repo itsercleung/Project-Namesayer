@@ -15,6 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Text;
+import namesayer.login.User;
+import namesayer.login.UserUtils;
 import namesayer.util.Recorder;
 
 import java.io.File;
@@ -34,7 +37,6 @@ public class TestMicrophoneController implements Initializable {
 
     private Recorder recorder = null;
 
-    //When user completes test, let them play back recording to hear if their mic is viable 
     @FXML
     void listenPressed(ActionEvent event) {
         //When button is pressed disable button until audio is finished playing
@@ -58,7 +60,7 @@ public class TestMicrophoneController implements Initializable {
 
                         //Once steps (1)-(2) complete testlabel will show complete
                         testLabel.setText("[Test complete]");
-                        testLabel.setStyle("-fx-text-fill: #6AE368"); //Nice spotify colour
+                        testLabel.setStyle("-fx-text-fill: #6AE368");
                     }
                 });
             }
@@ -139,7 +141,6 @@ public class TestMicrophoneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Initial default properties for buttons
         testMicrophoneButton.setDisable(true);
         listenButton.setDisable(true);
 
@@ -150,15 +151,10 @@ public class TestMicrophoneController implements Initializable {
         thread.setDaemon(true); // hax but not graceful shutdown of thread
         thread.start();
 
-        //Setting image icons to buttons
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
-
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
-        Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
         testButton.setGraphic(new ImageView(rec));
-        testButton.setOnMouseEntered(e -> testButton.setGraphic(new ImageView(recHover)));
-        testButton.setOnMouseExited(e -> testButton.setGraphic(new ImageView(rec)));
     }
 }
 

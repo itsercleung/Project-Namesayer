@@ -33,29 +33,12 @@ public class NewUserController implements Initializable {
 
     @FXML
     void registerButtonPressed(ActionEvent event) {
-        String path = "./data/usernames/" + usernameField.getText() + ".txt";
-        File usernameTxt = new File(path);
-        if (usernameTxt.exists()) {
-            // give warning and not exit
-            return;
-        }
-
-        // add username and points
-        try {
-            FileWriter fw = new FileWriter(usernameTxt, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.append(usernameField.getText());
-            bw.newLine();
-            bw.append("0");
-            bw.close();
-        } catch (IOException ioe) {
-
-        }
+        UserUtils.createUser(usernameField.getText());
 
         //Load practise pane
         AnchorPane newRoot = null;
         try {
-            newRoot = FXMLLoader.load(getClass().getResource("../resources/Login.fxml"));
+            newRoot = FXMLLoader.load(getClass().getResource("../resources/Main.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,7 +50,7 @@ public class NewUserController implements Initializable {
         //Load practise pane
         AnchorPane newRoot = null;
         try {
-            newRoot = FXMLLoader.load(getClass().getResource("../resources/Login.fxml"));
+            newRoot = FXMLLoader.load(getClass().getResource("../resources/Main.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

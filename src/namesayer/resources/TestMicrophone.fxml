@@ -10,6 +10,7 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="mainRoot" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.TestMicrophoneController">
    <children>
@@ -18,22 +19,53 @@
             <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
                <children>
                   <Button fx:id="practiseButton" mnemonicParsing="false" onAction="#practisePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Practise">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                      <VBox.margin>
                         <Insets top="60.0" />
                      </VBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
                   </Button>
-                  <Button fx:id="testMicrophoneButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Test Microphone">
+                  <Button fx:id="testMicrophoneButton" mnemonicParsing="false" onAction="#testMicrophonePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Test Microphone">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="20.0" />
                      </VBox.margin>
                   </Button>
                   <Button fx:id="recordNameButton" mnemonicParsing="false" onAction="#recordNamePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Record New Name">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <VBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User: default">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="30.0" top="30.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="pointsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Points: 0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="29.0" top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="60.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Home">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -42,12 +74,12 @@
                      </VBox.margin>
                   </Button>
                   <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Exit">
-                     <VBox.margin>
-                        <Insets top="270.0" />
-                     </VBox.margin>
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
                   </Button>
                </children>
             </VBox>

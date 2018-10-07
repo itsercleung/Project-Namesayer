@@ -70,6 +70,8 @@ public class PlayController implements Initializable {
     private JFXButton saveButton = new JFXButton("SAVE NEW");
     private String tempAudioName = null; // for recording
 
+    @FXML private Text userText, pointsText;
+
     @FXML
     void exitPressed(ActionEvent event) {
         //Delete temp combined names if they exist
@@ -159,6 +161,7 @@ public class PlayController implements Initializable {
                         if (!nameAudio.contains(" ")) {
                             playAudio = new PlayAudio("data/names/" + nameAudio);
                             playAudio.playAudio();
+
                         }
                         //Else if name is combination - section names into appropriate format
                         else {
@@ -197,7 +200,6 @@ public class PlayController implements Initializable {
 
     }
 
-    //Re-enable default setup buttons
     @FXML
     void stopPressed(ActionEvent event) {
         playAudio.stopAudio();
@@ -363,7 +365,7 @@ public class PlayController implements Initializable {
         playNewButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                String path = "./temp/" + tempAudioName.replace(" ","") + ".wav";
+                String path = "./temp/" +tempAudioName + ".wav";
                 PlayAudio playAudio = new PlayAudio(path);
                 playAudio.playAudio();
             }
@@ -383,12 +385,17 @@ public class PlayController implements Initializable {
             }
         });
 
-        //INIT JFX-POPUP
+        //Concat multiple names selected
+        for (PlayAudio audio : practiseController.getPlayAudioList()) {
+            audio.concatCombinedAudio();
+        }
+
+        // for jfxpopup
         VBox box = new VBox(recordSubButton, playOldButton, playNewButton, saveButton); // can make HBox
         recordPopup.setPopupContent(box);
+        recordPopup.setStyle("-fx-background-color: #212121;"); // TODO not sure how to turn bakcground colour
 
         //Set icons to specific buttons from resources/icons (credited in description).
-        //Set icons for play menu
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         playButton.setGraphic(new ImageView(play));
         Image stop = new Image(getClass().getResourceAsStream("resources/icons/stop.png"));
@@ -397,71 +404,13 @@ public class PlayController implements Initializable {
         prevButton.setGraphic(new ImageView(prev));
         Image next = new Image(getClass().getResourceAsStream("resources/icons/next.png"));
         nextButton.setGraphic(new ImageView(next));
-
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
-        Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
         recordButton.setGraphic(new ImageView(rec));
-        recordButton.setOnMouseEntered(e -> recordButton.setGraphic(new ImageView(recHover)));
-        recordButton.setOnMouseExited(e -> recordButton.setGraphic(new ImageView(rec)));
 
-        //Set icons for side menu
-        Image recSub = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
-        Image recSubHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
-        recordSubButton.setGraphic(new ImageView(recSub));
-        Image playOld = new Image(getClass().getResourceAsStream("resources/icons/playOld.png"));
-        Image playOldHover = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
-        playOldButton.setGraphic(new ImageView(playOld));
-        Image playNew = new Image(getClass().getResourceAsStream("resources/icons/playNew.png"));
-        Image playNewHover = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
-        playNewButton.setGraphic(new ImageView(playNew));
-        Image saveNew = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
-        Image saveNewHover = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
-        saveButton.setGraphic(new ImageView(saveNew));
-
-        //Setting styles for side menu bar buttons and EVENTS on hover
-        recordSubButton.setFocusTraversable(false);
-        playNewButton.setFocusTraversable(false);
-        playOldButton.setFocusTraversable(false);
-        saveButton.setFocusTraversable(false);
-
-        //Setting mouse hover events
-        recordSubButton.setOnMouseEntered(e -> {
-            recordSubButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
-            recordSubButton.setGraphic(new ImageView(recSubHover));
-        });
-        recordSubButton.setOnMouseExited(e -> {
-            recordSubButton.setStyle("-fx-background-color: transparent");
-            recordSubButton.setGraphic(new ImageView(recSub));
-        });
-
-        playNewButton.setOnMouseEntered(e -> {
-            playNewButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
-            playNewButton.setGraphic(new ImageView(playNewHover));
-        });
-
-        playNewButton.setOnMouseExited(e -> {
-            playNewButton.setStyle("-fx-background-color: transparent");
-            playNewButton.setGraphic(new ImageView(playNew));
-        });
-
-        playOldButton.setOnMouseEntered(e -> {
-            playOldButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
-            playOldButton.setGraphic(new ImageView(playOldHover));
-        });
-
-        playOldButton.setOnMouseExited(e -> {
-            playOldButton.setStyle("-fx-background-color: transparent");
-            playOldButton.setGraphic(new ImageView(playOld));
-        });
-
-        saveButton.setOnMouseEntered(e -> {
-            saveButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
-            saveButton.setGraphic(new ImageView(saveNewHover));
-        });
-
-        saveButton.setOnMouseExited(e -> {
-            saveButton.setStyle("-fx-background-color: transparent");
-            saveButton.setGraphic(new ImageView(saveNew));
-        });
+        recordSubButton.setGraphic(new ImageView(rec));
+        playOldButton.setGraphic(new ImageView(play));
+        playNewButton.setGraphic(new ImageView(play));
+        Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
+        saveButton.setGraphic(new ImageView(save));
     }
 }
