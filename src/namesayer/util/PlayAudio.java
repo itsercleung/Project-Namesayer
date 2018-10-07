@@ -46,17 +46,25 @@ public class PlayAudio {
     }
 
     public void filterCombinedAudio() {
-        //Silence noise sections of each audio
-        for (String nameAudio : combineAudio) {
-            String silenceAudio = "cp data/names/" + nameAudio + ".wav temp/" + nameAudio + ".wav\n" +
-                    "ffmpeg -hide_banner -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-50dB:1:5:-50dB:0 temp/" + nameAudio + "CONCAT.wav\n";
-            ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", silenceAudio);
-            try {
-                processBuilder.start();
-            } catch (IOException e) {
-                e.printStackTrace();
+
+        Task task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                //Silence noise sections of each audio
+                for (String nameAudio : combineAudio) {
+                    String silenceAudio = "cp data/names/" + nameAudio + ".wav temp/" + nameAudio + ".wav\n" +
+                            "ffmpeg -hide_banner -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-50dB:1:5:-50dB:0 temp/" + nameAudio + "CONCAT.wav\n";
+                    ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", silenceAudio);
+                    try {
+                        processBuilder.start();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
             }
-        }
+        };
+        new Thread (task).start();
     }
 
     public void concatCombinedAudio() {
@@ -73,8 +81,7 @@ public class PlayAudio {
         }
 
         //Concatenate from txt file
-        String concatAudio = "ffmpeg -f concat -i temp/combineAudio.txt -c copy temp/" + audio.replace(" ", "") + " \n" +
-                "rm temp/combineAudio.txt";
+        String concatAudio = "ffmpeg -f concat -i temp/combineAudio.txt -c copy temp/" + audio.replace(" ", "") + " \n";
         ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", concatAudio);
         try {
             Process process = processBuilder.start();

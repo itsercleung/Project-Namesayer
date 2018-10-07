@@ -213,6 +213,7 @@ ToggleSwitch:selected .thumb-area {
     -fx-background-color: #FF5252;
 }
 
+/* LABELS */
 #testNote {
     -fx-background-color: #212121;
 }
@@ -232,6 +233,12 @@ ToggleSwitch:selected .thumb-area {
 }
 
 #titleLabel {
+    -fx-background-color: rgba(0,0,0,0.8);
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+}
+
+#testLabel {
     -fx-background-color: rgba(0,0,0,0.8);
     -fx-background-radius: 5px;
     -fx-text-fill: white;

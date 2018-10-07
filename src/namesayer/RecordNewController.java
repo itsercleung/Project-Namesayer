@@ -198,6 +198,7 @@ public class RecordNewController implements Initializable {
                     public void run() {
                         label.setText("[Listening to " + name + "]");
                         disableButtons();
+                        stopRecordingButton.setDisable(true);
                     }
                 });
                 try {
@@ -272,10 +273,9 @@ public class RecordNewController implements Initializable {
         recordButton.setGraphic(new ImageView(rec));
         recordButton.setOnMouseEntered(e -> recordButton.setGraphic(new ImageView(recHover)));
         recordButton.setOnMouseExited(e -> recordButton.setGraphic(new ImageView(rec)));
-
+        Image save = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
+        saveButton.setGraphic(new ImageView(save));
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
-        Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
-        saveButton.setGraphic(new ImageView(save));
     }
 }

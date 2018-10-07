@@ -147,10 +147,14 @@ public class TestMicrophoneController implements Initializable {
         thread.setDaemon(true); // hax but not graceful shutdown of thread
         thread.start();
 
+        //Setting image icons to buttons
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
+        Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
         testButton.setGraphic(new ImageView(rec));
+        testButton.setOnMouseEntered(e -> testButton.setGraphic(new ImageView(recHover)));
+        testButton.setOnMouseExited(e -> testButton.setGraphic(new ImageView(rec)));
     }
 }
 
