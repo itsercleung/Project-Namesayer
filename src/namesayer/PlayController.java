@@ -392,8 +392,8 @@ public class PlayController implements Initializable {
         recordSubButton.setGraphic(new ImageView(rec));
         playOldButton.setGraphic(new ImageView(play));
         playNewButton.setGraphic(new ImageView(play));
-        Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
-        saveButton.setGraphic(new ImageView(save));
+        //Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
+        //saveButton.setGraphic(new ImageView(save));
 
         UserUtils.getCurrentLoginUser(userText,pointsText);
     }
