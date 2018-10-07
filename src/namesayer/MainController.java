@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import namesayer.login.User;
+import namesayer.login.UserUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +20,8 @@ public class MainController implements Initializable {
     @FXML private AnchorPane mainRoot;
     @FXML private Text userText;
     @FXML private Text pointsText;
+
+    private User user;
 
     @FXML
     private void exitPressed(ActionEvent event) {
@@ -103,5 +107,6 @@ public class MainController implements Initializable {
         new File("./data/names").mkdirs();
         new File("./data/usernames").mkdirs();
 
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }

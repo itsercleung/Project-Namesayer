@@ -35,6 +35,7 @@ public class TestMicrophoneController implements Initializable {
 
     private Recorder recorder = null;
 
+    //When user completes test, let them play back recording to hear if their mic is viable 
     @FXML
     private void exitPressed(ActionEvent event) {
         recorder.stop();

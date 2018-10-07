@@ -34,6 +34,8 @@ public class LoginController implements Initializable {
     @FXML
     void loginButtonClicked(ActionEvent event) {
         // gets currently selected name to login to
+        UserUtils.setCurrentLoginUser(userList.getSelectionModel().getSelectedItem());
+
         AnchorPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("../resources/Main.fxml"));
@@ -60,20 +62,10 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Setting initial params
-        loginButton.setDisable(true);
         File directory = new File("./data/usernames");
         File[] dirFiles = directory.listFiles();
         ObservableList<User> users = FXCollections.observableArrayList();
         Scanner reader;
-
-        //If user selects username from listView
-        userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
-            @Override
-            public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
-                loginButton.setDisable(false);
-
-            }
-        });
 
         if (dirFiles != null) {
             for (File file : dirFiles) {
@@ -90,5 +82,7 @@ public class LoginController implements Initializable {
             
             userList.setItems(users);
         }
+
+        loginButton.disableProperty().bind(userList.getSelectionModel().selectedItemProperty().isNull());
     }
 }
