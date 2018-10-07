@@ -38,6 +38,10 @@ public class Name {
         return created;
     }
 
+    public String getDate() { return date; }
+
+    public String getTime() { return time; }
+
     public Rating getRating() {
         return rating;
     }
@@ -53,6 +57,8 @@ public class Name {
     public void setRating(Rating rating) {
         this.rating = rating;
     }
+
+    public String replaceDesc() { return date + "_" + time + "_" + name; }
 
     public String toString() {
         return created + "_" + date + "_" + time + "_" + name;

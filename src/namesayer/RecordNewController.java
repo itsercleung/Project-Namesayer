@@ -265,8 +265,14 @@ public class RecordNewController implements Initializable {
         saveButton.setDisable(true);
         stopRecordingButton.setDisable(true);
 
+        //Set icons to specific buttons from resources/icons (credited in description).
+        //Set icons for record new menu
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
+        Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
         recordButton.setGraphic(new ImageView(rec));
+        recordButton.setOnMouseEntered(e -> recordButton.setGraphic(new ImageView(recHover)));
+        recordButton.setOnMouseExited(e -> recordButton.setGraphic(new ImageView(rec)));
+
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
         Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
