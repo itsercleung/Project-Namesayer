@@ -11,8 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import namesayer.util.CreateTempAudio;
+import namesayer.util.HelpDialog;
 import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
 
@@ -35,11 +37,23 @@ public class RecordNewController implements Initializable {
     @FXML private JFXTextField nameField;
     @FXML private Button stopRecordingButton;
     @FXML private VBox vbox;
+    @FXML private StackPane stackPane;
 
     private String name;
     private String officialName;
     private CreateTempAudio createTempAudio;
     private JFXSnackbar message;
+
+    @FXML
+    void exitPressed(ActionEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    void helpPressed(ActionEvent event) {
+        HelpDialog helpDialog = new HelpDialog();
+        helpDialog.showHelpDialog(stackPane);
+    }
 
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
@@ -76,11 +90,6 @@ public class RecordNewController implements Initializable {
             e.printStackTrace();
         }
         root.getChildren().setAll(practiseRoot);
-    }
-
-    @FXML
-    void exitPressed(ActionEvent event) {
-        System.exit(0);
     }
 
     //Allows user to record given the string of the nameField: (1) If name already exists, assign the name with version
