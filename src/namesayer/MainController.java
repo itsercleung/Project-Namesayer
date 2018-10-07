@@ -94,6 +94,7 @@ public class MainController implements Initializable {
         new File("./temp").mkdirs();
         new File("./data").mkdirs();
         new File("./data/names").mkdirs();
+        new File("./data/usernames").mkdirs();
 
     }
 }

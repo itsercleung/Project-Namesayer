@@ -194,6 +194,7 @@ public class PlayController implements Initializable {
         //Setting popup position and size
         recordPopup.show(recordButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
         recordPopup.getPopupContent().setPrefWidth(130);
+
     }
 
     //Re-enable default setup buttons
@@ -247,6 +248,17 @@ public class PlayController implements Initializable {
 
     //Update editable rating component
     private void ratingUpdate() {
+        //If txt doesnt exist then make one and append TITLE
+        File pqFile = new File("data/ratingAudio.txt");
+        if (!pqFile.exists()) {
+            try {
+                pqFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //Reading ratingAudio.txt to get values of ratings
         try {
             byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
