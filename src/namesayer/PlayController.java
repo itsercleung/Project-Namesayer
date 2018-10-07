@@ -3,7 +3,6 @@ package namesayer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,8 +12,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -26,12 +23,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import namesayer.login.UserUtils;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -40,7 +37,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class PlayController implements Initializable {
 
@@ -63,9 +63,8 @@ public class PlayController implements Initializable {
     private String currSelectedName; //Current name row selected by user
     private PlayAudio playAudio;
 
-    //Record sidebar function
     private JFXPopup recordPopup = new JFXPopup();
-    private JFXButton playOldButton = new JFXButton(" PLAY OLD"); // placeholders, can put way better looking buttons
+    private JFXButton playOldButton = new JFXButton("PLAY OLD"); // placeholders, can put way better looking buttons
     private JFXButton playNewButton = new JFXButton("PLAY NEW");
     private JFXButton recordSubButton = new JFXButton("RECORD");
     private JFXButton saveButton = new JFXButton("SAVE NEW");
@@ -189,15 +188,12 @@ public class PlayController implements Initializable {
 
     @FXML
     void recordPressed(ActionEvent event) {
-        //Button sizes and style
-        recordSubButton.setMinSize(130.0, 40);
-        playNewButton.setMinSize(130.0, 40);
-        playOldButton.setMinSize(130.0, 40);
-        saveButton.setMinSize(130.0, 40);
+        // TODO to recordSubButton user practise
+        // TODO also a play/save should be in same screen?
+        // TODO: Possibly let user toggle popup (so if they click out of it, it should stay there) We could make a menu out of that maybe.
+        // TODO: What do you think??
 
-        //Setting popup position and size
-        recordPopup.show(recordButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
-        recordPopup.getPopupContent().setPrefWidth(130);
+        recordPopup.show(recordButton,JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
 
     }
 
@@ -251,17 +247,6 @@ public class PlayController implements Initializable {
 
     //Update editable rating component
     private void ratingUpdate() {
-        //If txt doesnt exist then make one and append TITLE
-        File pqFile = new File("data/ratingAudio.txt");
-        if (!pqFile.exists()) {
-            try {
-                pqFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //Reading ratingAudio.txt to get values of ratings
         try {
             byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
@@ -346,13 +331,8 @@ public class PlayController implements Initializable {
             }
         });
 
-        //Concat multiple names selected
-        for (PlayAudio audio : practiseController.getPlayAudioList()) {
-            audio.concatCombinedAudio();
-        }
-
-        //JFXPOPUP BUTTON ACTIONS
-        //PLAYOLD - plays current names audio file
+        // logic that deals with the JFXPopup for record button
+        recordButton.setDisable(true);
         saveButton.setDisable(true);
         playOldButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -361,8 +341,6 @@ public class PlayController implements Initializable {
             }
         });
 
-        //PLAYNEW - plays users recorded version of name file (if exists)
-        playNewButton.setDisable(true);
         playNewButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -372,7 +350,6 @@ public class PlayController implements Initializable {
             }
         });
 
-        //RECORD - records user trying to pronounce PLAYOLD name
         recordSubButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -380,7 +357,11 @@ public class PlayController implements Initializable {
                 saveButton.setDisable(false);
 
                 //Setup official name for saved recording
-                tempAudioName = "user_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
+                DateFormat dateFormat = new SimpleDateFormat("_dd-MM-yyyy_HH-mm-ss_");
+                Date date = new Date();
+                tempAudioName = "user" + dateFormat.format(date) +
+                        practiseController.getNamePlaylist().get(currentNameNum).getName();
+
                 CreateTempAudio cta = new CreateTempAudio(tempAudioName);
                 cta.createSingleAudio();
             }
@@ -413,5 +394,7 @@ public class PlayController implements Initializable {
         playNewButton.setGraphic(new ImageView(play));
         Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
         saveButton.setGraphic(new ImageView(save));
+
+        UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }

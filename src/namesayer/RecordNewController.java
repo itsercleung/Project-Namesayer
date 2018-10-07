@@ -11,7 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import namesayer.login.User;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
@@ -33,6 +36,7 @@ public class RecordNewController implements Initializable {
     @FXML private Button listenButton, recordButton, saveButton, recordNameButton;
     @FXML private AnchorPane root;
     @FXML private JFXTextField nameField;
+    @FXML private Label label;
     @FXML private Button stopRecordingButton;
     @FXML private VBox vbox;
 
@@ -40,6 +44,22 @@ public class RecordNewController implements Initializable {
     private String officialName;
     private CreateTempAudio createTempAudio;
     private JFXSnackbar message;
+
+    @FXML private Text userText, pointsText;
+    private User user;
+
+    @FXML
+    private void homePressed(ActionEvent event) {
+        AnchorPane main = null;
+
+        try {
+            main = FXMLLoader.load(getClass().getResource("resources/Main.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        root.getChildren().setAll(main);
+    }
+
 
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
@@ -87,11 +107,14 @@ public class RecordNewController implements Initializable {
     //(2) Else simply record the name
     @FXML
     private void recordPressed(ActionEvent event) {
-        String regex = "([ a-zA-Z0-9-])*"; // letters, spaces, numbers hyphens
+        String regex = "([a-zA-Z0-9])*"; // letters, numbers
         name = nameField.getText().trim().toLowerCase();
         if (!name.matches(regex) || name.isEmpty()) {
             String error = "[Invalid Name: Name must have letters or numbers only]";
+
             if (message != null) {message.close();}
+            message = new JFXSnackbar(vbox);
+            message.setStyle("-fx-font-size: 20pt;");
             message.show(error,10000);
             //label.setText(error);
 
@@ -136,8 +159,10 @@ public class RecordNewController implements Initializable {
                else if (response == ButtonType.OK) {
                    String messageString = "[Recording " + name + "]";
                    message.close();
+                   message = new JFXSnackbar(vbox);
                    message.show(messageString, 10000);
                    //label.setText(messageString);
+
                    new Thread() {
                        public void run() {
                            Platform.runLater(new Runnable() {
@@ -153,7 +178,11 @@ public class RecordNewController implements Initializable {
                            }
                            Platform.runLater(new Runnable() {
                                public void run() {
-                                   //label.setText("[Recorded " + name + "]");
+                                   String messageString = "[Recorded " + name + "]";
+                                   message.close();
+                                   message = new JFXSnackbar(vbox);
+                                   message.show(messageString, 10000);
+                                   //label.setText(messageString);
                                    enableButtons();
                                }
                            });
@@ -170,7 +199,11 @@ public class RecordNewController implements Initializable {
                 public void run() {
                     Platform.runLater(new Runnable() {
                         public void run() {
-                            //label.setText("[Recording " + name + "]");
+                            String messageString = "[Recording " + name + "]";
+                            message.close();
+                            message = new JFXSnackbar(vbox);
+                            message.show(messageString, 10000);
+                            //label.setText(messageString);
                             disableButtons();
                         }
                     });
@@ -184,7 +217,9 @@ public class RecordNewController implements Initializable {
                         public void run() {
                             String messageString = "[Recorded " + name + "]";
                             message.close();
+                            message = new JFXSnackbar(vbox);
                             message.show(messageString, 10000);
+                            //label.setText(messageString);
                             enableButtons();
                         }
                     });
@@ -207,7 +242,11 @@ public class RecordNewController implements Initializable {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        //label.setText("[Listening to " + name + "]");
+                        String messageString = "[Listening to " + name + "]";
+                        message.close();
+                        message = new JFXSnackbar(vbox);
+                        message.show(messageString, 10000);
+                        //label.setText(messageString);
                         disableButtons();
                     }
                 });
@@ -219,7 +258,11 @@ public class RecordNewController implements Initializable {
                 }
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        //label.setText("[Listened to " + name + "]");
+                        String messageString = "[Listened to " + name + "]";
+                        message.close();
+                        message = new JFXSnackbar(vbox);
+                        message.show(messageString, 10000);
+                        //label.setText(messageString);
                         enableButtons();
                     }
                 });
@@ -236,6 +279,7 @@ public class RecordNewController implements Initializable {
     void savePressed(ActionEvent event) {
         String messageString = "[Saved name as " + name + "]";
         message.close();
+        message = new JFXSnackbar(vbox);
         message.show(messageString, 10000);
         //label.setText(messageString);
         try {
@@ -279,11 +323,18 @@ public class RecordNewController implements Initializable {
         saveButton.setDisable(true);
         stopRecordingButton.setDisable(true);
 
+        //Set icons to specific buttons from resources/icons (credited in description).
+        //Set icons for record new menu
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
+        Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
         recordButton.setGraphic(new ImageView(rec));
+        recordButton.setOnMouseEntered(e -> recordButton.setGraphic(new ImageView(recHover)));
+        recordButton.setOnMouseExited(e -> recordButton.setGraphic(new ImageView(rec)));
+
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
         Image save = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
         saveButton.setGraphic(new ImageView(save));
+
     }
 }

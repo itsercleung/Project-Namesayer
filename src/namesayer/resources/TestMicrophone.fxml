@@ -98,10 +98,13 @@
                         <Insets bottom="20.0" top="40.0" />
                      </VBox.margin>
                   </HBox>
-                  <Label fx:id="testLabel" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" stylesheets="@stylesheet/general.css" text="[STATUS]" textFill="#282828">
+                  <Label fx:id="testLabel" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="[Start test]" textFill="#282828">
                      <VBox.margin>
-                        <Insets bottom="10.0" left="220.0" right="220.0" />
-                     </VBox.margin></Label>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="-7.0" />
+                     </padding></Label>
                   <HBox prefHeight="50.0" prefWidth="200.0">
                      <children>
                         <Label text="Mic Level">
@@ -127,7 +130,7 @@
                      <children>
                         <Button fx:id="testButton" alignment="CENTER" mnemonicParsing="false" onAction="#testPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Test">
                            <HBox.margin>
-                              <Insets left="240.0" right="10.0" top="15.0" />
+                              <Insets left="235.0" right="20.0" top="15.0" />
                            </HBox.margin>
                            <VBox.margin>
                               <Insets right="5.0" top="-15.0" />

@@ -54,6 +54,10 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         File directory = new File("./data/usernames");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
         File[] dirfiles = directory.listFiles();
         ObservableList<User> users = FXCollections.observableArrayList();
         Scanner reader;

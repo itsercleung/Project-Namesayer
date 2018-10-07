@@ -82,7 +82,7 @@
                   </Button>
                </children>
             </VBox>
-            <VBox fx:id="vbox" prefHeight="0.0" prefWidth="800.0">
+            <VBox prefHeight="0.0" prefWidth="800.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -99,7 +99,7 @@
                               <Insets left="200.0" top="60.0" />
                            </HBox.margin>
                            <font>
-                              <Font size="15.0" />
+                              <Font size="14.0" />
                            </font></Text>
                         <JFXTextField fx:id="nameField" focusColor="#ff5252" prefHeight="30.0" prefWidth="275.0" promptText="Spaces and hyphens unsupported" stylesheets="@stylesheet/general.css" unFocusColor="#2f2f2f">
                            <HBox.margin>
@@ -111,6 +111,7 @@
                         <Insets top="50.0" />
                      </VBox.margin>
                   </HBox>
+                  <Label fx:id="label" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" text="[Start Recording]" />
                   <HBox prefHeight="100.0" prefWidth="800.0">
                      <children>
                         <Button fx:id="recordButton" alignment="CENTER" mnemonicParsing="false" onAction="#recordPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Record">
@@ -140,6 +141,14 @@
                         </Button>
                      </children>
                   </HBox>
+                  <Label alignment="CENTER" opacity="0.75" prefWidth="800.0" text="TIP: Enter name and press [Record] (records for 3 seconds)">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="190.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
             </VBox>
          </children>

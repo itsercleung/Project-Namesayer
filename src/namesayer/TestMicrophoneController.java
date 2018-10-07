@@ -37,6 +37,24 @@ public class TestMicrophoneController implements Initializable {
 
     private Recorder recorder = null;
 
+    @FXML private Text userText, pointsText;
+    private User user;
+
+    @FXML
+    private void homePressed(ActionEvent event) {
+        AnchorPane main = null;
+
+        try {
+            main = FXMLLoader.load(getClass().getResource("resources/Main.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(main);
+    }
+
+    @FXML
+    private void testMicrophonePressed(ActionEvent event){}
+
     @FXML
     void listenPressed(ActionEvent event) {
         //When button is pressed disable button until audio is finished playing
@@ -75,7 +93,6 @@ public class TestMicrophoneController implements Initializable {
         player.play();
     }
 
-    //Records users microphone and puts resultant recording into temp file for user to hear
     @FXML
     void testPressed(ActionEvent event) {
         //Set label to show test is currently ongoing
@@ -112,10 +129,10 @@ public class TestMicrophoneController implements Initializable {
         System.exit(0);
     }
 
-    //Load practise pane
     @FXML
     private void practisePressed(ActionEvent event) {
         recorder.stop();
+        //Load practise pane
         AnchorPane practiseRoot = null;
 
         try {
@@ -126,10 +143,10 @@ public class TestMicrophoneController implements Initializable {
         mainRoot.getChildren().setAll(practiseRoot);
     }
 
-    //record new practise pane
     @FXML
     private void recordNamePressed(ActionEvent event) {
         recorder.stop();
+        //record new practise pane
         AnchorPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
@@ -155,6 +172,9 @@ public class TestMicrophoneController implements Initializable {
         listenButton.setGraphic(new ImageView(play));
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
         testButton.setGraphic(new ImageView(rec));
+
+        // user info
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }
 

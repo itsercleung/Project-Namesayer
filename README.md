@@ -13,14 +13,6 @@
 ---
 </hr>
 
-### To Login
-1. Select a user in the main menu.
-2. Click the `login` button.
-
-### To Create New User
-1. Press `New User` in the main menu.
-2. Type in a new name and press `Register`.
-
 ### To Listen and Practise saying a name/names
 1. On the left side menu, press `Practise`
 For a single name
