@@ -18,7 +18,7 @@ public class CreateTempAudio {
     //Execute ffmpeg recording which creates audio file in temp
     public void createSingleAudio() {
         String userAudio = "cd temp\n" +
-                "ffmpeg -loglevel quiet -y -f alsa -i default -t 3 -ab 16 -ar 22050 -ac 1 " + name.replace(" ","") + ".wav";
+                "ffmpeg -f alsa -i hw:0 -t 3 -acodec pcm_s16le -ar 22050 -ac 1 " + name.replace(" ","") + ".wav";
 
         task = new Task<Void>() {
             @Override

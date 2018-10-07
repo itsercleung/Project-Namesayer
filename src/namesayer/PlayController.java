@@ -24,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.Name;
@@ -76,7 +77,7 @@ public class PlayController implements Initializable {
         MainController mainController = new MainController();
         mainController.deleteTemp();
 
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
         } catch (IOException e) {

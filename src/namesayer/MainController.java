@@ -32,7 +32,7 @@ public class MainController implements Initializable {
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
         //Load testMicrophone pane
-        AnchorPane testMicrophoneRoot = null;
+        StackPane testMicrophoneRoot = null;
         try {
             testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/TestMicrophone.fxml"));
         } catch (IOException e) {
@@ -44,7 +44,7 @@ public class MainController implements Initializable {
     @FXML
     private void practisePressed(ActionEvent event) {
         //Load practise pane
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
         } catch (IOException e) {
@@ -56,7 +56,7 @@ public class MainController implements Initializable {
     @FXML
     private void recordNamePressed(ActionEvent event) {
         //record new practise pane
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
         } catch (IOException e) {

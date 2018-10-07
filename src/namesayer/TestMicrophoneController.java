@@ -124,7 +124,7 @@ public class TestMicrophoneController implements Initializable {
     @FXML
     private void practisePressed(ActionEvent event) {
         recorder.stop();
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
 
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
@@ -138,7 +138,7 @@ public class TestMicrophoneController implements Initializable {
     @FXML
     private void recordNamePressed(ActionEvent event) {
         recorder.stop();
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
         } catch (IOException e) {
