@@ -10,11 +10,10 @@ import javafx.stage.StageStyle;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("resources/Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("NameSayer");
         //Add this when login is done primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setResizable(false);
         primaryStage.show();
         root.requestFocus();
     }

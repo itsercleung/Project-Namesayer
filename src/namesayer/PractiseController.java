@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -57,7 +56,18 @@ public class PractiseController implements Initializable {
 
     @FXML
     private void exitPressed(ActionEvent event) {
-        System.exit(0);
+        StackPane loginRoot = null;
+        try {
+            loginRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(loginRoot);
+    }
+
+    @FXML
+    void helpPressed(ActionEvent event) {
+
     }
 
     @FXML
