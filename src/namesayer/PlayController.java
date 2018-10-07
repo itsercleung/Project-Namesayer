@@ -188,8 +188,9 @@ public class PlayController implements Initializable {
         saveButton.setMinSize(130.0, 40);
 
         //Setting popup position and size
-        recordPopup.show(recordButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT,80,-70);
+        recordPopup.show(recordButton, JFXPopup.PopupVPosition.BOTTOM, JFXPopup.PopupHPosition.LEFT,80,0);
         recordPopup.getPopupContent().setPrefWidth(130);
+        recordPopup.setStyle("-fx-effect: null;" + "-fx-drop-shadow: null;");
     }
 
     //Re-enable default setup buttons
@@ -260,7 +261,7 @@ public class PlayController implements Initializable {
 
             //Once current audio is found in txt, extract its rating and update for audioRating component.
             for (int i = 0; i < selectedList.size(); i++) {
-                if (currentAudio.contains(practiseController.getNamePlaylist().get(i).toString() + ".wav") && !practiseController.getNamePlaylist().get(i).toString().contains(" ")) {
+                if (currentAudio.contains(practiseController.getNamePlaylist().get(i).toString() + ".wav")) {
                     Scanner scanner = new Scanner(currentAudio);
                     while (scanner.hasNextLine()) {
                         String line = scanner.nextLine();
@@ -283,7 +284,7 @@ public class PlayController implements Initializable {
             String currentAudio = new String(bytes);
             String currentPlay = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
 
-            if (currentAudio.contains(currentPlay) && !currentAudio.contains(" ")) {
+            if (currentAudio.contains(currentPlay)) {
                 Scanner scanner = new Scanner(currentAudio);
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();

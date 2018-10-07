@@ -21,6 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import namesayer.util.HelpDialog;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
@@ -41,6 +42,7 @@ public class PractiseController implements Initializable {
     @FXML private Button practiseButton, uploadButton;
     @FXML private JFXTextField searchTextField;
     @FXML private AnchorPane mainRoot;
+    @FXML private StackPane stackPane;
     @FXML private JFXListView<String> searchNamesView;
     @FXML private JFXListView<String> selectedNamesView;
     @FXML private Text userText, pointsText;
@@ -55,18 +57,13 @@ public class PractiseController implements Initializable {
 
     @FXML
     private void exitPressed(ActionEvent event) {
-        StackPane loginRoot = null;
-        try {
-            loginRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(loginRoot);
+        System.exit(0);
     }
 
     @FXML
     void helpPressed(ActionEvent event) {
-
+        HelpDialog helpDialog = new HelpDialog();
+        helpDialog.showHelpDialog(stackPane);
     }
 
     //Load testMicrophone pane

@@ -73,14 +73,9 @@
                               <Insets />
                            </VBox.margin>
                         </Label>
-                        <HBox prefHeight="30.0" prefWidth="800.0">
-                           <VBox.margin>
-                              <Insets bottom="20.0" top="40.0" />
-                           </VBox.margin>
-                        </HBox>
                         <Label fx:id="testLabel" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" stylesheets="@stylesheet/general.css" text="[STATUS]" textFill="#282828">
                            <VBox.margin>
-                              <Insets bottom="10.0" left="220.0" right="220.0" />
+                              <Insets bottom="10.0" left="240.0" right="245.0" top="80.0" />
                            </VBox.margin>
                         </Label>
                         <HBox prefHeight="50.0" prefWidth="200.0">

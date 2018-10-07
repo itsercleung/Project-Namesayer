@@ -18,18 +18,26 @@ public class HelpDialog {
             dialog.close();
         });
 
-        dialogLayout.setHeading(new Label("?"));
-        Label pracHead = new Label("Practice: ");
-        Label pracBody = new Label("(1) Search for name (or combined) or Upload txt \n" +
+        dialogLayout.setHeading(new Label("Tips"));
+        Label pracBody = new Label("Practice: \n" +
+                "(1) Search for name (or combined) or Upload txt \n" +
                 "(2) Decide to Randomize PLAYLIST \n" +
-                "(3) Click Practice and Enjoy!");
-        dialogLayout.setBody(pracHead);
+                "(3) Click Practice and Enjoy! \n" +
+                "\n" +
+                "Test Microphone: \n" +
+                "(1) Press Test button to record \n" +
+                "(2) Look at mic level \n" +
+                "(3) Listen to your test record\n" +
+                "\n" +
+                "Record New Name: \n" +
+                "(1) Press Record button to record \n" +
+                "(2) Listen/Save recording");
         dialogLayout.setBody(pracBody);
         dialogLayout.setActions(button);
         dialog.show();
 
         //Label styles
-        pracHead.setStyle("-fx-font-size: 14px;" + "-fx-font-style: bold");
-        pracBody.setStyle("-fx-font-size: 13px;");
+        pracBody.setStyle("-fx-font-size: 14px;");
+        button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
     }
 }
