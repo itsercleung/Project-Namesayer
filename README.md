@@ -4,11 +4,11 @@ Recommended to read README through markdown support
 
 ## How to Use
 
-### To Run `Group36.jar`
-1. Place `Group36.jar` into appropriate working folder
-2. Extract names database into folder named `names` in the same directory as Assignment3.jar (default set already there)
+### To Run `Project-NameSayer.jar`
+1. Place `Project-NameSayer.jar` into appropriate working folder
+2. Extract names database into folder named `data/names` in the same directory as `Project-NameSayer.jar` (default set already there)
 3. Onto command line, change directory (`cd`) to appropriate folder
-4. Type `java -jar Group36.jar`
+4. Type `java -jar Project-NameSayer.jar`
 5. Have fun!
 
 <hr>
@@ -46,7 +46,7 @@ NOTE: Rating has an effect on your Play List - if the rating is bad, the system 
 
 1. On the left side menu, press `Test Microphone`.
 2. Simply press `Test` to record yourself
-3. To listen to your recording press `Listen
+3. To listen to your recording press `Listen`
 4. Look at the `mic level` to get more feedback
 
 <hr>
@@ -75,4 +75,3 @@ NOTE: Rating has an effect on your Play List - if the rating is bad, the system 
 Music Icons made by Daniele De Santis from: [https://www.flaticon.com/packs/music] <br/>
 Microphone Icon made by Smashicons from: [https://www.flaticon.com/free-icon/microphone_149427#term=record&page=1&position=1] <br/>
 Star Icon made by Dave Gandy from: [https://www.flaticon.com/free-icon/star_25291#term=star&page=1&position=39] <br/>
-

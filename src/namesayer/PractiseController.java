@@ -155,7 +155,7 @@ public class PractiseController implements Initializable {
 
         // go through text file and check if name is in names db
         while (reader.hasNextLine()) {
-            String name = reader.nextLine();
+            String name = reader.nextLine().replace("-"," ");
 
             if (searchNameList.contains(name.toLowerCase())) {
                 selectedNameList.add(name.toLowerCase());
