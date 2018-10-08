@@ -180,7 +180,7 @@ public class PractiseController implements Initializable {
 
     //Getting names of all name files in data/names
     private void populateList() {
-        File namesFolder = new File("data/names");
+        File namesFolder = new File("./data/names");
         File[] listOfNames = namesFolder.listFiles();
 
         for (File file : listOfNames) {
@@ -234,7 +234,7 @@ public class PractiseController implements Initializable {
    (4) Put into namePlayList to PLAY */
     private void makePlayList() {
         //Getting names of all name files in data/names
-        File namesFolder = new File("data/names");
+        File namesFolder = new File("./data/names");
         File[] listOfNames = namesFolder.listFiles();
 
         //(1) Get all name files with same name as selectedName
@@ -268,7 +268,7 @@ public class PractiseController implements Initializable {
             //(2) Look at existing ranks and pick the better ranks of names to play
             List<String> listOfHRNames = new ArrayList<>();
             try {
-                byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
+                byte[] bytes = Files.readAllBytes(Paths.get("./data/ratingAudio.txt"));
                 String currentAudio = new String(bytes);
                 if (!listOfSameName.isEmpty() && listOfSameName.size() > 1) {
 
