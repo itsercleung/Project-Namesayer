@@ -18,8 +18,11 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import namesayer.login.User;
+import namesayer.login.UserUtils;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
 import org.controlsfx.control.Rating;
@@ -50,6 +53,9 @@ public class PractiseController implements Initializable {
     private String concatName = "";
     private FilteredList<String> filteredData;
     private boolean isRandomised = false;
+
+    @FXML private Text userText,pointsText;
+    private User user;
 
     @FXML
     private void exitPressed(ActionEvent event) {
@@ -524,6 +530,9 @@ public class PractiseController implements Initializable {
         // bind appropriate conditions to each button
         playNames.disableProperty().bind(Bindings.isEmpty(selectedNameList));
         toggleRandomise.disableProperty().bind(Bindings.size(selectedNameList).lessThan(2));
+
+        // user details
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 
 }
