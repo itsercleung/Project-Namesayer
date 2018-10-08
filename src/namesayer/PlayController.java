@@ -153,12 +153,12 @@ public class PlayController implements Initializable {
                         String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
                         //If current name isn't combination
                         if (!nameAudio.contains(" ")) {
-                            playAudio = new PlayAudio("data/names/" + nameAudio);
+                            playAudio = new PlayAudio("./data/names/" + nameAudio);
                             playAudio.playAudio();
                         }
                         //Else if name is combination - section names into appropriate format
                         else {
-                            playAudio = new PlayAudio("temp/" + nameAudio.replace(" ", ""));
+                            playAudio = new PlayAudio("./temp/" + nameAudio.replace(" ", ""));
                             playAudio.playAudio();
                         }
                     }
@@ -206,8 +206,8 @@ public class PlayController implements Initializable {
     private void ratingPressed(String rating) {
         //Append the listed poorQualityAudio if the audio hasn't been rated already
         try {
-            FileWriter writer = new FileWriter("data/ratingAudio.txt", true);
-            byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
+            FileWriter writer = new FileWriter("./data/ratingAudio.txt", true);
+            byte[] bytes = Files.readAllBytes(Paths.get("./data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
             currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
 
@@ -221,7 +221,7 @@ public class PlayController implements Initializable {
                 int lineCount = 0;
 
                 //Creating list to append to specific line
-                Path path = Paths.get("data/ratingAudio.txt");
+                Path path = Paths.get("./data/ratingAudio.txt");
                 List<String> lines = Files.readAllLines(path);
 
                 //Find line of audio and replace it with different rating
@@ -245,7 +245,7 @@ public class PlayController implements Initializable {
     //Update editable rating component
     private void ratingUpdate() {
         //If txt doesnt exist then make one and append TITLE
-        File pqFile = new File("data/ratingAudio.txt");
+        File pqFile = new File("./data/ratingAudio.txt");
         if (!pqFile.exists()) {
             try {
                 pqFile.createNewFile();
@@ -256,7 +256,7 @@ public class PlayController implements Initializable {
 
         //Reading ratingAudio.txt to get values of ratings
         try {
-            byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
+            byte[] bytes = Files.readAllBytes(Paths.get("./data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
 
             //Once current audio is found in txt, extract its rating and update for audioRating component.
@@ -280,7 +280,7 @@ public class PlayController implements Initializable {
     //Update rating change on rateable component
     private void updateRatingComponent() {
         try {
-            byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
+            byte[] bytes = Files.readAllBytes(Paths.get("./data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
             String currentPlay = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
 

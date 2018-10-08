@@ -81,7 +81,7 @@ public class TestMicrophoneController implements Initializable {
         }.start();
 
         //Playing test.wav on media view
-        File file = new File("temp/test.wav");
+        File file = new File("./temp/test.wav");
         String source = file.toURI().toString();
         Media media = new Media(source);
         MediaPlayer player = new MediaPlayer(media);

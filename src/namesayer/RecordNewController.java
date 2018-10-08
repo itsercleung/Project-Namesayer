@@ -281,7 +281,7 @@ public class RecordNewController implements Initializable {
         //label.setText(messageString);
         try {
             Files.move(Paths.get("./temp/" + officialName + ".wav"),
-                    Paths.get("data/names/" + officialName + ".wav"),
+                    Paths.get("./data/names/" + officialName + ".wav"),
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
