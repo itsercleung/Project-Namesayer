@@ -267,7 +267,7 @@ public class RecordNewController implements Initializable {
             }
         }.start();
 
-        String path = "./temp/" + officialName + ".wav";
+        String path = "temp/" + officialName + ".wav";
         PlayAudio playAudio = new PlayAudio(path);
         playAudio.playAudio();
     }

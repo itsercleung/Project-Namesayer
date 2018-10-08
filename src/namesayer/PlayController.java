@@ -164,7 +164,7 @@ public class PlayController implements Initializable {
                     }
                 });
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -391,7 +391,7 @@ public class PlayController implements Initializable {
                             }
                         });
                         try {
-                            Thread.sleep(3000); //For until test.wav finishes
+                            Thread.sleep(5000);
                         }
                         catch(InterruptedException e) {
                             e.printStackTrace();
@@ -411,6 +411,7 @@ public class PlayController implements Initializable {
             }
         });
 
+        //SAVE NEW - user attempt placed into database to add onto filtering
         saveButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
