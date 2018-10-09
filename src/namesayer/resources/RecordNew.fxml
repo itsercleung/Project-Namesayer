@@ -6,34 +6,131 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainRoot" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.RecordNewController">
+
+<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.RecordNewController">
    <children>
-      <HBox prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="root" prefHeight="600.0" prefWidth="1000.0">
          <children>
-            <VBox minHeight="400.0" minWidth="200.0" prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
+            <HBox prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox prefHeight="60.0" prefWidth="200.0">
+                  <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
                      <children>
-                        <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User: default">
+                        <Button fx:id="practiseButton" mnemonicParsing="false" onAction="#practisePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Practise">
                            <font>
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets left="10.0" top="10.0" />
+                              <Insets top="60.0" />
                            </VBox.margin>
-                        </Text>
-                        <Text fx:id="pointsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Points: 0">
+                        </Button>
+                        <Button fx:id="testMicrophoneButton" mnemonicParsing="false" onAction="#testMicrophonePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Test Microphone">
                            <font>
                               <Font size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets left="10.0" top="2.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="recordNameButton" mnemonicParsing="false" onAction="#recordNamePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Record New Name">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <HBox prefHeight="60.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/toolbar.css" text="Exit">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="helpButton" mnemonicParsing="false" onAction="#helpPressed" prefHeight="60.0" prefWidth="90.0" stylesheets="@stylesheet/toolbar.css" text="?">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="270.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="vbox" prefHeight="0.0" prefWidth="800.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <children>
+                        <Label alignment="CENTER" opacity="0.33" prefHeight="70.0" prefWidth="800.0" text="Record New Name">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="800.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New Name: ">
+                                 <HBox.margin>
+                                    <Insets left="200.0" top="60.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                              <JFXTextField fx:id="nameField" focusColor="#ff5252" prefHeight="30.0" prefWidth="275.0" promptText="Spaces and hyphens unsupported" stylesheets="@stylesheet/general.css" unFocusColor="#2f2f2f">
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="50.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="800.0">
+                           <children>
+                              <Button fx:id="recordButton" alignment="CENTER" mnemonicParsing="false" onAction="#recordPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Record">
+                                 <HBox.margin>
+                                    <Insets left="75.0" right="10.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="stopRecordingButton" mnemonicParsing="false" onAction="#stopRecordingButtonPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Stop Recording">
+                                 <HBox.margin>
+                                    <Insets right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Line rotate="90.0" scaleY="3.5" startX="-63.0">
+                                 <HBox.margin>
+                                    <Insets left="-40.0" top="50.0" />
+                                 </HBox.margin>
+                              </Line>
+                              <Button fx:id="listenButton" alignment="CENTER" mnemonicParsing="false" onAction="#listenPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Listen">
+                                 <HBox.margin>
+                                    <Insets left="-20.0" right="10.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#savePressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Save">
+                                 <HBox.margin>
+                                    <Insets top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
                         </Text>
                      </children>
                   </VBox>

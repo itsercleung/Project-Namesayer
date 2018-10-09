@@ -16,6 +16,7 @@ public class Recorder implements Runnable {
         this.meter = meter;
     }
 
+    //Calculates appropriate peak level for mic levels to fix to
     public void run() {
         while (!exit) {
             AudioFormat fmt = new AudioFormat(44100f, 8, 1, true, false);

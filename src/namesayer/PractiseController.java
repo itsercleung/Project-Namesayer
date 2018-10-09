@@ -21,6 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import namesayer.util.HelpDialog;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
 import namesayer.util.Name;
@@ -43,8 +44,10 @@ public class PractiseController implements Initializable {
     @FXML private Button practiseButton, uploadButton;
     @FXML private JFXTextField searchTextField;
     @FXML private AnchorPane mainRoot;
+    @FXML private StackPane stackPane;
     @FXML private JFXListView<String> searchNamesView;
     @FXML private JFXListView<String> selectedNamesView;
+    @FXML private Text userText, pointsText;
 
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
@@ -54,7 +57,6 @@ public class PractiseController implements Initializable {
     private FilteredList<String> filteredData;
     private boolean isRandomised = false;
 
-    @FXML private Text userText,pointsText;
     private User user;
 
     @FXML
@@ -70,13 +72,14 @@ public class PractiseController implements Initializable {
 
     @FXML
     void helpPressed(ActionEvent event) {
-
+        HelpDialog helpDialog = new HelpDialog();
+        helpDialog.showHelpDialog(stackPane);
     }
 
     //Load testMicrophone pane
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
-        AnchorPane testMicrophoneRoot = null;
+        StackPane testMicrophoneRoot = null;
         try {
             testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/TestMicrophone.fxml"));
         } catch (IOException e) {
@@ -88,7 +91,7 @@ public class PractiseController implements Initializable {
     //record new practise pane
     @FXML
     private void recordNamePressed(ActionEvent event) {
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
         } catch (IOException e) {
@@ -128,7 +131,7 @@ public class PractiseController implements Initializable {
     //Load practise pane
     @FXML
     private void practisePressed(ActionEvent event) {
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
         } catch (IOException e) {
@@ -162,7 +165,7 @@ public class PractiseController implements Initializable {
 
         // go through text file and check if name is in names db
         while (reader.hasNextLine()) {
-            String name = reader.nextLine();
+            String name = reader.nextLine().replace("-"," ");
 
             if (searchNameList.contains(name.toLowerCase())) {
                 selectedNameList.add(name.toLowerCase());
@@ -187,7 +190,7 @@ public class PractiseController implements Initializable {
 
     //Getting names of all name files in data/names
     private void populateList() {
-        File namesFolder = new File("data/names");
+        File namesFolder = new File("./data/names");
         File[] listOfNames = namesFolder.listFiles();
 
         for (File file : listOfNames) {
@@ -241,7 +244,7 @@ public class PractiseController implements Initializable {
    (4) Put into namePlayList to PLAY */
     private void makePlayList() {
         //Getting names of all name files in data/names
-        File namesFolder = new File("data/names");
+        File namesFolder = new File("./data/names");
         File[] listOfNames = namesFolder.listFiles();
 
         //(1) Get all name files with same name as selectedName
@@ -275,7 +278,7 @@ public class PractiseController implements Initializable {
             //(2) Look at existing ranks and pick the better ranks of names to play
             List<String> listOfHRNames = new ArrayList<>();
             try {
-                byte[] bytes = Files.readAllBytes(Paths.get("data/ratingAudio.txt"));
+                byte[] bytes = Files.readAllBytes(Paths.get("./data/ratingAudio.txt"));
                 String currentAudio = new String(bytes);
                 if (!listOfSameName.isEmpty() && listOfSameName.size() > 1) {
 

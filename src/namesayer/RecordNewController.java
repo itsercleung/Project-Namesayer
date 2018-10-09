@@ -1,5 +1,7 @@
 package namesayer;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
@@ -10,13 +12,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
 import namesayer.util.CreateTempAudio;
+import namesayer.util.HelpDialog;
 import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
 
@@ -35,9 +40,11 @@ import java.util.ResourceBundle;
 public class RecordNewController implements Initializable {
 
     @FXML private Button listenButton, recordButton, saveButton, recordNameButton;
-    @FXML private AnchorPane mainRoot;
+    @FXML private AnchorPane root;
+    @FXML private StackPane stackPane;
     @FXML private JFXTextField nameField;
     @FXML private Button stopRecordingButton;
+    @FXML private VBox vbox;
     @FXML private Text userText,pointsText;
     @FXML private VBox vbox;
 
@@ -60,44 +67,45 @@ public class RecordNewController implements Initializable {
 
     @FXML
     void helpPressed(ActionEvent event) {
-
+        HelpDialog helpDialog = new HelpDialog();
+        helpDialog.showHelpDialog(stackPane);
     }
 
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
         //Load testMicrophone pane
-        AnchorPane testMicrophoneRoot = null;
+        StackPane testMicrophoneRoot = null;
         try {
             testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/TestMicrophone.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        mainRoot.getChildren().setAll(testMicrophoneRoot);
+        root.getChildren().setAll(testMicrophoneRoot);
     }
 
     @FXML
     private void practisePressed(ActionEvent event) {
         //Load practise pane
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mainRoot.getChildren().setAll(practiseRoot);
+        root.getChildren().setAll(practiseRoot);
     }
 
     @FXML
     private void recordNamePressed(ActionEvent event) {
         //record new practise pane
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mainRoot.getChildren().setAll(practiseRoot);
+        root.getChildren().setAll(practiseRoot);
     }
 
     //Allows user to record given the string of the nameField: (1) If name already exists, assign the name with version
@@ -111,6 +119,7 @@ public class RecordNewController implements Initializable {
             if (message != null) {message.close();}
             message.show(error,10000);
             //label.setText(error);
+
             return;
         }
 
@@ -140,46 +149,62 @@ public class RecordNewController implements Initializable {
         //If name exists in data ask user if they want to make another existing recording with same name. If yes then
         //simply start recording for (3 SECONDS)
         if (version > 1) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-                    name+" already exists.\n" +
-                            "Do you want to record another version\n" +
-                            "of "+name+"?");
 
-            alert.showAndWait().ifPresent(response -> {
-               if (response == ButtonType.CANCEL) {
-                   return;
-               }
-               else if (response == ButtonType.OK) {
-                   String messageString = "[Recording " + name + "]";
-                   message.close();
-                   message.show(messageString, 10000);
-                   //label.setText(messageString);
-                   new Thread() {
-                       public void run() {
-                           Platform.runLater(new Runnable() {
-                               public void run() {
-                                   disableButtons();
-                               }
-                           });
-                           try {
-                               Thread.sleep(3000); //For until test.wav finishes
-                           }
-                           catch(InterruptedException e) {
-                               e.printStackTrace();
-                           }
-                           Platform.runLater(new Runnable() {
-                               public void run() {
-                                   String messageString = "[Recorded " + name + "]";
-                                   message.close();
-                                   message.show(messageString, 10000);
-                                   enableButtons();
-                               }
-                           });
-                       }
-                   }.start();
-                   createTempAudio = new CreateTempAudio(officialName);
-                   createTempAudio.createSingleAudio();
-               }
+            //Creating dialog box to show with options if duplicate name
+            JFXDialogLayout dialogLayout = new JFXDialogLayout();
+            JFXDialog dialog = new JFXDialog(stackPane, dialogLayout, JFXDialog.DialogTransition.TOP);
+            Button okButton = new Button("OK");
+            Button cancelButton = new Button("CANCEL");
+            okButton.getStylesheets().add("namesayer/resources/stylesheet/general.css");
+            cancelButton.getStylesheets().add("namesayer/resources/stylesheet/general.css");
+            HBox buttonBox = new HBox();
+
+
+            buttonBox.getChildren().addAll(okButton,cancelButton);
+            buttonBox.setSpacing(5);
+            dialogLayout.setHeading(new Label("Note"));
+            dialogLayout.setBody(new Label("Already exists! Do you still want to add?"));
+            dialogLayout.setActions(buttonBox);
+            dialog.show();
+
+            //Giving user option to save duplicate or not
+            cancelButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
+                listenButton.setDisable(true);
+                saveButton.setDisable(true);
+                dialog.close();
+            });
+
+            //Continue with recording
+            okButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
+                dialog.close();
+                String messageString = "[Recording " + name + "]";
+                message.close();
+                message.show(messageString, 10000);
+                //label.setText(messageString);
+                new Thread() {
+                    public void run() {
+                        Platform.runLater(new Runnable() {
+                            public void run() {
+                                disableButtons();
+                            }
+                        });
+                        try {
+                            Thread.sleep(3000); //For until test.wav finishes
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Platform.runLater(new Runnable() {
+                            public void run() {
+                                String messageString = "[Recorded " + name + "]";
+                                message.close();
+                                message.show(messageString, 10000);
+                                enableButtons();
+                            }
+                        });
+                    }
+                }.start();
+                createTempAudio = new CreateTempAudio(officialName);
+                createTempAudio.createSingleAudio();
             });
         }
         //Else if name doesn't exist, simply start recording (3 SECONDS)
@@ -254,7 +279,7 @@ public class RecordNewController implements Initializable {
             }
         }.start();
 
-        String path = "./temp/" + officialName + ".wav";
+        String path = "temp/" + officialName + ".wav";
         PlayAudio playAudio = new PlayAudio(path);
         playAudio.playAudio();
     }
@@ -268,7 +293,7 @@ public class RecordNewController implements Initializable {
         //label.setText(messageString);
         try {
             Files.move(Paths.get("./temp/" + officialName + ".wav"),
-                    Paths.get("data/names/" + officialName + ".wav"),
+                    Paths.get("./data/names/" + officialName + ".wav"),
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
@@ -307,8 +332,6 @@ public class RecordNewController implements Initializable {
         saveButton.setDisable(true);
         stopRecordingButton.setDisable(true);
 
-        message = new JFXSnackbar(vbox);
-
         //Set icons to specific buttons from resources/icons (credited in description).
         //Set icons for record new menu
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
@@ -322,5 +345,9 @@ public class RecordNewController implements Initializable {
         listenButton.setGraphic(new ImageView(play));
 
         user = UserUtils.getCurrentLoginUser(userText,pointsText);
+
+        //Styling message box
+        message = new JFXSnackbar(vbox);
+        message.setStyle("-fx-font-size: 15px;");
     }
 }

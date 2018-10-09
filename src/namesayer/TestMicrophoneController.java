@@ -16,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import namesayer.util.HelpDialog;
 import javafx.scene.text.Text;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
@@ -29,6 +30,7 @@ import java.util.ResourceBundle;
 public class TestMicrophoneController implements Initializable {
 
     @FXML private AnchorPane mainRoot;
+    @FXML private StackPane stackPane;
     @FXML private Button testMicrophoneButton;
     @FXML private Button listenButton;
     @FXML private Button testButton;
@@ -40,7 +42,7 @@ public class TestMicrophoneController implements Initializable {
     private Recorder recorder = null;
     private User user;
 
-    //When user completes test, let them play back recording to hear if their mic is viable 
+    //When user completes test, let them play back recording to hear if their mic is viable
     @FXML
     private void exitPressed(ActionEvent event) {
         recorder.stop();
@@ -55,7 +57,9 @@ public class TestMicrophoneController implements Initializable {
 
     @FXML
     void helpPressed(ActionEvent event) {
-
+        recorder.stop();
+        HelpDialog helpDialog = new HelpDialog();
+        helpDialog.showHelpDialog(stackPane);
     }
 
     //When user completes test, let them play back recording to hear if their mic is viable 
@@ -89,7 +93,7 @@ public class TestMicrophoneController implements Initializable {
         }.start();
 
         //Playing test.wav on media view
-        File file = new File("temp/test.wav");
+        File file = new File("./temp/test.wav");
         String source = file.toURI().toString();
         Media media = new Media(source);
         MediaPlayer player = new MediaPlayer(media);
@@ -132,7 +136,7 @@ public class TestMicrophoneController implements Initializable {
     @FXML
     private void practisePressed(ActionEvent event) {
         recorder.stop();
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
 
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
@@ -146,7 +150,7 @@ public class TestMicrophoneController implements Initializable {
     @FXML
     private void recordNamePressed(ActionEvent event) {
         recorder.stop();
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
         } catch (IOException e) {

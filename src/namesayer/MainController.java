@@ -1,5 +1,6 @@
 package namesayer;
 
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
+import namesayer.util.HelpDialog;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,8 +20,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     @FXML private AnchorPane mainRoot;
-    @FXML private Text userText;
-    @FXML private Text pointsText;
+    @FXML private StackPane stackPane;
 
     private User user;
 
@@ -36,13 +37,14 @@ public class MainController implements Initializable {
 
     @FXML
     void helpPressed(ActionEvent event) {
-
+        HelpDialog helpDialog = new HelpDialog();
+        helpDialog.showHelpDialog(stackPane);
     }
 
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
         //Load testMicrophone pane
-        AnchorPane testMicrophoneRoot = null;
+        StackPane testMicrophoneRoot = null;
         try {
             testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/TestMicrophone.fxml"));
         } catch (IOException e) {
@@ -54,7 +56,7 @@ public class MainController implements Initializable {
     @FXML
     private void practisePressed(ActionEvent event) {
         //Load practise pane
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
         } catch (IOException e) {
@@ -66,7 +68,7 @@ public class MainController implements Initializable {
     @FXML
     private void recordNamePressed(ActionEvent event) {
         //record new practise pane
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
         } catch (IOException e) {
