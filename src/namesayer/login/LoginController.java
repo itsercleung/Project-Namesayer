@@ -40,6 +40,11 @@ public class LoginController implements Initializable {
     private Button newUserButton;
 
     @FXML
+    private void exitButtonPressed(ActionEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
     void loginButtonClicked(ActionEvent event) {
         // gets currently selected name to login to
         UserUtils.setCurrentLoginUser(userList.getSelectionModel().getSelectedItem());

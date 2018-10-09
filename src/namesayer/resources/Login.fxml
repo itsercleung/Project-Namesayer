@@ -54,6 +54,7 @@
                         </HBox>
                     </children>
                 </VBox>
+            <Button fx:id="exitButton" layoutX="824.0" layoutY="424.0" mnemonicParsing="false" onAction="#exitButtonPressed" text="Exit" />
             </children>
         </AnchorPane>
     </children>
