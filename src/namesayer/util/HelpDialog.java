@@ -30,8 +30,9 @@ public class HelpDialog {
                 "(3) Listen to your test record\n" +
                 "\n" +
                 "Record New Name: \n" +
-                "(1) Press Record button to record \n" +
-                "(2) Listen/Save recording");
+                "(1) Enter a valid name \n" +
+                "(2) Press Record button to record \n" +
+                "(3) Listen/Save recording");
         dialogLayout.setBody(pracBody);
         dialogLayout.setActions(button);
         dialog.show();

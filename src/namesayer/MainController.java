@@ -1,6 +1,5 @@
 package namesayer;
 
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +20,7 @@ public class MainController implements Initializable {
 
     @FXML private AnchorPane mainRoot;
     @FXML private StackPane stackPane;
+    @FXML private Text userText, pointsText;
 
     private User user;
 

@@ -46,7 +46,6 @@ public class RecordNewController implements Initializable {
     @FXML private Button stopRecordingButton;
     @FXML private VBox vbox;
     @FXML private Text userText,pointsText;
-    @FXML private VBox vbox;
 
     private String name;
     private String officialName;
@@ -62,7 +61,7 @@ public class RecordNewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mainRoot.getChildren().setAll(loginRoot);
+        root.getChildren().setAll(loginRoot);
     }
 
     @FXML

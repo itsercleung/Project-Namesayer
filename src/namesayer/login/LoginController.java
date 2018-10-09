@@ -33,6 +33,8 @@ public class LoginController implements Initializable {
     @FXML
     private AnchorPane mainRoot;
     @FXML
+    private StackPane stackPane;
+    @FXML
     private Button loginButton;
     @FXML
     private Button newUserButton;
@@ -42,7 +44,7 @@ public class LoginController implements Initializable {
         // gets currently selected name to login to
         UserUtils.setCurrentLoginUser(userList.getSelectionModel().getSelectedItem());
 
-        AnchorPane practiseRoot = null;
+        StackPane practiseRoot = null;
         try {
             practiseRoot = FXMLLoader.load(getClass().getResource("../resources/Main.fxml"));
         } catch (IOException e) {

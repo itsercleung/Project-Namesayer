@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.MainController">
    <children>
@@ -17,6 +18,29 @@
                <children>
                   <VBox minHeight="400.0" minWidth="200.0" prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" HBox.hgrow="NEVER">
                      <children>
+                        <VBox prefHeight="60.0" prefWidth="200.0">
+                           <children>
+                              <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User: default">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="pointsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Points: 0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="2.0" />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </VBox>
                         <Button fx:id="practiseButton" mnemonicParsing="false" onAction="#practisePressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Practise" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets top="60.0" />
@@ -55,7 +79,7 @@
                               </Button>
                            </children>
                            <VBox.margin>
-                              <Insets top="270.0" />
+                              <Insets top="210.0" />
                            </VBox.margin>
                         </HBox>
                      </children>
