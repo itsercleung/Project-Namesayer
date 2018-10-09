@@ -4,6 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -21,8 +24,14 @@ public class MainController implements Initializable {
     @FXML private AnchorPane mainRoot;
     @FXML private StackPane stackPane;
     @FXML private Text userText, pointsText;
+    @FXML private Button helpButton, rewardButton;
 
     private User user;
+
+    @FXML
+    private void rewardPressed(ActionEvent event) {
+
+    }
 
     @FXML
     private void exitPressed(ActionEvent event) {
@@ -110,5 +119,11 @@ public class MainController implements Initializable {
         new File("./data/usernames").mkdirs();
 
         user = UserUtils.getCurrentLoginUser(userText,pointsText);
+
+        // button icons
+        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
+        rewardButton.setGraphic(new ImageView(reward));
+        Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
+        helpButton.setGraphic(new ImageView(help));
     }
 }
