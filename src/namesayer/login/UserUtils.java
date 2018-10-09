@@ -62,6 +62,7 @@ public class UserUtils {
      * for each new view
      */
     public static User getCurrentLoginUser(Text userText, Text pointsText) {
+        // TODO should use string split to get user information.. to make things easier
         String path = "./data/CurrentUser.txt";
         File currentUser = new File(path);
 

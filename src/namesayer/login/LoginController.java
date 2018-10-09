@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import namesayer.login.User;
 
 import java.io.*;
@@ -26,10 +28,14 @@ import java.util.Scanner;
 
 public class LoginController implements Initializable {
 
-    @FXML private ListView<User> userList;
-    @FXML private AnchorPane mainRoot;
-    @FXML private Button loginButton;
-    @FXML private Button newUserButton;
+    @FXML
+    private ListView<User> userList;
+    @FXML
+    private AnchorPane mainRoot;
+    @FXML
+    private Button loginButton;
+    @FXML
+    private Button newUserButton;
 
     @FXML
     void loginButtonClicked(ActionEvent event) {
@@ -53,10 +59,13 @@ public class LoginController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Customer Manager");
             stage.setScene(new Scene(mainRoot));
+            stage.setOnHiding(eventClosed ->
+                    UserUtils.getUserList(userList));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
@@ -65,24 +74,8 @@ public class LoginController implements Initializable {
         File directory = new File("./data/usernames");
         File[] dirFiles = directory.listFiles();
         ObservableList<User> users = FXCollections.observableArrayList();
-        Scanner reader;
 
-        if (dirFiles != null) {
-            for (File file : dirFiles) {
-                try {
-                    // gets user name and points, adds to listview
-                    reader = new Scanner(file);
-                    String username = reader.next();
-                    int points = Integer.valueOf(reader.next());
-                    users.add(new User(username,points));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            
-            userList.setItems(users);
-        }
-
+        UserUtils.getUserList(userList);
         loginButton.disableProperty().bind(userList.getSelectionModel().selectedItemProperty().isNull());
     }
 }
