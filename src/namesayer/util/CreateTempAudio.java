@@ -43,6 +43,7 @@ public class CreateTempAudio {
     // kill thread? ffmpeg feature?
     // another way is to count the time between record and stop and cut out
     // the time
+    // too complicated to implement, so design decision to stuff it
     public void stopRecording() {
         task.cancel(); //???
         thread.interrupt();// doesn't work

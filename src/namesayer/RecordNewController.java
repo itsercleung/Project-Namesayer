@@ -45,7 +45,7 @@ public class RecordNewController implements Initializable {
     @FXML private AnchorPane root;
     @FXML private StackPane stackPane;
     @FXML private JFXTextField nameField;
-    @FXML private Button stopRecordingButton;
+    @FXML private Button stopPlayButton;
     @FXML private Button helpButton, rewardButton;
     @FXML private Text userText,pointsText;
     @FXML private VBox vbox;
@@ -55,6 +55,9 @@ public class RecordNewController implements Initializable {
     private CreateTempAudio createTempAudio;
     private JFXSnackbar message;
     private User user;
+    private PlayAudio playAudio = null;
+
+    private int RECORD_PLAY_TIME = 5500; // no magic numbers!
 
     @FXML
     void exitPressed(ActionEvent event) {
@@ -197,7 +200,7 @@ public class RecordNewController implements Initializable {
                             }
                         });
                         try {
-                            Thread.sleep(4000); //For until test.wav finishes
+                            Thread.sleep(RECORD_PLAY_TIME); //For until test.wav finishes
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -229,7 +232,7 @@ public class RecordNewController implements Initializable {
                         }
                     });
                     try {
-                        Thread.sleep(4000); //For until test.wav finishes
+                        Thread.sleep(RECORD_PLAY_TIME); //For until test.wav finishes
                     }
                     catch(InterruptedException e) {
                         e.printStackTrace();
@@ -250,8 +253,10 @@ public class RecordNewController implements Initializable {
     }
 
     @FXML
-    private void stopRecordingButtonPressed() {
-        createTempAudio.stopRecording();
+    private void stopPlayButtonPressed() {
+        playAudio.stopAudio();
+        enableButtons();
+        stopPlayButton.setDisable(false);
     }
 
     //Listen to temp recording to see if user wants to save
@@ -264,13 +269,11 @@ public class RecordNewController implements Initializable {
                         String messageString = "[Listening to " + name + "]";
                         message.close();
                         message.show(messageString, 10000);
-                        //label.setText(messageString);
                         disableButtons();
-                        stopRecordingButton.setDisable(true);
                     }
                 });
                 try {
-                    Thread.sleep(3000); //For until test.wav finishes
+                    Thread.sleep(5000); //For until test.wav finishes
                 }
                 catch(InterruptedException e) {
                     e.printStackTrace();
@@ -280,15 +283,15 @@ public class RecordNewController implements Initializable {
                         String messageString = "[Listened to " + name + "]";
                         message.close();
                         message.show(messageString, 10000);
-                        //label.setText(messageString);
                         enableButtons();
+                        stopPlayButton.setDisable(true);
                     }
                 });
             }
         }.start();
 
         String path = "temp/" + officialName + ".wav";
-        PlayAudio playAudio = new PlayAudio(path);
+        playAudio = new PlayAudio(path);
         playAudio.playAudio();
     }
 
@@ -321,24 +324,28 @@ public class RecordNewController implements Initializable {
             // add points
             UserUtils.updateUser(user, Points.CREATE_NAME, userText, pointsText);
         }
-
-
     }
 
+    /**
+     * disables correct buttons when recording
+     */
     private void disableButtons() {
         recordButton.setDisable(true);
         listenButton.setDisable(true);
         saveButton.setDisable(true);
         nameField.setDisable(true);
-        stopRecordingButton.setDisable(false); // stop recording is exception
+        //stopPlayButton.setDisable(false); // stop recording is exception
     }
 
+    /**
+     * enables correct buttons after recording
+     */
     private void enableButtons() {
         recordButton.setDisable(false);
         listenButton.setDisable(false);
         saveButton.setDisable(false);
         nameField.setDisable(false);
-        stopRecordingButton.setDisable(true);
+        //stopPlayButton.setDisable(true);
     }
 
     @Override
@@ -346,7 +353,7 @@ public class RecordNewController implements Initializable {
         recordNameButton.setDisable(true);
         listenButton.setDisable(true);
         saveButton.setDisable(true);
-        stopRecordingButton.setDisable(true);
+        stopPlayButton.setDisable(true);
 
         //Styling message box
         message = new JFXSnackbar(vbox);
@@ -375,5 +382,7 @@ public class RecordNewController implements Initializable {
         rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
         Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
         helpButton.setGraphic(new ImageView(help));
+        Image stop = new Image(getClass().getResourceAsStream("resources/icons/stop.png"));
+        stopPlayButton.setGraphic(new ImageView(stop));
     }
 }

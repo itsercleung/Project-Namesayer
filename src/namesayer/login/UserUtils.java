@@ -14,6 +14,10 @@ import java.util.Scanner;
  */
 public class UserUtils {
 
+    /**
+     * Updates user list in main menu
+     * @param userList
+     */
     public static void updateUserList(JFXListView<User> userList) {
         File directory = new File("./data/usernames");
         if (!directory.exists()) {
