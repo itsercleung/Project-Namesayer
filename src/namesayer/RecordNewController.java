@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import namesayer.login.Points;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
 import namesayer.util.CreateTempAudio;
@@ -26,6 +27,7 @@ import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -136,7 +138,7 @@ public class RecordNewController implements Initializable {
         //Setup official name for saved recording
         DateFormat dateFormat = new SimpleDateFormat("_dd-MM-yyyy_HH-mm-ss_");
         Date date = new Date();
-        officialName = "user" + dateFormat.format(date) + name;
+        officialName = user.getUsername().trim() + dateFormat.format(date) + name;
 
         // get number of versions of name
         int version = 0;
@@ -293,26 +295,34 @@ public class RecordNewController implements Initializable {
     //Once saved, place into unfilteredNames folder
     @FXML
     void savePressed(ActionEvent event) {
-        String messageString = "[Saved name as " + name + "]";
-        message.close();
-        message.show(messageString, 10000);
-        //label.setText(messageString);
-        try {
-            Files.move(Paths.get("./temp/" + officialName + ".wav"),
-                    Paths.get("./data/names/" + officialName + ".wav"),
-                    StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
+        File file = new File("./data/names/" + officialName + ".wav");
+        if (!file.exists()) {
+            String messageString = "[Saved name as " + name + "]";
+            message.close();
+            message.show(messageString, 10000);
+            //label.setText(messageString);
+            try {
+                Files.move(Paths.get("./temp/" + officialName + ".wav"),
+                        Paths.get("./data/names/" + officialName + ".wav"),
+                        StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //Update practice list
+            UpdateName updateName = new UpdateName();
+            updateName.updateNewName(officialName);
+
+            //Reset to default button layout and fields
+            saveButton.setDisable(true);
+            listenButton.setDisable(true);
+            nameField.clear();
+
+            // add points
+            UserUtils.updateUser(user, Points.CREATE_NAME, userText, pointsText);
         }
 
-        //Update practice list
-        UpdateName updateName = new UpdateName();
-        updateName.updateNewName(officialName);
 
-        //Reset to default button layout and fields
-        saveButton.setDisable(true);
-        listenButton.setDisable(true);
-        nameField.clear();
     }
 
     private void disableButtons() {

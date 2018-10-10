@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class UserUtils {
 
-    public static void getUserList(JFXListView<User> userList) {
+    public static void updateUserList(JFXListView<User> userList) {
         File directory = new File("./data/usernames");
         if (!directory.exists()) {
             directory.mkdir();

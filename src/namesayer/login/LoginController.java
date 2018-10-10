@@ -1,17 +1,13 @@
 package namesayer.login;
 
 import com.jfoenix.controls.JFXListView;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
@@ -56,7 +52,7 @@ public class LoginController implements Initializable {
         //Initialize user list
         userList.setExpanded(true);
         userList.setDepth(1);
-        UserUtils.getUserList(userList);
+        UserUtils.updateUserList(userList);
         userList.setCellFactory(param -> new UserCell());
         loginButton.disableProperty().bind(userList.getSelectionModel().selectedItemProperty().isNull());
     }
