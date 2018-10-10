@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -45,6 +46,7 @@ public class LoginController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         mainRoot.getChildren().setAll(practiseRoot);
     }
 
@@ -52,10 +54,10 @@ public class LoginController implements Initializable {
     void newUserButtonClicked(ActionEvent event) {
         //Load new user pane
         try {
-            mainRoot = FXMLLoader.load(getClass().getResource("../resources/NewUser.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../resources/NewUser.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("Customer Manager");
-            stage.setScene(new Scene(mainRoot));
+            stage.setTitle("New User");
+            stage.setScene(new Scene(root));
             stage.setOnHiding(eventClosed ->
                     UserUtils.getUserList(userList));
             stage.show();
