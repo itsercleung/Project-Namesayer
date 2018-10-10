@@ -1,5 +1,6 @@
 package namesayer.login;
 
+import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -13,7 +14,7 @@ import java.util.Scanner;
  */
 public class UserUtils {
 
-    public static void getUserList(ListView<User> userList) {
+    public static void getUserList(JFXListView<User> userList) {
         File directory = new File("./data/usernames");
         if (!directory.exists()) {
             directory.mkdir();

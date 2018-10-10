@@ -1,13 +1,8 @@
 package namesayer.login;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
+import com.jfoenix.controls.JFXListView;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,21 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import namesayer.login.User;
 
 import java.io.*;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class LoginController implements Initializable {
 
     @FXML
-    private ListView<User> userList;
+    private JFXListView<User> userList;
     @FXML
     private AnchorPane mainRoot;
     @FXML
@@ -77,12 +67,10 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Setting initial params
-        File directory = new File("./data/usernames");
-        File[] dirFiles = directory.listFiles();
-        ObservableList<User> users = FXCollections.observableArrayList();
-
+        userList.setExpanded(true);
+        userList.setDepth(1);
         UserUtils.getUserList(userList);
+        userList.setCellFactory(param -> new UserCell());
         loginButton.disableProperty().bind(userList.getSelectionModel().selectedItemProperty().isNull());
     }
 }
