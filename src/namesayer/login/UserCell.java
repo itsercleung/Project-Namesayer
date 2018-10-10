@@ -1,26 +1,30 @@
 package namesayer.login;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+
+import java.io.IOException;
 
 /**
  * Has all the UI info about a listview cell
  */
-class UserCell extends ListCell<User> {
-    private HBox hbox = new HBox();
-    private Text username = new Text("");
-    private Text points = new Text("");
-    private Pane pane = new Pane();
+public class UserCell extends ListCell<User> {
+
+    private FXMLLoader loader;
+
+    @FXML private AnchorPane root;
+    @FXML private Text username = new Text("");
+    @FXML private Text points = new Text("");
     // TODO possibly add trophy reward image for user (if they earned it) here
+    @FXML private ImageView image;
 
     public UserCell() {
         super();
-        hbox.getChildren().addAll(username, pane,points);
-        hbox.setHgrow(pane, Priority.ALWAYS);
-
     }
 
     /**
@@ -33,10 +37,23 @@ class UserCell extends ListCell<User> {
         super.updateItem(user, empty);
         setText(null);
         setGraphic(null);
+
         if (user != null) {
+            try {
+                loader = new FXMLLoader(getClass().getResource("../login/UserCell.fxml"));
+                loader.setController(this);
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             username.setText(user.getUsername());
             points.setText(Integer.toString(user.getPoints()));
-            setGraphic(hbox);
+            Image img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));
+            image.setImage(img);
+            setGraphic(root);
         }
+
+
     }
 }
