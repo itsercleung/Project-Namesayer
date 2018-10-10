@@ -18,6 +18,12 @@ HBox{
     -fx-background-color: #212121;
 }
 
+#userList {
+    -fx-selection-bar: #f8b4b4;
+    -fx-selection-bar-non-focused: #f8b4b4;
+    -fx-focus-color: #FF5252;
+}
+
 * :disabled {
     -fx-opacity: 1;
     -fx-background-color: rgba(33,33,33,0.8);

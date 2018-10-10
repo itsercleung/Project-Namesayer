@@ -14,24 +14,24 @@
     <children>
         <AnchorPane fx:id="mainRoot" prefHeight="600.0" prefWidth="1000.0">
             <children>
-                <VBox layoutX="176.0" prefHeight="600.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
+                <VBox layoutX="240.0" prefHeight="600.0" prefWidth="521.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="239.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS">
                             <font>
                                 <Font size="52.0" />
                             </font>
                             <VBox.margin>
-                                <Insets left="210.0" top="40.0" />
+                                <Insets left="220.0" top="40.0" />
                             </VBox.margin>
                         </Text>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name Sayer">
                             <VBox.margin>
-                                <Insets bottom="20.0" left="210.0" top="5.0" />
+                                <Insets bottom="20.0" left="220.0" top="5.0" />
                             </VBox.margin>
                         </Text>
-                        <VBox prefHeight="350.0" prefWidth="100.0">
+                        <VBox prefHeight="350.0" prefWidth="120.0">
                             <children>
-                        <JFXListView fx:id="userList" prefHeight="330.0" prefWidth="488.0">
+                        <JFXListView fx:id="userList" prefHeight="330.0" prefWidth="500.0" stylesheets="@stylesheet/toolbar.css">
                            <VBox.margin>
                               <Insets left="90.0" right="90.0" />
                            </VBox.margin>
@@ -40,21 +40,21 @@
                         </VBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="60.0" prefWidth="155.0" stylesheets="@stylesheet/general.css" text="Login">
+                                <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="60.0" prefWidth="120.0" stylesheets="@stylesheet/general.css" text="Login">
                                     <HBox.margin>
-                                        <Insets left="90.0" right="10.0" top="10.0" />
+                                        <Insets left="90.0" right="10.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button fx:id="newUserButton" mnemonicParsing="false" onAction="#newUserButtonClicked" prefHeight="60.0" prefWidth="155.0" stylesheets="@stylesheet/general.css" text="New User">
+                                <Button fx:id="newUserButton" mnemonicParsing="false" onAction="#newUserButtonClicked" prefHeight="60.0" prefWidth="120.0" stylesheets="@stylesheet/general.css" text="New User">
                                     <HBox.margin>
-                                        <Insets top="10.0" />
+                                        <Insets right="10.0" />
                                     </HBox.margin>
                                 </Button>
+                        <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitButtonPressed" prefHeight="60.0" prefWidth="80.0" stylesheets="@stylesheet/general.css" text="Exit" />
                             </children>
                         </HBox>
                     </children>
                 </VBox>
-            <Button fx:id="exitButton" layoutX="824.0" layoutY="424.0" mnemonicParsing="false" onAction="#exitButtonPressed" text="Exit" />
             </children>
         </AnchorPane>
     </children>

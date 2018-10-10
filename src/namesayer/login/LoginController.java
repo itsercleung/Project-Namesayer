@@ -18,16 +18,11 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    @FXML
-    private JFXListView<User> userList;
-    @FXML
-    private AnchorPane mainRoot;
-    @FXML
-    private StackPane stackPane;
-    @FXML
-    private Button loginButton;
-    @FXML
-    private Button newUserButton;
+    @FXML private JFXListView<User> userList;
+    @FXML private AnchorPane mainRoot;
+    @FXML private StackPane stackPane;
+    @FXML private Button loginButton;
+    @FXML private Button newUserButton;
 
     @FXML
     private void exitButtonPressed(ActionEvent event) {
@@ -51,22 +46,13 @@ public class LoginController implements Initializable {
     @FXML
     void newUserButtonClicked(ActionEvent event) {
         //Load new user pane
-        try {
-            mainRoot = FXMLLoader.load(getClass().getResource("../resources/NewUser.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Customer Manager");
-            stage.setScene(new Scene(mainRoot));
-            stage.setOnHiding(eventClosed ->
-                    UserUtils.getUserList(userList));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        NewUserDialog newUserDialog = new NewUserDialog();
+        newUserDialog.showNewUserDialog(stackPane);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Initialize user list
         userList.setExpanded(true);
         userList.setDepth(1);
         UserUtils.getUserList(userList);

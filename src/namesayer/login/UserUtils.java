@@ -108,10 +108,9 @@ public class UserUtils {
             bw.newLine();
             bw.append("0");
             bw.close();
-        } catch (IOException ioe) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
         return true;
     }
 

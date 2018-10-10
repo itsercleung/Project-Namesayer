@@ -31,9 +31,8 @@ public class TestMicrophoneController implements Initializable {
 
     @FXML private AnchorPane mainRoot;
     @FXML private StackPane stackPane;
-    @FXML private Button testMicrophoneButton;
-    @FXML private Button listenButton;
-    @FXML private Button testButton;
+    @FXML private Button listenButton,testButton,testMicrophoneButton;
+    @FXML private Button helpButton, rewardButton;
     @FXML private MediaView mediaTest;
     @FXML private Label testLabel;
     @FXML private ProgressBar micLevel;
@@ -58,8 +57,14 @@ public class TestMicrophoneController implements Initializable {
     @FXML
     void helpPressed(ActionEvent event) {
         recorder.stop();
-        HelpDialog helpDialog = new HelpDialog();
+        HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane);
+    }
+
+    //Load rewards window
+    @FXML
+    private void rewardPressed(ActionEvent event) {
+
     }
 
     //When user completes test, let them play back recording to hear if their mic is viable 
@@ -173,14 +178,23 @@ public class TestMicrophoneController implements Initializable {
         thread.start();
 
         //Setting image icons to buttons
+        //Testing navigation
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
-
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
         Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
         testButton.setGraphic(new ImageView(rec));
         testButton.setOnMouseEntered(e -> testButton.setGraphic(new ImageView(recHover)));
         testButton.setOnMouseExited(e -> testButton.setGraphic(new ImageView(rec)));
+
+        // Reward and help Popup icons
+        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
+        Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
+        rewardButton.setGraphic(new ImageView(reward));
+        rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
+        rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
+        Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
+        helpButton.setGraphic(new ImageView(help));
 
         user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }

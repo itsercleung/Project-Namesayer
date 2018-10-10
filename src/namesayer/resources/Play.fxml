@@ -19,32 +19,41 @@
          <children>
             <VBox prefHeight="400.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css">
                <children>
-                  <VBox prefHeight="60.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User: default">
+                        <VBox prefHeight="60.0" prefWidth="150.0">
+                           <children>
+                              <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User: default">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="pointsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Points: 0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="2.0" />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                        </VBox>
+                        <Button fx:id="rewardButton" mnemonicParsing="false" onAction="#rewardPressed" prefHeight="60.0" prefWidth="90.0" stylesheets="@stylesheet/toolbar.css">
                            <font>
                               <Font size="14.0" />
                            </font>
-                           <VBox.margin>
-                              <Insets left="10.0" top="10.0" />
-                           </VBox.margin>
-                        </Text>
-                        <Text fx:id="pointsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Points: 0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="10.0" top="2.0" />
-                           </VBox.margin>
-                        </Text>
+                        </Button>
                      </children>
-                  </VBox>
+                  </HBox>
                   <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Back">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <VBox.margin>
-                        <Insets top="470.0" />
+                        <Insets top="440.0" />
                      </VBox.margin>
                   </Button>
                </children>
@@ -75,7 +84,7 @@
                   </HBox>
                   <Label fx:id="playLabel" alignment="CENTER" prefHeight="40.0" prefWidth="600.0" stylesheets="@stylesheet/general.css" text="PLAYING:">
                      <VBox.margin>
-                        <Insets bottom="30.0" left="100.0" top="10.0" />
+                        <Insets bottom="30.0" left="100.0" top="5.0" />
                      </VBox.margin>
                      <font>
                         <Font size="16.0" />

@@ -44,8 +44,9 @@ public class RecordNewController implements Initializable {
     @FXML private StackPane stackPane;
     @FXML private JFXTextField nameField;
     @FXML private Button stopRecordingButton;
-    @FXML private VBox vbox;
+    @FXML private Button helpButton, rewardButton;
     @FXML private Text userText,pointsText;
+    @FXML private VBox vbox;
 
     private String name;
     private String officialName;
@@ -66,8 +67,14 @@ public class RecordNewController implements Initializable {
 
     @FXML
     void helpPressed(ActionEvent event) {
-        HelpDialog helpDialog = new HelpDialog();
+        HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane);
+    }
+
+    //Load rewards window
+    @FXML
+    private void rewardPressed(ActionEvent event) {
+
     }
 
     @FXML
@@ -118,7 +125,6 @@ public class RecordNewController implements Initializable {
             if (message != null) {message.close();}
             message.show(error,10000);
             //label.setText(error);
-
             return;
         }
 
@@ -150,17 +156,18 @@ public class RecordNewController implements Initializable {
         if (version > 1) {
 
             //Creating dialog box to show with options if duplicate name
-            JFXDialogLayout dialogLayout = new JFXDialogLayout();
-            JFXDialog dialog = new JFXDialog(stackPane, dialogLayout, JFXDialog.DialogTransition.TOP);
+            //Creating components
             Button okButton = new Button("OK");
             Button cancelButton = new Button("CANCEL");
             okButton.getStylesheets().add("namesayer/resources/stylesheet/general.css");
             cancelButton.getStylesheets().add("namesayer/resources/stylesheet/general.css");
             HBox buttonBox = new HBox();
-
-
             buttonBox.getChildren().addAll(okButton,cancelButton);
             buttonBox.setSpacing(5);
+
+            //Setting to JFXDialog
+            JFXDialogLayout dialogLayout = new JFXDialogLayout();
+            JFXDialog dialog = new JFXDialog(stackPane, dialogLayout, JFXDialog.DialogTransition.TOP);
             dialogLayout.setHeading(new Label("Note"));
             dialogLayout.setBody(new Label("Already exists! Do you still want to add?"));
             dialogLayout.setActions(buttonBox);
@@ -331,6 +338,10 @@ public class RecordNewController implements Initializable {
         saveButton.setDisable(true);
         stopRecordingButton.setDisable(true);
 
+        //Styling message box
+        message = new JFXSnackbar(vbox);
+        message.setStyle("-fx-font-size: 15px;");
+
         //Set icons to specific buttons from resources/icons (credited in description).
         //Set icons for record new menu
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
@@ -343,10 +354,15 @@ public class RecordNewController implements Initializable {
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
 
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
+        // Reward and help Popup icons
+        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
+        Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
+        rewardButton.setGraphic(new ImageView(reward));
+        rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
+        rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
+        Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
+        helpButton.setGraphic(new ImageView(help));
 
-        //Styling message box
-        message = new JFXSnackbar(vbox);
-        message.setStyle("-fx-font-size: 15px;");
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }

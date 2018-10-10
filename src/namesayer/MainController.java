@@ -29,11 +29,6 @@ public class MainController implements Initializable {
     private User user;
 
     @FXML
-    private void rewardPressed(ActionEvent event) {
-
-    }
-
-    @FXML
     private void exitPressed(ActionEvent event) {
         StackPane loginRoot = null;
         try {
@@ -44,10 +39,17 @@ public class MainController implements Initializable {
         mainRoot.getChildren().setAll(loginRoot);
     }
 
+    //Load help popup
     @FXML
     void helpPressed(ActionEvent event) {
-        HelpDialog helpDialog = new HelpDialog();
+        HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane);
+    }
+
+    //Load rewards window
+    @FXML
+    private void rewardPressed(ActionEvent event) {
+
     }
 
     @FXML
@@ -120,9 +122,12 @@ public class MainController implements Initializable {
 
         user = UserUtils.getCurrentLoginUser(userText,pointsText);
 
-        // button icons
+        // Reward and help Popup icons
         Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
+        Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
         rewardButton.setGraphic(new ImageView(reward));
+        rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
+        rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
         Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
         helpButton.setGraphic(new ImageView(help));
     }

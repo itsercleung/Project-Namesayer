@@ -73,7 +73,7 @@
                         </Button>
                         <HBox prefHeight="60.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/toolbar.css" text="Exit">
+                              <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/toolbar.css" text="Logout">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -85,7 +85,7 @@
                               </Button>
                            </children>
                            <VBox.margin>
-                              <Insets top="210.0" />
+                              <Insets top="240.0" />
                            </VBox.margin>
                         </HBox>
                      </children>

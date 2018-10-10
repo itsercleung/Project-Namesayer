@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import namesayer.login.User;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
@@ -45,11 +46,8 @@ public class PlayController implements Initializable {
     @FXML private TableColumn<Name, String> createdCol;
     @FXML private TableColumn<Name, Rating> ratingCol;
     @FXML private Label playLabel;
-    @FXML private Button prevButton;
-    @FXML private Button playButton;
-    @FXML private Button stopButton;
-    @FXML private Button nextButton;
-    @FXML private Button recordButton;
+    @FXML private Button nextButton,recordButton,stopButton,playButton,prevButton;
+    @FXML private Button rewardButton;
     @FXML private Rating audioRating;
 
     private PractiseController practiseController = new PractiseController();
@@ -57,6 +55,7 @@ public class PlayController implements Initializable {
     private int currentNameNum = 0; //Current name being played
     private String currSelectedName; //Current name row selected by user
     private PlayAudio playAudio;
+    private User user;
 
     //Record sidebar function
     private JFXPopup recordPopup = new JFXPopup();
@@ -81,6 +80,13 @@ public class PlayController implements Initializable {
         mainRoot.getChildren().setAll(practiseRoot);
     }
 
+    //Load rewards window
+    @FXML
+    private void rewardPressed(ActionEvent event) {
+
+    }
+
+    //Switches to next name audio if there exists next audio
     @FXML
     void nextPressed(ActionEvent event) {
         //Switching to next selected audio files
@@ -94,6 +100,7 @@ public class PlayController implements Initializable {
         updateRatingComponent(); //Change rating component
     }
 
+    //Switches back to previous name audio if there exists previous audio
     @FXML
     void prevPressed(ActionEvent event) {
         //Switching to prev selected audio files
@@ -107,7 +114,7 @@ public class PlayController implements Initializable {
         updateRatingComponent(); //Change rating component
     }
 
-
+    //Changes current audio to whatever user selects
     @FXML
     void rowClicked(MouseEvent event) {
         //Set selectedName index on what row user selects
@@ -133,6 +140,7 @@ public class PlayController implements Initializable {
         updateRatingComponent(); //Change rating component
     }
 
+    //Plays current selected name audio for 5 seconds
     @FXML
     void playPressed(ActionEvent event) {
         playMethod();
@@ -179,6 +187,7 @@ public class PlayController implements Initializable {
         }.start();
     }
 
+    //Creates a popup menu with record,compare plays, and save buttons for user to navigate
     @FXML
     void recordPressed(ActionEvent event) {
         //Button sizes and style
@@ -193,7 +202,7 @@ public class PlayController implements Initializable {
         recordPopup.setStyle("-fx-effect: null;" + "-fx-drop-shadow: null;");
     }
 
-    //Re-enable default setup buttons
+    //Stop currently playing name (in case user doesn't want to wait 5 seconds)
     @FXML
     void stopPressed(ActionEvent event) {
         playAudio.stopAudio();
@@ -303,6 +312,7 @@ public class PlayController implements Initializable {
         }
     }
 
+    //Populates users selected Play List in the Practice Controller - then forms table with appropriate details
     public void populateTableView() {
         //Create selectedList from playList in practiseController
         selectedList.addAll(practiseController.getNamePlaylist());
@@ -453,6 +463,13 @@ public class PlayController implements Initializable {
         Image saveNew = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
         Image saveNewHover = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
         saveButton.setGraphic(new ImageView(saveNew));
+
+        // Reward Popup icons
+        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
+        Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
+        rewardButton.setGraphic(new ImageView(reward));
+        rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
+        rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
 
         //Setting styles for side menu bar buttons and EVENTS on hover
         recordSubButton.setFocusTraversable(false);

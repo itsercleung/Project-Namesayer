@@ -8,6 +8,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 public class HelpDialog {
+    private Button helpButton;
+
+    public HelpDialog(Button helpButton) {
+        this.helpButton = helpButton;
+        helpButton.setDisable(true);
+    }
 
     public void showHelpDialog(StackPane stackPane) {
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
@@ -16,6 +22,10 @@ public class HelpDialog {
 
         button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
             dialog.close();
+        });
+
+        dialog.setOnDialogClosed(closeEvent -> {
+            helpButton.setDisable(false);
         });
 
         dialogLayout.setHeading(new Label("Tips"));

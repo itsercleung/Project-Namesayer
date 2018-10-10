@@ -16,6 +16,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -42,6 +44,7 @@ public class PractiseController implements Initializable {
     @FXML private ToggleSwitch toggleRandomise;
     @FXML private Button playNames;
     @FXML private Button practiseButton, uploadButton;
+    @FXML private Button helpButton, rewardButton;
     @FXML private JFXTextField searchTextField;
     @FXML private AnchorPane mainRoot;
     @FXML private StackPane stackPane;
@@ -56,7 +59,6 @@ public class PractiseController implements Initializable {
     private String concatName = "";
     private FilteredList<String> filteredData;
     private boolean isRandomised = false;
-
     private User user;
 
     @FXML
@@ -70,10 +72,17 @@ public class PractiseController implements Initializable {
         mainRoot.getChildren().setAll(loginRoot);
     }
 
+    //Load help popup screen
     @FXML
     void helpPressed(ActionEvent event) {
-        HelpDialog helpDialog = new HelpDialog();
+        HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane);
+    }
+
+    //Load rewards window
+    @FXML
+    private void rewardPressed(ActionEvent event) {
+
     }
 
     //Load testMicrophone pane
@@ -533,6 +542,15 @@ public class PractiseController implements Initializable {
         // bind appropriate conditions to each button
         playNames.disableProperty().bind(Bindings.isEmpty(selectedNameList));
         toggleRandomise.disableProperty().bind(Bindings.size(selectedNameList).lessThan(2));
+
+        // Reward and help Popup icons
+        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
+        Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
+        rewardButton.setGraphic(new ImageView(reward));
+        rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
+        rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
+        Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
+        helpButton.setGraphic(new ImageView(help));
 
         // user details
         user = UserUtils.getCurrentLoginUser(userText,pointsText);
