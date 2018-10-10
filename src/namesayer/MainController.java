@@ -120,6 +120,7 @@ public class MainController implements Initializable {
         new File("./data/names").mkdirs();
         new File("./data/usernames").mkdirs();
 
+        //Set user current name and score
         user = UserUtils.getCurrentLoginUser(userText,pointsText);
 
         // Reward and help Popup icons

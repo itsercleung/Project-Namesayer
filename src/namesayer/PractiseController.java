@@ -543,6 +543,9 @@ public class PractiseController implements Initializable {
         playNames.disableProperty().bind(Bindings.isEmpty(selectedNameList));
         toggleRandomise.disableProperty().bind(Bindings.size(selectedNameList).lessThan(2));
 
+        // user details
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
+
         // Reward and help Popup icons
         Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
         Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
@@ -551,9 +554,6 @@ public class PractiseController implements Initializable {
         rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
         Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
         helpButton.setGraphic(new ImageView(help));
-
-        // user details
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 
 }

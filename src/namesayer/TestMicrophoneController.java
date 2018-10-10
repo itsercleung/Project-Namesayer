@@ -177,6 +177,9 @@ public class TestMicrophoneController implements Initializable {
         thread.setDaemon(true); // hax but not graceful shutdown of thread
         thread.start();
 
+        //Set user current name and score
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
+
         //Setting image icons to buttons
         //Testing navigation
         Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
@@ -195,8 +198,6 @@ public class TestMicrophoneController implements Initializable {
         rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
         Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
         helpButton.setGraphic(new ImageView(help));
-
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }
 

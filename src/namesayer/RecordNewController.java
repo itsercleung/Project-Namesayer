@@ -342,6 +342,9 @@ public class RecordNewController implements Initializable {
         message = new JFXSnackbar(vbox);
         message.setStyle("-fx-font-size: 15px;");
 
+        //Set user current name and score
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
+
         //Set icons to specific buttons from resources/icons (credited in description).
         //Set icons for record new menu
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
@@ -362,7 +365,5 @@ public class RecordNewController implements Initializable {
         rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
         Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
         helpButton.setGraphic(new ImageView(help));
-
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
     }
 }

@@ -23,7 +23,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import namesayer.login.User;
+import namesayer.login.UserUtils;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
@@ -46,6 +48,7 @@ public class PlayController implements Initializable {
     @FXML private TableColumn<Name, String> createdCol;
     @FXML private TableColumn<Name, Rating> ratingCol;
     @FXML private Label playLabel;
+    @FXML private Text userText, pointsText;
     @FXML private Button nextButton,recordButton,stopButton,playButton,prevButton;
     @FXML private Button rewardButton;
     @FXML private Rating audioRating;
@@ -432,6 +435,9 @@ public class PlayController implements Initializable {
         //INIT JFX-POPUP
         VBox box = new VBox(recordSubButton, playOldButton, playNewButton, saveButton); // can make HBox
         recordPopup.setPopupContent(box);
+
+        //Set user current name and score
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
 
         //Set icons to specific buttons from resources/icons (credited in description).
         //Set icons for play menu
