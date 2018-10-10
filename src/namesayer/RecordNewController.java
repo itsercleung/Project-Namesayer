@@ -195,7 +195,7 @@ public class RecordNewController implements Initializable {
                             }
                         });
                         try {
-                            Thread.sleep(3000); //For until test.wav finishes
+                            Thread.sleep(4000); //For until test.wav finishes
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -227,7 +227,7 @@ public class RecordNewController implements Initializable {
                         }
                     });
                     try {
-                        Thread.sleep(3000); //For until test.wav finishes
+                        Thread.sleep(4000); //For until test.wav finishes
                     }
                     catch(InterruptedException e) {
                         e.printStackTrace();
