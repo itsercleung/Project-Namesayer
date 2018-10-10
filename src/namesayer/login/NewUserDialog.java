@@ -2,6 +2,7 @@ package namesayer.login;
 
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -21,6 +22,12 @@ public class NewUserDialog implements Initializable {
     private Button buttonCreate = new Button("Create");
     private Button buttonCancel = new Button("Cancel");
     private JFXTextField newUserText = new JFXTextField();
+    private JFXListView<User> userList;
+
+    public NewUserDialog(JFXListView<User> userList) {
+        this.userList = userList;
+    }
+
 
     //Creates dialog to make new user
     public void showNewUserDialog(StackPane stackPane) {
@@ -40,6 +47,7 @@ public class NewUserDialog implements Initializable {
         //Setting actions to dialog buttons and textField
         buttonCreate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
             UserUtils.createUser(newUserText.getText());
+            UserUtils.getUserList(userList);
             dialog.close();
         });
 

@@ -47,7 +47,7 @@ public class LoginController implements Initializable {
     @FXML
     void newUserButtonClicked(ActionEvent event) {
         //Load new user pane
-        NewUserDialog newUserDialog = new NewUserDialog();
+        NewUserDialog newUserDialog = new NewUserDialog(userList);
         newUserDialog.showNewUserDialog(stackPane);
     }
 
