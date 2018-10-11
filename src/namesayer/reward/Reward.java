@@ -14,6 +14,10 @@ public class Reward {
         return null;
     }
 
+    public String getRewardDescription() {
+        return null;
+    }
+
     public RewardType getRewardType() {
         return RewardType.CLIPPY;
     }
