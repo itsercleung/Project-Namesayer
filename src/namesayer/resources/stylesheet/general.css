@@ -281,3 +281,7 @@ ToggleSwitch:selected .thumb-area {
     -fx-background-color: #FF5252;
     -fx-text-fill: white;
 }
+
+#audioRating {
+
+}

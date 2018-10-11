@@ -14,6 +14,7 @@ import namesayer.login.User;
 import namesayer.login.UserUtils;
 import namesayer.util.FXMLResource;
 import namesayer.util.FXMLResourceLoader;
+import namesayer.util.HelpDialog;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,24 +23,12 @@ public class RewardController implements Initializable {
 
     @FXML private StackPane stackPane;
     @FXML private AnchorPane mainRoot;
-    @FXML private Text userText;
-    @FXML private Text pointsText;
-    @FXML private Button rewardButton;
-    @FXML private Button practiseButton;
-    @FXML private Button testMicrophoneButton;
-    @FXML private Button recordNameButton;
-    @FXML private Button exitButton;
-    @FXML private Button helpButton;
-    @FXML private Button redeemButton;
-    @FXML private Button applyButton;
+    @FXML private Text userText,pointsText;
+    @FXML private Button exitButton,helpButton,rewardButton;
+    @FXML private Button redeemButton,applyButton;
     @FXML private JFXListView<Reward> rewardList;
     private FXMLResourceLoader loader = new FXMLResourceLoader();
     private User user;
-
-    @FXML
-    void applyPressed(ActionEvent event) {
-
-    }
 
     @FXML
     void exitPressed(ActionEvent event) {
@@ -49,7 +38,8 @@ public class RewardController implements Initializable {
 
     @FXML
     void helpPressed(ActionEvent event) {
-
+        HelpDialog helpDialog = new HelpDialog(helpButton);
+        helpDialog.showHelpDialog(stackPane);
     }
 
     @FXML
@@ -65,8 +55,9 @@ public class RewardController implements Initializable {
     }
 
     @FXML
-    void redeemPressed(ActionEvent event) {
-
+    void testMicrophonePressed(ActionEvent event) {
+        StackPane root = null;
+        loader.load(FXMLResource.TEST_MICROPHONE,root,mainRoot);
     }
 
     @FXML
@@ -76,9 +67,13 @@ public class RewardController implements Initializable {
     }
 
     @FXML
-    void testMicrophonePressed(ActionEvent event) {
-        StackPane root = null;
-        loader.load(FXMLResource.TEST_MICROPHONE,root,mainRoot);
+    void applyPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void redeemPressed(ActionEvent event) {
+
     }
 
     @Override

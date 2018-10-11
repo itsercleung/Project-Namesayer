@@ -50,7 +50,7 @@ public class RecordNewController implements Initializable {
     private User user;
     private PlayAudio playAudio = null;
 
-    private static int RECORD_TIME = 4500; // no magic numbers!
+    private static int RECORD_TIME = 4000; // no magic numbers!
     private static int RECORD_TOTAL_TIME = 5000; // to prevent RIFF exception
     private FXMLResourceLoader loader = new FXMLResourceLoader();
 

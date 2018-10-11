@@ -95,7 +95,7 @@
                         <Insets />
                      </HBox.margin>
                      <children>
-                        <Label alignment="CENTER" opacity="0.3" prefHeight="50.0" prefWidth="800.0" text="Wecolme to NameSayer">
+                        <Label alignment="CENTER" opacity="0.3" prefHeight="50.0" prefWidth="800.0" text="Welcome to NameSayer">
                            <font>
                               <Font size="15.0" />
                            </font>

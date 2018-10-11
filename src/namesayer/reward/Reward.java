@@ -11,7 +11,6 @@ public class Reward {
         CLIPPY, BAD_WALLPAPER, BRONZE_TROPY
     }
     */
-
     private String name;
     private String description;
     private boolean isRedeemed = false;

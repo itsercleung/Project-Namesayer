@@ -3,6 +3,7 @@ package namesayer.reward;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class RewardCell extends ListCell<Reward> {
     @FXML private AnchorPane root;
     @FXML private Text nameText, descriptionText;
+
     private FXMLLoader loader;
 
     public RewardCell() {

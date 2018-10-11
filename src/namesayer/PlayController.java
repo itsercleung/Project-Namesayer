@@ -91,15 +91,18 @@ public class PlayController implements Initializable {
             nextButton.setDisable(true);
         }
         prevButton.setDisable(false);
+
+        //Update rating and components
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
-        ratingManager.updateRatingComponent(currentNameNum); //Change rating component
+        ratingManager.updateRatingComponent(currentNameNum);
     }
 
     //Switches back to previous name audio if there exists previous audio
     @FXML
     void prevPressed(ActionEvent event) {
         //Switching to prev selected audio files
+        currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
         currentNameNum--;
         if (currentNameNum == 0) {
             prevButton.setDisable(true);
@@ -107,7 +110,7 @@ public class PlayController implements Initializable {
         nextButton.setDisable(false);
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
-        ratingManager.updateRatingComponent(currentNameNum); //Change rating component
+        ratingManager.updateRatingComponent(currentNameNum);
     }
 
     //Changes current audio to whatever user selects
@@ -133,7 +136,7 @@ public class PlayController implements Initializable {
             nextButton.setDisable(true);
         }
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
-        ratingManager.updateRatingComponent(currentNameNum); //Change rating component
+        ratingManager.updateRatingComponent(currentNameNum);
     }
 
     //Plays current selected name audio for 5 seconds
@@ -168,7 +171,7 @@ public class PlayController implements Initializable {
                     }
                 });
                 try {
-                    Thread.sleep(4500);
+                    Thread.sleep(4);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -237,6 +240,11 @@ public class PlayController implements Initializable {
         nameTable.getSelectionModel().select(currentNameNum);
         currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
 
+        //Concat multiple names selected
+        for (PlayAudio audio : practiseController.getPlayAudioList()) {
+            audio.concatCombinedAudio();
+        }
+
         //When user selects rating, update
         audioRating.ratingProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -245,11 +253,6 @@ public class PlayController implements Initializable {
                 selectedList = ratingManager.ratingUpdate();
             }
         });
-
-        //Concat multiple names selected
-        for (PlayAudio audio : practiseController.getPlayAudioList()) {
-            audio.concatCombinedAudio();
-        }
 
         //JFXPOPUP BUTTON ACTIONS
         //PLAYOLD - plays current names audio file
@@ -297,7 +300,7 @@ public class PlayController implements Initializable {
                             }
                         });
                         try {
-                            Thread.sleep(5000);
+                            Thread.sleep(4000);
                         }
                         catch(InterruptedException e) {
                             e.printStackTrace();
@@ -310,6 +313,11 @@ public class PlayController implements Initializable {
                                 recordSubButton.setDisable(false);
                                 saveButton.setDisable(false);
                                 playButton.setDisable(false);
+
+                                //Disable rating and save buttons for concat
+                                if (currSelectedName.contains(" ")) {
+                                    saveButton.setDisable(true);
+                                }
                             }
                         });
                     }
@@ -321,7 +329,6 @@ public class PlayController implements Initializable {
         saveButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //TODO: have to make sure not to save concat audios
                 createAudio.saveAudio();
             }
         });
