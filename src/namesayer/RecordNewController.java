@@ -79,7 +79,13 @@ public class RecordNewController implements Initializable {
     //Load rewards window
     @FXML
     private void rewardPressed(ActionEvent event) {
-
+        StackPane rewardsRoot = null;
+        try {
+            rewardsRoot = FXMLLoader.load(getClass().getResource("resources/Reward.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        root.getChildren().setAll(rewardsRoot);
     }
 
     @FXML

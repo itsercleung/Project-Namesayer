@@ -64,7 +64,13 @@ public class TestMicrophoneController implements Initializable {
     //Load rewards window
     @FXML
     private void rewardPressed(ActionEvent event) {
-
+        StackPane rewardsRoot = null;
+        try {
+            rewardsRoot = FXMLLoader.load(getClass().getResource("resources/Reward.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainRoot.getChildren().setAll(rewardsRoot);
     }
 
     //When user completes test, let them play back recording to hear if their mic is viable 
