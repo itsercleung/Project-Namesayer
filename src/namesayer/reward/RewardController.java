@@ -2,12 +2,18 @@ package namesayer.reward;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
-public class RewardController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class RewardController implements Initializable {
 
     @FXML private StackPane stackPane;
     @FXML private AnchorPane mainRoot;
@@ -62,4 +68,17 @@ public class RewardController {
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        rewardButton.setDisable(true);
+
+        // Reward and help Popup icons
+        Image reward = new Image(getClass().getResourceAsStream("../resources/icons/rewards.png"));
+        Image rewardHover = new Image(getClass().getResourceAsStream("../resources/icons/rewardsHover.png"));
+        rewardButton.setGraphic(new ImageView(reward));
+        rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
+        rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
+        Image help = new Image(getClass().getResourceAsStream("../resources/icons/info.png"));
+        helpButton.setGraphic(new ImageView(help));
+    }
 }
