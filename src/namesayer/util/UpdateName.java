@@ -1,11 +1,6 @@
 package namesayer.util;
 
-import javafx.concurrent.Task;
-
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 //UPDATENAME Class: Allows for names to be moved from database if appropriate destination is given
 public class UpdateName {

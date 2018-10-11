@@ -29,6 +29,7 @@ import namesayer.login.UserUtils;
 import namesayer.util.CreateTempAudio;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
+import namesayer.util.RatingManager;
 import org.controlsfx.control.Rating;
 
 import java.io.File;
@@ -58,6 +59,7 @@ public class PlayController implements Initializable {
     private int currentNameNum = 0; //Current name being played
     private String currSelectedName; //Current name row selected by user
     private PlayAudio playAudio;
+    private RatingManager ratingManager; //Rating instance for rating changes and updates
     private User user;
 
     //Record sidebar function
@@ -106,7 +108,7 @@ public class PlayController implements Initializable {
         prevButton.setDisable(false);
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
-        updateRatingComponent(); //Change rating component
+        ratingManager.updateRatingComponent(currentNameNum); //Change rating component
     }
 
     //Switches back to previous name audio if there exists previous audio
@@ -120,7 +122,7 @@ public class PlayController implements Initializable {
         nextButton.setDisable(false);
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
-        updateRatingComponent(); //Change rating component
+        ratingManager.updateRatingComponent(currentNameNum); //Change rating component
     }
 
     //Changes current audio to whatever user selects
@@ -146,7 +148,7 @@ public class PlayController implements Initializable {
             nextButton.setDisable(true);
         }
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
-        updateRatingComponent(); //Change rating component
+        ratingManager.updateRatingComponent(currentNameNum); //Change rating component
     }
 
     //Plays current selected name audio for 5 seconds
@@ -220,109 +222,8 @@ public class PlayController implements Initializable {
         stopButton.setDisable(true);
     }
 
-    //Update rating if user makes rate of specific audio row
-    private void ratingPressed(String rating) {
-        //Append the listed poorQualityAudio if the audio hasn't been rated already
-        try {
-            FileWriter writer = new FileWriter("./data/ratingAudio.txt", true);
-            byte[] bytes = Files.readAllBytes(Paths.get("./data/ratingAudio.txt"));
-            String currentAudio = new String(bytes);
-            currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
-
-            //Makes new line if audio has no existing rating otherwise overwrite rating
-            if (!currentAudio.contains(currSelectedName)) {
-                writer.write(currSelectedName + "-" + rating + "\n");
-                writer.close();
-            } else if (currentAudio.contains(currSelectedName)) {
-                String newName = currSelectedName + "-" + rating;
-                Scanner scanner = new Scanner(currentAudio);
-                int lineCount = 0;
-
-                //Creating list to append to specific line
-                Path path = Paths.get("./data/ratingAudio.txt");
-                List<String> lines = Files.readAllLines(path);
-
-                //Find line of audio and replace it with different rating
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    if (line.length() == newName.length()) {
-                        if (line.substring(0, line.length() - 3).equals(newName.substring(0, newName.length() - 3))) {
-                            lines.set(lineCount, newName);
-                            Files.write(path, lines);
-                        }
-                    }
-                    lineCount++;
-                }
-                scanner.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //Update editable rating component
-    private void ratingUpdate() {
-        //If txt doesnt exist then make one and append TITLE
-        File pqFile = new File("./data/ratingAudio.txt");
-        if (!pqFile.exists()) {
-            try {
-                pqFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //Reading ratingAudio.txt to get values of ratings
-        try {
-            byte[] bytes = Files.readAllBytes(Paths.get("./data/ratingAudio.txt"));
-            String currentAudio = new String(bytes);
-
-            //Once current audio is found in txt, extract its rating and update for audioRating component.
-            for (int i = 0; i < selectedList.size(); i++) {
-                if (currentAudio.contains(practiseController.getNamePlaylist().get(i).toString() + ".wav")) {
-                    Scanner scanner = new Scanner(currentAudio);
-                    while (scanner.hasNextLine()) {
-                        String line = scanner.nextLine();
-                        if (line.substring(0, line.length() - 4).equals(practiseController.getNamePlaylist().get(i).toString() + ".wav")) {
-                            double rating = Double.parseDouble(line.substring(line.length() - 3));
-                            selectedList.get(i).getRating().setRating(rating); //Set column rating
-                        }
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //Update rating change on rateable component
-    private void updateRatingComponent() {
-        try {
-            byte[] bytes = Files.readAllBytes(Paths.get("./data/ratingAudio.txt"));
-            String currentAudio = new String(bytes);
-            String currentPlay = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
-
-            if (currentAudio.contains(currentPlay)) {
-                Scanner scanner = new Scanner(currentAudio);
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    if (line.substring(0, line.length() - 4).equals(currentPlay)) {
-                        double rating = Double.parseDouble(line.substring(line.length() - 3));
-                        audioRating.setRating(rating); //Set adjustable rating
-                    }
-                }
-            }
-            else {
-                audioRating.setRating(0.0);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     //Populates users selected Play List in the Practice Controller - then forms table with appropriate details
-    public void populateTableView() {
+    private void populateTableView() {
         //Create selectedList from playList in practiseController
         selectedList.addAll(practiseController.getNamePlaylist());
 
@@ -335,10 +236,11 @@ public class PlayController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Setting table and rating updates
+        //Setting table and rating updates using RatingManager class
         populateTableView();
-        ratingUpdate();
-        updateRatingComponent();
+        ratingManager = new RatingManager(selectedList, practiseController,audioRating);
+        selectedList = ratingManager.ratingUpdate();
+        ratingManager.updateRatingComponent(currentNameNum);
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
 
         //Accounting for single audio in which button is disabled
@@ -354,8 +256,8 @@ public class PlayController implements Initializable {
         audioRating.ratingProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                ratingPressed(newValue.toString());
-                ratingUpdate();
+                currSelectedName = ratingManager.ratingPressed(newValue.toString(),currentNameNum);
+                selectedList = ratingManager.ratingUpdate();
             }
         });
 
