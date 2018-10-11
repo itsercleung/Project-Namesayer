@@ -34,7 +34,7 @@ public class MainController implements Initializable {
     @FXML
     private void exitPressed(ActionEvent event) {
         StackPane loginRoot = null;
-        loader.load(FXMLResource.LOGOUT, mainRoot, loginRoot);
+        loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
     }
 
     //Load help popup
@@ -48,48 +48,28 @@ public class MainController implements Initializable {
     @FXML
     private void rewardPressed(ActionEvent event) {
         StackPane rewardsRoot = null;
-        try {
-            rewardsRoot = FXMLLoader.load(getClass().getResource("resources/Reward.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(rewardsRoot);
+        loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
         //Load testMicrophone pane
         StackPane testMicrophoneRoot = null;
-        try {
-            testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/TestMicrophone.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(testMicrophoneRoot);
+        loader.load(FXMLResource.TEST_MICROPHONE,testMicrophoneRoot,mainRoot);
     }
 
     @FXML
     private void practisePressed(ActionEvent event) {
         //Load practise pane
         StackPane practiseRoot = null;
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(practiseRoot);
+        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
     }
 
     @FXML
     private void recordNamePressed(ActionEvent event) {
         //record new practise pane
         StackPane practiseRoot = null;
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(practiseRoot);
+        loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
     }
 
     //Method to delete all existing temp files within the folder

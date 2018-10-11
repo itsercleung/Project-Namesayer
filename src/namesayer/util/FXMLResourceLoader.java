@@ -6,13 +6,14 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 public class FXMLResourceLoader {
-    public void load(FXMLResource resource, Pane fromRoot, Pane toRoot) {
+    public void load(FXMLResource resource, Pane beforeRoot, Pane afterRoot) {
         try {
-            fromRoot = FXMLLoader.load(getClass().getResource(resource.getResource()));
+            beforeRoot = FXMLLoader.load(getClass().getResource(resource.getResource()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        toRoot.getChildren().setAll(fromRoot);
+
+        afterRoot.getChildren().setAll(beforeRoot);
     }
 
 }
