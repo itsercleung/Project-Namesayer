@@ -87,7 +87,7 @@ public class UserUtils {
             int points = Integer.parseInt(number);
             reader.close();
 
-            userText.setText("User: "+username);
+            userText.setText(username);
             pointsText.setText("Points: "+points);
             return new User(username, points);
         } catch (FileNotFoundException e) {

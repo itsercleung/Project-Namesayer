@@ -24,6 +24,7 @@ HBox{
     -fx-focus-color: #FF5252;
 }
 
+
 * :disabled {
     -fx-opacity: 1;
     -fx-background-color: rgba(33,33,33,0.8);

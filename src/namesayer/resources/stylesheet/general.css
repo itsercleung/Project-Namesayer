@@ -242,3 +242,42 @@ ToggleSwitch:selected .thumb-area {
     -fx-background-radius: 5px;
     -fx-text-fill: white;
 }
+
+
+/* LOGIN COMPONENTS */
+#background {
+    -fx-background-image: url("../images/gradientBackground.jpg");;
+}
+
+#loginButton {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+#loginButton:hover {
+    -fx-background-color: #FF5252;
+    -fx-text-fill: white;
+}
+
+#newUserButton {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+#newUserButton:hover {
+    -fx-background-color: #FF5252;
+    -fx-text-fill: white;
+}
+
+#exitButton {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+#exitButton:hover {
+    -fx-background-color: #FF5252;
+    -fx-text-fill: white;
+}

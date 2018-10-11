@@ -14,9 +14,10 @@
     <children>
         <AnchorPane fx:id="mainRoot" prefHeight="600.0" prefWidth="1000.0">
             <children>
-                <VBox layoutX="240.0" prefHeight="600.0" prefWidth="521.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="239.0" AnchorPane.topAnchor="0.0">
+            <VBox fx:id="background" prefHeight="600.0" prefWidth="1000.0" stylesheets="@stylesheet/general.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <VBox fx:id="backgroundLogin" layoutX="240.0" prefHeight="600.0" prefWidth="521.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="239.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NS">
                             <font>
                                 <Font size="52.0" />
                             </font>
@@ -24,7 +25,7 @@
                                 <Insets left="220.0" top="40.0" />
                             </VBox.margin>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name Sayer">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name Sayer">
                             <VBox.margin>
                                 <Insets bottom="20.0" left="220.0" top="5.0" />
                             </VBox.margin>
