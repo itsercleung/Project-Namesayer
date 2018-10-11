@@ -1,7 +1,10 @@
 package namesayer.reward;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -9,7 +12,8 @@ import java.io.IOException;
  * concepts copied from UserCell
  */
 public class RewardCell extends ListCell<Reward> {
-
+    @FXML private AnchorPane root;
+    @FXML private Text nameText, descriptionText;
     private FXMLLoader loader;
 
     public RewardCell() {
@@ -17,22 +21,24 @@ public class RewardCell extends ListCell<Reward> {
     }
 
     @Override
-    protected void updateItem(Reward user, boolean empty) {
-        super.updateItem(user, empty);
+    protected void updateItem(Reward reward, boolean empty) {
+        super.updateItem(reward, empty);
         setText(null);
         setGraphic(null);
 
-        if (user != null) {
+        if (reward != null) {
             try {
-                loader = new FXMLLoader(getClass().getResource("../login/RewardCell.fxml"));
+                loader = new FXMLLoader(getClass().getResource("../reward/RewardCell.fxml"));
                 loader.setController(this);
                 loader.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+            nameText.setText(reward.getRewardName());
+            descriptionText.setText(reward.getRewardDescription());
             // set graphic here
-            // setGraphic();
+            setGraphic(root);
         }
 
 

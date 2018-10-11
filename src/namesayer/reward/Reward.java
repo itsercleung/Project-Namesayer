@@ -17,6 +17,10 @@ public class Reward {
     private boolean isRedeemed = false;
     private boolean isApplied = false;
 
+    public Reward(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     public Reward(String name, String description, boolean isRedeemed, boolean isApplied) {
         this.name = name;

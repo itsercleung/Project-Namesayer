@@ -1,5 +1,6 @@
 package namesayer.reward;
 
+import com.jfoenix.controls.JFXListView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +28,7 @@ public class RewardController implements Initializable {
     @FXML private Button helpButton;
     @FXML private Button redeemButton;
     @FXML private Button applyButton;
+    @FXML private JFXListView<Reward> rewardList;
 
     @FXML
     void applyPressed(ActionEvent event) {
@@ -71,6 +73,9 @@ public class RewardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rewardButton.setDisable(true);
+
+        rewardList.setItems(RewardBuilder.build()); // reward builder is location of all reward types
+        rewardList.setCellFactory(param -> new RewardCell());
 
         // Reward and help Popup icons
         Image reward = new Image(getClass().getResourceAsStream("../resources/icons/rewards.png"));
