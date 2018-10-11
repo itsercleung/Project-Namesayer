@@ -27,7 +27,7 @@ public class CreateAudio {
         String userAudio = "cd temp\n" +
                 //"ffmpeg -f alsa -i hw:0 -t 3 -acodec pcm_s16le -ar 22050 -ac 1 " + name.replace(" ","") + ".wav";
                 // TODO i think the above code is the source of the problem
-                "ffmpeg -loglevel quiet -y -f alsa -i default -t 5 -ar 22050 -ac 1 " + name.replace(" ","") + ".wav";
+                "ffmpeg -loglevel quiet -y -f alsa -i default -t 4.5 -ar 22050 -ac 1 " + name.replace(" ","") + ".wav";
 
         task = new Task<Void>() {
             @Override

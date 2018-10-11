@@ -168,7 +168,7 @@ public class PlayController implements Initializable {
                     }
                 });
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(4500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -297,7 +297,7 @@ public class PlayController implements Initializable {
                             }
                         });
                         try {
-                            Thread.sleep(5500);
+                            Thread.sleep(5000);
                         }
                         catch(InterruptedException e) {
                             e.printStackTrace();
