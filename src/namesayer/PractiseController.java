@@ -22,12 +22,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import namesayer.util.HelpDialog;
+import namesayer.util.*;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
-import namesayer.util.Name;
-import namesayer.util.PlayAudio;
-import namesayer.util.PlayListCreator;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
@@ -58,58 +55,41 @@ public class PractiseController implements Initializable {
     private boolean isRandomised = false;
     private User user;
 
-    @FXML
-    private void exitPressed(ActionEvent event) {
+    private FXMLResourceLoader loader = new FXMLResourceLoader();
+
+    @FXML private void exitPressed(ActionEvent event) {
         StackPane loginRoot = null;
-        try {
-            loginRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(loginRoot);
+        loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
     }
 
-    //Load help popup screen
-    @FXML
-    void helpPressed(ActionEvent event) {
+    //Load help popup
+    @FXML private void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane);
     }
 
     //Load rewards window
-    @FXML
-    private void rewardPressed(ActionEvent event) {
+    @FXML private void rewardPressed(ActionEvent event) {
         StackPane rewardsRoot = null;
-        try {
-            rewardsRoot = FXMLLoader.load(getClass().getResource("resources/Reward.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(rewardsRoot);
+        loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
-    //Load testMicrophone pane
-    @FXML
-    private void testMicrophonePressed(ActionEvent event) {
+    @FXML private void testMicrophonePressed(ActionEvent event) {
+        //Load testMicrophone pane
         StackPane testMicrophoneRoot = null;
-        try {
-            testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/TestMicrophone.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(testMicrophoneRoot);
+        loader.load(FXMLResource.TEST_MICROPHONE,testMicrophoneRoot,mainRoot);
     }
 
-    //record new practise pane
-    @FXML
-    private void recordNamePressed(ActionEvent event) {
+    @FXML private void practisePressed(ActionEvent event) {
+        //Load practise pane
         StackPane practiseRoot = null;
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(practiseRoot);
+        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
+    }
+
+    @FXML private void recordNamePressed(ActionEvent event) {
+        //record new practise pane
+        StackPane practiseRoot = null;
+        loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
     }
 
     //Load play practise pane
@@ -128,12 +108,7 @@ public class PractiseController implements Initializable {
         }
 
         AnchorPane playRoot = null;
-        try {
-            playRoot = FXMLLoader.load(getClass().getResource("resources/Play.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(playRoot);
+        loader.load(FXMLResource.PLAY,playRoot,mainRoot);
     }
 
     //Clear all to initial state
@@ -142,18 +117,6 @@ public class PractiseController implements Initializable {
         namePlaylist.clear();
         selectedNameList.clear();
         toggleRandomise.setSelected(false);
-    }
-
-    //Load practise pane
-    @FXML
-    private void practisePressed(ActionEvent event) {
-        StackPane practiseRoot = null;
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(practiseRoot);
     }
 
     //User may have option to upload txt file for all names requested (as long as the name currently exists in system) and

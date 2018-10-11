@@ -16,6 +16,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import namesayer.util.FXMLResource;
+import namesayer.util.FXMLResourceLoader;
 import namesayer.util.HelpDialog;
 import javafx.scene.text.Text;
 import namesayer.login.User;
@@ -40,37 +42,38 @@ public class TestMicrophoneController implements Initializable {
 
     private Recorder recorder = null;
     private User user;
+    private FXMLResourceLoader loader = new FXMLResourceLoader();
 
     //When user completes test, let them play back recording to hear if their mic is viable
-    @FXML
-    private void exitPressed(ActionEvent event) {
+    @FXML private void exitPressed(ActionEvent event) {
         recorder.stop();
         StackPane loginRoot = null;
-        try {
-            loginRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(loginRoot);
+        loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
     }
 
-    @FXML
-    void helpPressed(ActionEvent event) {
-        recorder.stop();
+    //Load help popup
+    @FXML private void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane);
     }
 
     //Load rewards window
-    @FXML
-    private void rewardPressed(ActionEvent event) {
+    @FXML private void rewardPressed(ActionEvent event) {
+        recorder.stop();
         StackPane rewardsRoot = null;
-        try {
-            rewardsRoot = FXMLLoader.load(getClass().getResource("resources/Reward.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(rewardsRoot);
+        loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
+    }
+
+    @FXML private void practisePressed(ActionEvent event) {
+        recorder.stop();
+        StackPane practiseRoot = null;
+        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
+    }
+
+    @FXML private void recordNamePressed(ActionEvent event) {
+        recorder.stop();
+        StackPane practiseRoot = null;
+        loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
     }
 
     //When user completes test, let them play back recording to hear if their mic is viable 
@@ -141,33 +144,6 @@ public class TestMicrophoneController implements Initializable {
             }
         };
         new Thread(task).start();
-    }
-
-    //Load practise pane
-    @FXML
-    private void practisePressed(ActionEvent event) {
-        recorder.stop();
-        StackPane practiseRoot = null;
-
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(practiseRoot);
-    }
-
-    //record new practise pane
-    @FXML
-    private void recordNamePressed(ActionEvent event) {
-        recorder.stop();
-        StackPane practiseRoot = null;
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(practiseRoot);
     }
 
     @Override

@@ -21,10 +21,7 @@ import javafx.scene.text.Text;
 import namesayer.login.Points;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
-import namesayer.util.CreateAudio;
-import namesayer.util.HelpDialog;
-import namesayer.util.PlayAudio;
-import namesayer.util.UpdateName;
+import namesayer.util.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,7 +39,7 @@ import java.util.ResourceBundle;
 public class RecordNewController implements Initializable {
 
     @FXML private Button listenButton, recordButton, saveButton, recordNameButton;
-    @FXML private AnchorPane root;
+    @FXML private AnchorPane mainRoot;
     @FXML private StackPane stackPane;
     @FXML private JFXTextField nameField;
     @FXML private Button stopPlayButton;
@@ -58,71 +55,41 @@ public class RecordNewController implements Initializable {
     private PlayAudio playAudio = null;
 
     private int RECORD_PLAY_TIME = 5500; // no magic numbers!
+    private FXMLResourceLoader loader = new FXMLResourceLoader();
 
-    @FXML
-    void exitPressed(ActionEvent event) {
+    @FXML private void exitPressed(ActionEvent event) {
         StackPane loginRoot = null;
-        try {
-            loginRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        root.getChildren().setAll(loginRoot);
+        loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
     }
 
-    @FXML
-    void helpPressed(ActionEvent event) {
+    //Load help popup
+    @FXML private void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane);
     }
 
     //Load rewards window
-    @FXML
-    private void rewardPressed(ActionEvent event) {
+    @FXML private void rewardPressed(ActionEvent event) {
         StackPane rewardsRoot = null;
-        try {
-            rewardsRoot = FXMLLoader.load(getClass().getResource("resources/Reward.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        root.getChildren().setAll(rewardsRoot);
+        loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
-    @FXML
-    private void testMicrophonePressed(ActionEvent event) {
+    @FXML private void testMicrophonePressed(ActionEvent event) {
         //Load testMicrophone pane
         StackPane testMicrophoneRoot = null;
-        try {
-            testMicrophoneRoot = FXMLLoader.load(getClass().getResource("resources/TestMicrophone.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        root.getChildren().setAll(testMicrophoneRoot);
+        loader.load(FXMLResource.TEST_MICROPHONE,testMicrophoneRoot,mainRoot);
     }
 
-    @FXML
-    private void practisePressed(ActionEvent event) {
+    @FXML private void practisePressed(ActionEvent event) {
         //Load practise pane
         StackPane practiseRoot = null;
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        root.getChildren().setAll(practiseRoot);
+        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
     }
 
-    @FXML
-    private void recordNamePressed(ActionEvent event) {
+    @FXML private void recordNamePressed(ActionEvent event) {
         //record new practise pane
         StackPane practiseRoot = null;
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/RecordNew.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        root.getChildren().setAll(practiseRoot);
+        loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
     }
 
     //Allows user to record given the string of the nameField: (1) If name already exists, assign the name with version
