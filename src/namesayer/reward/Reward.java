@@ -16,15 +16,16 @@ public class Reward {
     private String description;
     private boolean isRedeemed = false;
     private boolean isApplied = false;
+    private int minPoints = Integer.MAX_VALUE;
 
-    public Reward(String name, String description) {
+    public Reward(String name, String description, int minPoints) {
         this.name = name;
         this.description = description;
+        this.minPoints = minPoints;
     }
 
-    public Reward(String name, String description, boolean isRedeemed, boolean isApplied) {
-        this.name = name;
-        this.description = description;
+    public Reward(String name, String description, int minPoints, boolean isRedeemed, boolean isApplied) {
+        this(name,description,minPoints);
         this.isRedeemed = isRedeemed;
         this.isApplied = isApplied;
     }
@@ -52,6 +53,8 @@ public class Reward {
     public void applyReward() {
         isApplied = true;
     }
+
+    public int getMinPoints() { return minPoints; }
 
     /*
     public RewardType getRewardType() {
