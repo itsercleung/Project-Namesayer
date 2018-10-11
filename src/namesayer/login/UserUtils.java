@@ -133,9 +133,8 @@ public class UserUtils {
         try {
             FileWriter fw = new FileWriter(usernameTxt, false);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(user.getUsername());
-            bw.newLine();
-            bw.write(String.valueOf(user.getPoints()));
+            String updateString = user.getUsername() + "~" + String.valueOf(user.getPoints());
+            bw.write(updateString);
             bw.close();
         } catch (IOException ioe) {
 

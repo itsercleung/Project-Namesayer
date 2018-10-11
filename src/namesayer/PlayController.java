@@ -26,19 +26,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
-import namesayer.util.CreateTempAudio;
+import namesayer.util.CreateAudio;
 import namesayer.util.Name;
 import namesayer.util.PlayAudio;
 import namesayer.util.RatingManager;
 import org.controlsfx.control.Rating;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class PlayController implements Initializable {
@@ -307,12 +302,12 @@ public class PlayController implements Initializable {
                                 playButton.setDisable(true);
 
                                 tempAudioName = "user_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
-                                CreateTempAudio cta = new CreateTempAudio(tempAudioName);
+                                CreateAudio cta = new CreateAudio(tempAudioName);
                                 cta.createSingleAudio();
                             }
                         });
                         try {
-                            Thread.sleep(5000);
+                            Thread.sleep(5500);
                         }
                         catch(InterruptedException e) {
                             e.printStackTrace();

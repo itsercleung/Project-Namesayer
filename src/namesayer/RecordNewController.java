@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 import namesayer.login.Points;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
-import namesayer.util.CreateTempAudio;
+import namesayer.util.CreateAudio;
 import namesayer.util.HelpDialog;
 import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
@@ -52,7 +52,7 @@ public class RecordNewController implements Initializable {
 
     private String name;
     private String officialName;
-    private CreateTempAudio createTempAudio;
+    private CreateAudio createAudio;
     private JFXSnackbar message;
     private User user;
     private PlayAudio playAudio = null;
@@ -220,8 +220,8 @@ public class RecordNewController implements Initializable {
                         });
                     }
                 }.start();
-                createTempAudio = new CreateTempAudio(officialName);
-                createTempAudio.createSingleAudio();
+                createAudio = new CreateAudio(officialName);
+                createAudio.createSingleAudio();
             });
         }
         //Else if name doesn't exist, simply start recording (3 SECONDS)
@@ -253,8 +253,8 @@ public class RecordNewController implements Initializable {
                     });
                 }
             }.start();
-            createTempAudio = new CreateTempAudio(officialName);
-            createTempAudio.createSingleAudio();
+            createAudio = new CreateAudio(officialName);
+            createAudio.createSingleAudio();
         }
     }
 
@@ -310,6 +310,12 @@ public class RecordNewController implements Initializable {
             message.close();
             message.show(messageString, 10000);
             //label.setText(messageString);
+
+
+            // TODO Testing refactor to CreateAudio
+            createAudio.saveAudio();
+
+            /*
             try {
                 Files.move(Paths.get("./temp/" + officialName + ".wav"),
                         Paths.get("./data/names/" + officialName + ".wav"),
@@ -317,6 +323,7 @@ public class RecordNewController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+*/
 
             //Update practice list
             UpdateName updateName = new UpdateName();
