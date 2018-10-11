@@ -6,6 +6,9 @@ import javafx.fxml.FXMLLoader;
 
 import java.util.HashMap;
 
+/**
+ * Creates the list of rewards to populate a listview
+ */
 public class RewardBuilder {
 
     public static ObservableList<Reward> build() {

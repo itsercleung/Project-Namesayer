@@ -7,7 +7,6 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -28,9 +27,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,7 +50,8 @@ public class RecordNewController implements Initializable {
     private User user;
     private PlayAudio playAudio = null;
 
-    private int RECORD_PLAY_TIME = 5500; // no magic numbers!
+    private static int RECORD_TIME = 4500; // no magic numbers!
+    private static int RECORD_TOTAL_TIME = 5000; // to prevent RIFF exception
     private FXMLResourceLoader loader = new FXMLResourceLoader();
 
     @FXML private void exitPressed(ActionEvent event) {
@@ -173,7 +170,7 @@ public class RecordNewController implements Initializable {
                             }
                         });
                         try {
-                            Thread.sleep(RECORD_PLAY_TIME); //For until test.wav finishes
+                            Thread.sleep(RECORD_TOTAL_TIME); //For until test.wav finishes
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -205,7 +202,7 @@ public class RecordNewController implements Initializable {
                         }
                     });
                     try {
-                        Thread.sleep(RECORD_PLAY_TIME); //For until test.wav finishes
+                        Thread.sleep(RECORD_TOTAL_TIME); //For until test.wav finishes
                     }
                     catch(InterruptedException e) {
                         e.printStackTrace();
@@ -243,6 +240,7 @@ public class RecordNewController implements Initializable {
                         message.close();
                         message.show(messageString, 10000);
                         disableButtons();
+                        stopPlayButton.setDisable(false);
                     }
                 });
                 try {
@@ -278,8 +276,6 @@ public class RecordNewController implements Initializable {
             message.show(messageString, 10000);
             //label.setText(messageString);
 
-
-            // TODO Testing refactor to CreateAudio
             createAudio.saveAudio();
 
             //Update practice list
