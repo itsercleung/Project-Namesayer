@@ -76,7 +76,7 @@
                         </Button>
                         <HBox prefHeight="60.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="exitButton1" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/toolbar.css" text="Logout">
+                              <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/toolbar.css" text="Logout">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

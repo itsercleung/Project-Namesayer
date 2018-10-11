@@ -46,7 +46,7 @@ public class RecordNewController implements Initializable {
     @FXML private StackPane stackPane;
     @FXML private JFXTextField nameField;
     @FXML private Button stopPlayButton;
-    @FXML private Button helpButton, rewardButton;
+    @FXML private Button helpButton, rewardButton, exitButton;
     @FXML private Text userText,pointsText;
     @FXML private VBox vbox;
 
@@ -315,16 +315,6 @@ public class RecordNewController implements Initializable {
             // TODO Testing refactor to CreateAudio
             createAudio.saveAudio();
 
-            /*
-            try {
-                Files.move(Paths.get("./temp/" + officialName + ".wav"),
-                        Paths.get("./data/names/" + officialName + ".wav"),
-                        StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-*/
-
             //Update practice list
             UpdateName updateName = new UpdateName();
             updateName.updateNewName(officialName);
@@ -397,5 +387,7 @@ public class RecordNewController implements Initializable {
         helpButton.setGraphic(new ImageView(help));
         Image stop = new Image(getClass().getResourceAsStream("resources/icons/stop.png"));
         stopPlayButton.setGraphic(new ImageView(stop));
+        Image logout = new Image(getClass().getResourceAsStream("resources/icons/sign-out.png"));
+        exitButton.setGraphic(new ImageView(logout));
     }
 }

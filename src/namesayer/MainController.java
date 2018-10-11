@@ -24,7 +24,7 @@ public class MainController implements Initializable {
     @FXML private AnchorPane mainRoot;
     @FXML private StackPane stackPane;
     @FXML private Text userText, pointsText;
-    @FXML private Button helpButton, rewardButton;
+    @FXML private Button helpButton, rewardButton, exitButton;
 
     private User user;
 
@@ -137,5 +137,7 @@ public class MainController implements Initializable {
         rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
         Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
         helpButton.setGraphic(new ImageView(help));
+        Image logout = new Image(getClass().getResourceAsStream("resources/icons/sign-out.png"));
+        exitButton.setGraphic(new ImageView(logout));
     }
 }

@@ -46,7 +46,7 @@ public class PlayController implements Initializable {
     @FXML private Label playLabel;
     @FXML private Text userText, pointsText;
     @FXML private Button nextButton,recordButton,stopButton,playButton,prevButton;
-    @FXML private Button rewardButton;
+    @FXML private Button rewardButton, exitButton;
     @FXML private Rating audioRating;
 
     private PractiseController practiseController = new PractiseController();
@@ -64,6 +64,7 @@ public class PlayController implements Initializable {
     private JFXButton recordSubButton = new JFXButton("RECORD");
     private JFXButton saveButton = new JFXButton("SAVE NEW");
     private String tempAudioName = null; // for recording
+    private CreateAudio createAudio;
 
     @FXML
     void exitPressed(ActionEvent event) {
@@ -302,8 +303,8 @@ public class PlayController implements Initializable {
                                 playButton.setDisable(true);
 
                                 tempAudioName = "user_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
-                                CreateAudio cta = new CreateAudio(tempAudioName);
-                                cta.createSingleAudio();
+                                createAudio = new CreateAudio(tempAudioName);
+                                createAudio.createSingleAudio();
                             }
                         });
                         try {
@@ -331,7 +332,8 @@ public class PlayController implements Initializable {
         saveButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //TODO:
+                //TODO: have to make sure not to save concat audios
+                createAudio.saveAudio();
             }
         });
 
@@ -372,6 +374,8 @@ public class PlayController implements Initializable {
         Image saveNew = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
         Image saveNewHover = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
         saveButton.setGraphic(new ImageView(saveNew));
+        Image logout = new Image(getClass().getResourceAsStream("resources/icons/sign-out.png"));
+        exitButton.setGraphic(new ImageView(logout));
 
         // Reward Popup icons
         Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
