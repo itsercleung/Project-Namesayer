@@ -33,9 +33,13 @@ public class UserUtils {
                 try {
                     // gets user name and points, adds to listview
                     reader = new Scanner(file);
-                    String username = reader.next();
-                    int points = Integer.valueOf(reader.next());
+                    String[] user = reader.next().split("~");
+
+                    String username = user[0];
+                    int points = Integer.valueOf(user[1]);
+
                     users.add(new User(username, points));
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -67,7 +71,6 @@ public class UserUtils {
      * for each new view
      */
     public static User getCurrentLoginUser(Text userText, Text pointsText) {
-        // TODO should use string split to get user information.. to make things easier
         String path = "./data/CurrentUser.txt";
         File currentUser = new File(path);
 
@@ -81,10 +84,9 @@ public class UserUtils {
             path = "./data/usernames/"+username+".txt";
             File userInfo = new File(path);
             reader = new Scanner(userInfo);
-            reader.nextLine();
-            String number = reader.next();
+            String[] user = reader.nextLine().split("~");
 
-            int points = Integer.parseInt(number);
+            int points = Integer.parseInt(user[1]);
             reader.close();
 
             userText.setText(username);
@@ -108,9 +110,8 @@ public class UserUtils {
         try {
             FileWriter fw = new FileWriter(usernameTxt, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.append(name);
-            bw.newLine();
-            bw.append("0");
+            String line = name + "~0";
+            bw.append(line);
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
