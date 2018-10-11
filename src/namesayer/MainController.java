@@ -12,7 +12,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
+import namesayer.util.FXMLResource;
 import namesayer.util.HelpDialog;
+import namesayer.util.FXMLResourceLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,16 +29,12 @@ public class MainController implements Initializable {
     @FXML private Button helpButton, rewardButton;
 
     private User user;
+    private FXMLResourceLoader loader = new FXMLResourceLoader();
 
     @FXML
     private void exitPressed(ActionEvent event) {
         StackPane loginRoot = null;
-        try {
-            loginRoot = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(loginRoot);
+        loader.load(FXMLResource.LOGOUT, mainRoot, loginRoot);
     }
 
     //Load help popup
