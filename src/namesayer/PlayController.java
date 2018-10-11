@@ -26,10 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
-import namesayer.util.CreateAudio;
-import namesayer.util.Name;
-import namesayer.util.PlayAudio;
-import namesayer.util.RatingManager;
+import namesayer.util.*;
 import org.controlsfx.control.Rating;
 
 import java.io.IOException;
@@ -65,6 +62,8 @@ public class PlayController implements Initializable {
     private JFXButton saveButton = new JFXButton("SAVE NEW");
     private String tempAudioName = null; // for recording
 
+    private FXMLResourceLoader loader = new FXMLResourceLoader();
+
     @FXML
     void exitPressed(ActionEvent event) {
         //Delete temp combined names if they exist
@@ -72,24 +71,14 @@ public class PlayController implements Initializable {
         mainController.deleteTemp();
 
         StackPane practiseRoot = null;
-        try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("resources/Practise.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(practiseRoot);
+        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
     }
 
     //Load rewards window
     @FXML
     private void rewardPressed(ActionEvent event) {
         StackPane rewardsRoot = null;
-        try {
-            rewardsRoot = FXMLLoader.load(getClass().getResource("resources/Reward.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainRoot.getChildren().setAll(rewardsRoot);
+        loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
     //Switches to next name audio if there exists next audio

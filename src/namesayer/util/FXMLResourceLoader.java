@@ -8,7 +8,7 @@ import java.io.IOException;
 public class FXMLResourceLoader {
     public void load(FXMLResource resource, Pane beforeRoot, Pane afterRoot) {
         try {
-            beforeRoot = FXMLLoader.load(getClass().getResource(resource.getResource()));
+            beforeRoot = FXMLLoader.load(getClass().getResource(resource.getResourceURL()));
         } catch (IOException e) {
             e.printStackTrace();
         }

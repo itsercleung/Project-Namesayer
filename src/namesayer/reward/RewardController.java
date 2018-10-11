@@ -9,6 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import namesayer.util.FXMLResource;
+import namesayer.util.FXMLResourceLoader;
+import namesayer.util.HelpDialog;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,43 +31,47 @@ public class RewardController implements Initializable {
     @FXML private Button redeemButton;
     @FXML private Button applyButton;
 
+    private FXMLResourceLoader loader = new FXMLResourceLoader();
+
     @FXML
     void applyPressed(ActionEvent event) {
 
     }
 
-    @FXML
-    void exitPressed(ActionEvent event) {
-
+    @FXML private void exitPressed(ActionEvent event) {
+        StackPane loginRoot = null;
+        loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
     }
 
-    @FXML
-    void helpPressed(ActionEvent event) {
-
+    //Load help popup
+    @FXML private void helpPressed(ActionEvent event) {
+        HelpDialog helpDialog = new HelpDialog(helpButton);
+        helpDialog.showHelpDialog(stackPane);
     }
 
-    @FXML
-    void practisePressed(ActionEvent event) {
-
+    @FXML private void rewardPressed(ActionEvent event) {
     }
 
-    @FXML
-    void recordNamePressed(ActionEvent event) {
+    @FXML private void testMicrophonePressed(ActionEvent event) {
+        //Load testMicrophone pane
+        StackPane testMicrophoneRoot = null;
+        loader.load(FXMLResource.TEST_MICROPHONE,testMicrophoneRoot,mainRoot);
+    }
 
+    @FXML private void practisePressed(ActionEvent event) {
+        //Load practise pane
+        StackPane practiseRoot = null;
+        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
+    }
+
+    @FXML private void recordNamePressed(ActionEvent event) {
+        //record new practise pane
+        StackPane practiseRoot = null;
+        loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
     }
 
     @FXML
     void redeemPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void rewardPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void testMicrophonePressed(ActionEvent event) {
 
     }
 

@@ -31,42 +31,36 @@ public class MainController implements Initializable {
     private User user;
     private FXMLResourceLoader loader = new FXMLResourceLoader();
 
-    @FXML
-    private void exitPressed(ActionEvent event) {
+    @FXML private void exitPressed(ActionEvent event) {
         StackPane loginRoot = null;
         loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
     }
 
     //Load help popup
-    @FXML
-    void helpPressed(ActionEvent event) {
+    @FXML private void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane);
     }
 
     //Load rewards window
-    @FXML
-    private void rewardPressed(ActionEvent event) {
+    @FXML private void rewardPressed(ActionEvent event) {
         StackPane rewardsRoot = null;
         loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
-    @FXML
-    private void testMicrophonePressed(ActionEvent event) {
+    @FXML private void testMicrophonePressed(ActionEvent event) {
         //Load testMicrophone pane
         StackPane testMicrophoneRoot = null;
         loader.load(FXMLResource.TEST_MICROPHONE,testMicrophoneRoot,mainRoot);
     }
 
-    @FXML
-    private void practisePressed(ActionEvent event) {
+    @FXML private void practisePressed(ActionEvent event) {
         //Load practise pane
         StackPane practiseRoot = null;
         loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
     }
 
-    @FXML
-    private void recordNamePressed(ActionEvent event) {
+    @FXML private void recordNamePressed(ActionEvent event) {
         //record new practise pane
         StackPane practiseRoot = null;
         loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
