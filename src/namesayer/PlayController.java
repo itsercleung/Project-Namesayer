@@ -35,16 +35,26 @@ import java.util.*;
 
 public class PlayController implements Initializable {
 
-    @FXML private AnchorPane mainRoot;
-    @FXML private TableView<Name> nameTable;
-    @FXML private TableColumn<Name, String> nameCol;
-    @FXML private TableColumn<Name, String> createdCol;
-    @FXML private TableColumn<Name, Rating> ratingCol;
-    @FXML private Label playLabel;
-    @FXML private Text userText, pointsText;
-    @FXML private Button nextButton,recordButton,stopButton,playButton,prevButton;
-    @FXML private Button rewardButton, exitButton;
-    @FXML private Rating audioRating;
+    @FXML
+    private AnchorPane mainRoot;
+    @FXML
+    private TableView<Name> nameTable;
+    @FXML
+    private TableColumn<Name, String> nameCol;
+    @FXML
+    private TableColumn<Name, String> createdCol;
+    @FXML
+    private TableColumn<Name, Rating> ratingCol;
+    @FXML
+    private Label playLabel;
+    @FXML
+    private Text userText, pointsText;
+    @FXML
+    private Button nextButton, recordButton, stopButton, playButton, prevButton;
+    @FXML
+    private Button rewardButton, exitButton;
+    @FXML
+    private Rating audioRating;
 
     private PractiseController practiseController = new PractiseController();
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
@@ -56,7 +66,8 @@ public class PlayController implements Initializable {
 
     //Record sidebar function
     private JFXPopup recordPopup = new JFXPopup();
-    private JFXButton playOldButton = new JFXButton(" PLAY OLD"); // placeholders, can put way better looking buttons
+    private JFXButton playOldButton = new JFXButton(" PLAY OLD");
+    private JFXButton playOldThreeButton = new JFXButton("PLAY OLD X3");
     private JFXButton playNewButton = new JFXButton("PLAY NEW");
     private JFXButton recordSubButton = new JFXButton("RECORD");
     private JFXButton saveButton = new JFXButton("SAVE NEW");
@@ -72,7 +83,7 @@ public class PlayController implements Initializable {
         mainController.deleteTemp();
 
         StackPane practiseRoot = null;
-        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
+        loader.load(FXMLResource.PRACTISE, practiseRoot, mainRoot);
     }
 
     //Load rewards window
@@ -196,7 +207,7 @@ public class PlayController implements Initializable {
         saveButton.setMinSize(130.0, 40);
 
         //Setting popup position and size
-        recordPopup.show(recordButton, JFXPopup.PopupVPosition.BOTTOM, JFXPopup.PopupHPosition.LEFT,80,0);
+        recordPopup.show(recordButton, JFXPopup.PopupVPosition.BOTTOM, JFXPopup.PopupHPosition.LEFT, 80, 0);
         recordPopup.getPopupContent().setPrefWidth(130);
         recordPopup.setStyle("-fx-effect: null;" + "-fx-drop-shadow: null;");
     }
@@ -226,7 +237,7 @@ public class PlayController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //Setting table and rating updates using RatingManager class
         populateTableView();
-        ratingManager = new RatingManager(selectedList, practiseController,audioRating);
+        ratingManager = new RatingManager(selectedList, practiseController, audioRating);
         selectedList = ratingManager.ratingUpdate();
         ratingManager.updateRatingComponent(currentNameNum);
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
@@ -246,99 +257,87 @@ public class PlayController implements Initializable {
         }
 
         //When user selects rating, update
-        audioRating.ratingProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                currSelectedName = ratingManager.ratingPressed(newValue.toString(),currentNameNum);
-                selectedList = ratingManager.ratingUpdate();
-            }
+        audioRating.ratingProperty().addListener((observable, oldValue, newValue) -> {
+            currSelectedName = ratingManager.ratingPressed(newValue.toString(), currentNameNum);
+            selectedList = ratingManager.ratingUpdate();
         });
 
         //JFXPOPUP BUTTON ACTIONS
         //PLAYOLD - plays current names audio file
         saveButton.setDisable(true);
-        playOldButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                playMethod();
-            }
-        });
+        playOldButton.setOnMousePressed(event -> playMethod());
 
         //PLAYNEW - plays users recorded version of name file (if exists)
         playNewButton.setDisable(true);
-        playNewButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                String path = "./temp/" + tempAudioName.replace(" ","") + ".wav";
-                PlayAudio playAudio = new PlayAudio(path);
-                playAudio.playAudio();
-            }
+        playNewButton.setOnMousePressed(event -> {
+            String path = "./temp/" + tempAudioName.replace(" ", "") + ".wav";
+            PlayAudio playAudio = new PlayAudio(path);
+            playAudio.playAudio();
+        });
+
+        //PLAYOLDX3
+
+        playOldThreeButton.setOnMousePressed(event -> {
+            playMethod();
+            playMethod();
+            playMethod();
         });
 
         //RECORD - records user trying to pronounce PLAYOLD name
-        recordSubButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                playNewButton.setDisable(false);
-                saveButton.setDisable(false);
+        recordSubButton.setOnMousePressed(event -> {
+            playNewButton.setDisable(false);
+            saveButton.setDisable(false);
 
-                //Setup official name for saved recording
-                new Thread() {
-                    public void run() {
-                        Platform.runLater(new Runnable() {
-                            public void run() {
-                                //Disable buttons
-                                playNewButton.setDisable(true);
-                                playOldButton.setDisable(true);
-                                recordSubButton.setDisable(true);
-                                saveButton.setDisable(true);
-                                playButton.setDisable(true);
+            //Setup official name for saved recording
+            new Thread() {
+                public void run() {
+                    Platform.runLater(new Runnable() {
+                        public void run() {
+                            //Disable buttons
+                            playNewButton.setDisable(true);
+                            playOldButton.setDisable(true);
+                            recordSubButton.setDisable(true);
+                            saveButton.setDisable(true);
+                            playButton.setDisable(true);
 
-                                tempAudioName = "user_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
-                                createAudio = new CreateAudio(tempAudioName);
-                                createAudio.createSingleAudio();
-                            }
-                        });
-                        try {
-                            Thread.sleep(4000);
+                            tempAudioName = "user_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
+                            createAudio = new CreateAudio(tempAudioName);
+                            createAudio.createSingleAudio();
                         }
-                        catch(InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        Platform.runLater(new Runnable() {
-                            public void run() {
-                                //Reenable buttons
-                                playNewButton.setDisable(false);
-                                playOldButton.setDisable(false);
-                                recordSubButton.setDisable(false);
-                                saveButton.setDisable(false);
-                                playButton.setDisable(false);
-
-                                //Disable rating and save buttons for concat
-                                if (currSelectedName.contains(" ")) {
-                                    saveButton.setDisable(true);
-                                }
-                            }
-                        });
+                    });
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                }.start();
-            }
+                    Platform.runLater(new Runnable() {
+                        public void run() {
+                            //Reenable buttons
+                            playNewButton.setDisable(false);
+                            playOldButton.setDisable(false);
+                            recordSubButton.setDisable(false);
+                            saveButton.setDisable(false);
+                            playButton.setDisable(false);
+
+                            //Disable rating and save buttons for concat
+                            if (currSelectedName.contains(" ")) {
+                                saveButton.setDisable(true);
+                            }
+                        }
+                    });
+                }
+            }.start();
         });
 
         //SAVE NEW - user attempt placed into database to add onto filtering
-        saveButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                createAudio.saveAudio();
-            }
-        });
+        saveButton.setOnMousePressed(event -> createAudio.saveAudio());
 
         //INIT JFX-POPUP
-        VBox box = new VBox(recordSubButton, playOldButton, playNewButton, saveButton); // can make HBox
+        VBox box = new VBox(recordSubButton, playOldButton, playOldThreeButton, playNewButton, saveButton); // can make HBox
         recordPopup.setPopupContent(box);
 
         //Set user current name and score
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
+        user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         //Set icons to specific buttons from resources/icons (credited in description).
         //Set icons for play menu
@@ -426,4 +425,5 @@ public class PlayController implements Initializable {
             saveButton.setGraphic(new ImageView(saveNew));
         });
     }
+
 }
