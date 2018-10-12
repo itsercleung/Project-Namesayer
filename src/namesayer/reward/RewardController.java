@@ -69,12 +69,12 @@ public class RewardController implements Initializable {
 
     @FXML
     void applyPressed(ActionEvent event) {
-
+        rb.applyReward(rewardList.getSelectionModel().getSelectedItem());
     }
 
     @FXML
     void redeemPressed(ActionEvent event) {
-
+        rb.redeemReward(rewardList.getSelectionModel().getSelectedItem());
     }
 
     @Override

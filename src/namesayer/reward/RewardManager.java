@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import namesayer.login.User;
+import namesayer.login.UserUtils;
 
 /**
  * Creates the list of rewards to populate a listview
@@ -60,7 +61,7 @@ public class RewardManager {
         // TODO apply reward
 
         // TODO update in user text file
-
+        UserUtils.updateUserRewards(user, reward);
 
     }
 
@@ -68,5 +69,6 @@ public class RewardManager {
         reward.redeemReward();
 
         // TODO update in user text file
+        UserUtils.updateUserRewards(user,reward);
     }
 }
