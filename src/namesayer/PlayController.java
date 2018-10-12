@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -21,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -283,6 +285,39 @@ public class PlayController implements Initializable {
         playOldThreeButton.setOnMousePressed(event -> {
             // TODO alternate between old and new
             // can't get past threading issues
+            new Thread(() ->
+            {
+                Platform.runLater( ()-> {
+                    //Set appropriate button layout
+                    playButton.setDisable(true);
+                    recordButton.setDisable(true);
+                    stopButton.setDisable(false);
+
+                    String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
+                    //If current name isn't combination
+                    if (!nameAudio.contains(" ")) {
+                        playAudio = new PlayAudio("./data/names/" + nameAudio);
+                        playAudio.playAudio();
+                    }
+                    //Else if name is combination - section names into appropriate format
+                    else {
+                        playAudio = new PlayAudio("./temp/" + nameAudio.replace(" ", ""));
+                        playAudio.playAudio();
+                    }
+                });
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Platform.runLater(this::playNew);
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         });
 
         //RECORD - records user trying to pronounce PLAYOLD name
@@ -308,7 +343,7 @@ public class PlayController implements Initializable {
                         }
                     });
                     try {
-                        Thread.sleep(4000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

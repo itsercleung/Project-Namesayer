@@ -18,7 +18,6 @@ public class Recorder implements Runnable {
 
     //Calculates appropriate peak level for mic levels to fix to
     public void run() {
-
             AudioFormat fmt = new AudioFormat(44100f, 8, 1, true, false);
             final int bufferByteSize = 2048;
 
