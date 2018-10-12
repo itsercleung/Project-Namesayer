@@ -153,7 +153,8 @@ public class PractiseController implements Initializable {
             if (!selectedNameList.contains(name)) {
                 if (searchNameList.contains(name)) {
                     selectedNameList.add(name);
-                } else if (name.contains(" ") || name.contains("-")) {
+                }
+                else if (name.contains(" ") || name.contains("-")) {
                     String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
                     boolean canConcat = true;
 
@@ -165,14 +166,20 @@ public class PractiseController implements Initializable {
                         }
                     }
                     if (canConcat) {
-                        selectedNameList.add("[COMBINE]: " + name);
+                        if (selectedNameList.contains("[COMBINE]: " + name)) {
+                            duplicateCheck("[COMBINE]: " + name);
+                        }
+                        else if (!selectedNameList.contains("[COMBINE]: " + name)) {
+                            selectedNameList.add("[COMBINE]: " + name);
+                        }
                     }
-                } else {
-                    // add name to reject list
+                }
+                else {
+                    // add name to reject list (if name doesn't exist)
                     rejectList.add(name);
                 }
             }
-            else if (selectedNameList.contains("[COMBINE]: " + name)) {
+            else if (selectedNameList.contains(name)) {
                 duplicateCheck(name);
             }
         }
