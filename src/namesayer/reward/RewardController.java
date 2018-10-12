@@ -80,10 +80,11 @@ public class RewardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         rewardButton.setDisable(true);
 
-        rewardList.setItems(RewardBuilder.build());
+        user = UserUtils.getCurrentLoginUser(userText,pointsText);
+
+        rewardList.setItems(RewardBuilder.build(user));
         rewardList.setCellFactory(param -> new RewardCell());
 
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
         String text = "You have " +user.getPoints()+" points to spend!";
         pointsToSpend.setText(text);
 

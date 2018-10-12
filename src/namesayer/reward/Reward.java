@@ -45,6 +45,10 @@ public class Reward {
         return isApplied;
     }
 
+    public void setRedeemed(boolean bool) { isRedeemed = bool; }
+
+    public void setApplied(boolean bool) { isApplied = bool; }
+
     public void redeemReward() {
         isRedeemed = true;
     }
@@ -54,6 +58,12 @@ public class Reward {
     }
 
     public int getMinPoints() { return minPoints; }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 
     /*
     public RewardType getRewardType() {

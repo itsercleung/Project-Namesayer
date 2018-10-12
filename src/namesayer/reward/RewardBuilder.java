@@ -3,6 +3,7 @@ package namesayer.reward;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import namesayer.login.User;
 
 import java.util.HashMap;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
  */
 public class RewardBuilder {
 
-    public static ObservableList<Reward> build() {
+    public static ObservableList<Reward> build(User user) {
         ObservableList<Reward> rewards = FXCollections.observableArrayList();
 
         rewards.add(new Reward("Bronze Trophy","You have earned enough points \nto earn you a Bronze Trophy!",20000));

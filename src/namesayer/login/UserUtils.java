@@ -7,6 +7,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -87,11 +90,20 @@ public class UserUtils {
             String[] user = reader.nextLine().split("~");
 
             int points = Integer.parseInt(user[1]);
+
+            List<String> rewards = new ArrayList<>();
+
+            // get rewards
+            if (user.length > 2) {
+                String[] subset = Arrays.copyOfRange(user,2,user.length);
+                rewards = Arrays.asList(subset);
+            }
+
             reader.close();
 
             userText.setText(username);
             pointsText.setText("Points: "+points);
-            return new User(username, points);
+            return new User(username, points, rewards);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
