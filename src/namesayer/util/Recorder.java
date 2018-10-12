@@ -10,7 +10,7 @@ import javax.sound.sampled.TargetDataLine;
 //Credit: https://stackoverflow.com/questions/26574326/how-to-calculate-the-level-amplitude-db-of-audio-signal-in-java
 public class Recorder implements Runnable {
     private final ProgressBar meter;
-    private volatile boolean exit = false;
+    private TargetDataLine line = null;
 
     public Recorder(final ProgressBar meter) {
         this.meter = meter;
@@ -18,11 +18,11 @@ public class Recorder implements Runnable {
 
     //Calculates appropriate peak level for mic levels to fix to
     public void run() {
-        while (!exit) {
+
             AudioFormat fmt = new AudioFormat(44100f, 8, 1, true, false);
             final int bufferByteSize = 2048;
 
-            TargetDataLine line = null;
+            line = null;
             try {
                 line = AudioSystem.getTargetDataLine(fmt);
                 line.open(fmt, bufferByteSize);
@@ -36,6 +36,7 @@ public class Recorder implements Runnable {
             float lastPeak = 0f;
 
             line.start();
+
             for (int b; (b = line.read(buf, 0, buf.length)) > -1; ) {
 
                 // convert bytes to samples here
@@ -66,10 +67,8 @@ public class Recorder implements Runnable {
                 lastPeak = peak;
                 meter.setProgress(peak * 1.4);
             }
-        }
+
     }
 
-    public void stop() {
-        exit = true;
-    }
+    public void close() { line.close(); }
 }

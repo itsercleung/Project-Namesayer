@@ -46,7 +46,7 @@ public class TestMicrophoneController implements Initializable {
 
     //When user completes test, let them play back recording to hear if their mic is viable
     @FXML private void exitPressed(ActionEvent event) {
-        recorder.stop();
+        recorder.close();
         StackPane loginRoot = null;
         loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
     }
@@ -59,19 +59,19 @@ public class TestMicrophoneController implements Initializable {
 
     //Load rewards window
     @FXML private void rewardPressed(ActionEvent event) {
-        recorder.stop();
+        recorder.close();
         StackPane rewardsRoot = null;
         loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
     @FXML private void practisePressed(ActionEvent event) {
-        recorder.stop();
+        recorder.close();
         StackPane practiseRoot = null;
         loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
     }
 
     @FXML private void recordNamePressed(ActionEvent event) {
-        recorder.stop();
+        recorder.close();
         StackPane practiseRoot = null;
         loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
     }
