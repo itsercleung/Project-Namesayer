@@ -237,6 +237,7 @@ public class PractiseController implements Initializable {
         }
     }
 
+    //Handling if user enters a name into play list while name already exists in play list!
     private void duplicateCheck(String name) {
         //Show JFX dialog to warn user about duplicate play name
         if (selectedNameList.contains(name)) {
