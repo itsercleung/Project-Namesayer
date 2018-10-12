@@ -182,7 +182,7 @@ public class PlayController implements Initializable {
                     }
                 });
                 try {
-                    Thread.sleep(4);
+                    Thread.sleep(4000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -233,6 +233,12 @@ public class PlayController implements Initializable {
         ratingCol.setCellValueFactory(new PropertyValueFactory<Name, Rating>("rating"));
     }
 
+    private void playNew() {
+        String path = "./temp/" + tempAudioName.replace(" ", "") + ".wav";
+        PlayAudio playAudio = new PlayAudio(path);
+        playAudio.playAudio();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Setting table and rating updates using RatingManager class
@@ -270,17 +276,13 @@ public class PlayController implements Initializable {
         //PLAYNEW - plays users recorded version of name file (if exists)
         playNewButton.setDisable(true);
         playNewButton.setOnMousePressed(event -> {
-            String path = "./temp/" + tempAudioName.replace(" ", "") + ".wav";
-            PlayAudio playAudio = new PlayAudio(path);
-            playAudio.playAudio();
+            playNew();
         });
 
-        //PLAYOLDX3
-
+        //PLAYOLDNEWX3
         playOldThreeButton.setOnMousePressed(event -> {
-            playMethod();
-            playMethod();
-            playMethod();
+            // TODO alternate between old and new
+            // can't get past threading issues
         });
 
         //RECORD - records user trying to pronounce PLAYOLD name
@@ -425,5 +427,4 @@ public class PlayController implements Initializable {
             saveButton.setGraphic(new ImageView(saveNew));
         });
     }
-
 }
