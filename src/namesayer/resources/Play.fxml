@@ -41,7 +41,7 @@
                               </Text>
                            </children>
                         </VBox>
-                        <Button fx:id="rewardButton" mnemonicParsing="false" onAction="#rewardPressed" prefHeight="60.0" prefWidth="90.0" stylesheets="@stylesheet/toolbar.css">
+                        <Button fx:id="rewardButton" mnemonicParsing="false" onAction="#rewardPressed" prefHeight="50.0" prefWidth="90.0" stylesheets="@stylesheet/toolbar.css">
                            <font>
                               <Font size="14.0" />
                            </font>

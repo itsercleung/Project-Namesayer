@@ -41,7 +41,7 @@
                                     </Text>
                                  </children>
                               </VBox>
-                              <Button fx:id="rewardButton" mnemonicParsing="false" onAction="#rewardPressed" prefHeight="60.0" prefWidth="90.0" stylesheets="@stylesheet/toolbar.css">
+                              <Button fx:id="rewardButton" mnemonicParsing="false" onAction="#rewardPressed" prefHeight="50.0" prefWidth="90.0" stylesheets="@stylesheet/toolbar.css">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -105,7 +105,7 @@
                            </VBox.margin>
                         </Label>
                         <Label fx:id="pointsToSpend" alignment="CENTER" prefHeight="50.0" prefWidth="800.0" text="You have xxx points to spend." />
-                        <JFXListView fx:id="rewardList" prefHeight="384.0" prefWidth="800.0">
+                        <JFXListView fx:id="rewardList" prefHeight="384.0" prefWidth="800.0" stylesheets="@stylesheet/general.css">
                            <VBox.margin>
                               <Insets left="100.0" right="100.0" />
                            </VBox.margin>
