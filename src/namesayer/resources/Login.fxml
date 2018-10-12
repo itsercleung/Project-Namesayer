@@ -32,7 +32,7 @@
                         </Text>
                         <VBox prefHeight="350.0" prefWidth="120.0">
                             <children>
-                        <JFXListView fx:id="userList" prefHeight="330.0" prefWidth="500.0" stylesheets="@stylesheet/toolbar.css">
+                        <JFXListView fx:id="userList" prefHeight="330.0" prefWidth="500.0" stylesheets="@stylesheet/LoginRewardsList.css">
                            <VBox.margin>
                               <Insets left="90.0" right="90.0" />
                            </VBox.margin>

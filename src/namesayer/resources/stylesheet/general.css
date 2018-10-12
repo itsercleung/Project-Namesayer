@@ -243,7 +243,6 @@ ToggleSwitch:selected .thumb-area {
     -fx-text-fill: white;
 }
 
-
 /* LOGIN COMPONENTS */
 #background {
     -fx-background-image: url("../images/gradientBackground.jpg");;
@@ -282,6 +281,4 @@ ToggleSwitch:selected .thumb-area {
     -fx-text-fill: white;
 }
 
-#audioRating {
 
-}
