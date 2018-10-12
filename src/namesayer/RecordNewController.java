@@ -129,9 +129,7 @@ public class RecordNewController implements Initializable {
         //If name exists in data ask user if they want to make another existing recording with same name. If yes then
         //simply start recording for (3 SECONDS)
         if (version > 1) {
-
             //Creating dialog box to show with options if duplicate name
-            //Creating components
             Button okButton = new Button("OK");
             Button cancelButton = new Button("CANCEL");
             okButton.getStylesheets().add("namesayer/resources/stylesheet/general.css");

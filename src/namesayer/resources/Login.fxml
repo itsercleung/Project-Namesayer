@@ -19,7 +19,7 @@
                     <children>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NS">
                             <font>
-                                <Font size="52.0" />
+                                <Font size="60.0" />
                             </font>
                             <VBox.margin>
                                 <Insets left="220.0" top="40.0" />
@@ -29,6 +29,9 @@
                             <VBox.margin>
                                 <Insets bottom="20.0" left="220.0" top="5.0" />
                             </VBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
                         </Text>
                         <VBox prefHeight="350.0" prefWidth="120.0">
                             <children>
@@ -53,6 +56,9 @@
                                 </Button>
                         <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitButtonPressed" prefHeight="60.0" prefWidth="80.0" stylesheets="@stylesheet/general.css" text="Exit" />
                             </children>
+                     <VBox.margin>
+                        <Insets top="-10.0" />
+                     </VBox.margin>
                         </HBox>
                     </children>
                 </VBox>

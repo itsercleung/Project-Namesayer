@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -149,38 +150,50 @@ public class PractiseController implements Initializable {
         while (reader.hasNextLine()) {
             String name = reader.nextLine().replace("-"," ").toLowerCase();
 
-            if (searchNameList.contains(name)) {
-                selectedNameList.add(name);
-            } else if (name.contains(" ") || name.contains("-")) {
-                String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
-                boolean canConcat = true;
-
-                // go through list of names, if it is a name that exists in database, then add it
-                for (String singleName : names) {
-                    if (!searchNameList.contains(singleName.toLowerCase())) {
-                        canConcat = false;
-                        break;
-                    }
-                }
-                if (canConcat) {
+            if (!selectedNameList.contains(name)) {
+                if (searchNameList.contains(name)) {
                     selectedNameList.add(name);
+                } else if (name.contains(" ") || name.contains("-")) {
+                    String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
+                    boolean canConcat = true;
+
+                    // go through list of names, if it is a name that exists in database, then add it
+                    for (String singleName : names) {
+                        if (!searchNameList.contains(singleName.toLowerCase())) {
+                            canConcat = false;
+                            break;
+                        }
+                    }
+                    if (canConcat) {
+                        selectedNameList.add("[COMBINE]: " + name);
+                    }
+                } else {
+                    // add name to reject list
+                    rejectList.add(name);
                 }
-            } else {
-                // add name to reject list
-                rejectList.add(name);
+            }
+            else if (selectedNameList.contains("[COMBINE]: " + name)) {
+                duplicateCheck(name);
             }
         }
 
-        // TODO properly display list of names that are not available
         if (rejectList.size() > 0) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-            JFXDialog dialog = new JFXDialog(stackPane,layout, JFXDialog.DialogTransition.TOP);
             String label = "The following names are not available.\n" +
                     rejectList.toString() +"\n"+// temporary proof of concept
                     "Be the first to create one of these names!";
-
+            Button button = new Button("Got it");
+            button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
+            JFXDialogLayout layout = new JFXDialogLayout();
+            JFXDialog dialog = new JFXDialog(stackPane,layout, JFXDialog.DialogTransition.TOP);
+            layout.setHeading(new Label("Note"));
             layout.setBody(new Label(label));
+            layout.setActions(button);
             dialog.show();
+
+            //Set action on to close
+            button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
+                dialog.close();
+            });
         }
 
         selectedNamesView.setItems(selectedNameList);
@@ -224,6 +237,33 @@ public class PractiseController implements Initializable {
         }
     }
 
+    private void duplicateCheck(String name) {
+        //Show JFX dialog to warn user about duplicate play name
+        if (selectedNameList.contains(name)) {
+            Button button = new Button("Got it");
+            button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
+            JFXDialogLayout dialogLayout = new JFXDialogLayout();
+            JFXDialog dialog = new JFXDialog(stackPane, dialogLayout, JFXDialog.DialogTransition.TOP);
+            dialogLayout.setHeading(new Label("Note"));
+            dialogLayout.setBody(new Label("Sorry! " + name + " already in your play list!"));
+            dialogLayout.setActions(button);
+            dialog.show();
+
+            //Set action on to close
+            button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
+                dialog.close();
+            });
+
+            searchNamesView.setVisible(false);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    searchTextField.clear();
+                }
+            });
+        }
+    }
+
     //Used in PlayController to get current selected Playlist of users
     public List<Name> getNamePlaylist() {
         return namePlaylist;
@@ -259,21 +299,28 @@ public class PractiseController implements Initializable {
         searchNamesView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (searchNamesView.getSelectionModel().getSelectedItem() != null) {
-                    selectedNameList.add(searchNamesView.getSelectionModel().getSelectedItem());
-                    selectedNamesView.setItems(selectedNameList);
-                    searchNamesView.setVisible(false);
+                String selectedName = searchNamesView.getSelectionModel().getSelectedItem();
+                if (selectedName != null) {
+                    if (!selectedNameList.contains(selectedName)) {
+                        duplicateCheck(selectedName);
+                        selectedNameList.add(selectedName);
+                        selectedNamesView.setItems(selectedNameList);
+                        searchNamesView.setVisible(false);
 
-                    //Clear textfield in main thread
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            searchTextField.clear();
-                            searchNameList.clear();
-                            populateList();
-                            mainRoot.requestFocus();
-                        }
-                    });
+                        //Clear textfield in main thread
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                searchTextField.clear();
+                                searchNameList.clear();
+                                populateList();
+                                mainRoot.requestFocus();
+                            }
+                        });
+                    }
+                    else if (selectedNameList.contains(selectedName)) {
+                        duplicateCheck(selectedName);
+                    }
                 }
             }
         });
