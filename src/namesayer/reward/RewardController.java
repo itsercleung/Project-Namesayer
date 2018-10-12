@@ -26,6 +26,7 @@ public class RewardController implements Initializable {
     @FXML private Text userText,pointsText;
     @FXML private Button exitButton,helpButton,rewardButton;
     @FXML private Button redeemButton,applyButton;
+    @FXML private Label pointsToSpend;
     @FXML private JFXListView<Reward> rewardList;
     private FXMLResourceLoader loader = new FXMLResourceLoader();
     private User user;
