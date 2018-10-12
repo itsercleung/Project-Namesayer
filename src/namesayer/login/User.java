@@ -32,12 +32,7 @@ public class User {
     }
 
     protected void addPoints(Points points) {this.points += points.getPoints();}
-/* Deprecated: moved to userutils
-    public void updateScore(Points points) {
-        this.points += points.getPoints();
-    }
-*/
-    // further down the track reward system?
+
     public List<String> getRewards() {
         return rewards;
     }

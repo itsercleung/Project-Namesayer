@@ -30,6 +30,7 @@ public class RewardController implements Initializable {
     @FXML private JFXListView<Reward> rewardList;
     private FXMLResourceLoader loader = new FXMLResourceLoader();
     private User user;
+    private RewardManager rb;
 
     @FXML
     void exitPressed(ActionEvent event) {
@@ -82,7 +83,8 @@ public class RewardController implements Initializable {
 
         user = UserUtils.getCurrentLoginUser(userText,pointsText);
 
-        rewardList.setItems(RewardBuilder.build(user));
+        rb = new RewardManager(user);
+        rewardList.setItems(rb.build());
         rewardList.setCellFactory(param -> new RewardCell());
 
         String text = "You have " +user.getPoints()+" points to spend!";
