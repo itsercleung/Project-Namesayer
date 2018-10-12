@@ -4,7 +4,9 @@ import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import namesayer.reward.Reward;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -146,6 +148,11 @@ public class UserUtils {
             FileWriter fw = new FileWriter(usernameTxt, false);
             BufferedWriter bw = new BufferedWriter(fw);
             String updateString = user.getUsername() + "~" + String.valueOf(user.getPoints());
+
+            for (String r : user.getRewards()) {
+                updateString = updateString + "~" + r;
+            }
+
             bw.write(updateString);
             bw.close();
         } catch (IOException ioe) {
@@ -159,5 +166,33 @@ public class UserUtils {
     public static void updateUser(User user, Points points, Text userText, Text pointsText) {
         user.addPoints(points);
         UserUtils.updateUser(user,userText,pointsText);
+    }
+
+
+    public static void updateUserRewards(User user, Reward reward) {
+        String path = "./data/usernames/" + user.getUsername() + ".txt";
+        File usernameTxt = new File(path);
+
+        try {
+            FileWriter fw = new FileWriter(usernameTxt, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            String updateString = user.getUsername() + "~" + String.valueOf(user.getPoints());
+
+            for (String r : user.getRewards()) {
+                String rewardName = reward.getRewardName();
+                if (r.equals(rewardName + "*")) {
+                    updateString = updateString + "~" + rewardName;
+                } else if (r.equals(rewardName)) {
+                    updateString = updateString + "~" + rewardName + "*";
+                } else {
+                    updateString = updateString + "~" + r;
+                }
+            }
+
+            bw.write(updateString);
+            bw.close();
+        } catch (IOException ioe) {
+
+        }
     }
 }
