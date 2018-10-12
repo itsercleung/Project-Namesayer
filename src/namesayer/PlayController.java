@@ -77,6 +77,7 @@ public class PlayController implements Initializable {
     private CreateAudio createAudio;
 
     private FXMLResourceLoader loader = new FXMLResourceLoader();
+    private PlayManager playManager = new PlayManager(playButton,recordButton,stopButton);
 
     @FXML
     void exitPressed(ActionEvent event) {
