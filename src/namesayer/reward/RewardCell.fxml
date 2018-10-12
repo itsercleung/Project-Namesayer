@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -10,6 +11,11 @@
    <children>
       <HBox prefHeight="150.0" prefWidth="600.0">
          <children>
+            <ImageView fx:id="image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </HBox.margin>
+            </ImageView>
             <VBox prefHeight="200.0" prefWidth="400.0">
                <children>
                   <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Reward">
@@ -24,7 +30,7 @@
                   </Text>
                </children>
                <HBox.margin>
-                  <Insets left="200.0" />
+                  <Insets />
                </HBox.margin>
             </VBox>
          </children>

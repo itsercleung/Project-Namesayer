@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class RewardCell extends ListCell<Reward> {
     @FXML private AnchorPane root;
     @FXML private Text nameText, descriptionText;
+    @FXML private ImageView image;
 
     private FXMLLoader loader;
 
@@ -39,6 +41,7 @@ public class RewardCell extends ListCell<Reward> {
 
             nameText.setText(reward.getRewardName());
             descriptionText.setText(reward.getRewardDescription());
+            image.setImage(new Image(getClass().getResourceAsStream("../resources/icons/rewards.png")));
             // set graphic here
             setGraphic(root);
         }

@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -14,7 +15,6 @@ import namesayer.login.User;
 import namesayer.login.UserUtils;
 import namesayer.util.FXMLResource;
 import namesayer.util.FXMLResourceLoader;
-import namesayer.util.HelpDialog;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,8 +38,7 @@ public class RewardController implements Initializable {
 
     @FXML
     void helpPressed(ActionEvent event) {
-        HelpDialog helpDialog = new HelpDialog(helpButton);
-        helpDialog.showHelpDialog(stackPane);
+
     }
 
     @FXML
@@ -84,6 +83,8 @@ public class RewardController implements Initializable {
         rewardList.setCellFactory(param -> new RewardCell());
 
         user = UserUtils.getCurrentLoginUser(userText,pointsText);
+        String text = "You have " +user.getPoints()+" points to spend!";
+        pointsToSpend.setText(text);
 
         // Reward and help Popup icons
         Image reward = new Image(getClass().getResourceAsStream("../resources/icons/rewards.png"));

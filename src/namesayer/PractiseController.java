@@ -1,5 +1,7 @@
 package namesayer;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
@@ -142,12 +144,13 @@ public class PractiseController implements Initializable {
             e.printStackTrace();
         }
 
+        List<String> rejectList = new ArrayList<>();
         // go through text file and check if name is in names db
         while (reader.hasNextLine()) {
-            String name = reader.nextLine().replace("-"," ");
+            String name = reader.nextLine().replace("-"," ").toLowerCase();
 
-            if (searchNameList.contains(name.toLowerCase())) {
-                selectedNameList.add(name.toLowerCase());
+            if (searchNameList.contains(name)) {
+                selectedNameList.add(name);
             } else if (name.contains(" ") || name.contains("-")) {
                 String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
                 boolean canConcat = true;
@@ -162,8 +165,24 @@ public class PractiseController implements Initializable {
                 if (canConcat) {
                     selectedNameList.add(name);
                 }
+            } else {
+                // add name to reject list
+                rejectList.add(name);
             }
         }
+
+        // TODO properly display list of names that are not available
+        if (rejectList.size() > 0) {
+            JFXDialogLayout layout = new JFXDialogLayout();
+            JFXDialog dialog = new JFXDialog(stackPane,layout, JFXDialog.DialogTransition.TOP);
+            String label = "The following names are not available.\n" +
+                    rejectList.toString() +"\n"+// temporary proof of concept
+                    "Be the first to create one of these names!";
+
+            layout.setBody(new Label(label));
+            dialog.show();
+        }
+
         selectedNamesView.setItems(selectedNameList);
     }
 

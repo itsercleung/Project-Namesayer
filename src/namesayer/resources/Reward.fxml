@@ -104,7 +104,7 @@
                               <Insets top="30.0" />
                            </VBox.margin>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="800.0" text="You have xxx points to spend." />
+                        <Label fx:id="pointsToSpend" alignment="CENTER" prefHeight="50.0" prefWidth="800.0" text="You have xxx points to spend." />
                         <JFXListView fx:id="rewardList" prefHeight="384.0" prefWidth="800.0">
                            <VBox.margin>
                               <Insets left="100.0" right="100.0" />
