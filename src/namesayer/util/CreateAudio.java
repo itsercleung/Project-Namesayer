@@ -51,7 +51,7 @@ public class CreateAudio {
      */
     public void saveAudio() {
         try {
-            Files.move(Paths.get("./temp/" + name.replace(" ","") + ".wav"),
+            Files.move(Paths.get("temp/" + name.replace(" ","") + ".wav"),
                     Paths.get("./data/names/" + name.replace(" ","") + ".wav"),
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {

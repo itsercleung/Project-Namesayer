@@ -338,7 +338,7 @@ public class PlayController implements Initializable {
                             saveButton.setDisable(true);
                             playButton.setDisable(true);
 
-                            tempAudioName = "user_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
+                            tempAudioName = user.getUsername()+"_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
                             createAudio = new CreateAudio(tempAudioName);
                             createAudio.createSingleAudio();
                         }

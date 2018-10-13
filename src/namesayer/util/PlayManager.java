@@ -17,6 +17,7 @@ public class PlayManager {
     }
 
     private void playOldAudio(PractiseController practiseController, int currentNameNum) {
+        Platform.runLater(()->{
         String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
         //If current name isn't combination
         if (!nameAudio.contains(" ")) {
@@ -28,6 +29,7 @@ public class PlayManager {
             playAudio = new PlayAudio("./temp/" + nameAudio.replace(" ", ""));
             playAudio.playAudio();
         }
+    });
     }
 
     public void setDelay() {
@@ -50,9 +52,11 @@ public class PlayManager {
     }
 
     public void playNewAudio(String tempAudioName) {
-        String path = "./temp/" + tempAudioName.replace(" ", "") + ".wav";
-        PlayAudio playAudio = new PlayAudio(path);
-        playAudio.playAudio();
+        Platform.runLater(()-> {
+            String path = "./temp/" + tempAudioName.replace(" ", "") + ".wav";
+            PlayAudio playAudio = new PlayAudio(path);
+            playAudio.playAudio();
+        });
     }
 
 }
