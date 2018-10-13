@@ -21,10 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
@@ -37,26 +34,16 @@ import java.util.*;
 
 public class PlayController implements Initializable {
 
-    @FXML
-    private AnchorPane mainRoot;
-    @FXML
-    private TableView<Name> nameTable;
-    @FXML
-    private TableColumn<Name, String> nameCol;
-    @FXML
-    private TableColumn<Name, String> createdCol;
-    @FXML
-    private TableColumn<Name, Rating> ratingCol;
-    @FXML
-    private Label playLabel;
-    @FXML
-    private Text userText, pointsText;
-    @FXML
-    private Button nextButton, recordButton, stopButton, playButton, prevButton;
-    @FXML
-    private Button rewardButton, exitButton;
-    @FXML
-    private Rating audioRating;
+    @FXML private AnchorPane mainRoot;
+    @FXML private TableView<Name> nameTable;
+    @FXML private TableColumn<Name, String> nameCol;
+    @FXML private TableColumn<Name, String> createdCol;
+    @FXML private TableColumn<Name, Rating> ratingCol;
+    @FXML private Label playLabel;
+    @FXML private Text userText, pointsText;
+    @FXML private Button nextButton, recordButton, stopButton, playButton, prevButton;
+    @FXML private Button rewardButton, exitButton;
+    @FXML private Rating audioRating;
 
     private PractiseController practiseController = new PractiseController();
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
@@ -69,7 +56,7 @@ public class PlayController implements Initializable {
     //Record sidebar function
     private JFXPopup recordPopup = new JFXPopup();
     private JFXButton playOldButton = new JFXButton(" PLAY OLD");
-    private JFXButton playOldThreeButton = new JFXButton("PLAY OLD X3");
+    private JFXButton playCompare = new JFXButton("COMPARE");
     private JFXButton playNewButton = new JFXButton("PLAY NEW");
     private JFXButton recordSubButton = new JFXButton("RECORD");
     private JFXButton saveButton = new JFXButton("SAVE NEW");
@@ -207,6 +194,7 @@ public class PlayController implements Initializable {
         recordSubButton.setMinSize(130.0, 40);
         playNewButton.setMinSize(130.0, 40);
         playOldButton.setMinSize(130.0, 40);
+        playCompare.setMinSize(130.0, 40);
         saveButton.setMinSize(130.0, 40);
 
         //Setting popup position and size
@@ -278,47 +266,11 @@ public class PlayController implements Initializable {
 
         //PLAYNEW - plays users recorded version of name file (if exists)
         playNewButton.setDisable(true);
-        playNewButton.setOnMousePressed(event -> {
-            playNew();
-        });
+        playNewButton.setOnMousePressed(event -> playNew());
 
-        //PLAYOLDNEWX3
-        playOldThreeButton.setOnMousePressed(event -> {
-            // TODO alternate between old and new
-            // can't get past threading issues
-            new Thread(() ->
-            {
-                Platform.runLater( ()-> {
-                    //Set appropriate button layout
-                    playButton.setDisable(true);
-                    recordButton.setDisable(true);
-                    stopButton.setDisable(false);
-
-                    String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
-                    //If current name isn't combination
-                    if (!nameAudio.contains(" ")) {
-                        playAudio = new PlayAudio("./data/names/" + nameAudio);
-                        playAudio.playAudio();
-                    }
-                    //Else if name is combination - section names into appropriate format
-                    else {
-                        playAudio = new PlayAudio("./temp/" + nameAudio.replace(" ", ""));
-                        playAudio.playAudio();
-                    }
-                });
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                Platform.runLater(this::playNew);
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }).start();
+        //PLAYCOMPARE - plays comparison between old and new
+        playCompare.setOnMousePressed(event -> {
+            //TODO: Try simply playing old then new for one time.
         });
 
         //RECORD - records user trying to pronounce PLAYOLD name
@@ -371,7 +323,7 @@ public class PlayController implements Initializable {
         saveButton.setOnMousePressed(event -> createAudio.saveAudio());
 
         //INIT JFX-POPUP
-        VBox box = new VBox(recordSubButton, playOldButton, playOldThreeButton, playNewButton, saveButton); // can make HBox
+        VBox box = new VBox(recordSubButton, playOldButton, playNewButton, playCompare, saveButton); // can make HBox
         recordPopup.setPopupContent(box);
 
         //Set user current name and score
@@ -404,6 +356,9 @@ public class PlayController implements Initializable {
         Image playNew = new Image(getClass().getResourceAsStream("resources/icons/playNew.png"));
         Image playNewHover = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
         playNewButton.setGraphic(new ImageView(playNew));
+        Image compare = new Image(getClass().getResourceAsStream("resources/icons/repeat.png"));
+        Image compareHover = new Image(getClass().getResourceAsStream("resources/icons/repeatHover.png"));
+        playCompare.setGraphic(new ImageView(compare));
         Image saveNew = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
         Image saveNewHover = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
         saveButton.setGraphic(new ImageView(saveNew));
@@ -437,7 +392,6 @@ public class PlayController implements Initializable {
             playNewButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
             playNewButton.setGraphic(new ImageView(playNewHover));
         });
-
         playNewButton.setOnMouseExited(e -> {
             playNewButton.setStyle("-fx-background-color: transparent");
             playNewButton.setGraphic(new ImageView(playNew));
@@ -447,17 +401,24 @@ public class PlayController implements Initializable {
             playOldButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
             playOldButton.setGraphic(new ImageView(playOldHover));
         });
-
         playOldButton.setOnMouseExited(e -> {
             playOldButton.setStyle("-fx-background-color: transparent");
             playOldButton.setGraphic(new ImageView(playOld));
+        });
+
+        playCompare.setOnMouseEntered(e -> {
+            playCompare.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
+            playCompare.setGraphic(new ImageView(compareHover));
+        });
+        playCompare.setOnMouseExited(e -> {
+            playCompare.setStyle("-fx-background-color: transparent");
+            playCompare.setGraphic(new ImageView(compare));
         });
 
         saveButton.setOnMouseEntered(e -> {
             saveButton.setStyle("-fx-background-color: #FF5252;" + "-fx-text-fill: white;");
             saveButton.setGraphic(new ImageView(saveNewHover));
         });
-
         saveButton.setOnMouseExited(e -> {
             saveButton.setStyle("-fx-background-color: transparent");
             saveButton.setGraphic(new ImageView(saveNew));
