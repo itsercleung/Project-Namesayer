@@ -11,7 +11,7 @@ public class Reward {
     private boolean isRedeemed = false;
     private boolean isApplied = false;
     private String imageURL;
-    private int minPoints = Integer.MAX_VALUE;
+    private int minPoints;
 
     public Reward(String name, String description, int minPoints, String imageURL) {
         this.name = name;
@@ -42,13 +42,9 @@ public class Reward {
         return isApplied;
     }
 
-    public void setRedeemed(boolean bool) {
-        isRedeemed = bool;
-    }
+    public void setRedeemed(boolean bool) { isRedeemed = bool; }
 
-    public void setApplied(boolean bool) {
-        isApplied = bool;
-    }
+    public void setApplied(boolean bool) { isApplied = bool; }
 
     public void redeemReward() {
         isRedeemed = true;
@@ -58,13 +54,9 @@ public class Reward {
         isApplied = true;
     }
 
-    public int getMinPoints() {
-        return minPoints;
-    }
+    public int getMinPoints() { return minPoints; }
 
-    public String getImageURL() {
-        return imageURL;
-    }
+    public String getImageURL() { return imageURL; }
 
     @Override
     public String toString() {

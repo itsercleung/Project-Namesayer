@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import namesayer.login.User;
 
 import java.io.IOException;
 
@@ -19,9 +20,11 @@ public class RewardCell extends ListCell<Reward> {
     @FXML private ImageView image;
 
     private FXMLLoader loader;
+    private User user;
 
-    public RewardCell() {
+    public RewardCell(User user) {
         super();
+        this.user = user;
     }
 
     @Override
@@ -44,6 +47,10 @@ public class RewardCell extends ListCell<Reward> {
             image.setImage(new Image(getClass().getResourceAsStream(reward.getImageURL())));
             // set graphic here
             setGraphic(root);
+
+            if (reward.getMinPoints() > user.getPoints()) {
+                setDisabled(true);
+            }
         }
 
 

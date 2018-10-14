@@ -1,6 +1,7 @@
 package namesayer.reward;
 
 import com.jfoenix.controls.JFXListView;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -89,10 +90,18 @@ public class RewardController implements Initializable {
         // sets up rewards to populate reward list
         rb = new RewardManager(user);
         rewardList.setItems(rb.build());
-        rewardList.setCellFactory(param -> new RewardCell());
+        rewardList.setCellFactory(param -> new RewardCell(user));
 
-        String text = "You have " + user.getPoints() + " points to spend!";
+        String text = "You have earned " + user.getPoints() + " points!";
         pointsToSpend.setText(text);
+
+        // TODO disable buttons properly
+        // TODO each row that does not have enough points, it actually disabled
+        // TODO but only greys out when clicked on
+        redeemButton.disableProperty().bind(
+                rewardList.getSelectionModel().selectedItemProperty().isNull());
+        applyButton.disableProperty().bind(
+                rewardList.getSelectionModel().selectedItemProperty().isNull());
 
         // Reward and help Popup icons
         Image reward = new Image(getClass().getResourceAsStream("../resources/icons/rewards.png"));
