@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,7 +46,7 @@ public class NewUserDialog implements Initializable {
 
         //Setting actions to dialog buttons and textField
         buttonCreate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
-            UserUtils.createUser(newUserText.getText());
+            UserUtils.createUser(newUserText.getText().replace(" ",""));
             UserUtils.updateUserList(userList);
             dialog.close();
         });
@@ -55,7 +57,11 @@ public class NewUserDialog implements Initializable {
 
         //Styling components
         buttonBox.setSpacing(5);
-        newUserText.getStylesheets().add("namesayer/resources/stylesheet/general.css");
+        label.setMinHeight(25);
+        newUserText.setMinWidth(220);
+        newUserText.setPromptText("Spaces are unsupported");
+        newUserText.setFocusColor(Color.web("#ff5252"));
+        newUserText.setStyle("-fx-prompt-text-fill: gray;");
         buttonCreate.getStylesheets().add("namesayer/resources/stylesheet/general.css");
         buttonCancel.getStylesheets().add("namesayer/resources/stylesheet/general.css");
     }
