@@ -34,16 +34,26 @@ import java.util.*;
 
 public class PlayController implements Initializable {
 
-    @FXML private AnchorPane mainRoot;
-    @FXML private TableView<Name> nameTable;
-    @FXML private TableColumn<Name, String> nameCol;
-    @FXML private TableColumn<Name, String> createdCol;
-    @FXML private TableColumn<Name, Rating> ratingCol;
-    @FXML private Label playLabel;
-    @FXML private Text userText, pointsText;
-    @FXML private Button nextButton, recordButton, stopButton, playButton, prevButton;
-    @FXML private Button rewardButton, exitButton;
-    @FXML private Rating audioRating;
+    @FXML
+    private AnchorPane mainRoot;
+    @FXML
+    private TableView<Name> nameTable;
+    @FXML
+    private TableColumn<Name, String> nameCol;
+    @FXML
+    private TableColumn<Name, String> createdCol;
+    @FXML
+    private TableColumn<Name, Rating> ratingCol;
+    @FXML
+    private Label playLabel;
+    @FXML
+    private Text userText, pointsText;
+    @FXML
+    private Button nextButton, recordButton, stopButton, playButton, prevButton;
+    @FXML
+    private Button rewardButton, exitButton;
+    @FXML
+    private Rating audioRating;
 
     private PractiseController practiseController = new PractiseController();
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
@@ -64,7 +74,7 @@ public class PlayController implements Initializable {
     private CreateAudio createAudio;
 
     private FXMLResourceLoader loader = new FXMLResourceLoader();
-    private PlayManager playManager = new PlayManager(playButton,recordButton,stopButton);
+    private PlayManager playManager;
 
     @FXML
     void exitPressed(ActionEvent event) {
@@ -143,48 +153,8 @@ public class PlayController implements Initializable {
     //Plays current selected name audio for 5 seconds
     @FXML
     void playPressed(ActionEvent event) {
-        playMethod();
-    }
-
-    // for code reuse
-    private void playMethod() {
-        //Play audio files from filteredNames of the users selected
-        new Thread() {
-            public void run() {
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        //Set appropriate button layout
-                        playButton.setDisable(true);
-                        recordButton.setDisable(true);
-                        stopButton.setDisable(false);
-
-                        String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
-                        //If current name isn't combination
-                        if (!nameAudio.contains(" ")) {
-                            playAudio = new PlayAudio("./data/names/" + nameAudio);
-                            playAudio.playAudio();
-                        }
-                        //Else if name is combination - section names into appropriate format
-                        else {
-                            playAudio = new PlayAudio("./temp/" + nameAudio.replace(" ", ""));
-                            playAudio.playAudio();
-                        }
-                    }
-                });
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        playButton.setDisable(false);
-                        recordButton.setDisable(false);
-                        stopButton.setDisable(true);
-                    }
-                });
-            }
-        }.start();
+        new Thread(() ->
+                playManager.playOldAudio(practiseController, currentNameNum)).start();
     }
 
     //Creates a popup menu with record,compare plays, and save buttons for user to navigate
@@ -224,12 +194,6 @@ public class PlayController implements Initializable {
         ratingCol.setCellValueFactory(new PropertyValueFactory<Name, Rating>("rating"));
     }
 
-    private void playNew() {
-        String path = "./temp/" + tempAudioName.replace(" ", "") + ".wav";
-        PlayAudio playAudio = new PlayAudio(path);
-        playAudio.playAudio();
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Setting table and rating updates using RatingManager class
@@ -262,15 +226,21 @@ public class PlayController implements Initializable {
         //JFXPOPUP BUTTON ACTIONS
         //PLAYOLD - plays current names audio file
         saveButton.setDisable(true);
-        playOldButton.setOnMousePressed(event -> playMethod());
+        playOldButton.setOnMousePressed(event ->
+                playManager.playOldAudio(practiseController,currentNameNum));
 
         //PLAYNEW - plays users recorded version of name file (if exists)
         playNewButton.setDisable(true);
-        playNewButton.setOnMousePressed(event -> playNew());
+        //playNewButton.setOnMousePressed(event -> playNew());
+        playNewButton.setOnMousePressed(event ->
+                playManager.playNewAudio(tempAudioName));
 
         //PLAYCOMPARE - plays comparison between old and new
         playCompare.setOnMousePressed(event -> {
             //TODO: Try simply playing old then new for one time.
+            new Thread(() -> {
+                playManager.playAlternateAudio(practiseController,currentNameNum,tempAudioName);
+            }).start();
         });
 
         //RECORD - records user trying to pronounce PLAYOLD name
@@ -290,7 +260,7 @@ public class PlayController implements Initializable {
                             saveButton.setDisable(true);
                             playButton.setDisable(true);
 
-                            tempAudioName = user.getUsername()+"_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
+                            tempAudioName = user.getUsername() + "_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
                             createAudio = new CreateAudio(tempAudioName);
                             createAudio.createSingleAudio();
                         }
@@ -423,5 +393,7 @@ public class PlayController implements Initializable {
             saveButton.setStyle("-fx-background-color: transparent");
             saveButton.setGraphic(new ImageView(saveNew));
         });
+
+        playManager = new PlayManager(playButton, recordButton, stopButton);
     }
 }

@@ -16,20 +16,27 @@ public class PlayManager {
         this.stopButton = stopButton;
     }
 
-    private void playOldAudio(PractiseController practiseController, int currentNameNum) {
-        Platform.runLater(()->{
-        String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
-        //If current name isn't combination
-        if (!nameAudio.contains(" ")) {
-            playAudio = new PlayAudio("./data/names/" + nameAudio);
-            playAudio.playAudio();
-        }
-        //Else if name is combination - section names into appropriate format
-        else {
-            playAudio = new PlayAudio("./temp/" + nameAudio.replace(" ", ""));
-            playAudio.playAudio();
-        }
-    });
+    public void playOldAudio(PractiseController practiseController, int currentNameNum) {
+        playPlatform(practiseController,currentNameNum);
+        setDelay();
+        Platform.runLater(this::disableButtons);
+    }
+
+    private void playPlatform(PractiseController practiseController, int currentNameNum) {
+        Platform.runLater(() -> {
+            enableButtons();
+            String nameAudio = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
+            //If current name isn't combination
+            if (!nameAudio.contains(" ")) {
+                playAudio = new PlayAudio("./data/names/" + nameAudio);
+                playAudio.playAudio();
+            }
+            //Else if name is combination - section names into appropriate format
+            else {
+                playAudio = new PlayAudio("./temp/" + nameAudio.replace(" ", ""));
+                playAudio.playAudio();
+            }
+        });
     }
 
     public void setDelay() {
@@ -39,6 +46,7 @@ public class PlayManager {
             e.printStackTrace();
         }
     }
+
     public void enableButtons() {
         playButton.setDisable(true);
         recordButton.setDisable(true);
@@ -52,11 +60,18 @@ public class PlayManager {
     }
 
     public void playNewAudio(String tempAudioName) {
-        Platform.runLater(()-> {
+        Platform.runLater(() -> {
             String path = "./temp/" + tempAudioName.replace(" ", "") + ".wav";
             PlayAudio playAudio = new PlayAudio(path);
             playAudio.playAudio();
         });
     }
 
+
+    public void playAlternateAudio(PractiseController practiseController, int currentNameNum, String tempAudioName) {
+        playPlatform(practiseController,currentNameNum);
+        setDelay();
+        playNewAudio(tempAudioName);
+        setDelay();
+    }
 }
