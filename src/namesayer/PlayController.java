@@ -176,7 +176,7 @@ public class PlayController implements Initializable {
     //Stop currently playing name (in case user doesn't want to wait 5 seconds)
     @FXML
     void stopPressed(ActionEvent event) {
-        playAudio.stopAudio();
+        playManager.stopAudio();
         playButton.setDisable(false);
         recordButton.setDisable(false);
         stopButton.setDisable(true);

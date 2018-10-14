@@ -90,12 +90,12 @@ public class UserUtils {
 
             int points = Integer.parseInt(user[1]);
 
-            List<String> rewards = new ArrayList<>();
+            List<String> rewards = null;
 
             // get rewards
             if (user.length > 2) {
                 String[] subset = Arrays.copyOfRange(user,2,user.length);
-                rewards = Arrays.asList(subset);
+                rewards = new ArrayList<>(Arrays.asList(subset));
             }
 
             reader.close();
@@ -175,19 +175,60 @@ public class UserUtils {
             BufferedWriter bw = new BufferedWriter(fw);
             String updateString = user.getUsername() + "~" + String.valueOf(user.getPoints());
 
+            String rewardName = reward.getRewardName();
+
+            if (user.getRewards() == null) {
+                updateString += "~" + rewardName;
+                List<String> rewards = new ArrayList<>();
+                rewards.add(rewardName);
+                user.setRewards(rewards);
+
+                bw.write(updateString);
+                bw.close();
+                fw.close();
+                return;
+            } else if (!(user.getRewards().contains(rewardName) ||
+                    user.getRewards().contains(rewardName+"*")
+                    )) {
+                updateString += "~" + rewardName;
+                user.addReward(rewardName);
+            }
+
+            //System.out.println(user.getRewards());
+
+            List<String> addList = new ArrayList<>();
+            List<String> removeList = new ArrayList<>();
+
             for (String r : user.getRewards()) {
-                String rewardName = reward.getRewardName();
                 if (r.equals(rewardName + "*")) {
+                    // if the reward is applied, unapply it
                     updateString = updateString + "~" + rewardName;
+                    addList.add(rewardName);
+                    removeList.add(rewardName+"*");
                 } else if (r.equals(rewardName)) {
+                    // if the reward is not applied, apply it
                     updateString = updateString + "~" + rewardName + "*";
+                    addList.add(rewardName+"*");
+                    removeList.remove(rewardName);
                 } else {
+                    // keep reward state the same
                     updateString = updateString + "~" + r;
                 }
             }
 
+            for (String i : addList) {
+                user.addReward(i);
+            }
+            // implement hashset
+            for (String i : removeList) {
+                user.removeReward(i);
+            }
+
+            System.out.println(user.getRewards());
+
             bw.write(updateString);
             bw.close();
+            fw.close();
         } catch (IOException ioe) {
 
         }

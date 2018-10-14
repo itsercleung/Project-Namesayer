@@ -56,11 +56,12 @@ public class RewardManager {
         for (Reward reward :rewards) {
             String name = reward.getRewardName(); // if redeemed
 
-            if (user.getRewards().contains(name + "*")) {
-                reward.applyReward(); // "reward*" is applied reward
-            }
-            else if (user.getRewards().contains(name)) {
-                reward.redeemReward(); // "reward" is just redeemed
+            if (user.getRewards() != null) {
+                if (user.getRewards().contains(name + "*")) {
+                    reward.applyReward(); // "reward*" is applied reward
+                } else if (user.getRewards().contains(name)) {
+                    reward.redeemReward(); // "reward" is just redeemed
+                }
             }
         }
         return rewards;

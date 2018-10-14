@@ -61,12 +61,19 @@ public class PlayManager {
 
     public void playNewAudio(String tempAudioName) {
         Platform.runLater(() -> {
+            enableButtons();
             String path = "./temp/" + tempAudioName.replace(" ", "") + ".wav";
-            PlayAudio playAudio = new PlayAudio(path);
+            playAudio = new PlayAudio(path);
             playAudio.playAudio();
         });
+
+        setDelay();
+        Platform.runLater(this::disableButtons);
     }
 
+    public void stopAudio() {
+        playAudio.stopAudio();
+    }
 
     public void playAlternateAudio(PractiseController practiseController, int currentNameNum, String tempAudioName) {
         playPlatform(practiseController,currentNameNum);

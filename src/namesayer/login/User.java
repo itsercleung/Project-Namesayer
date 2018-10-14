@@ -37,6 +37,14 @@ public class User {
         return rewards;
     }
 
+    public void setRewards(List<String> rewards) {
+        this.rewards = rewards;
+    }
+
+    public void addReward(String reward) { rewards.add(reward); }
+
+    public void removeReward(String reward) { rewards.remove(reward); }
+
     @Override
     public String toString() {
        return this.username ;
