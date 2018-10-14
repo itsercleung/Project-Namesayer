@@ -19,20 +19,24 @@ public class RewardManager {
         this.user = user;
     }
 
+    //Static rewards generated through generateRewards method - can easily add or remove within such method
     private void generateRewards() {
         rewards = FXCollections.observableArrayList();
         rewards.add(new Reward("Bronze Trophy",
-                "You have earned enough points \nto earn you a Bronze Trophy!",
-                20000, "../resources/icons/bronze.png"));
+                "You have earned 1,000 points \nto earn you a Bronze Trophy!",
+                1000, "../resources/icons/bronze.png"));
         rewards.add(new Reward("Silver Trophy",
-                "You have earned enough points \nto earn you a Silver Trophy!",
-                50000,"../resources/icons/silver.png"));
+                "You have earned 5,000 points \nto earn you a Silver Trophy!",
+                5000,"../resources/icons/silver.png"));
         rewards.add(new Reward("Gold Trophy",
-                "You have earned enough points \nto earn you a Gold Trophy!",
-                100000,"../resources/icons/gold.png"));
-        rewards.add(new Reward("Diamond Trophy",
-                "You have earned enough points \nto earn you a Diamond Trophy!",
-                200000, "../resources/icons/plat.png"));
+                "You have earned 10,000 points \nto earn you a Gold Trophy!",
+                10000,"../resources/icons/gold.png"));
+        rewards.add(new Reward("Platinum Trophy",
+                "You have earned 100,000 points \nto earn you a Platinum Trophy!",
+                100000, "../resources/icons/plat.png"));
+        rewards.add(new Reward( "    The Clippy Guide",
+                "    Unlock Clippy for 20,000 points!\n    Will guide your way to Platinum!",
+                20000, "../resources/icons/clippy.png", false, false));
     }
 
     /**
@@ -50,7 +54,6 @@ public class RewardManager {
                 reward.redeemReward(); // "reward" is just redeemed
             }
         }
-
         return rewards;
     }
 

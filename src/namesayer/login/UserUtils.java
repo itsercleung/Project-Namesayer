@@ -39,17 +39,14 @@ public class UserUtils {
                     // gets user name and points, adds to listview
                     reader = new Scanner(file);
                     String[] user = reader.next().split("~");
-
                     String username = user[0];
                     int points = Integer.valueOf(user[1]);
-
                     users.add(new User(username, points));
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
             }
-
             userList.setItems(users);
         }
     }
