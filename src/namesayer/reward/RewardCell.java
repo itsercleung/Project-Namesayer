@@ -41,7 +41,7 @@ public class RewardCell extends ListCell<Reward> {
 
             nameText.setText(reward.getRewardName());
             descriptionText.setText(reward.getRewardDescription());
-            image.setImage(new Image(getClass().getResourceAsStream("../resources/icons/rewards.png")));
+            image.setImage(new Image(getClass().getResourceAsStream(reward.getImageURL())));
             // set graphic here
             setGraphic(root);
         }

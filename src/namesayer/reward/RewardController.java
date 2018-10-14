@@ -24,11 +24,12 @@ public class RewardController implements Initializable {
 
     @FXML private StackPane stackPane;
     @FXML private AnchorPane mainRoot;
-    @FXML private Text userText,pointsText;
-    @FXML private Button exitButton,helpButton,rewardButton;
-    @FXML private Button redeemButton,applyButton;
+    @FXML private Text userText, pointsText;
+    @FXML private Button exitButton, helpButton, rewardButton,
+            redeemButton, applyButton;
     @FXML private Label pointsToSpend;
     @FXML private JFXListView<Reward> rewardList;
+
     private FXMLResourceLoader loader = new FXMLResourceLoader();
     private User user;
     private RewardManager rb;
@@ -36,7 +37,7 @@ public class RewardController implements Initializable {
     @FXML
     void exitPressed(ActionEvent event) {
         StackPane root = null;
-        loader.load(FXMLResource.LOGOUT,root,mainRoot);
+        loader.load(FXMLResource.LOGOUT, root, mainRoot);
     }
 
     @FXML
@@ -47,25 +48,25 @@ public class RewardController implements Initializable {
     @FXML
     void practisePressed(ActionEvent event) {
         StackPane root = null;
-        loader.load(FXMLResource.PRACTISE,root,mainRoot);
+        loader.load(FXMLResource.PRACTISE, root, mainRoot);
     }
 
     @FXML
     void recordNamePressed(ActionEvent event) {
         StackPane root = null;
-        loader.load(FXMLResource.RECORD_NEW,root,mainRoot);
+        loader.load(FXMLResource.RECORD_NEW, root, mainRoot);
     }
 
     @FXML
     void testMicrophonePressed(ActionEvent event) {
         StackPane root = null;
-        loader.load(FXMLResource.TEST_MICROPHONE,root,mainRoot);
+        loader.load(FXMLResource.TEST_MICROPHONE, root, mainRoot);
     }
 
     @FXML
     void rewardPressed(ActionEvent event) {
         StackPane root = null;
-        loader.load(FXMLResource.REWARD,root,mainRoot);
+        loader.load(FXMLResource.REWARD, root, mainRoot);
     }
 
     @FXML
@@ -82,13 +83,15 @@ public class RewardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         rewardButton.setDisable(true);
 
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
+        // set up user info
+        user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
+        // sets up rewards to populate reward list
         rb = new RewardManager(user);
         rewardList.setItems(rb.build());
         rewardList.setCellFactory(param -> new RewardCell());
 
-        String text = "You have " +user.getPoints()+" points to spend!";
+        String text = "You have " + user.getPoints() + " points to spend!";
         pointsToSpend.setText(text);
 
         // Reward and help Popup icons

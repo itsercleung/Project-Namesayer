@@ -5,26 +5,23 @@ package namesayer.reward;
  *
  */
 public class Reward {
-    /*
-    public enum RewardType {
-        // e.g.
-        CLIPPY, BAD_WALLPAPER, BRONZE_TROPY
-    }
-    */
+
     private String name;
     private String description;
     private boolean isRedeemed = false;
     private boolean isApplied = false;
+    private String imageURL;
     private int minPoints = Integer.MAX_VALUE;
 
-    public Reward(String name, String description, int minPoints) {
+    public Reward(String name, String description, int minPoints, String imageURL) {
         this.name = name;
         this.description = description;
         this.minPoints = minPoints;
+        this.imageURL = imageURL;
     }
 
-    public Reward(String name, String description, int minPoints, boolean isRedeemed, boolean isApplied) {
-        this(name,description,minPoints);
+    public Reward(String name, String description, int minPoints, String imageURL, boolean isRedeemed, boolean isApplied) {
+        this(name, description, minPoints, imageURL);
         this.isRedeemed = isRedeemed;
         this.isApplied = isApplied;
     }
@@ -45,9 +42,13 @@ public class Reward {
         return isApplied;
     }
 
-    public void setRedeemed(boolean bool) { isRedeemed = bool; }
+    public void setRedeemed(boolean bool) {
+        isRedeemed = bool;
+    }
 
-    public void setApplied(boolean bool) { isApplied = bool; }
+    public void setApplied(boolean bool) {
+        isApplied = bool;
+    }
 
     public void redeemReward() {
         isRedeemed = true;
@@ -57,18 +58,17 @@ public class Reward {
         isApplied = true;
     }
 
-    public int getMinPoints() { return minPoints; }
+    public int getMinPoints() {
+        return minPoints;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
 
     @Override
     public String toString() {
         return name;
     }
-
-
-    /*
-    public RewardType getRewardType() {
-        return RewardType.CLIPPY;
-    }
-    */
 }
 

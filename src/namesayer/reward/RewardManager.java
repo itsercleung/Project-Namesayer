@@ -23,16 +23,16 @@ public class RewardManager {
         rewards = FXCollections.observableArrayList();
         rewards.add(new Reward("Bronze Trophy",
                 "You have earned enough points \nto earn you a Bronze Trophy!",
-                20000));
+                20000, "../resources/icons/bronze.png"));
         rewards.add(new Reward("Silver Trophy",
                 "You have earned enough points \nto earn you a Silver Trophy!",
-                50000));
+                50000,"../resources/icons/silver.png"));
         rewards.add(new Reward("Gold Trophy",
                 "You have earned enough points \nto earn you a Gold Trophy!",
-                100000));
+                100000,"../resources/icons/gold.png"));
         rewards.add(new Reward("Diamond Trophy",
                 "You have earned enough points \nto earn you a Diamond Trophy!",
-                200000));
+                200000, "../resources/icons/plat.png"));
     }
 
     /**
