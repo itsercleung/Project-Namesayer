@@ -9,10 +9,7 @@ import javafx.scene.text.Text;
 import namesayer.reward.Reward;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Call these utility functions via UserUtils.<method>()
@@ -90,12 +87,12 @@ public class UserUtils {
 
             int points = Integer.parseInt(user[1]);
 
-            List<String> rewards = null;
+            HashSet<String> rewards = null;
 
             // get rewards
             if (user.length > 2) {
                 String[] subset = Arrays.copyOfRange(user,2,user.length);
-                rewards = new ArrayList<>(Arrays.asList(subset));
+                rewards = new HashSet<>(Arrays.asList(subset));
             }
 
             reader.close();
@@ -179,7 +176,7 @@ public class UserUtils {
 
             if (user.getRewards() == null) {
                 updateString += "~" + rewardName;
-                List<String> rewards = new ArrayList<>();
+                HashSet<String> rewards = new HashSet<>();
                 rewards.add(rewardName);
                 user.setRewards(rewards);
 
@@ -196,6 +193,7 @@ public class UserUtils {
 
             //System.out.println(user.getRewards());
 
+            HashSet<String> addOrRemoveSet = new HashSet<>();
             List<String> addList = new ArrayList<>();
             List<String> removeList = new ArrayList<>();
 
@@ -203,26 +201,34 @@ public class UserUtils {
                 if (r.equals(rewardName + "*")) {
                     // if the reward is applied, unapply it
                     updateString = updateString + "~" + rewardName;
-                    addList.add(rewardName);
-                    removeList.add(rewardName+"*");
+                    addOrRemoveSet.add(rewardName);
+                    addOrRemoveSet.remove(rewardName+"*");
+                    //addList.add(rewardName);
+                    //removeList.add(rewardName+"*");
                 } else if (r.equals(rewardName)) {
                     // if the reward is not applied, apply it
                     updateString = updateString + "~" + rewardName + "*";
-                    addList.add(rewardName+"*");
-                    removeList.remove(rewardName);
+                    addOrRemoveSet.add(rewardName+"*");
+                    addOrRemoveSet.remove(rewardName);
+                    //addList.add(rewardName+"*");
+                    //removeList.remove(rewardName);
                 } else {
                     // keep reward state the same
                     updateString = updateString + "~" + r;
                 }
             }
 
+            /*
             for (String i : addList) {
                 user.addReward(i);
             }
-            // implement hashset
+            // TODO implement hashset
             for (String i : removeList) {
                 user.removeReward(i);
             }
+            */
+
+            user.setRewards(addOrRemoveSet);
 
             System.out.println(user.getRewards());
 

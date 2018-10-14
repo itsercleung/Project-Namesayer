@@ -14,6 +14,8 @@ import java.util.List;
  */
 public class RewardManager {
 
+    public enum RewardType {TROPHY,CLIPPY}
+
     private ObservableList<Reward> rewards;
     private List<Reward> rewardList = new ArrayList<>();
     private User user;
@@ -28,19 +30,27 @@ public class RewardManager {
         rewards = FXCollections.observableArrayList();
         rewards.add(new Reward("Bronze Trophy",
                 "You have earned 1,000 points \nto earn you a Bronze Trophy!",
-                1000, "../resources/icons/bronze.png"));
+                1000, "../resources/icons/bronze.png",
+                RewardType.TROPHY));
         rewards.add(new Reward("Silver Trophy",
                 "You have earned 5,000 points \nto earn you a Silver Trophy!",
-                5000,"../resources/icons/silver.png"));
+                5000,"../resources/icons/silver.png",
+                RewardType.TROPHY));
         rewards.add(new Reward("Gold Trophy",
                 "You have earned 10,000 points \nto earn you a Gold Trophy!",
-                10000,"../resources/icons/gold.png"));
+                10000,
+                "../resources/icons/gold.png",
+                RewardType.TROPHY));
         rewards.add(new Reward("Platinum Trophy",
                 "You have earned 100,000 points \nto earn you a Platinum Trophy!",
-                100000, "../resources/icons/plat.png"));
+                100000,
+                "../resources/icons/plat.png",
+                RewardType.TROPHY));
         rewards.add(new Reward( "    The Clippy Guide",
                 "    Unlock Clippy for 20,000 points!\n    Will guide your way to Platinum!",
-                20000, "../resources/icons/clippy.png", false, false));
+                20000, "../resources/icons/clippy.png",
+                RewardType.CLIPPY,
+                false, false));
         rewardList.addAll(rewards);
     }
 
@@ -69,9 +79,7 @@ public class RewardManager {
 
     public void applyReward(Reward reward) {
         reward.applyReward();
-        // TODO unapply previous reward
-
-        // TODO apply reward
+        // TODO unapply previous reward (if applicable)
 
         // TODO update in user text file
         UserUtils.updateUserRewards(user, reward);

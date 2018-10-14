@@ -6,19 +6,20 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 
 public class User {
     private String username;
     private int points;
-    private List<String> rewards;
+    private HashSet<String> rewards;
 
     public User(String username, int points) {
         this.username = username;
         this.points = points;
     }
 
-    public User(String username, int points, List<String> rewards) {
+    public User(String username, int points, HashSet<String> rewards) {
         this(username,points);
         this.rewards = rewards;
     }
@@ -33,11 +34,11 @@ public class User {
 
     protected void addPoints(Points points) {this.points += points.getPoints();}
 
-    public List<String> getRewards() {
+    public HashSet<String> getRewards() {
         return rewards;
     }
 
-    public void setRewards(List<String> rewards) {
+    public void setRewards(HashSet<String> rewards) {
         this.rewards = rewards;
     }
 

@@ -13,19 +13,23 @@ public class Reward {
     private boolean isRedeemable; //If award is unlockable (user manually does so) or automatically unlocked through set points
     private String imageURL;
     private int minPoints;
+    private RewardManager.RewardType rewardType;
 
     //Achievements
-    public Reward(String name, String description, int minPoints, String imageURL) {
+    public Reward(String name, String description, int minPoints, String imageURL, RewardManager.RewardType rewardType) {
         this.name = name;
         this.description = description;
         this.minPoints = minPoints;
         this.imageURL = imageURL;
         isRedeemable = false;
+        this.rewardType = rewardType;
     }
 
     //Unlockables
-    public Reward(String name, String description, int minPoints, String imageURL, boolean isRedeemed, boolean isApplied) {
-        this(name, description, minPoints, imageURL);
+    public Reward(String name, String description, int minPoints,
+                  String imageURL, RewardManager.RewardType rewardType,
+                  boolean isRedeemed, boolean isApplied) {
+        this(name, description, minPoints, imageURL, rewardType);
         this.isRedeemed = isRedeemed;
         this.isApplied = isApplied;
         isRedeemable = true;
@@ -65,6 +69,10 @@ public class Reward {
 
     public boolean getIsRedeemable() {
         return isRedeemable;
+    }
+
+    public RewardManager.RewardType getRewardType() {
+        return rewardType;
     }
 
     @Override
