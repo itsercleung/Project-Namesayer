@@ -6,12 +6,16 @@ import javafx.fxml.FXMLLoader;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Creates the list of rewards to populate a listview
  */
 public class RewardManager {
 
     private ObservableList<Reward> rewards;
+    private List<Reward> rewardList = new ArrayList<>();
     private User user;
 
     public RewardManager(User user) {
@@ -37,6 +41,11 @@ public class RewardManager {
         rewards.add(new Reward( "    The Clippy Guide",
                 "    Unlock Clippy for 20,000 points!\n    Will guide your way to Platinum!",
                 20000, "../resources/icons/clippy.png", false, false));
+        rewardList.addAll(rewards);
+    }
+
+    public List<Reward> getRewardList() {
+        return rewardList;
     }
 
     /**

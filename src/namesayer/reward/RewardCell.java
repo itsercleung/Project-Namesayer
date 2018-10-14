@@ -1,5 +1,6 @@
 package namesayer.reward;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
@@ -10,6 +11,7 @@ import javafx.scene.text.Text;
 import namesayer.login.User;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * concepts copied from UserCell
@@ -48,11 +50,10 @@ public class RewardCell extends ListCell<Reward> {
             // set graphic here
             setGraphic(root);
 
+            //If current user points are less than reward requirements - make greyed out
             if (reward.getMinPoints() > user.getPoints()) {
                 setDisabled(true);
             }
         }
-
-
     }
 }
