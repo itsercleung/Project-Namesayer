@@ -58,15 +58,17 @@ public class UserCell extends ListCell<User> {
             Image img;
             if (user.getRewards() == null) {
                 img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));// no rewards
-            } else if (user.getRewards().contains("Bronze Trophy*")) {
+            } else if (user.getRewards().contains("Bronze Trophy")) {
                 img = new Image(getClass().getResourceAsStream("../resources/icons/bronze.png"));
-            } else if (user.getRewards().contains("Silver Trophy*")) {
+            } else if (user.getRewards().contains("Silver Trophy")) {
                 img = new Image(getClass().getResourceAsStream("../resources/icons/silver.png"));
-            } else if (user.getRewards().contains("Gold Trophy*")) {
+            } else if (user.getRewards().contains("Gold Trophy")) {
                 img = new Image(getClass().getResourceAsStream("../resources/icons/gold.png"));
-            } else if (user.getRewards().contains("Platinum Trophy*")) {
+            } else if (user.getRewards().contains("Platinum Trophy")) {
                 img = new Image(getClass().getResourceAsStream("../resources/icons/plat.png"));
-            } else {
+            } else if (user.getRewards().contains("The Clippy Guide")) {
+                img = new Image(getClass().getResourceAsStream("../resources/icons/clippy.png"));
+            }else {
                 img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));
             }
 
