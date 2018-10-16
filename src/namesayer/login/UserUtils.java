@@ -12,6 +12,8 @@ import java.io.*;
 import java.util.*;
 
 /**
+ * UserUtils is a group of functions that will deal with points,
+ * user and reward information.
  * Call these utility functions via UserUtils.<method>()
  */
 public class UserUtils {
@@ -173,6 +175,11 @@ public class UserUtils {
     }
 
 
+    /**
+     * updateUserRewards will disable or enable the current input reward.
+     * @param user
+     * @param reward
+     */
     public static void updateUserRewards(User user, Reward reward) {
         String path = "./data/usernames/" + user.getUsername() + ".txt";
         File usernameTxt = new File(path);
@@ -184,6 +191,7 @@ public class UserUtils {
 
             String rewardName = reward.getRewardName();
 
+            // if user has no rewards active
             if (user.getRewards() == null) {
                 updateString += "~" + rewardName;
                 HashSet<String> rewards = new HashSet<>();
@@ -194,32 +202,16 @@ public class UserUtils {
                 bw.close();
                 fw.close();
                 return;
-            } else if (!(user.getRewards().contains(rewardName) ||
-                    user.getRewards().contains(rewardName+"*")
-                    )) {
-                updateString += "~" + rewardName;
-                user.addReward(rewardName);
             }
 
-            //System.out.println(user.getRewards());
-
+            // TODO update code for multiple types of rewards (e.g. trophy, clippy)
             HashSet<String> addOrRemoveSet = new HashSet<>();
 
+            addOrRemoveSet.add(rewardName);
+            updateString = updateString + "~" + rewardName;
+            // for every reward currently active
             for (String r : user.getRewards()) {
-                if (r.equals(rewardName + "*")) {
-                    // if the reward is applied, unapply it
-                    updateString = updateString + "~" + rewardName;
-                    addOrRemoveSet.add(rewardName);
-                    addOrRemoveSet.remove(rewardName+"*");
-                } else if (r.equals(rewardName)) {
-                    // if the reward is not applied, apply it
-                    updateString = updateString + "~" + rewardName + "*";
-                    addOrRemoveSet.add(rewardName+"*");
-                    addOrRemoveSet.remove(rewardName);
-                } else {
-                    // keep reward state the same
-                    updateString = updateString + "~" + r;
-                }
+
             }
 
             user.setRewards(addOrRemoveSet);

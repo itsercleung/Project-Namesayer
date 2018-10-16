@@ -110,18 +110,9 @@
                               <Insets left="100.0" right="100.0" />
                            </VBox.margin>
                         </JFXListView>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="redeemButton" alignment="CENTER" mnemonicParsing="false" onAction="#redeemPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Redeem">
-                                 <HBox.margin>
-                                    <Insets left="220.0" top="15.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="applyButton" alignment="CENTER" mnemonicParsing="false" onAction="#applyPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Apply">
-                                 <HBox.margin>
-                                    <Insets left="40.0" top="15.0" />
-                                 </HBox.margin>
-                              </Button>
+                              <Button fx:id="applyButton" alignment="CENTER" mnemonicParsing="false" onAction="#applyPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/general.css" text="Apply" textAlignment="CENTER" />
                            </children>
                         </HBox>
                      </children>

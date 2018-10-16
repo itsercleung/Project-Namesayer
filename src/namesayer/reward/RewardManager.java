@@ -65,7 +65,7 @@ public class RewardManager {
         for (Reward reward :rewards) {
             String name = reward.getRewardName(); // if already redeemed
 
-            if (reward.getMinPoints() < user.getPoints()) {
+            if (reward.getMinPoints() <= user.getPoints()) {
                 reward.setIsRedeemable(true);
             }
 

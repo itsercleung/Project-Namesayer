@@ -68,7 +68,7 @@ public class Reward {
     public String getImageURL() { return imageURL; }
 
     public void setIsRedeemable(boolean bool) {
-        isRedeemable = true;
+        isRedeemable = bool;
     }
 
     public boolean getIsRedeemable() {

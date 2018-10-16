@@ -30,7 +30,7 @@ public class RewardController implements Initializable {
     @FXML private StackPane stackPane;
     @FXML private AnchorPane mainRoot;
     @FXML private Text userText, pointsText;
-    @FXML private Button exitButton, helpButton, rewardButton, redeemButton, applyButton;
+    @FXML private Button exitButton, helpButton, rewardButton, applyButton;
     @FXML private Label pointsToSpend;
     @FXML private JFXListView<Reward> rewardList;
 
@@ -78,29 +78,32 @@ public class RewardController implements Initializable {
     void applyPressed(ActionEvent event) {
         Reward reward = rewardList.getSelectionModel().getSelectedItem();
         rb.applyReward(reward);
-        UserUtils.updateUserRewards(user,reward);
 
         // TODO apply different trophy logic
         // TODO disable buttons immediately after applying reward
+        StackPane root = null;
+        loader.load(FXMLResource.REWARD,root,mainRoot);
     }
 
     // TODO possible remove redeem feature, as there is no point anymore
     // TODO we have implemented an auto checker when points threshold is reached
-    @FXML
+
+    /*@FXML
     void redeemPressed(ActionEvent event) {
         Reward reward = rewardList.getSelectionModel().getSelectedItem();
         rb.redeemReward(reward);
-    }
+    }*/
 
     @FXML
     void rewardRowClicked(MouseEvent event) {
+        // TODO bug where you can use arrow keys to select row to unlock!
         //Determine if awards/achievements are redeemable (ie unlock-able through store rather than set num of points)
         if (!rewardList.getSelectionModel().getSelectedItem().getIsRedeemable()) {
-            redeemButton.setDisable(true);
+            //redeemButton.setDisable(true);
             applyButton.setDisable(true);
         }
         else if (rewardList.getSelectionModel().getSelectedItem().getIsRedeemable()) {
-            redeemButton.setDisable(false);
+            //redeemButton.setDisable(false);
             applyButton.setDisable(false);
         }
     }
