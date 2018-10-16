@@ -227,7 +227,8 @@ public class PlayController implements Initializable {
         //PLAYOLD - plays current names audio file
         saveButton.setDisable(true);
         playOldButton.setOnMousePressed(event ->
-                playManager.playOldAudio(practiseController,currentNameNum));
+            new Thread(() -> playManager.playOldAudio(practiseController, currentNameNum)).start()
+        );
 
         //PLAYNEW - plays users recorded version of name file (if exists)
         playNewButton.setDisable(true);
@@ -236,10 +237,11 @@ public class PlayController implements Initializable {
                 playManager.playNewAudio(tempAudioName));
 
         //PLAYCOMPARE - plays comparison between old and new
+        playCompare.setDisable(true);
         playCompare.setOnMousePressed(event -> {
             //TODO: Try simply playing old then new for one time.
             new Thread(() -> {
-                playManager.playAlternateAudio(practiseController,currentNameNum,tempAudioName);
+                playManager.playAlternateAudio(practiseController, currentNameNum, tempAudioName);
             }).start();
         });
 
@@ -278,6 +280,7 @@ public class PlayController implements Initializable {
                             recordSubButton.setDisable(false);
                             saveButton.setDisable(false);
                             playButton.setDisable(false);
+                            playCompare.setDisable(false);
 
                             //Disable rating and save buttons for concat
                             if (currSelectedName.contains(" ")) {
