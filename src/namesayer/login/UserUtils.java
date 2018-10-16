@@ -35,10 +35,20 @@ public class UserUtils {
                 try {
                     // gets user name and points, adds to listview
                     reader = new Scanner(file);
-                    String[] user = reader.next().split("~");
+                    String[] user = reader.nextLine().split("~");
+
                     String username = user[0];
                     int points = Integer.valueOf(user[1]);
-                    users.add(new User(username, points));
+
+                    HashSet<String> rewards = null;
+
+                    // get rewards
+                    if (user.length > 2) {
+                        String[] subset = Arrays.copyOfRange(user,2,user.length);
+                        rewards = new HashSet<>(Arrays.asList(subset));
+                    }
+
+                    users.add(new User(username, points, rewards));
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -194,8 +204,6 @@ public class UserUtils {
             //System.out.println(user.getRewards());
 
             HashSet<String> addOrRemoveSet = new HashSet<>();
-            List<String> addList = new ArrayList<>();
-            List<String> removeList = new ArrayList<>();
 
             for (String r : user.getRewards()) {
                 if (r.equals(rewardName + "*")) {
@@ -203,30 +211,16 @@ public class UserUtils {
                     updateString = updateString + "~" + rewardName;
                     addOrRemoveSet.add(rewardName);
                     addOrRemoveSet.remove(rewardName+"*");
-                    //addList.add(rewardName);
-                    //removeList.add(rewardName+"*");
                 } else if (r.equals(rewardName)) {
                     // if the reward is not applied, apply it
                     updateString = updateString + "~" + rewardName + "*";
                     addOrRemoveSet.add(rewardName+"*");
                     addOrRemoveSet.remove(rewardName);
-                    //addList.add(rewardName+"*");
-                    //removeList.remove(rewardName);
                 } else {
                     // keep reward state the same
                     updateString = updateString + "~" + r;
                 }
             }
-
-            /*
-            for (String i : addList) {
-                user.addReward(i);
-            }
-            // TODO implement hashset
-            for (String i : removeList) {
-                user.removeReward(i);
-            }
-            */
 
             user.setRewards(addOrRemoveSet);
 

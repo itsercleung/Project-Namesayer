@@ -78,14 +78,18 @@ public class RewardController implements Initializable {
     void applyPressed(ActionEvent event) {
         Reward reward = rewardList.getSelectionModel().getSelectedItem();
         rb.applyReward(reward);
-        //UserUtils.updateUserRewards(user,reward);
+        UserUtils.updateUserRewards(user,reward);
+
+        // TODO apply different trophy logic
+        // TODO disable buttons immediately after applying reward
     }
 
+    // TODO possible remove redeem feature, as there is no point anymore
+    // TODO we have implemented an auto checker when points threshold is reached
     @FXML
     void redeemPressed(ActionEvent event) {
         Reward reward = rewardList.getSelectionModel().getSelectedItem();
-        //rb.applyReward(reward);
-        rb.redeemReward(rewardList.getSelectionModel().getSelectedItem());
+        rb.redeemReward(reward);
     }
 
     @FXML

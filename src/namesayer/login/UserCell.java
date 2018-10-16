@@ -17,11 +17,15 @@ public class UserCell extends ListCell<User> {
 
     private FXMLLoader loader;
 
-    @FXML private AnchorPane root;
-    @FXML private Text username = new Text("");
-    @FXML private Text points = new Text("");
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private Text username = new Text("");
+    @FXML
+    private Text points = new Text("");
     // TODO possibly add trophy reward image for user (if they earned it) here
-    @FXML private ImageView image;
+    @FXML
+    private ImageView image;
 
     public UserCell() {
         super();
@@ -29,6 +33,7 @@ public class UserCell extends ListCell<User> {
 
     /**
      * Updates each cell in list with user info
+     *
      * @param user
      * @param empty
      */
@@ -49,7 +54,22 @@ public class UserCell extends ListCell<User> {
 
             username.setText(user.getUsername());
             points.setText(Integer.toString(user.getPoints()));
-            Image img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));
+
+            Image img;
+            if (user.getRewards() == null) {
+                img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));// no rewards
+            } else if (user.getRewards().contains("Bronze Trophy*")) {
+                img = new Image(getClass().getResourceAsStream("../resources/icons/bronze.png"));
+            } else if (user.getRewards().contains("Silver Trophy*")) {
+                img = new Image(getClass().getResourceAsStream("../resources/icons/silver.png"));
+            } else if (user.getRewards().contains("Gold Trophy*")) {
+                img = new Image(getClass().getResourceAsStream("../resources/icons/gold.png"));
+            } else if (user.getRewards().contains("Platinum Trophy*")) {
+                img = new Image(getClass().getResourceAsStream("../resources/icons/plat.png"));
+            } else {
+                img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));
+            }
+
             image.setImage(img);
             setGraphic(root);
         }

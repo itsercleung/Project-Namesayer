@@ -46,11 +46,10 @@ public class RewardManager {
                 100000,
                 "../resources/icons/plat.png",
                 RewardType.TROPHY));
-        rewards.add(new Reward( "    The Clippy Guide",
-                "    Unlock Clippy for 20,000 points!\n    Will guide your way to Platinum!",
+        rewards.add(new Reward( "The Clippy Guide",
+                "Unlock Clippy for 20,000 points!\n    Will guide your way to Platinum!",
                 20000, "../resources/icons/clippy.png",
-                RewardType.CLIPPY,
-                false, false));
+                RewardType.CLIPPY));
         rewardList.addAll(rewards);
     }
 
@@ -64,13 +63,20 @@ public class RewardManager {
      */
     public ObservableList<Reward> build() {
         for (Reward reward :rewards) {
-            String name = reward.getRewardName(); // if redeemed
+            String name = reward.getRewardName(); // if already redeemed
 
+            if (reward.getMinPoints() < user.getPoints()) {
+                reward.setIsRedeemable(true);
+            }
+
+            // if reward is already redeemed
             if (user.getRewards() != null) {
                 if (user.getRewards().contains(name + "*")) {
                     reward.applyReward(); // "reward*" is applied reward
+                    reward.setIsRedeemable(false);
                 } else if (user.getRewards().contains(name)) {
                     reward.redeemReward(); // "reward" is just redeemed
+                    reward.setIsRedeemable(false);
                 }
             }
         }
@@ -80,16 +86,13 @@ public class RewardManager {
     public void applyReward(Reward reward) {
         reward.applyReward();
         // TODO unapply previous reward (if applicable)
-
-        // TODO update in user text file
         UserUtils.updateUserRewards(user, reward);
-
+        reward.setIsRedeemable(false);
     }
 
     public void redeemReward(Reward reward) {
         reward.redeemReward();
-
-        // TODO update in user text file
         UserUtils.updateUserRewards(user,reward);
+        reward.setIsRedeemable(false);
     }
 }
