@@ -23,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import namesayer.login.Points;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
 import namesayer.util.*;
@@ -118,7 +119,7 @@ public class PlayController implements Initializable {
 
         //Disable/Enable rating depending on name concat
         currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
-        ratingManager.checkConcatRating(currSelectedName,audioRating);
+        ratingManager.checkConcatRating(currSelectedName, audioRating);
     }
 
     //Switches back to previous name audio if there exists previous audio
@@ -136,7 +137,7 @@ public class PlayController implements Initializable {
 
         //Disable/Enable rating depending on name concat
         currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
-        ratingManager.checkConcatRating(currSelectedName,audioRating);
+        ratingManager.checkConcatRating(currSelectedName, audioRating);
     }
 
     //Changes current audio to whatever user selects
@@ -166,7 +167,7 @@ public class PlayController implements Initializable {
 
         //Disable/Enable rating depending on name concat
         currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
-        ratingManager.checkConcatRating(currSelectedName,audioRating);
+        ratingManager.checkConcatRating(currSelectedName, audioRating);
     }
 
     //Plays current selected name audio for 5 seconds
@@ -174,6 +175,11 @@ public class PlayController implements Initializable {
     void playPressed(ActionEvent event) {
         new Thread(() ->
                 playManager.playOldAudio(practiseController, currentNameNum)).start();
+        if (currSelectedName.contains(" ")) {
+            UserUtils.updateUser(user, Points.PRACTISE_CONCAT_NAME, userText, pointsText);
+        } else {
+            UserUtils.updateUser(user, Points.PRACTISE_NAME, userText, pointsText);
+        }
     }
 
     //Creates a popup menu with record,compare plays, and save buttons for user to navigate
@@ -237,7 +243,7 @@ public class PlayController implements Initializable {
 
         //Disable/Enable rating depending on name concat
         currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
-        ratingManager.checkConcatRating(currSelectedName,audioRating);
+        ratingManager.checkConcatRating(currSelectedName, audioRating);
 
         //When user selects rating, update
         audioRating.ratingProperty().addListener((observable, oldValue, newValue) -> {
@@ -248,8 +254,15 @@ public class PlayController implements Initializable {
         //JFXPOPUP BUTTON ACTIONS
         //PLAYOLD - plays current names audio file
         saveButton.setDisable(true);
-        playOldButton.setOnMousePressed(event ->
-            new Thread(() -> playManager.playOldAudio(practiseController, currentNameNum)).start()
+        playOldButton.setOnMousePressed(event -> {
+                    new Thread(() -> playManager.playOldAudio(practiseController, currentNameNum)).start();
+
+                    if (currSelectedName.contains(" ")) {
+                        UserUtils.updateUser(user, Points.PRACTISE_CONCAT_NAME, userText, pointsText);
+                    } else {
+                        UserUtils.updateUser(user, Points.PRACTISE_NAME, userText, pointsText);
+                    }
+                }
         );
 
         //PLAYNEW - plays users recorded version of name file (if exists)
@@ -359,6 +372,8 @@ public class PlayController implements Initializable {
         saveButton.setGraphic(new ImageView(saveNew));
         Image logout = new Image(getClass().getResourceAsStream("resources/icons/sign-out.png"));
         exitButton.setGraphic(new ImageView(logout));
+        Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
+        helpButton.setGraphic(new ImageView(help));
 
         // Reward Popup icons
         Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
