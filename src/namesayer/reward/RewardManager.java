@@ -85,7 +85,6 @@ public class RewardManager {
 
     public void applyReward(Reward reward) {
         reward.applyReward();
-        // TODO unapply previous reward (if applicable)
         UserUtils.updateUserRewards(user, reward);
         reward.setIsRedeemable(false);
     }

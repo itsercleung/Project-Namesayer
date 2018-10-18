@@ -133,4 +133,16 @@ public class RatingManager {
             e.printStackTrace();
         }
     }
+
+    //Checking if currentName is concat or not and disables rating ability if true
+    public void checkConcatRating(String currSelectedName, Rating audioRating) {
+        if (currSelectedName.contains(" ")) {
+            audioRating.setDisable(true);
+            audioRating.setOpacity(0.5);
+        }
+        else {
+            audioRating.setDisable(false);
+            audioRating.setOpacity(1);
+        }
+     }
 }

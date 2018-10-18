@@ -107,13 +107,16 @@ public class PlayController implements Initializable {
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
         ratingManager.updateRatingComponent(currentNameNum);
+
+        //Disable/Enable rating depending on name concat
+        currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
+        ratingManager.checkConcatRating(currSelectedName,audioRating);
     }
 
     //Switches back to previous name audio if there exists previous audio
     @FXML
     void prevPressed(ActionEvent event) {
         //Switching to prev selected audio files
-        currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
         currentNameNum--;
         if (currentNameNum == 0) {
             prevButton.setDisable(true);
@@ -122,6 +125,10 @@ public class PlayController implements Initializable {
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
         ratingManager.updateRatingComponent(currentNameNum);
+
+        //Disable/Enable rating depending on name concat
+        currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
+        ratingManager.checkConcatRating(currSelectedName,audioRating);
     }
 
     //Changes current audio to whatever user selects
@@ -148,6 +155,10 @@ public class PlayController implements Initializable {
         }
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         ratingManager.updateRatingComponent(currentNameNum);
+
+        //Disable/Enable rating depending on name concat
+        currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
+        ratingManager.checkConcatRating(currSelectedName,audioRating);
     }
 
     //Plays current selected name audio for 5 seconds
@@ -215,6 +226,10 @@ public class PlayController implements Initializable {
         for (PlayAudio audio : practiseController.getPlayAudioList()) {
             audio.concatCombinedAudio();
         }
+
+        //Disable/Enable rating depending on name concat
+        currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
+        ratingManager.checkConcatRating(currSelectedName,audioRating);
 
         //When user selects rating, update
         audioRating.ratingProperty().addListener((observable, oldValue, newValue) -> {
