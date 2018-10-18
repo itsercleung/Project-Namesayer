@@ -51,9 +51,11 @@ public class PlayController implements Initializable {
     @FXML
     private Button nextButton, recordButton, stopButton, playButton, prevButton;
     @FXML
-    private Button rewardButton, exitButton;
+    private Button rewardButton, exitButton, helpButton;
     @FXML
     private Rating audioRating;
+    @FXML
+    private StackPane stackPane;
 
     private PractiseController practiseController = new PractiseController();
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
@@ -84,6 +86,12 @@ public class PlayController implements Initializable {
 
         StackPane practiseRoot = null;
         loader.load(FXMLResource.PRACTISE, practiseRoot, mainRoot);
+    }
+
+    @FXML
+    void helpPressed(ActionEvent event) {
+        HelpDialog helpDialog = new HelpDialog(helpButton);
+        helpDialog.showHelpDialog(stackPane,2);
     }
 
     //Load rewards window
