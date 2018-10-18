@@ -48,14 +48,26 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="200.0" stylesheets="@stylesheet/toolbar.css" text="Back">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" prefHeight="60.0" prefWidth="150.0" stylesheets="@stylesheet/toolbar.css" text="Back">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="helpButton" mnemonicParsing="false" onAction="#helpPressed" prefHeight="60.0" prefWidth="90.0" stylesheets="@stylesheet/toolbar.css">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                     </children>
                      <VBox.margin>
-                        <Insets top="440.0" />
+                        <Insets top="480.0" />
                      </VBox.margin>
-                  </Button>
+                  </HBox>
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="800.0">

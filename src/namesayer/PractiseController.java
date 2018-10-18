@@ -38,16 +38,26 @@ import java.util.*;
 
 public class PractiseController implements Initializable {
 
-    @FXML private ToggleSwitch toggleRandomise;
-    @FXML private Button playNames;
-    @FXML private Button practiseButton, uploadButton;
-    @FXML private Button helpButton, rewardButton, exitButton;
-    @FXML private JFXTextField searchTextField;
-    @FXML private AnchorPane mainRoot;
-    @FXML private StackPane stackPane;
-    @FXML private JFXListView<String> searchNamesView;
-    @FXML private JFXListView<String> selectedNamesView;
-    @FXML private Text userText, pointsText;
+    @FXML
+    private ToggleSwitch toggleRandomise;
+    @FXML
+    private Button playNames;
+    @FXML
+    private Button practiseButton, uploadButton;
+    @FXML
+    private Button helpButton, rewardButton, exitButton;
+    @FXML
+    private JFXTextField searchTextField;
+    @FXML
+    private AnchorPane mainRoot;
+    @FXML
+    private StackPane stackPane;
+    @FXML
+    private JFXListView<String> searchNamesView;
+    @FXML
+    private JFXListView<String> selectedNamesView;
+    @FXML
+    private Text userText, pointsText;
 
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
@@ -60,39 +70,45 @@ public class PractiseController implements Initializable {
 
     private FXMLResourceLoader loader = new FXMLResourceLoader();
 
-    @FXML private void exitPressed(ActionEvent event) {
+    @FXML
+    private void exitPressed(ActionEvent event) {
         StackPane loginRoot = null;
         loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
     }
 
     //Load help popup
-    @FXML private void helpPressed(ActionEvent event) {
+    @FXML
+    private void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane,1);
     }
 
     //Load rewards window
-    @FXML private void rewardPressed(ActionEvent event) {
+    @FXML
+    private void rewardPressed(ActionEvent event) {
         StackPane rewardsRoot = null;
         loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
-    @FXML private void testMicrophonePressed(ActionEvent event) {
+    @FXML
+    private void testMicrophonePressed(ActionEvent event) {
         //Load testMicrophone pane
         StackPane testMicrophoneRoot = null;
-        loader.load(FXMLResource.TEST_MICROPHONE,testMicrophoneRoot,mainRoot);
+        loader.load(FXMLResource.TEST_MICROPHONE, testMicrophoneRoot, mainRoot);
     }
 
-    @FXML private void practisePressed(ActionEvent event) {
+    @FXML
+    private void practisePressed(ActionEvent event) {
         //Load practise pane
         StackPane practiseRoot = null;
-        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
+        loader.load(FXMLResource.PRACTISE, practiseRoot, mainRoot);
     }
 
-    @FXML private void recordNamePressed(ActionEvent event) {
+    @FXML
+    private void recordNamePressed(ActionEvent event) {
         //record new practise pane
         StackPane practiseRoot = null;
-        loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
+        loader.load(FXMLResource.RECORD_NEW, practiseRoot, mainRoot);
     }
 
     //Load play practise pane
@@ -111,7 +127,7 @@ public class PractiseController implements Initializable {
         }
 
         AnchorPane playRoot = null;
-        loader.load(FXMLResource.PLAY,playRoot,mainRoot);
+        loader.load(FXMLResource.PLAY, playRoot, mainRoot);
     }
 
     //Clear all to initial state
@@ -148,13 +164,12 @@ public class PractiseController implements Initializable {
         List<String> rejectList = new ArrayList<>();
         // go through text file and check if name is in names db
         while (reader.hasNextLine()) {
-            String name = reader.nextLine().replace("-"," ").toLowerCase();
+            String name = reader.nextLine().replace("-", " ").toLowerCase();
 
             if (!selectedNameList.contains(name)) {
                 if (searchNameList.contains(name)) {
                     selectedNameList.add(name);
-                }
-                else if (name.contains(" ") || name.contains("-")) {
+                } else if (name.contains(" ") || name.contains("-")) {
                     String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
                     boolean canConcat = true;
 
@@ -168,30 +183,33 @@ public class PractiseController implements Initializable {
                     if (canConcat) {
                         if (selectedNameList.contains("[COMBINE]: " + name)) {
                             duplicateCheck("[COMBINE]: " + name);
-                        }
-                        else if (!selectedNameList.contains("[COMBINE]: " + name)) {
+                        } else if (!selectedNameList.contains("[COMBINE]: " + name)) {
                             selectedNameList.add("[COMBINE]: " + name);
                         }
                     }
-                }
-                else {
+                } else {
                     // add name to reject list (if name doesn't exist)
                     rejectList.add(name);
                 }
-            }
-            else if (selectedNameList.contains(name)) {
+            } else if (selectedNameList.contains(name)) {
                 duplicateCheck(name);
             }
         }
 
         if (rejectList.size() > 0) {
-            String label = "The following names are not available.\n" +
-                    rejectList.toString() +"\n"+// temporary proof of concept
-                    "Be the first to create one of these names!";
+            String label = "The following names are not available:\n";
+
+            for (String name : rejectList) {
+                StringBuilder sb = new StringBuilder(label);
+                label = sb.append(name + "\n").toString();
+            }
+            //rejectList.toString()
+
+            label += "\nBe the first to create one of these names!";
             Button button = new Button("Got it");
             button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
             JFXDialogLayout layout = new JFXDialogLayout();
-            JFXDialog dialog = new JFXDialog(stackPane,layout, JFXDialog.DialogTransition.TOP);
+            JFXDialog dialog = new JFXDialog(stackPane, layout, JFXDialog.DialogTransition.TOP);
             layout.setHeading(new Label("Note"));
             layout.setBody(new Label(label));
             layout.setActions(button);
@@ -325,8 +343,7 @@ public class PractiseController implements Initializable {
                                 mainRoot.requestFocus();
                             }
                         });
-                    }
-                    else if (selectedNameList.contains(selectedName)) {
+                    } else if (selectedNameList.contains(selectedName)) {
                         duplicateCheck(selectedName);
                     }
                 }
@@ -395,7 +412,7 @@ public class PractiseController implements Initializable {
         toggleRandomise.disableProperty().bind(Bindings.size(selectedNameList).lessThan(2));
 
         // user details
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
+        user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         // Reward and help Popup icons
         Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));

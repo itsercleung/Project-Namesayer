@@ -5,6 +5,10 @@ import javafx.scene.control.Button;
 import namesayer.PlayController;
 import namesayer.PractiseController;
 
+/**
+ * PlayManager deals with timing, threading and button logic when playing
+ * audio in Play menu.
+ */
 public class PlayManager {
 
     private Button playButton, recordButton, stopButton;
@@ -16,12 +20,23 @@ public class PlayManager {
         this.stopButton = stopButton;
     }
 
+    /**
+     * playOldAudio plays the currently selected audio
+     * in the list in PractiseController.
+     * @param practiseController
+     * @param currentNameNum
+     */
     public void playOldAudio(PractiseController practiseController, int currentNameNum) {
         playPlatform(practiseController,currentNameNum);
         setDelay();
         Platform.runLater(this::disableButtons);
     }
 
+    /**
+     * Used to play the old audio in playOldAudio and playAlternateAudio
+     * @param practiseController
+     * @param currentNameNum
+     */
     private void playPlatform(PractiseController practiseController, int currentNameNum) {
         Platform.runLater(() -> {
             enableButtons();
@@ -39,6 +54,9 @@ public class PlayManager {
         });
     }
 
+    /**
+     * Arbitrary delay to try and prevent RIFF errors
+     */
     public void setDelay() {
         try {
             Thread.sleep(4000);
@@ -59,6 +77,10 @@ public class PlayManager {
         stopButton.setDisable(true);
     }
 
+    /**
+     * Plays the currently recorded audio.
+     * @param tempAudioName
+     */
     public void playNewAudio(String tempAudioName) {
         Platform.runLater(() -> {
             enableButtons();
@@ -75,6 +97,12 @@ public class PlayManager {
         playAudio.stopAudio();
     }
 
+    /**
+     * Alternates once between playOld and playNew audios.
+     * @param practiseController
+     * @param currentNameNum
+     * @param tempAudioName
+     */
     public void playAlternateAudio(PractiseController practiseController, int currentNameNum, String tempAudioName) {
         playPlatform(practiseController,currentNameNum);
         setDelay();
