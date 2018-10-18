@@ -57,7 +57,7 @@ public class RewardCell extends ListCell<Reward> {
 
             //Update selected reward
             if (reward.isRedeemed()) {
-                setStyle("-fx-background-color: #FF5252;");
+                setStyle("-fx-border-color: #FF5252;" + "-fx-border-width: 5px;");
                 nameText.setStyle("-fx-text-fill: white;");
             }
         }

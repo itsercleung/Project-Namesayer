@@ -47,7 +47,7 @@ public class RewardController implements Initializable {
     @FXML
     void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
-        helpDialog.showHelpDialog(stackPane);
+        helpDialog.showHelpDialog(stackPane ,3);
     }
 
     @FXML

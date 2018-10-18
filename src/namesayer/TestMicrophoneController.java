@@ -54,7 +54,7 @@ public class TestMicrophoneController implements Initializable {
     //Load help popup
     @FXML private void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
-        helpDialog.showHelpDialog(stackPane);
+        helpDialog.showHelpDialog(stackPane,1);
     }
 
     //Load rewards window
