@@ -52,7 +52,13 @@ public class RewardCell extends ListCell<Reward> {
 
             //If current user points are less than reward requirements - make greyed out
             if (reward.getMinPoints() > user.getPoints()) {
-                setDisabled(true);
+                setOpacity(0.1);
+            }
+
+            //Update selected reward
+            if (reward.isRedeemed()) {
+                setStyle("-fx-background-color: #FF5252;");
+                nameText.setStyle("-fx-text-fill: white;");
             }
         }
     }

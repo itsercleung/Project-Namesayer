@@ -170,7 +170,6 @@ public class PlayController implements Initializable {
         //Setting popup position and size
         recordPopup.show(recordButton, JFXPopup.PopupVPosition.BOTTOM, JFXPopup.PopupHPosition.LEFT, 80, 0);
         recordPopup.getPopupContent().setPrefWidth(130);
-        recordPopup.setStyle("-fx-effect: null;" + "-fx-drop-shadow: null;");
     }
 
     //Stop currently playing name (in case user doesn't want to wait 5 seconds)

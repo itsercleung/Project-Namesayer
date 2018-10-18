@@ -2,8 +2,8 @@ package namesayer.login;
 
 public enum Points {
     PRACTISE_NAME (100),
-    PRACTISE_CONCAT_NAME (200),
-    CREATE_NAME (300);
+    PRACTISE_CONCAT_NAME (150),
+    CREATE_NAME (250);
 
     private final int points;
 
