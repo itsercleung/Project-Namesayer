@@ -26,8 +26,7 @@ public class Reward {
     }
 
     //Unlockables
-    public Reward(String name, String description, int minPoints,
-                  String imageURL, RewardManager.RewardType rewardType,
+    public Reward(String name, String description, int minPoints, String imageURL, RewardManager.RewardType rewardType,
                   boolean isRedeemed, boolean isApplied) {
         this(name, description, minPoints, imageURL, rewardType);
         this.isRedeemed = isRedeemed;

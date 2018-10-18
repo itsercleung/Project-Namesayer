@@ -215,9 +215,6 @@ public class UserUtils {
             }
 
             user.setRewards(addOrRemoveSet);
-
-            System.out.println(user.getRewards());
-
             bw.write(updateString);
             bw.close();
             fw.close();

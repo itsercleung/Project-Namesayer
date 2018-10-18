@@ -51,8 +51,12 @@ public class HelpDialog {
                     "(3) Listen/Save recording");
         }
         else if (identifierVal == 2) {
-            pracBody = new Label("Play name: \n" +
-                    "(1) Select name (red outline) by navigating with buttons or clicking on name \n" +
+            pracBody = new Label("Navigating names: \n" +
+                    "(1) Click NEXT or PREV button \n" +
+                    "(2) Click on ROW of name on table \n" +
+                    "\n" +
+                    "Play name: \n" +
+                    "(1) Select name (red outline) \n" +
                     "(2) Press PLAY symbol below \n" +
                     "(3) Listen \n" +
                     "\n" +
@@ -63,10 +67,13 @@ public class HelpDialog {
         }
         else if (identifierVal == 3) {
             pracBody = new Label( "Reward system: \n" +
-                    "* You will unlock achievements and rewards through \n" +
-                    "  LISTENING TO NAMES and SAVING RECORDINGS \n" +
-                    "# Achievements and rewards can be displayed on profile \n" +
-                    "  picture on login \n" +
+                    "-----------------------------------\n" +
+                    "|  Single name (100 pts)   |\n" +
+                    "|  Concat name (150 pts)  |\n" +
+                    "|  Saving name (250 pts)  |\n" +
+                    "-----------------------------------\n" +
+                    "* Rewards are displayed on profile picture on login \n" +
+                    "\n" +
                     "Apply reward: \n" +
                     "(1) Select which reward to apply (red selection) \n" +
                     "(2) Click APPLY button below \n" +
@@ -78,7 +85,7 @@ public class HelpDialog {
         dialog.show();
 
         //Label styles
-        pracBody.setStyle("-fx-font-size: 14px;");
+        pracBody.setStyle("-fx-font-size: 15px;");
         button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
     }
 }

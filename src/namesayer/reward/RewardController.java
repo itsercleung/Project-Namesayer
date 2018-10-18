@@ -87,7 +87,6 @@ public class RewardController implements Initializable {
 
     // TODO possible remove redeem feature, as there is no point anymore
     // TODO we have implemented an auto checker when points threshold is reached
-
     /*@FXML
     void redeemPressed(ActionEvent event) {
         Reward reward = rewardList.getSelectionModel().getSelectedItem();
@@ -99,11 +98,9 @@ public class RewardController implements Initializable {
         // TODO bug where you can use arrow keys to select row to unlock!
         //Determine if awards/achievements are redeemable (ie unlock-able through store rather than set num of points)
         if (!rewardList.getSelectionModel().getSelectedItem().getIsRedeemable()) {
-            //redeemButton.setDisable(true);
             applyButton.setDisable(true);
         }
         else if (rewardList.getSelectionModel().getSelectedItem().getIsRedeemable()) {
-            //redeemButton.setDisable(false);
             applyButton.setDisable(false);
         }
     }
