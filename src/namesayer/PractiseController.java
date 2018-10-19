@@ -345,7 +345,7 @@ public class PractiseController implements Initializable {
                         duplicateCheck(selectedName);
                     }
                 }
-                else if (selectedName.length() > 50) {
+                else if (selectedName != null && selectedName.length() > 50) {
                     HelpDialog helpDialog = new HelpDialog();
                     helpDialog.showLongNameDialog(stackPane);
 
