@@ -335,14 +335,12 @@ public class PractiseController implements Initializable {
                     helpDialog.showLongNameDialog(stackPane);
 
                     //Clear textfield in main thread
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            searchTextField.clear();
-                            searchNameList.clear();
-                            mainRoot.requestFocus();
-                        }
+                    Platform.runLater( () -> {
+                        searchTextField.clear();
+                        searchNameList.clear();
+                        mainRoot.requestFocus();
                     });
+
                 }
             }
         });
@@ -412,15 +410,8 @@ public class PractiseController implements Initializable {
         user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         // Reward and help Popup icons
-        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
-        Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
-        rewardButton.setGraphic(new ImageView(reward));
-        rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
-        rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
-        Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
-        helpButton.setGraphic(new ImageView(help));
-        Image logout = new Image(getClass().getResourceAsStream("resources/icons/sign-out.png"));
-        exitButton.setGraphic(new ImageView(logout));
+        IconLoader iconLoader = new IconLoader(rewardButton,helpButton,exitButton);
+        iconLoader.loadMenuIcons();
     }
 
 }

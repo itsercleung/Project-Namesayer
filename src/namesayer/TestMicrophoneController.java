@@ -173,15 +173,8 @@ public class TestMicrophoneController implements Initializable {
         testButton.setOnMouseExited(e -> testButton.setGraphic(new ImageView(rec)));
 
         // Reward and help Popup icons
-        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
-        Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
-        rewardButton.setGraphic(new ImageView(reward));
-        rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
-        rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
-        Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
-        helpButton.setGraphic(new ImageView(help));
-        Image logout = new Image(getClass().getResourceAsStream("resources/icons/sign-out.png"));
-        exitButton.setGraphic(new ImageView(logout));
+        IconLoader iconLoader = new IconLoader(rewardButton,helpButton,exitButton);
+        iconLoader.loadMenuIcons();
     }
 }
 

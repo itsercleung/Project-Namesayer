@@ -298,49 +298,45 @@ public class PlayController implements Initializable {
             playCompare.setDisable(true);
 
             //Setup official name for saved recording
-            new Thread() {
-                public void run() {
-                    Platform.runLater(new Runnable() {
-                        public void run() {
-                            //Disable buttons
-                            playNewButton.setDisable(true);
-                            playOldButton.setDisable(true);
-                            recordSubButton.setDisable(true);
-                            saveButton.setDisable(true);
-                            playButton.setDisable(true);
-                            playLabel.setText("CURRENTLY RECORDING: " + practiseController.getNamePlaylist().get(currentNameNum).getName()); //Change label on record
+            new Thread(() -> {
+                Platform.runLater(() -> {
+                    //Disable buttons
+                    playNewButton.setDisable(true);
+                    playOldButton.setDisable(true);
+                    recordSubButton.setDisable(true);
+                    saveButton.setDisable(true);
+                    playButton.setDisable(true);
+                    playLabel.setText("CURRENTLY RECORDING: " + practiseController.getNamePlaylist().get(currentNameNum).getName()); //Change label on record
 
-                            tempAudioName = user.getUsername() + "_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
-                            createAudio = new CreateAudio(tempAudioName);
-                            createAudio.createSingleAudio();
-                        }
-                    });
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Platform.runLater(new Runnable() {
-                        public void run() {
-                            //Reenable buttons
-                            playNewButton.setDisable(false);
-                            playOldButton.setDisable(false);
-                            recordSubButton.setDisable(false);
-                            saveButton.setDisable(false);
-                            playButton.setDisable(false);
-                            playCompare.setDisable(false);
-                            playCompare.setDisable(false);
+                    tempAudioName = user.getUsername() + "_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
+                    createAudio = new CreateAudio(tempAudioName);
+                    createAudio.createSingleAudio();
+                });
 
-                            playLabel.setText("FINISHED RECORDING: " + practiseController.getNamePlaylist().get(currentNameNum).getName()); //Change label on record finished
-
-                            //Disable rating and save buttons for concat
-                            if (currSelectedName.contains(" ")) {
-                                saveButton.setDisable(true);
-                            }
-                        }
-                    });
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }.start();
+
+                Platform.runLater(() -> {
+                    //Reenable buttons
+                    playNewButton.setDisable(false);
+                    playOldButton.setDisable(false);
+                    recordSubButton.setDisable(false);
+                    saveButton.setDisable(false);
+                    playButton.setDisable(false);
+                    playCompare.setDisable(false);
+                    playCompare.setDisable(false);
+
+                    playLabel.setText("FINISHED RECORDING: " + practiseController.getNamePlaylist().get(currentNameNum).getName()); //Change label on record finished
+
+                    //Disable rating and save buttons for concat
+                    if (currSelectedName.contains(" ")) {
+                        saveButton.setDisable(true);
+                    }
+                });
+            }).start();
         });
 
         //SAVE NEW - user attempt placed into database to add onto filtering
@@ -386,17 +382,10 @@ public class PlayController implements Initializable {
         Image saveNew = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
         Image saveNewHover = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
         saveButton.setGraphic(new ImageView(saveNew));
-        Image logout = new Image(getClass().getResourceAsStream("resources/icons/sign-out.png"));
-        exitButton.setGraphic(new ImageView(logout));
-        Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
-        helpButton.setGraphic(new ImageView(help));
 
-        // Reward Popup icons
-        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
-        Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
-        rewardButton.setGraphic(new ImageView(reward));
-        rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
-        rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
+
+        IconLoader iconLoader = new IconLoader(rewardButton,helpButton,exitButton);
+        iconLoader.loadMenuIcons();
 
         //Setting styles for side menu bar buttons and EVENTS on hover
         recordSubButton.setFocusTraversable(false);
