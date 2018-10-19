@@ -75,6 +75,7 @@ public class RewardController implements Initializable {
         Reward reward = rewardList.getSelectionModel().getSelectedItem();
         rb.applyReward(reward);
         loader.load(FXMLResource.REWARD,new StackPane(),mainRoot);
+        applyButton.setDisable(true);
     }
 
     @FXML
@@ -91,6 +92,7 @@ public class RewardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rewardButton.setDisable(true);
+        applyButton.setDisable(true);
 
         //Set up user info
         user = UserUtils.getCurrentLoginUser(userText, pointsText);

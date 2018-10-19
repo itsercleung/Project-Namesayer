@@ -63,16 +63,7 @@ public class IconLoader {
     // NOTE: currently based on icons on maincontroller
     public void loadMenuIcons() {
         // Reward Button
-        Image reward;
-
-        if (user.getRewards() == null) {
-            reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
-        } else if (user.getRewards().contains("The Clippy Guide")) {
-            reward = new Image(getClass().getResourceAsStream("resources/icons/clippy.png"));
-        } else {
-            reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
-        }
-
+        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
         Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
         rewardButton.setGraphic(new ImageView(reward));
         rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
@@ -80,6 +71,16 @@ public class IconLoader {
 
         // Help button
         Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
+
+        for (String str : user.getRewards())
+        if (str == null) {
+            help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
+        } else if (str.equals("   The Clippy Guide")) {
+            help = new Image(getClass().getResourceAsStream("resources/icons/clippy.png"));
+            break;
+        } else {
+            help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
+        }
         helpButton.setGraphic(new ImageView(help));
 
         // Logout Button

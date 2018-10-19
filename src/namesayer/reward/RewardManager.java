@@ -41,8 +41,8 @@ public class RewardManager {
                 10000,
                 "../resources/icons/gold.png",
                 RewardType.TROPHY));
-        rewards.add(new Reward( "The Clippy Guide",
-                "Unlock Clippy for 20,000 points!\n    Will guide your way to Platinum!",
+        rewards.add(new Reward( "   The Clippy Guide",
+                "   Unlock Clippy for 20,000 points!\n   Will guide your way to Platinum!",
                 20000, "../resources/icons/clippy.png",
                 RewardType.CLIPPY));
         rewards.add(new Reward("Platinum Trophy",
