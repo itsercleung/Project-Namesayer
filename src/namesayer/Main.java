@@ -7,9 +7,20 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
+
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
+        // create folders
+        File dataFolder = new File("./data");
+        if (!dataFolder.exists()) {
+            dataFolder.mkdir();
+            new File("./data/names").mkdir();
+            new File ("./data/usernames").mkdir();
+            new File("./data/currentUser.txt").createNewFile();
+        }
+
         Parent root = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("NameSayer");
