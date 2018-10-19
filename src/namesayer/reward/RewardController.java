@@ -41,8 +41,7 @@ public class RewardController implements Initializable {
 
     @FXML
     void exitPressed(ActionEvent event) {
-        StackPane root = null;
-        loader.load(FXMLResource.LOGOUT, root, mainRoot);
+        loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
     }
 
     @FXML
@@ -53,50 +52,33 @@ public class RewardController implements Initializable {
 
     @FXML
     void practisePressed(ActionEvent event) {
-        StackPane root = null;
-        loader.load(FXMLResource.PRACTISE, root, mainRoot);
+        loader.load(FXMLResource.PRACTISE, new StackPane(), mainRoot);
     }
 
     @FXML
     void recordNamePressed(ActionEvent event) {
-        StackPane root = null;
-        loader.load(FXMLResource.RECORD_NEW, root, mainRoot);
+        loader.load(FXMLResource.RECORD_NEW, new StackPane(), mainRoot);
     }
 
     @FXML
     void testMicrophonePressed(ActionEvent event) {
-        StackPane root = null;
-        loader.load(FXMLResource.TEST_MICROPHONE, root, mainRoot);
+        loader.load(FXMLResource.TEST_MICROPHONE, new StackPane(), mainRoot);
     }
 
     @FXML
     void rewardPressed(ActionEvent event) {
-        StackPane root = null;
-        loader.load(FXMLResource.REWARD, root, mainRoot);
+        loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
     }
 
     @FXML
     void applyPressed(ActionEvent event) {
         Reward reward = rewardList.getSelectionModel().getSelectedItem();
         rb.applyReward(reward);
-
-        // TODO apply different trophy logic
-        // TODO disable buttons immediately after applying reward
-        StackPane root = null;
-        loader.load(FXMLResource.REWARD,root,mainRoot);
+        loader.load(FXMLResource.REWARD,new StackPane(),mainRoot);
     }
-
-    // TODO possible remove redeem feature, as there is no point anymore
-    // TODO we have implemented an auto checker when points threshold is reached
-    /*@FXML
-    void redeemPressed(ActionEvent event) {
-        Reward reward = rewardList.getSelectionModel().getSelectedItem();
-        rb.redeemReward(reward);
-    }*/
 
     @FXML
     void rewardRowClicked(MouseEvent event) {
-        // TODO bug where you can use arrow keys to select row to unlock!
         //Determine if awards/achievements are redeemable (ie unlock-able through store rather than set num of points)
         if (!rewardList.getSelectionModel().getSelectedItem().getIsRedeemable()) {
             applyButton.setDisable(true);

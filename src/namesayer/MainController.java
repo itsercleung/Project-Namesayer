@@ -33,8 +33,7 @@ public class MainController implements Initializable {
     private FXMLResourceLoader loader = new FXMLResourceLoader();
 
     @FXML private void exitPressed(ActionEvent event) {
-        StackPane loginRoot = null;
-        loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
+        loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
     }
 
     //Load help popup
@@ -45,26 +44,22 @@ public class MainController implements Initializable {
 
     //Load rewards window
     @FXML private void rewardPressed(ActionEvent event) {
-        StackPane rewardsRoot = null;
-        loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
+        loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
     }
 
     @FXML private void testMicrophonePressed(ActionEvent event) {
         //Load testMicrophone pane
-        StackPane testMicrophoneRoot = null;
-        loader.load(FXMLResource.TEST_MICROPHONE,testMicrophoneRoot,mainRoot);
+        loader.load(FXMLResource.TEST_MICROPHONE,new StackPane(),mainRoot);
     }
 
     @FXML private void practisePressed(ActionEvent event) {
         //Load practise pane
-        StackPane practiseRoot = null;
-        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
+        loader.load(FXMLResource.PRACTISE,new StackPane(),mainRoot);
     }
 
     @FXML private void recordNamePressed(ActionEvent event) {
         //record new practise pane
-        StackPane practiseRoot = null;
-        loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
+        loader.load(FXMLResource.RECORD_NEW,new StackPane(),mainRoot);
     }
 
     //Method to delete all existing temp files within the folder
