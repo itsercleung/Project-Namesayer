@@ -95,7 +95,7 @@ public class HelpDialog {
 
     public void showDuplicateDialog(StackPane stackPane, String label) {
         //Checking which error dialog to run
-        label += "\nGo to [CREATE NEW NAME] to make any name!";
+        label += " :(";
         Label dupLabel = new Label(label);
 
         Button button = new Button("Got it");

@@ -263,19 +263,9 @@ public class PractiseController implements Initializable {
     private void duplicateCheck(String name) {
         //Show JFX dialog to warn user about duplicate play name
         if (selectedNameList.contains(name)) {
-            Button button = new Button("Got it");
-            button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
-            JFXDialogLayout dialogLayout = new JFXDialogLayout();
-            JFXDialog dialog = new JFXDialog(stackPane, dialogLayout, JFXDialog.DialogTransition.TOP);
-            dialogLayout.setHeading(new Label("Note"));
-            dialogLayout.setBody(new Label("Sorry! " + name + " already in your play list!"));
-            dialogLayout.setActions(button);
-            dialog.show();
-
-            //Set action on to close
-            button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
-                dialog.close();
-            });
+            String dupString = "Sorry! " + name + " already in your playlist!";
+            HelpDialog helpDialog = new HelpDialog();
+            helpDialog.showDuplicateDialog(stackPane,dupString);
 
             searchNamesView.setVisible(false);
             Platform.runLater(new Runnable() {
