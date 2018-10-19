@@ -207,7 +207,7 @@ public class PractiseController implements Initializable {
         }
 
         if (rejectList.size() > 0) {
-            String label = "The following names are not available:\n";
+            String label = "The following names are not available:\n\n";
 
             for (String name : rejectList) {
                 StringBuilder sb = new StringBuilder(label);

@@ -270,15 +270,15 @@ public class PlayController implements Initializable {
         //PLAYNEW - plays users recorded version of name file (if exists)
         playNewButton.setDisable(true);
         playNewButton.setOnMousePressed(event ->
-                playManager.playNewAudio(tempAudioName));
+                new Thread(() -> playManager.playNewAudio(tempAudioName)).start());
 
         //PLAYCOMPARE - plays comparison between old and new
         playCompare.setDisable(true);
         playCompare.setOnMousePressed(event -> {
             //TODO: Try simply playing old then new for one time.
-            new Thread(() -> {
-                playManager.playAlternateAudio(practiseController, currentNameNum, tempAudioName);
-            }).start();
+            new Thread(() ->
+                    playManager.playAlternateAudio(practiseController, currentNameNum, tempAudioName)
+            ).start();
         });
 
         //RECORD - records user trying to pronounce PLAYOLD name
