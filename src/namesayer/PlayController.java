@@ -222,6 +222,9 @@ public class PlayController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //Setting table and rating updates using RatingManager class
         populateTableView();
+        //Set user current name and score
+        user = UserUtils.getCurrentLoginUser(userText, pointsText);
+
         ratingManager = new RatingManager(selectedList, practiseController, audioRating);
         selectedList = ratingManager.ratingUpdate();
         ratingManager.updateRatingComponent(currentNameNum);
@@ -350,9 +353,6 @@ public class PlayController implements Initializable {
         //INIT JFX-POPUP
         VBox box = new VBox(recordSubButton, playOldButton, playNewButton, playCompare, saveButton); // can make HBox
         recordPopup.setPopupContent(box);
-
-        //Set user current name and score
-        user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         //Set icons to specific buttons from resources/icons (credited in description).
         //Set icons for play menu
