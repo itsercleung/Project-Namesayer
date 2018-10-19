@@ -161,35 +161,45 @@ public class PractiseController implements Initializable {
             e.printStackTrace();
         }
 
-        List<String> rejectList = new ArrayList<>();
         // go through text file and check if name is in names db
+        List<String> rejectList = new ArrayList<>();
+        boolean flagCharLimit = false; //Indicate if over 50 chars name exists
         while (reader.hasNextLine()) {
             String name = reader.nextLine().replace("-", " ").toLowerCase();
 
             if (!selectedNameList.contains(name)) {
-                if (searchNameList.contains(name)) {
-                    selectedNameList.add(name);
-                } else if (name.contains(" ") || name.contains("-")) {
-                    String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
-                    boolean canConcat = true;
+                if (name.length() <= 50) {
+                    if (searchNameList.contains(name)) {
+                        selectedNameList.add(name);
+                    } else if (name.contains(" ") || name.contains("-")) {
+                        String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
+                        boolean canConcat = true;
 
-                    // go through list of names, if it is a name that exists in database, then add it
-                    for (String singleName : names) {
-                        if (!searchNameList.contains(singleName.toLowerCase())) {
-                            canConcat = false;
-                            break;
+                        // go through list of names, if it is a name that exists in database, then add it
+                        for (String singleName : names) {
+                            if (!searchNameList.contains(singleName.toLowerCase())) {
+                                canConcat = false;
+                                break;
+                            }
+                        }
+                        if (canConcat) {
+                            if (selectedNameList.contains("[COMBINE]: " + name)) {
+                                duplicateCheck("[COMBINE]: " + name);
+                            } else if (!selectedNameList.contains("[COMBINE]: " + name)) {
+                                selectedNameList.add("[COMBINE]: " + name);
+                            }
+                        }
+                    } else {
+                        // add name to reject list (if name doesn't exist)
+                        if (!name.isEmpty()) {
+                            rejectList.add(name);
                         }
                     }
-                    if (canConcat) {
-                        if (selectedNameList.contains("[COMBINE]: " + name)) {
-                            duplicateCheck("[COMBINE]: " + name);
-                        } else if (!selectedNameList.contains("[COMBINE]: " + name)) {
-                            selectedNameList.add("[COMBINE]: " + name);
-                        }
-                    }
-                } else {
-                    // add name to reject list (if name doesn't exist)
-                    rejectList.add(name);
+                }
+                else if (name.length() > 50 && !flagCharLimit) {
+                    flagCharLimit = true;
+                    HelpDialog helpDialog = new HelpDialog();
+                    helpDialog.showLongNameDialog(stackPane);
                 }
             } else if (selectedNameList.contains(name)) {
                 duplicateCheck(name);
@@ -201,24 +211,11 @@ public class PractiseController implements Initializable {
 
             for (String name : rejectList) {
                 StringBuilder sb = new StringBuilder(label);
-                label = sb.append(name + "\n").toString();
+                label = sb.append("-" + name + "\n").toString();
             }
-            //rejectList.toString()
 
-            label += "\nBe the first to create one of these names!";
-            Button button = new Button("Got it");
-            button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
-            JFXDialogLayout layout = new JFXDialogLayout();
-            JFXDialog dialog = new JFXDialog(stackPane, layout, JFXDialog.DialogTransition.TOP);
-            layout.setHeading(new Label("Note"));
-            layout.setBody(new Label(label));
-            layout.setActions(button);
-            dialog.show();
-
-            //Set action on to close
-            button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
-                dialog.close();
-            });
+            HelpDialog helpDialog = new HelpDialog();
+            helpDialog.showDuplicateDialog(stackPane, label);
         }
 
         selectedNamesView.setItems(selectedNameList);
@@ -326,7 +323,8 @@ public class PractiseController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 String selectedName = searchNamesView.getSelectionModel().getSelectedItem();
-                if (selectedName != null) {
+                //Checking if not empty and not more than 50 characters
+                if (selectedName != null && selectedName.length() <= 50) {
                     if (!selectedNameList.contains(selectedName)) {
                         duplicateCheck(selectedName);
                         selectedNameList.add(selectedName);
@@ -346,6 +344,20 @@ public class PractiseController implements Initializable {
                     } else if (selectedNameList.contains(selectedName)) {
                         duplicateCheck(selectedName);
                     }
+                }
+                else if (selectedName.length() > 50) {
+                    HelpDialog helpDialog = new HelpDialog();
+                    helpDialog.showLongNameDialog(stackPane);
+
+                    //Clear textfield in main thread
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchTextField.clear();
+                            searchNameList.clear();
+                            mainRoot.requestFocus();
+                        }
+                    });
                 }
             }
         });

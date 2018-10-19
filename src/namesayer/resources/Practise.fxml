@@ -106,7 +106,7 @@
                         </Label>
                         <HBox prefHeight="80.0" prefWidth="200.0">
                            <children>
-                              <JFXTextField fx:id="searchTextField" focusColor="#ff5252" minHeight="50.0" prefWidth="300.0" promptText="Search any name (case-insensitive)" stylesheets="@stylesheet/general.css">
+                              <JFXTextField fx:id="searchTextField" focusColor="#ff5252" minHeight="50.0" prefHeight="50.0" prefWidth="330.0" promptText="Search any name (case-insensitive)" stylesheets="@stylesheet/general.css">
                                  <HBox.margin>
                                     <Insets left="140.0" right="-3.0" top="5.0" />
                                  </HBox.margin>
@@ -148,7 +148,7 @@
                                     <Insets left="240.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox prefHeight="250.0" prefWidth="300.0">
+                              <VBox prefHeight="250.0" prefWidth="330.0">
                                  <children>
                                     <JFXListView fx:id="searchNamesView" prefHeight="200.0" stylesheets="@stylesheet/search.css">
                                        <VBox.margin>

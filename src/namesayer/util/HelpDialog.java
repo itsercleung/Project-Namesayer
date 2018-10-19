@@ -11,6 +11,10 @@ import javafx.scene.layout.StackPane;
 public class HelpDialog {
     private Button helpButton;
 
+    public HelpDialog() {
+
+    }
+
     public HelpDialog(Button helpButton) {
         this.helpButton = helpButton;
         helpButton.setDisable(true);
@@ -87,5 +91,41 @@ public class HelpDialog {
         //Label styles
         pracBody.setStyle("-fx-font-size: 15px;");
         button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
+    }
+
+    public void showDuplicateDialog(StackPane stackPane, String label) {
+        //Checking which error dialog to run
+        label += "\nGo to [CREATE NEW NAME] to make any name!";
+        Label dupLabel = new Label(label);
+
+        Button button = new Button("Got it");
+        button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
+        JFXDialogLayout layout = new JFXDialogLayout();
+        JFXDialog dialog = new JFXDialog(stackPane, layout, JFXDialog.DialogTransition.TOP);
+        layout.setHeading(new Label("Note"));
+        layout.setBody(dupLabel);
+        layout.setActions(button);
+        dialog.show();
+
+        //Set action on to close
+        button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
+            dialog.close();
+        });
+    }
+
+    public void showLongNameDialog(StackPane stackPane) {
+        Button button = new Button("Got it");
+        button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
+        JFXDialogLayout layout = new JFXDialogLayout();
+        JFXDialog dialog = new JFXDialog(stackPane, layout, JFXDialog.DialogTransition.TOP);
+        layout.setHeading(new Label("Note"));
+        layout.setBody(new Label("A name is too long (50 chars limit)!"));
+        layout.setActions(button);
+        dialog.show();
+
+        //Set action on to close
+        button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
+            dialog.close();
+        });
     }
 }

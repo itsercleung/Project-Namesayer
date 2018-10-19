@@ -237,9 +237,11 @@ public class PlayController implements Initializable {
         currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
 
         //Concat multiple names selected
-        for (PlayAudio audio : practiseController.getPlayAudioList()) {
-            audio.concatCombinedAudio();
-        }
+        new Thread(() -> {
+            for (PlayAudio audio : practiseController.getPlayAudioList()) {
+                audio.concatCombinedAudio();
+            }
+        }).start();
 
         //Disable/Enable rating depending on name concat
         currSelectedName = nameTable.getSelectionModel().getSelectedItem().toString();
@@ -267,7 +269,6 @@ public class PlayController implements Initializable {
 
         //PLAYNEW - plays users recorded version of name file (if exists)
         playNewButton.setDisable(true);
-        //playNewButton.setOnMousePressed(event -> playNew());
         playNewButton.setOnMousePressed(event ->
                 playManager.playNewAudio(tempAudioName));
 
