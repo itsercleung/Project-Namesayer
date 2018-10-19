@@ -3,8 +3,6 @@ package namesayer.login;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import namesayer.reward.Reward;
 
@@ -119,6 +117,11 @@ public class UserUtils {
         return null;
     }
 
+    /**
+     * Creates user and associated txt file.
+     * @param name
+     * @return
+     */
     public static boolean createUser(String name) {
         String path = "./data/usernames/" + name + ".txt";
         File usernameTxt = new File(path);
@@ -142,7 +145,7 @@ public class UserUtils {
 
     /**
      * updateUser sets or updates user information on the Text
-     * at bottom left corner.
+     * at top left corner.
      */
     public static void updateUser(User user, Text userText, Text pointsText) {
         userText.setText("User: " + user.getUsername());
@@ -212,16 +215,10 @@ public class UserUtils {
                 return;
             }
 
-            // TODO update code for multiple types of rewards (e.g. trophy, clippy)
             HashSet<String> addOrRemoveSet = new HashSet<>();
 
             addOrRemoveSet.add(rewardName);
             updateString = updateString + "~" + rewardName;
-            // for every reward currently active
-            for (String r : user.getRewards()) {
-
-            }
-
             user.setRewards(addOrRemoveSet);
             bw.write(updateString);
             bw.close();

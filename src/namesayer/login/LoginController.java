@@ -5,11 +5,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,7 +19,6 @@ public class LoginController implements Initializable {
     @FXML private AnchorPane mainRoot;
     @FXML private StackPane stackPane;
     @FXML private Button loginButton;
-    @FXML private Button newUserButton;
 
     @FXML
     private void exitButtonPressed(ActionEvent event) {

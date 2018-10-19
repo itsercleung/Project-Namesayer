@@ -1,18 +1,21 @@
 package namesayer.util;
 
-import java.io.*;
+import javafx.concurrent.Task;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import javafx.concurrent.Task;
-import sun.audio.*;
+/**
+ * Input of a string with destination of audio file to play -
+ * uses AudioStream and AudioPlayer for .wav files
+ */
 
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-
-//Input of a string with destination of audio file to play - uses AudioStream and AudioPlayer for .wav files
 public class PlayAudio {
     private String audio;
     private List<String> combineAudio = new ArrayList<>();

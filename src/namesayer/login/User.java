@@ -1,14 +1,11 @@
 package namesayer.login;
 
-import namesayer.reward.Reward;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 
+/**
+ * User describes the information related to a user.
+ * A user has a username, points earned and rewards available.
+ */
 public class User {
     private String username;
     private int points;
@@ -41,10 +38,6 @@ public class User {
     public void setRewards(HashSet<String> rewards) {
         this.rewards = rewards;
     }
-
-    public void addReward(String reward) { rewards.add(reward); }
-
-    public void removeReward(String reward) { rewards.remove(reward); }
 
     @Override
     public String toString() {

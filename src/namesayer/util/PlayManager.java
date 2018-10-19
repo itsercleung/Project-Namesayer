@@ -2,7 +2,6 @@ package namesayer.util;
 
 import javafx.application.Platform;
 import javafx.scene.control.Button;
-import namesayer.PlayController;
 import namesayer.PractiseController;
 
 /**

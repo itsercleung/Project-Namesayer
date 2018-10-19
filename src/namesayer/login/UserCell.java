@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 /**
- * Has all the UI info about a listview cell
+ * Has all the UI controller info about a listview cell
  */
 public class UserCell extends ListCell<User> {
 
@@ -23,7 +23,7 @@ public class UserCell extends ListCell<User> {
     private Text username = new Text("");
     @FXML
     private Text points = new Text("");
-    // TODO possibly add trophy reward image for user (if they earned it) here
+
     @FXML
     private ImageView image;
 

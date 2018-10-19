@@ -9,6 +9,9 @@ import javafx.stage.StageStyle;
 
 import java.io.File;
 
+/**
+ * Main initialises the entire NameSayer program.
+ */
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{

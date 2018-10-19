@@ -3,16 +3,11 @@ package namesayer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -21,7 +16,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import namesayer.login.Points;
 import namesayer.login.User;
@@ -29,23 +26,31 @@ import namesayer.login.UserUtils;
 import namesayer.util.*;
 import org.controlsfx.control.Rating;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ResourceBundle;
 
 public class PlayController implements Initializable {
 
-    @FXML private AnchorPane mainRoot;
-    @FXML private TableView<Name> nameTable;
-    @FXML private TableColumn<Name, String> nameCol;
-    @FXML private TableColumn<Name, String> createdCol;
-    @FXML private TableColumn<Name, Rating> ratingCol;
-    @FXML private Label playLabel;
-    @FXML private Text userText, pointsText;
-    @FXML private Button nextButton, recordButton, stopButton, playButton, prevButton;
-    @FXML private Button rewardButton, exitButton, helpButton;
-    @FXML private Rating audioRating;
-    @FXML private StackPane stackPane;
+    @FXML
+    private AnchorPane mainRoot;
+    @FXML
+    private TableView<Name> nameTable;
+    @FXML
+    private TableColumn<Name, String> nameCol, createdCol;
+    @FXML
+    private TableColumn<Name, Rating> ratingCol;
+    @FXML
+    private Label playLabel;
+    @FXML
+    private Text userText, pointsText;
+    @FXML
+    private Button nextButton, recordButton, stopButton,
+            playButton, prevButton, rewardButton,
+            exitButton, helpButton;
+    @FXML
+    private Rating audioRating;
+    @FXML
+    private StackPane stackPane;
 
     private PractiseController practiseController = new PractiseController();
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
