@@ -92,7 +92,7 @@ public class PlayController implements Initializable {
     @FXML
     void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
-        helpDialog.showHelpDialog(stackPane,2);
+        helpDialog.showHelpDialog(stackPane, 2);
     }
 
     //Load rewards window
@@ -271,6 +271,12 @@ public class PlayController implements Initializable {
         playNewButton.setDisable(true);
         playNewButton.setOnMousePressed(event ->
                 new Thread(() -> playManager.playNewAudio(tempAudioName)).start());
+        if (currSelectedName.contains(" ")) {
+            UserUtils.updateUser(user, Points.PRACTISE_CONCAT_NAME, userText, pointsText);
+        } else {
+            UserUtils.updateUser(user, Points.PRACTISE_NAME, userText, pointsText);
+        }
+
 
         //PLAYCOMPARE - plays comparison between old and new
         playCompare.setDisable(true);
@@ -279,6 +285,11 @@ public class PlayController implements Initializable {
             new Thread(() ->
                     playManager.playAlternateAudio(practiseController, currentNameNum, tempAudioName)
             ).start();
+            if (currSelectedName.contains(" ")) {
+                UserUtils.updateUser(user, Points.COMPARE_NAME, userText, pointsText);
+            } else {
+                UserUtils.updateUser(user, Points.PRACTISE_NAME, userText, pointsText);
+            }
         });
 
         //RECORD - records user trying to pronounce PLAYOLD name
@@ -331,7 +342,10 @@ public class PlayController implements Initializable {
         });
 
         //SAVE NEW - user attempt placed into database to add onto filtering
-        saveButton.setOnMousePressed(event -> createAudio.saveAudio());
+        saveButton.setOnMousePressed(event -> {
+            createAudio.saveAudio();
+            UserUtils.updateUser(user, Points.CREATE_NAME, userText, pointsText);
+        });
 
         //INIT JFX-POPUP
         VBox box = new VBox(recordSubButton, playOldButton, playNewButton, playCompare, saveButton); // can make HBox
