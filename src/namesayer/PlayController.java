@@ -275,7 +275,7 @@ public class PlayController implements Initializable {
         //PLAYCOMPARE - plays comparison between old and new
         playCompare.setDisable(true);
         playCompare.setOnMousePressed(event -> {
-            //TODO: Try simply playing old then new for one time.
+            playLabel.setText("CURRENTLY COMPARING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
             new Thread(() ->
                     playManager.playAlternateAudio(practiseController, currentNameNum, tempAudioName)
             ).start();
