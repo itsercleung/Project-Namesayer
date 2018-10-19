@@ -35,34 +35,22 @@ import java.util.*;
 
 public class PlayController implements Initializable {
 
-    @FXML
-    private AnchorPane mainRoot;
-    @FXML
-    private TableView<Name> nameTable;
-    @FXML
-    private TableColumn<Name, String> nameCol;
-    @FXML
-    private TableColumn<Name, String> createdCol;
-    @FXML
-    private TableColumn<Name, Rating> ratingCol;
-    @FXML
-    private Label playLabel;
-    @FXML
-    private Text userText, pointsText;
-    @FXML
-    private Button nextButton, recordButton, stopButton, playButton, prevButton;
-    @FXML
-    private Button rewardButton, exitButton, helpButton;
-    @FXML
-    private Rating audioRating;
-    @FXML
-    private StackPane stackPane;
+    @FXML private AnchorPane mainRoot;
+    @FXML private TableView<Name> nameTable;
+    @FXML private TableColumn<Name, String> nameCol;
+    @FXML private TableColumn<Name, String> createdCol;
+    @FXML private TableColumn<Name, Rating> ratingCol;
+    @FXML private Label playLabel;
+    @FXML private Text userText, pointsText;
+    @FXML private Button nextButton, recordButton, stopButton, playButton, prevButton;
+    @FXML private Button rewardButton, exitButton, helpButton;
+    @FXML private Rating audioRating;
+    @FXML private StackPane stackPane;
 
     private PractiseController practiseController = new PractiseController();
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
     private int currentNameNum = 0; //Current name being played
     private String currSelectedName; //Current name row selected by user
-    private PlayAudio playAudio;
     private RatingManager ratingManager; //Rating instance for rating changes and updates
     private User user;
 
@@ -113,7 +101,7 @@ public class PlayController implements Initializable {
         prevButton.setDisable(false);
 
         //Update rating and components
-        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+        playLabel.setText("CURRENTLY SELECTED: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
         ratingManager.updateRatingComponent(currentNameNum);
 
@@ -131,7 +119,7 @@ public class PlayController implements Initializable {
             prevButton.setDisable(true);
         }
         nextButton.setDisable(false);
-        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+        playLabel.setText("CURRENTLY SELECTED: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         nameTable.getSelectionModel().select(currentNameNum);
         ratingManager.updateRatingComponent(currentNameNum);
 
@@ -162,7 +150,7 @@ public class PlayController implements Initializable {
         if (currentNameNum == practiseController.getNamePlaylist().size() - 1) {
             nextButton.setDisable(true);
         }
-        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+        playLabel.setText("CURRENTLY SELECTED: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
         ratingManager.updateRatingComponent(currentNameNum);
 
         //Disable/Enable rating depending on name concat
@@ -173,6 +161,8 @@ public class PlayController implements Initializable {
     //Plays current selected name audio for 5 seconds
     @FXML
     void playPressed(ActionEvent event) {
+        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName()); //Change text to playing auddio
+
         new Thread(() ->
                 playManager.playOldAudio(practiseController, currentNameNum)).start();
         if (currSelectedName.contains(" ")) {
@@ -222,13 +212,11 @@ public class PlayController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //Setting table and rating updates using RatingManager class
         populateTableView();
-        //Set user current name and score
-        user = UserUtils.getCurrentLoginUser(userText, pointsText);
-
+        user = UserUtils.getCurrentLoginUser(userText, pointsText); //Set user current name and score
         ratingManager = new RatingManager(selectedList, practiseController, audioRating);
         selectedList = ratingManager.ratingUpdate();
         ratingManager.updateRatingComponent(currentNameNum);
-        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+        playLabel.setText("CURRENTLY SELECTED: " + practiseController.getNamePlaylist().get(currentNameNum).getName()); //Set text to what name is selected
 
         //Accounting for single audio in which button is disabled
         if (practiseController.getNamePlaylist().size() == 1) {
@@ -260,20 +248,23 @@ public class PlayController implements Initializable {
         //PLAYOLD - plays current names audio file
         saveButton.setDisable(true);
         playOldButton.setOnMousePressed(event -> {
-                    new Thread(() -> playManager.playOldAudio(practiseController, currentNameNum)).start();
+            playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
 
-                    if (currSelectedName.contains(" ")) {
-                        UserUtils.updateUser(user, Points.PRACTISE_CONCAT_NAME, userText, pointsText);
-                    } else {
-                        UserUtils.updateUser(user, Points.PRACTISE_NAME, userText, pointsText);
-                    }
-                }
-        );
+            new Thread(() -> playManager.playOldAudio(practiseController, currentNameNum)).start();
+            if (currSelectedName.contains(" ")) {
+                UserUtils.updateUser(user, Points.PRACTISE_CONCAT_NAME, userText, pointsText);
+            } else {
+                UserUtils.updateUser(user, Points.PRACTISE_NAME, userText, pointsText);
+            }
+        });
 
         //PLAYNEW - plays users recorded version of name file (if exists)
         playNewButton.setDisable(true);
-        playNewButton.setOnMousePressed(event ->
-                new Thread(() -> playManager.playNewAudio(tempAudioName)).start());
+        playNewButton.setOnMousePressed(event -> {
+            playLabel.setText("CURRENTLY PLAYING *NEW*: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
+            new Thread(() -> playManager.playNewAudio(tempAudioName)).start();
+        });
+
         if (currSelectedName.contains(" ")) {
             UserUtils.updateUser(user, Points.PRACTISE_CONCAT_NAME, userText, pointsText);
         } else {
@@ -312,6 +303,7 @@ public class PlayController implements Initializable {
                             recordSubButton.setDisable(true);
                             saveButton.setDisable(true);
                             playButton.setDisable(true);
+                            playLabel.setText("CURRENTLY RECORDING: " + practiseController.getNamePlaylist().get(currentNameNum).getName()); //Change label on record
 
                             tempAudioName = user.getUsername() + "_" + practiseController.getNamePlaylist().get(currentNameNum).replaceDesc();
                             createAudio = new CreateAudio(tempAudioName);
@@ -333,6 +325,8 @@ public class PlayController implements Initializable {
                             playButton.setDisable(false);
                             playCompare.setDisable(false);
                             playCompare.setDisable(false);
+
+                            playLabel.setText("FINISHED RECORDING: " + practiseController.getNamePlaylist().get(currentNameNum).getName()); //Change label on record finished
 
                             //Disable rating and save buttons for concat
                             if (currSelectedName.contains(" ")) {
