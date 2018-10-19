@@ -20,6 +20,7 @@ public class UserUtils {
 
     /**
      * Updates user list in main menu
+     *
      * @param userList
      */
     public static void updateUserList(JFXListView<User> userList) {
@@ -46,7 +47,7 @@ public class UserUtils {
 
                     // get rewards
                     if (user.length > 2) {
-                        String[] subset = Arrays.copyOfRange(user,2,user.length);
+                        String[] subset = Arrays.copyOfRange(user, 2, user.length);
                         rewards = new HashSet<>(Arrays.asList(subset));
                     }
 
@@ -92,7 +93,7 @@ public class UserUtils {
             reader.close();
 
             // get user info from data
-            path = "./data/usernames/"+username+".txt";
+            path = "./data/usernames/" + username + ".txt";
             File userInfo = new File(path);
             reader = new Scanner(userInfo);
             String[] user = reader.nextLine().split("~");
@@ -103,14 +104,14 @@ public class UserUtils {
 
             // get rewards
             if (user.length > 2) {
-                String[] subset = Arrays.copyOfRange(user,2,user.length);
+                String[] subset = Arrays.copyOfRange(user, 2, user.length);
                 rewards = new HashSet<>(Arrays.asList(subset));
             }
 
             reader.close();
 
             userText.setText(username);
-            pointsText.setText("Points: "+points);
+            pointsText.setText("Points: " + points);
             return new User(username, points, rewards);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -155,6 +156,12 @@ public class UserUtils {
             BufferedWriter bw = new BufferedWriter(fw);
             String updateString = user.getUsername() + "~" + String.valueOf(user.getPoints());
 
+            if (user.getRewards() == null) {
+                bw.write(updateString);
+                bw.close();
+                return;
+            }
+
             for (String r : user.getRewards()) {
                 updateString = updateString + "~" + r;
             }
@@ -171,12 +178,13 @@ public class UserUtils {
      */
     public static void updateUser(User user, Points points, Text userText, Text pointsText) {
         user.addPoints(points);
-        UserUtils.updateUser(user,userText,pointsText);
+        UserUtils.updateUser(user, userText, pointsText);
     }
 
 
     /**
      * updateUserRewards will disable or enable the current input reward.
+     *
      * @param user
      * @param reward
      */
