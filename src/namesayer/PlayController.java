@@ -350,7 +350,7 @@ public class PlayController implements Initializable {
         recordPopup.setPopupContent(box);
 
 
-        IconLoader iconLoader = new IconLoader(rewardButton,helpButton,exitButton,
+        IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton,
                  playButton,  stopButton,  prevButton,  nextButton,  recordButton,
                  recordSubButton,  playOldButton, playNewButton,  playCompare,  saveButton);
         iconLoader.loadMenuIcons();

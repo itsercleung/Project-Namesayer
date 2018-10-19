@@ -173,7 +173,7 @@ public class TestMicrophoneController implements Initializable {
         testButton.setOnMouseExited(e -> testButton.setGraphic(new ImageView(rec)));
 
         // Reward and help Popup icons
-        IconLoader iconLoader = new IconLoader(rewardButton,helpButton,exitButton);
+        IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton);
         iconLoader.loadMenuIcons();
     }
 }

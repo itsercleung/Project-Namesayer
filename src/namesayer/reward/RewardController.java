@@ -105,7 +105,7 @@ public class RewardController implements Initializable {
         pointsToSpend.setText(text);
 
         // Reward and help Popup icons
-        IconLoader iconLoader = new IconLoader(rewardButton,helpButton,exitButton);
+        IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton);
         iconLoader.loadMenuIcons();
     }
 }

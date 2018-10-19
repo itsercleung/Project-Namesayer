@@ -9,8 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -324,22 +322,12 @@ public class RecordNewController implements Initializable {
         //Set user current name and score
         user = UserUtils.getCurrentLoginUser(userText,pointsText);
 
-        //Set icons to specific buttons from resources/icons (credited in description).
-        //Set icons for record new menu
-        Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
-        Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
-        recordButton.setGraphic(new ImageView(rec));
-        recordButton.setOnMouseEntered(e -> recordButton.setGraphic(new ImageView(recHover)));
-        recordButton.setOnMouseExited(e -> recordButton.setGraphic(new ImageView(rec)));
-        Image save = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
-        saveButton.setGraphic(new ImageView(save));
-        Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
-        listenButton.setGraphic(new ImageView(play));
-        Image stop = new Image(getClass().getResourceAsStream("resources/icons/stop.png"));
-        stopPlayButton.setGraphic(new ImageView(stop));
+
 
         // Reward and help Popup icons
-        IconLoader iconLoader = new IconLoader(rewardButton,helpButton,exitButton);
+        IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton,
+                 recordButton,  saveButton, listenButton,  stopPlayButton);
         iconLoader.loadMenuIcons();
+        iconLoader.loadRecordNewIcons();
     }
 }

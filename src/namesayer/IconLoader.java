@@ -4,17 +4,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import namesayer.login.User;
 
 public class IconLoader {
 
+    private User user;
     private Button rewardButton, helpButton, exitButton;
     private Button playButton, stopButton, prevButton, nextButton, recordButton;
     private Button recordSubButton, playOldButton, playNewButton, playCompare, saveButton;
+    private Button listenButton, stopPlayButton;
 
     /**
      * Loads icons for the main menu items
      */
-    public IconLoader(Button rewardButton, Button helpButton, Button exitButton) {
+    public IconLoader(User user, Button rewardButton, Button helpButton, Button exitButton) {
+        this.user = user;
         this.rewardButton = rewardButton;
         this.helpButton = helpButton;
         this.exitButton = exitButton;
@@ -23,10 +27,10 @@ public class IconLoader {
     /**
      * Loads icons for PlayController
      */
-    public IconLoader(Button rewardButton, Button helpButton, Button exitButton,
+    public IconLoader(User user, Button rewardButton, Button helpButton, Button exitButton,
                       Button playButton, Button stopButton, Button prevButton, Button nextButton, Button recordButton,
                       Button recordSubButton, Button playOld, Button playNew, Button playCompare, Button save) {
-        this(rewardButton, helpButton, exitButton);
+        this(user, rewardButton, helpButton, exitButton);
         this.playButton = playButton;
         this.stopButton = stopButton;
         this.prevButton = prevButton;
@@ -41,6 +45,17 @@ public class IconLoader {
 
     }
 
+    /**
+     * Loads icons for RecordNewController
+     */
+    public IconLoader(User user, Button rewardButton, Button helpButton, Button exitButton,
+                      Button recordButton, Button saveButton, Button listenButton, Button stopPlayButton) {
+        this(user, rewardButton, helpButton, exitButton);
+        this.recordButton = recordButton;
+        this.saveButton = saveButton;
+        this.listenButton = listenButton;
+        this.stopPlayButton = stopPlayButton;
+    }
 
     /**
      * Loads all common icons for most menus
@@ -48,7 +63,16 @@ public class IconLoader {
     // NOTE: currently based on icons on maincontroller
     public void loadMenuIcons() {
         // Reward Button
-        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
+        Image reward;
+
+        if (user.getRewards() == null) {
+            reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
+        } else if (user.getRewards().contains("The Clippy Guide")) {
+            reward = new Image(getClass().getResourceAsStream("resources/icons/clippy.png"));
+        } else {
+            reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
+        }
+
         Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
         rewardButton.setGraphic(new ImageView(reward));
         rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
@@ -153,5 +177,24 @@ public class IconLoader {
             saveButton.setStyle("-fx-background-color: transparent");
             saveButton.setGraphic(new ImageView(saveNew));
         });
+    }
+
+    /**
+     * Loads RecordNewController specific icons
+     */
+    public void loadRecordNewIcons() {
+        //Set icons to specific buttons from resources/icons (credited in description).
+        //Set icons for record new menu
+        Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
+        Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
+        recordButton.setGraphic(new ImageView(rec));
+        recordButton.setOnMouseEntered(e -> recordButton.setGraphic(new ImageView(recHover)));
+        recordButton.setOnMouseExited(e -> recordButton.setGraphic(new ImageView(rec)));
+        Image save = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
+        saveButton.setGraphic(new ImageView(save));
+        Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
+        listenButton.setGraphic(new ImageView(play));
+        Image stop = new Image(getClass().getResourceAsStream("resources/icons/stop.png"));
+        stopPlayButton.setGraphic(new ImageView(stop));
     }
 }
