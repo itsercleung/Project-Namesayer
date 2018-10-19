@@ -285,6 +285,7 @@ public class PlayController implements Initializable {
         recordSubButton.setOnMousePressed(event -> {
             playNewButton.setDisable(false);
             saveButton.setDisable(false);
+            playCompare.setDisable(true);
 
             //Setup official name for saved recording
             new Thread() {
@@ -316,6 +317,7 @@ public class PlayController implements Initializable {
                             recordSubButton.setDisable(false);
                             saveButton.setDisable(false);
                             playButton.setDisable(false);
+                            playCompare.setDisable(false);
                             playCompare.setDisable(false);
 
                             //Disable rating and save buttons for concat
@@ -388,6 +390,7 @@ public class PlayController implements Initializable {
         playNewButton.setFocusTraversable(false);
         playOldButton.setFocusTraversable(false);
         saveButton.setFocusTraversable(false);
+        playCompare.setFocusTraversable(false);
 
         //Setting mouse hover events
         recordSubButton.setOnMouseEntered(e -> {
