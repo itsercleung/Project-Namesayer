@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import namesayer.IconLoader;
+import namesayer.NameSayerMenuController;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
 import namesayer.util.FXMLResource;
@@ -25,52 +26,21 @@ import java.util.ResourceBundle;
  * rewards and applying such rewards and initializing users currently earned and locked rewards, including using RewardCell
  * to display all rewards on the listView
  */
-public class RewardController implements Initializable {
+public class RewardController extends NameSayerMenuController implements Initializable {
 
     @FXML private StackPane stackPane;
-    @FXML private AnchorPane mainRoot;
-    @FXML private Text userText, pointsText;
-    @FXML private Button exitButton, helpButton, rewardButton, applyButton;
+    @FXML private Button applyButton;
     @FXML private Label pointsToSpend;
     @FXML private JFXListView<Reward> rewardList;
 
-    private FXMLResourceLoader loader = new FXMLResourceLoader();
-    private User user;
     private RewardManager rb;
 
-    @FXML
-    void exitPressed(ActionEvent event) {
-        loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
-    }
 
     //Display Rewards help dialog
-    @FXML
-    void helpPressed(ActionEvent event) {
+    @Override @FXML
+    protected void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane ,3);
-    }
-
-    //Change to practice panel
-    @FXML
-    void practisePressed(ActionEvent event) {
-        loader.load(FXMLResource.PRACTISE, new StackPane(), mainRoot);
-    }
-
-    //Change to record name panel
-    @FXML
-    void recordNamePressed(ActionEvent event) {
-        loader.load(FXMLResource.RECORD_NEW, new StackPane(), mainRoot);
-    }
-
-    //Change to test microphone panel
-    @FXML
-    void testMicrophonePressed(ActionEvent event) {
-        loader.load(FXMLResource.TEST_MICROPHONE, new StackPane(), mainRoot);
-    }
-
-    @FXML
-    void rewardPressed(ActionEvent event) {
-        loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
     }
 
     //Given reward is selected, apply reward to users profile.
@@ -93,13 +63,9 @@ public class RewardController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
         rewardButton.setDisable(true);
         applyButton.setDisable(true);
-
-        //Set up user info
-        user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         //Sets up rewards to populate reward list
         rb = new RewardManager(user);

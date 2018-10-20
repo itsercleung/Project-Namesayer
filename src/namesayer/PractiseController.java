@@ -16,18 +16,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import namesayer.login.User;
-import namesayer.login.UserUtils;
 import namesayer.util.*;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * PractiseController: Deals with user selecting names and creating them into a whole play list for the PlayController.
@@ -35,18 +34,15 @@ import java.util.*;
  * Users are able to add names that are single names or full names. They are also provided with randomization selection and
  * clear buttons for flexibility.
  */
-public class PractiseController implements Initializable {
+public class PractiseController extends NameSayerMenuController implements Initializable {
 
     @FXML private ToggleSwitch toggleRandomise;
     @FXML private Button playNames;
     @FXML private Button practiseButton, uploadButton;
-    @FXML private Button helpButton, rewardButton, exitButton;
     @FXML private JFXTextField searchTextField;
-    @FXML private AnchorPane mainRoot;
     @FXML private StackPane stackPane;
     @FXML private JFXListView<String> searchNamesView;
     @FXML private JFXListView<String> selectedNamesView;
-    @FXML private Text userText, pointsText;
 
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList(); //List of playList
@@ -55,49 +51,6 @@ public class PractiseController implements Initializable {
     private FilteredList<String> filteredData; //Search list
     private String concatName = "";
     private boolean isRandomised = false;
-
-    private FXMLResourceLoader loader = new FXMLResourceLoader();
-
-    @FXML
-    private void exitPressed(ActionEvent event) {
-        StackPane loginRoot = null;
-        loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
-    }
-
-    //Load help popup
-    @FXML
-    private void helpPressed(ActionEvent event) {
-        HelpDialog helpDialog = new HelpDialog(helpButton);
-        helpDialog.showHelpDialog(stackPane,1);
-    }
-
-    //Load rewards window
-    @FXML
-    private void rewardPressed(ActionEvent event) {
-        StackPane rewardsRoot = null;
-        loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
-    }
-
-    //Load testMicrophone pane
-    @FXML
-    private void testMicrophonePressed(ActionEvent event) {
-        StackPane testMicrophoneRoot = null;
-        loader.load(FXMLResource.TEST_MICROPHONE, testMicrophoneRoot, mainRoot);
-    }
-
-    //Load practise pane
-    @FXML
-    private void practisePressed(ActionEvent event) {
-        StackPane practiseRoot = null;
-        loader.load(FXMLResource.PRACTISE, practiseRoot, mainRoot);
-    }
-
-    //record new practise pane
-    @FXML
-    private void recordNamePressed(ActionEvent event) {
-        StackPane practiseRoot = null;
-        loader.load(FXMLResource.RECORD_NEW, practiseRoot, mainRoot);
-    }
 
     //Load play practise pane
     @FXML
@@ -263,12 +216,7 @@ public class PractiseController implements Initializable {
             helpDialog.showDuplicateDialog(stackPane,dupString);
 
             searchNamesView.setVisible(false);
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    searchTextField.clear();
-                }
-            });
+            Platform.runLater(() -> searchTextField.clear());
         }
     }
 
@@ -288,8 +236,7 @@ public class PractiseController implements Initializable {
         return playAudioList;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
         //Clear selectedLists and setup components
         namePlaylist.clear();
         selectedNameList.clear();
@@ -411,9 +358,6 @@ public class PractiseController implements Initializable {
         // bind appropriate conditions to each button
         playNames.disableProperty().bind(Bindings.isEmpty(selectedNameList));
         toggleRandomise.disableProperty().bind(Bindings.size(selectedNameList).lessThan(2));
-
-        // user details
-        User user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         // Reward and help Popup icons
         IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton);

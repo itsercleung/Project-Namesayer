@@ -4,82 +4,58 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import namesayer.util.FXMLResource;
-import namesayer.util.FXMLResourceLoader;
-import namesayer.util.HelpDialog;
-import javafx.scene.text.Text;
-import namesayer.login.User;
-import namesayer.login.UserUtils;
 import namesayer.util.Recorder;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * TestMicrophoneController: Provides functionality to test microphone scene, where user may test their current microphone
  * setup to check and compare if their microphone is at an appropriate level during recording. Also includes being able to
  * record test audio and able to listen to their recording for additional comparison.
  */
-public class TestMicrophoneController implements Initializable {
+public class TestMicrophoneController extends NameSayerMenuController implements Initializable {
 
-    @FXML private AnchorPane mainRoot;
-    @FXML private StackPane stackPane;
     @FXML private Button listenButton,testButton,testMicrophoneButton;
-    @FXML private Button helpButton, rewardButton, exitButton;
     @FXML private MediaView mediaTest;
     @FXML private Label testLabel;
     @FXML private ProgressBar micLevel;
-    @FXML private Text userText, pointsText;
 
     private Recorder recorder = null;
-    private FXMLResourceLoader loader = new FXMLResourceLoader();
 
     //When user completes test, let them play back recording to hear if their mic is viable
-    @FXML private void exitPressed(ActionEvent event) {
+    @Override @FXML protected void exitPressed(ActionEvent event) {
         recorder.close();
-        StackPane loginRoot = null;
-        loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
-    }
-
-    //Load help popup
-    @FXML private void helpPressed(ActionEvent event) {
-        HelpDialog helpDialog = new HelpDialog(helpButton);
-        helpDialog.showHelpDialog(stackPane,1);
+        loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
     }
 
     //Load rewards window
-    @FXML private void rewardPressed(ActionEvent event) {
+    @Override @FXML protected void rewardPressed(ActionEvent event) {
         recorder.close();
-        StackPane rewardsRoot = null;
-        loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
+        loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
     }
 
     //Load practise window
-    @FXML private void practisePressed(ActionEvent event) {
+    @Override @FXML protected void practisePressed(ActionEvent event) {
         recorder.close();
-        StackPane practiseRoot = null;
-        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
+        loader.load(FXMLResource.PRACTISE,new StackPane(),mainRoot);
     }
 
     //Load record name window
-    @FXML private void recordNamePressed(ActionEvent event) {
+    @Override @FXML protected void recordNamePressed(ActionEvent event) {
         recorder.close();
-        StackPane practiseRoot = null;
-        loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
+        loader.load(FXMLResource.RECORD_NEW,new StackPane(),mainRoot);
     }
 
     //When user completes test, let them play back recording to hear if their mic is viable 
@@ -152,8 +128,7 @@ public class TestMicrophoneController implements Initializable {
         new Thread(task).start();
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
         //Initial default properties for buttons
         testMicrophoneButton.setDisable(true);
         listenButton.setDisable(true);
@@ -164,9 +139,6 @@ public class TestMicrophoneController implements Initializable {
         Thread thread = new Thread(recorder);
         thread.setDaemon(true); // hax but not graceful shutdown of thread
         thread.start();
-
-        //Set user current name and score
-        User user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         //Setting image icons to buttons
         //Testing navigation
@@ -180,8 +152,8 @@ public class TestMicrophoneController implements Initializable {
 
         // Reward and help Popup icons
         IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton);
-        iconLoader.loadMenuIcons();
-    }
+        iconLoader.loadMenuIcons();}
+
 }
 
 

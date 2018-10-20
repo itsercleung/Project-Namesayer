@@ -1,13 +1,9 @@
 package namesayer;
 
 import javafx.fxml.Initializable;
-import namesayer.login.User;
-import namesayer.login.UserUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * MainController: Initializes functionality of the main sidebar menu and other components. Main menu doesn't have any
@@ -27,8 +23,7 @@ public class MainController extends NameSayerMenuController implements Initializ
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
         deleteTemp(); //On startup delete temp files in folder
 
         //If txt doesnt exist then make one and append TITLE
@@ -46,9 +41,6 @@ public class MainController extends NameSayerMenuController implements Initializ
         new File("./data").mkdirs();
         new File("./data/names").mkdirs();
         new File("./data/usernames").mkdirs();
-
-        //Set user current name and score
-        User user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         // Reward and help Popup icons
         IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton);

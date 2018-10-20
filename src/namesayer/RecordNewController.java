@@ -8,27 +8,25 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import namesayer.login.Points;
-import namesayer.login.User;
 import namesayer.login.UserUtils;
-import namesayer.util.*;
+import namesayer.util.CreateAudio;
+import namesayer.util.PlayAudio;
+import namesayer.util.UpdateName;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 /**
  * RecordNewController: For dealing with functionality of record new scene, where users can record new names if they need to.
@@ -36,62 +34,21 @@ import java.util.ResourceBundle;
  * saving recording to database.
  * This is included in case a new person is needed to be added into database easily.
  */
-public class RecordNewController implements Initializable {
+public class RecordNewController extends NameSayerMenuController implements Initializable {
 
     @FXML private Button listenButton, recordButton, saveButton, recordNameButton;
-    @FXML private AnchorPane mainRoot;
     @FXML private StackPane stackPane;
     @FXML private JFXTextField nameField;
     @FXML private Button stopPlayButton;
-    @FXML private Button helpButton, rewardButton, exitButton;
-    @FXML private Text userText,pointsText;
     @FXML private VBox vbox;
 
     private String name;
     private String officialName;
     private CreateAudio createAudio;
     private JFXSnackbar message;
-    private User user;
     private PlayAudio playAudio = null;
 
-    private static int RECORD_TIME = 4000; // no magic numbers!
     private static int RECORD_TOTAL_TIME = 5000; // to prevent RIFF exception
-    private FXMLResourceLoader loader = new FXMLResourceLoader();
-
-    @FXML private void exitPressed(ActionEvent event) {
-        StackPane loginRoot = null;
-        loader.load(FXMLResource.LOGOUT, loginRoot, mainRoot);
-    }
-
-    //Load help popup
-    @FXML private void helpPressed(ActionEvent event) {
-        HelpDialog helpDialog = new HelpDialog(helpButton);
-        helpDialog.showHelpDialog(stackPane,1);
-    }
-
-    //Load rewards window
-    @FXML private void rewardPressed(ActionEvent event) {
-        StackPane rewardsRoot = null;
-        loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
-    }
-
-    //Load testMicrophone pane
-    @FXML private void testMicrophonePressed(ActionEvent event) {
-        StackPane testMicrophoneRoot = null;
-        loader.load(FXMLResource.TEST_MICROPHONE,testMicrophoneRoot,mainRoot);
-    }
-
-    //Load practise pane
-    @FXML private void practisePressed(ActionEvent event) {
-        StackPane practiseRoot = null;
-        loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
-    }
-
-    //record new practise pane
-    @FXML private void recordNamePressed(ActionEvent event) {
-        StackPane practiseRoot = null;
-        loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
-    }
 
     //Allows user to record given the string of the nameField:
     //(1) If name already exists, assign the name with version
@@ -315,8 +272,7 @@ public class RecordNewController implements Initializable {
         nameField.setDisable(false);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
         //Initialize correct button setup
         recordNameButton.setDisable(true);
         listenButton.setDisable(true);
@@ -327,13 +283,11 @@ public class RecordNewController implements Initializable {
         message = new JFXSnackbar(vbox);
         message.setStyle("-fx-font-size: 15px;");
 
-        //Set user current name and score
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
-
         // Reward and help Popup icons
         IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton,
-                 recordButton,  saveButton, listenButton,  stopPlayButton);
+                recordButton,  saveButton, listenButton,  stopPlayButton);
         iconLoader.loadMenuIcons();
         iconLoader.loadRecordNewIcons();
     }
+
 }

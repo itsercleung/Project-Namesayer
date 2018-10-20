@@ -13,21 +13,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import namesayer.login.Points;
-import namesayer.login.User;
 import namesayer.login.UserUtils;
 import namesayer.util.*;
 import org.controlsfx.control.Rating;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * PlayController : Deals with users selected playList to practise names in. Using such playList it updates an existing
@@ -41,8 +33,7 @@ public class PlayController extends NameSayerMenuController implements Initializ
     @FXML private TableColumn<Name, Rating> ratingCol;
     @FXML private Label playLabel;
     @FXML private Button nextButton, recordButton, stopButton,
-            playButton, prevButton, rewardButton,
-            exitButton, helpButton;
+            playButton, prevButton;
     @FXML private Rating audioRating;
     @FXML private StackPane stackPane;
 
@@ -51,7 +42,6 @@ public class PlayController extends NameSayerMenuController implements Initializ
     private int currentNameNum = 0; //Current name being played
     private String currSelectedName; //Current name row selected by user
     private RatingManager ratingManager; //Rating instance for rating changes and updates
-    private User user;
     private PlayManager playManager;
 
     //Record sidebar function
@@ -203,11 +193,10 @@ public class PlayController extends NameSayerMenuController implements Initializ
         ratingCol.setCellValueFactory(new PropertyValueFactory<Name, Rating>("rating"));
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
         //Setting table and rating updates using RatingManager class
         populateTableView();
-        user = UserUtils.getCurrentLoginUser(userText, pointsText); //Set user current name and score
+
         ratingManager = new RatingManager(selectedList, practiseController, audioRating);
         selectedList = ratingManager.ratingUpdate();
         ratingManager.updateRatingComponent(currentNameNum);
@@ -341,8 +330,8 @@ public class PlayController extends NameSayerMenuController implements Initializ
 
         //Call icon loader for button icons
         IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton,
-                 playButton,  stopButton,  prevButton,  nextButton,  recordButton,
-                 recordSubButton,  playOldButton, playNewButton,  playCompare,  saveButton);
+                playButton,  stopButton,  prevButton,  nextButton,  recordButton,
+                recordSubButton,  playOldButton, playNewButton,  playCompare,  saveButton);
         iconLoader.loadMenuIcons();
         iconLoader.loadPlayMenuIcons();
 

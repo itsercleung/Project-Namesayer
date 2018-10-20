@@ -75,7 +75,7 @@ public class IconLoader {
         rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
 
         // Help button
-        Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
+        Image help;
 
         //Clippy setup if reward is set
         if (user.getRewards() == null) {
