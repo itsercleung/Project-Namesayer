@@ -161,7 +161,7 @@ public class HelpDialog {
         JFXDialogLayout layout = new JFXDialogLayout();
         JFXDialog dialog = new JFXDialog(stackPane, layout, JFXDialog.DialogTransition.TOP);
         layout.setHeading(new Label("Note"));
-        layout.setBody(new Label("Please enter valid username"));
+        layout.setBody(new Label("Please enter valid username (max 12 characters)"));
         layout.setActions(button);
         dialog.show();
 

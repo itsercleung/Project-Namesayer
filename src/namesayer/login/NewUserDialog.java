@@ -50,12 +50,12 @@ public class NewUserDialog implements Initializable {
 
         //Setting actions to dialog buttons and textField
         buttonCreate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
-            if (!newUserText.getText().replace(" ", "").isEmpty()) {
+            if (!newUserText.getText().replace(" ", "").isEmpty() && newUserText.getText().replace(" ", "").length() <= 12) {
                 UserUtils.createUser(newUserText.getText().replace(" ", ""));
                 UserUtils.updateUserList(userList);
                 dialog.close();
             }
-            else if (newUserText.getText().replace(" ", "").isEmpty()) {
+            else {
                 HelpDialog helpDialog = new HelpDialog();
                 helpDialog.showNewUserErrorDialog(stackPane);
             }
