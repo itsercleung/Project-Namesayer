@@ -203,7 +203,7 @@
                               <Insets />
                            </VBox.margin>
                         </VBox>
-                        <Label alignment="CENTER" opacity="0.79" prefHeight="40.0" prefWidth="800.0" text="TIP: Enter full names for a combination!">
+                        <Label alignment="CENTER" opacity="0.79" prefHeight="40.0" prefWidth="800.0" text="TIP: Enter full names for a combination and click on name in search list!">
                            <font>
                               <Font size="15.0" />
                            </font>
