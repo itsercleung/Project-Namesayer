@@ -12,7 +12,7 @@ import namesayer.util.HelpDialog;
 
 /**
  * NameSayerMenuController is the common implementation for all menus
- * of NameSayer,
+ * of NameSayer.
  */
 public abstract class NameSayerMenuController {
     @FXML protected AnchorPane mainRoot;
