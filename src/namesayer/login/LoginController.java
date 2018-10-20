@@ -36,7 +36,7 @@ public class LoginController implements Initializable {
 
         StackPane practiseRoot = null;
         try {
-            practiseRoot = FXMLLoader.load(getClass().getResource("../resources/Main.fxml"));
+            practiseRoot = FXMLLoader.load(getClass().getResource("/namesayer/resources/Main.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

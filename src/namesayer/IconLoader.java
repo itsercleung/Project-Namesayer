@@ -68,8 +68,8 @@ public class IconLoader {
      */
     public void loadMenuIcons() {
         // Reward Button
-        Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
-        Image rewardHover = new Image(getClass().getResourceAsStream("resources/icons/rewardsHover.png"));
+        Image reward = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/rewards.png"));
+        Image rewardHover = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/rewardsHover.png"));
         rewardButton.setGraphic(new ImageView(reward));
         rewardButton.setOnMouseEntered(e -> rewardButton.setGraphic(new ImageView(rewardHover)));
         rewardButton.setOnMouseExited(e -> rewardButton.setGraphic(new ImageView(reward)));
@@ -79,16 +79,16 @@ public class IconLoader {
 
         //Clippy setup if reward is set
         if (user.getRewards() == null) {
-            help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
-        } else if (user.getRewards().contains("   The Clippy Guide")) {
-            help = new Image(getClass().getResourceAsStream("resources/icons/clippy.png"));
+            help = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/info.png"));
+        } else if (user.getRewards().contains("The Clippy Guide")) {
+            help = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/clippy.png"));
         } else {
-            help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
+            help = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/info.png"));
         }
         helpButton.setGraphic(new ImageView(help));
 
         // Logout Button
-        Image logout = new Image(getClass().getResourceAsStream("resources/icons/sign-out.png"));
+        Image logout = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/sign-out.png"));
         exitButton.setGraphic(new ImageView(logout));
     }
 
@@ -98,36 +98,36 @@ public class IconLoader {
     public void loadPlayMenuIcons() {
         //Set icons to specific buttons from resources/icons (credited in description).
         //Set icons for play menu
-        Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
+        Image play = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/play.png"));
         playButton.setGraphic(new ImageView(play));
-        Image stop = new Image(getClass().getResourceAsStream("resources/icons/stop.png"));
+        Image stop = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/stop.png"));
         stopButton.setGraphic(new ImageView(stop));
-        Image prev = new Image(getClass().getResourceAsStream("resources/icons/back.png"));
+        Image prev = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/back.png"));
         prevButton.setGraphic(new ImageView(prev));
-        Image next = new Image(getClass().getResourceAsStream("resources/icons/next.png"));
+        Image next = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/next.png"));
         nextButton.setGraphic(new ImageView(next));
 
-        Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
-        Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
+        Image rec = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/microphone.png"));
+        Image recHover = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/microphoneHover.png"));
         recordButton.setGraphic(new ImageView(rec));
         recordButton.setOnMouseEntered(e -> recordButton.setGraphic(new ImageView(recHover)));
         recordButton.setOnMouseExited(e -> recordButton.setGraphic(new ImageView(rec)));
 
         //Set icons for side menu
-        Image recSub = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
-        Image recSubHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
+        Image recSub = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/microphone.png"));
+        Image recSubHover = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/microphoneHover.png"));
         recordSubButton.setGraphic(new ImageView(recSub));
-        Image playOld = new Image(getClass().getResourceAsStream("resources/icons/playOld.png"));
-        Image playOldHover = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
+        Image playOld = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/playOld.png"));
+        Image playOldHover = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/play.png"));
         playOldButton.setGraphic(new ImageView(playOld));
-        Image playNew = new Image(getClass().getResourceAsStream("resources/icons/playNew.png"));
-        Image playNewHover = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
+        Image playNew = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/playNew.png"));
+        Image playNewHover = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/play.png"));
         playNewButton.setGraphic(new ImageView(playNew));
-        Image compare = new Image(getClass().getResourceAsStream("resources/icons/repeat.png"));
-        Image compareHover = new Image(getClass().getResourceAsStream("resources/icons/repeatHover.png"));
+        Image compare = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/repeat.png"));
+        Image compareHover = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/repeatHover.png"));
         playCompare.setGraphic(new ImageView(compare));
-        Image saveNew = new Image(getClass().getResourceAsStream("resources/icons/save.png"));
-        Image saveNewHover = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
+        Image saveNew = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/save.png"));
+        Image saveNewHover = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/saveHover.png"));
         saveButton.setGraphic(new ImageView(saveNew));
 
         //Setting styles for side menu bar buttons and EVENTS on hover
@@ -189,16 +189,16 @@ public class IconLoader {
      */
     public void loadRecordNewIcons() {
         //Set icons to specific buttons from resources/icons (credited in description).
-        Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
-        Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
+        Image rec = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/microphone.png"));
+        Image recHover = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/microphoneHover.png"));
         recordButton.setGraphic(new ImageView(rec));
         recordButton.setOnMouseEntered(e -> recordButton.setGraphic(new ImageView(recHover)));
         recordButton.setOnMouseExited(e -> recordButton.setGraphic(new ImageView(rec)));
-        Image save = new Image(getClass().getResourceAsStream("resources/icons/saveHover.png"));
+        Image save = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/saveHover.png"));
         saveButton.setGraphic(new ImageView(save));
-        Image play = new Image(getClass().getResourceAsStream("resources/icons/play.png"));
+        Image play = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/play.png"));
         listenButton.setGraphic(new ImageView(play));
-        Image stop = new Image(getClass().getResourceAsStream("resources/icons/stop.png"));
+        Image stop = new Image(getClass().getResourceAsStream("/namesayer/resources/icons/stop.png"));
         stopPlayButton.setGraphic(new ImageView(stop));
     }
 }

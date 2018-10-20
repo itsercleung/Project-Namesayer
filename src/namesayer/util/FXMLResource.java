@@ -4,14 +4,14 @@ package namesayer.util;
  * FXMLResource: Allows for calling constant fxml menu scenes for each scene change
  */
 public enum FXMLResource {
-    LOGIN("../resources/Login.fxml"),
-    MAIN("../resources/Main.fxml"),
-    PLAY("../resources/Play.fxml"),
-    PRACTISE("../resources/Practise.fxml"),
-    RECORD_NEW("../resources/RecordNew.fxml"),
-    REWARD("../resources/Reward.fxml"),
-    TEST_MICROPHONE("../resources/TestMicrophone.fxml"),
-    LOGOUT("../resources/Login.fxml");
+    LOGIN("/namesayer/resources/Login.fxml"),
+    MAIN("/namesayer/resources/Main.fxml"),
+    PLAY("/namesayer/resources/Play.fxml"),
+    PRACTISE("/namesayer/resources/Practise.fxml"),
+    RECORD_NEW("/namesayer/resources/RecordNew.fxml"),
+    REWARD("/namesayer/resources/Reward.fxml"),
+    TEST_MICROPHONE("/namesayer/resources/TestMicrophone.fxml"),
+    LOGOUT("/namesayer/resources/Login.fxml");
 
     private String resource;
     FXMLResource(String resource) { this.resource = resource; }
