@@ -1,22 +1,9 @@
 package namesayer;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
-import namesayer.util.FXMLResource;
-import namesayer.util.HelpDialog;
-import namesayer.util.FXMLResourceLoader;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +13,7 @@ import java.util.ResourceBundle;
  * MainController: Initializes functionality of the main sidebar menu and other components. Main menu doesn't have any
  * functionality other than to welcome the user and provide sidemenu to navigate to other controllers
  */
-public class MainController extends NameSayerMenu implements Initializable {
+public class MainController extends NameSayerMenuController implements Initializable {
 
     //Method to delete all existing temp files within the folder (usually deleted on startup)
     public void deleteTemp() {
