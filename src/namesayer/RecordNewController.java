@@ -19,7 +19,6 @@ import namesayer.login.UserUtils;
 import namesayer.util.CreateAudio;
 import namesayer.util.IconLoader;
 import namesayer.util.PlayAudio;
-import namesayer.util.UpdateName;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -62,7 +61,6 @@ public class RecordNewController extends NameSayerMenuController implements Init
             String error = "[Invalid Name: Name must have letters or numbers only]";
             if (message != null) {message.close();}
             message.show(error,10000);
-            //label.setText(error);
             return;
         }
 
@@ -78,7 +76,7 @@ public class RecordNewController extends NameSayerMenuController implements Init
 
         // get number of versions of name
         int version = 0;
-        String command = "cd data/names; ls | grep _" + name + ".wav | wc -l";
+        String command = "cd data/names; ls | grep -i _" + name + ".wav | wc -l";
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", command);
         try {
             Process process = builder.start();
@@ -90,7 +88,7 @@ public class RecordNewController extends NameSayerMenuController implements Init
         }
 
         //If name exists in data ask user if they want to make another existing recording with same name. If yes then
-        //simply start recording for (3 SECONDS)
+        //simply start recording for (4 SECONDS)
         if (version > 1) {
             //Creating dialog box to show with options if duplicate name
             Button okButton = new Button("OK");
@@ -235,13 +233,7 @@ public class RecordNewController extends NameSayerMenuController implements Init
             String messageString = "[Saved name as " + name + "]";
             message.close();
             message.show(messageString, 10000);
-            //label.setText(messageString);
-
             createAudio.saveAudio();
-
-            //Update practice list
-            UpdateName updateName = new UpdateName();
-            updateName.updateNewName(officialName);
 
             //Reset to default button layout and fields
             saveButton.setDisable(true);
