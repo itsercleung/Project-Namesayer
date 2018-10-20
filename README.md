@@ -12,7 +12,6 @@
 5. Have fun!
 
 <hr>
----
 
 ### Screenshots and images
 ![NameSayer](src/namesayer/resources/images/main.png)

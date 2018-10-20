@@ -35,7 +35,6 @@ public class RewardController extends NameSayerMenuController implements Initial
 
     private RewardManager rb;
 
-
     //Display Rewards help dialog
     @Override @FXML
     protected void helpPressed(ActionEvent event) {

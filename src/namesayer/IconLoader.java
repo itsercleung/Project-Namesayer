@@ -80,7 +80,7 @@ public class IconLoader {
         //Clippy setup if reward is set
         if (user.getRewards() == null) {
             help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
-        } else if (user.getRewards().contains("The Clippy Guide")) {
+        } else if (user.getRewards().contains("   The Clippy Guide")) {
             help = new Image(getClass().getResourceAsStream("resources/icons/clippy.png"));
         } else {
             help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));

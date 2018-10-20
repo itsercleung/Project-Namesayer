@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import namesayer.util.HelpDialog;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,9 +50,15 @@ public class NewUserDialog implements Initializable {
 
         //Setting actions to dialog buttons and textField
         buttonCreate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
-            UserUtils.createUser(newUserText.getText().replace(" ",""));
-            UserUtils.updateUserList(userList);
-            dialog.close();
+            if (!newUserText.getText().replace(" ", "").isEmpty()) {
+                UserUtils.createUser(newUserText.getText().replace(" ", ""));
+                UserUtils.updateUserList(userList);
+                dialog.close();
+            }
+            else if (newUserText.getText().replace(" ", "").isEmpty()) {
+                HelpDialog helpDialog = new HelpDialog();
+                helpDialog.showNewUserErrorDialog(stackPane);
+            }
         });
 
         buttonCancel.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {

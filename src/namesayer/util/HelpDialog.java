@@ -111,8 +111,7 @@ public class HelpDialog {
      */
     public void showDuplicateDialog(StackPane stackPane, String label) {
         //Make label for dialog
-        label += " :(";
-        Label dupLabel = new Label(label);
+        Label dupLabel = new Label(label + " ");
 
         //Setup dialog
         Button button = new Button("Got it");
@@ -142,6 +141,27 @@ public class HelpDialog {
         JFXDialog dialog = new JFXDialog(stackPane, layout, JFXDialog.DialogTransition.TOP);
         layout.setHeading(new Label("Note"));
         layout.setBody(new Label("A name is too long (50 chars limit)!"));
+        layout.setActions(button);
+        dialog.show();
+
+        //Set action on to close
+        button.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
+            dialog.close();
+        });
+    }
+
+    /**
+     * showNewUserErrorDialog: method for showing new user error dialog when use enters in empty or incorrect string
+     * @param stackPane : display on current stackPane
+     */
+    public void showNewUserErrorDialog(StackPane stackPane) {
+        //Setup dialog for long name dialog
+        Button button = new Button("Got it");
+        button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
+        JFXDialogLayout layout = new JFXDialogLayout();
+        JFXDialog dialog = new JFXDialog(stackPane, layout, JFXDialog.DialogTransition.TOP);
+        layout.setHeading(new Label("Note"));
+        layout.setBody(new Label("Please enter valid username"));
         layout.setActions(button);
         dialog.show();
 
