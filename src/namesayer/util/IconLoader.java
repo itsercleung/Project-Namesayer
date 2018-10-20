@@ -1,4 +1,4 @@
-package namesayer;
+package namesayer.util;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

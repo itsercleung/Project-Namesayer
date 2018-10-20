@@ -1,6 +1,7 @@
 package namesayer;
 
 import javafx.fxml.Initializable;
+import namesayer.util.IconLoader;
 
 import java.io.File;
 import java.io.IOException;

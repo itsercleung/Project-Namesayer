@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import namesayer.login.Points;
 import namesayer.login.UserUtils;
 import namesayer.util.CreateAudio;
+import namesayer.util.IconLoader;
 import namesayer.util.PlayAudio;
 import namesayer.util.UpdateName;
 

@@ -14,7 +14,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import namesayer.util.FXMLResource;
+import namesayer.util.fxmlloader.FXMLResource;
+import namesayer.util.IconLoader;
 import namesayer.util.Recorder;
 
 import java.io.File;

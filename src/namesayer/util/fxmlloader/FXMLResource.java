@@ -1,4 +1,4 @@
-package namesayer.util;
+package namesayer.util.fxmlloader;
 
 /**
  * FXMLResource: Allows for calling constant fxml menu scenes for each scene change

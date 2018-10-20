@@ -2,10 +2,7 @@ package namesayer;
 
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,17 +13,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import namesayer.util.*;
+import namesayer.util.fxmlloader.FXMLResource;
+import namesayer.util.practise.PractiseUtils;
+import namesayer.util.practise.SearchChangeListener;
+import namesayer.util.practise.SearchTextChangeListener;
+import namesayer.util.practise.UploadNameList;
 import org.controlsfx.control.ToggleSwitch;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * PractiseController: Deals with user selecting names and creating them into a whole play list for the PlayController.
@@ -36,13 +33,16 @@ import java.util.Scanner;
  */
 public class PractiseController extends NameSayerMenuController implements Initializable {
 
-    @FXML private ToggleSwitch toggleRandomise;
-    @FXML private Button playNames;
-    @FXML private Button practiseButton, uploadButton;
-    @FXML private JFXTextField searchTextField;
-    @FXML private StackPane stackPane;
-    @FXML private JFXListView<String> searchNamesView;
-    @FXML private JFXListView<String> selectedNamesView;
+    @FXML
+    private ToggleSwitch toggleRandomise;
+    @FXML
+    private Button playNames, practiseButton, uploadButton;
+    @FXML
+    private JFXTextField searchTextField;
+    @FXML
+    private StackPane stackPane;
+    @FXML
+    private JFXListView<String> searchNamesView, selectedNamesView;
 
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
     private ObservableList<String> selectedNameList = FXCollections.observableArrayList(); //List of playList
@@ -67,8 +67,7 @@ public class PractiseController extends NameSayerMenuController implements Initi
             Collections.shuffle(namePlaylist);
         }
 
-        AnchorPane playRoot = null;
-        loader.load(FXMLResource.PLAY, playRoot, mainRoot);
+        loader.load(FXMLResource.PLAY, new AnchorPane(), mainRoot);
     }
 
     //Clear all to initial state
@@ -83,145 +82,20 @@ public class PractiseController extends NameSayerMenuController implements Initi
     //meets line requires for each name.
     @FXML
     private void uploadButtonClicked(ActionEvent event) {
-        // let the user select TXT files to upload
-        FileChooser fc = new FileChooser();
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Text files", "*.txt");
-        fc.setTitle("Select Text (.txt) File");
-        fc.getExtensionFilters().add(filter);
-        Stage stage = (Stage) uploadButton.getScene().getWindow();
-        File textFile = fc.showOpenDialog(stage); // should be txt file
+        UploadNameList uploadNameList = new UploadNameList(selectedNameList,
+                searchNameList,
+                searchNamesView,
+                selectedNamesView,
+                stackPane,
+                searchTextField,
+                mainRoot);
 
-        //If user cancels, return gracefully
-        if (textFile == null) {
-            return;
-        }
-        Scanner reader = null;
-        try {
-            reader = new Scanner(textFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        // go through text file and check if name is in names db
-        List<String> rejectList = new ArrayList<>();
-        boolean flagCharLimit = false; //Indicate if over 50 chars name exists
-        while (reader.hasNextLine()) {
-            String name = reader.nextLine().replace("-", " ").toLowerCase();
-
-            if (!selectedNameList.contains(name)) {
-                if (name.length() <= 50) {
-                    if (searchNameList.contains(name)) {
-                        selectedNameList.add(name);
-                    } else if (name.contains(" ") || name.contains("-")) {
-                        String[] names = name.split("[-\\s+]"); // whitespace delimiter with hyphen
-                        boolean canConcat = true;
-
-                        // go through list of names, if it is a name that exists in database, then add it
-                        for (String singleName : names) {
-                            if (!searchNameList.contains(singleName.toLowerCase())) {
-                                canConcat = false;
-                                break;
-                            }
-                        }
-                        if (canConcat) {
-                            if (selectedNameList.contains("[COMBINE]: " + name)) {
-                                duplicateCheck("[COMBINE]: " + name);
-                            } else if (!selectedNameList.contains("[COMBINE]: " + name)) {
-                                selectedNameList.add("[COMBINE]: " + name);
-                            }
-                        }
-                    } else {
-                        // add name to reject list (if name doesn't exist)
-                        if (!name.isEmpty()) {
-                            rejectList.add(name);
-                        }
-                    }
-                }
-                else if (name.length() > 50 && !flagCharLimit) {
-                    flagCharLimit = true;
-                    HelpDialog helpDialog = new HelpDialog();
-                    helpDialog.showLongNameDialog(stackPane);
-                }
-            } else if (selectedNameList.contains(name)) {
-                duplicateCheck(name);
-            }
-        }
-
-        //Display helpdialog if user inputs duplicate name
-        if (rejectList.size() > 0) {
-            String label = "The following names are not available:\n\n";
-
-            for (String name : rejectList) {
-                StringBuilder sb = new StringBuilder(label);
-                label = sb.append("-" + name + "\n").toString();
-            }
-
-            HelpDialog helpDialog = new HelpDialog();
-            helpDialog.showDuplicateDialog(stackPane, label);
-        }
-        selectedNamesView.setItems(selectedNameList);
-    }
-
-    /**
-     * populateList: Getting names of all name files in data/names and puts into all names list (sorted)
-     */
-    private void populateList() {
-        File namesFolder = new File("./data/names");
-        File[] listOfNames = namesFolder.listFiles();
-
-        for (File file : listOfNames) {
-            String fileName = file.getName();
-            String[] parts = fileName.split("_");
-            int extIndex = parts[3].indexOf(".");
-
-            //Check if duplicate (or already in list)
-            boolean dupFlag = false;
-            Name nameObject = new Name(parts[3].substring(0, extIndex));
-            for (String stringName : searchNameList) {
-                if (nameObject.getName().equalsIgnoreCase(stringName)) {
-                    dupFlag = true;
-                }
-            }
-            //If not duplicate add to list
-            if (!dupFlag) {
-                String upperName = nameObject.getName().toLowerCase(); //Consistency with cases
-                searchNameList.add(upperName);
-            }
-        }
-        Collections.sort(searchNameList);
-    }
-
-    /**
-     * changeHeightView: Dynamically changes height of the listView (scales up to be similar to a search drop down)
-     */
-    private void changeHeightView() {
-        double maxHeight = 180;
-        double currentHeight = filteredData.size() * 30;
-        if (currentHeight >= maxHeight) {
-            searchNamesView.setMaxHeight(180);
-        } else {
-            searchNamesView.setMaxHeight(currentHeight);
-        }
-    }
-
-    /**
-     * Handling if user enters a name into play list while name already exists in play list!
-     * @param name : name of audio being added onto playList
-     */
-    private void duplicateCheck(String name) {
-        //Show JFX dialog to warn user about duplicate play name
-        if (selectedNameList.contains(name)) {
-            String dupString = "Sorry! " + name + " already in your playlist!";
-            HelpDialog helpDialog = new HelpDialog();
-            helpDialog.showDuplicateDialog(stackPane,dupString);
-
-            searchNamesView.setVisible(false);
-            Platform.runLater(() -> searchTextField.clear());
-        }
+        uploadNameList.upload(uploadButton);
     }
 
     /**
      * getNamePlayList: Used in PlayController to get current selected Playlist of users
+     *
      * @return returns list of play list (name obj) for PlayController
      */
     public List<Name> getNamePlaylist() {
@@ -230,6 +104,7 @@ public class PractiseController extends NameSayerMenuController implements Initi
 
     /**
      * getPlayAudioList: Used to concat existing PlayAudio
+     *
      * @return list of playList (play audio obj) for PlayController
      */
     public List<PlayAudio> getPlayAudioList() {
@@ -245,7 +120,8 @@ public class PractiseController extends NameSayerMenuController implements Initi
         practiseButton.setDisable(true);
 
         //Populate and get information from directory
-        populateList();
+        PractiseUtils practiseUtils = new PractiseUtils();
+        practiseUtils.populateList(searchNameList);
 
         //Assigns boolean value to isRandomised depending on toggleRandomise component
         toggleRandomise.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -257,99 +133,21 @@ public class PractiseController extends NameSayerMenuController implements Initi
         });
 
         //Add selected name from search onto selectedNamesList and update such view
-        searchNamesView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                String selectedName = searchNamesView.getSelectionModel().getSelectedItem();
-                //Checking if not empty and not more than 50 characters
-                if (selectedName != null && selectedName.length() <= 50) {
-                    if (!selectedNameList.contains(selectedName)) {
-                        duplicateCheck(selectedName);
-                        selectedNameList.add(selectedName);
-                        selectedNamesView.setItems(selectedNameList);
-                        searchNamesView.setVisible(false);
-
-                        //Clear textfield in main thread
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                searchTextField.clear();
-                                searchNameList.clear();
-                                populateList();
-                                mainRoot.requestFocus();
-                            }
-                        });
-                    } else if (selectedNameList.contains(selectedName)) {
-                        duplicateCheck(selectedName);
-                    }
-                }
-                else if (selectedName != null && selectedName.length() > 50) {
-                    HelpDialog helpDialog = new HelpDialog();
-                    helpDialog.showLongNameDialog(stackPane);
-
-                    //Clear textfield in main thread
-                    Platform.runLater( () -> {
-                        searchTextField.clear();
-                        searchNameList.clear();
-                        mainRoot.requestFocus();
-                    });
-
-                }
-            }
-        });
+        searchNamesView.getSelectionModel().selectedItemProperty().addListener(
+                new SearchChangeListener(selectedNameList,
+                        searchNameList,
+                        searchNamesView,
+                        selectedNamesView,
+                        stackPane,
+                        searchTextField,
+                        mainRoot));
 
         //Filtering and search function
         filteredData = new FilteredList<>(searchNameList, p -> true);
-        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            //IF "-" or " " exists from user input and such words exist in database, get the concatenated version and display on search
-            String[] dispConcat;
-            int wordCount = 0;
-            if (newValue.contains("-") || newValue.contains(" ")) {
-                dispConcat = newValue.split("[-\\s+]"); // whitespace delimiter with hyphen
-                for (String singleName : dispConcat) {
-                    for (String names : searchNameList) {
-                        if (names.toLowerCase().equals(singleName.toLowerCase())) {
-                            wordCount++;
-                        }
-                    }
-                }
 
-                if (wordCount == dispConcat.length && wordCount > 1) {
-                    concatName = String.join(" ", dispConcat).toLowerCase();
-                    // get the filter list of names and add concat name to top of result list
-                    List list = filteredData.getSource(); // TESTING: this might be a bad idea?
-                    if (!list.contains("[COMBINE]: " + concatName)) {
-                        list.add(0, "[COMBINE]: " + concatName);
-                    }
-                }
-            }
-
-            //Handle single word names through user search
-            filteredData.setPredicate(name -> {
-                // If filter text is empty, display all persons.
-                if (newValue.equals("") || newValue.isEmpty()) {
-                    searchNamesView.setVisible(false);
-                    return true;
-                }
-
-                // splitting string by "-" and/or " "
-                String[] allNames;
-                if (newValue.contains("-") || newValue.contains(" ")) {
-                    allNames = newValue.split("[-\\s+]"); // whitespace delimiter with hyphen
-                    for (String singleName : allNames) {
-                        if (name.toLowerCase().contains(singleName.toLowerCase())) {
-                            return true;
-                        }
-                    }
-                }
-
-                // Compare first name and last name of every client with filter text - if filter matches first name then RETURN
-                changeHeightView();
-                String lowerCaseFilter = newValue.toLowerCase();
-                searchNamesView.setVisible(true);
-                return name.toLowerCase().contains(lowerCaseFilter);
-            });
-        });
+        searchTextField.textProperty().addListener(
+                new SearchTextChangeListener(concatName, searchNameList, filteredData,
+                        searchNamesView));
 
         //Adding search results to sortedList
         SortedList<String> sortedList = new SortedList<>(filteredData);
@@ -360,7 +158,7 @@ public class PractiseController extends NameSayerMenuController implements Initi
         toggleRandomise.disableProperty().bind(Bindings.size(selectedNameList).lessThan(2));
 
         // Reward and help Popup icons
-        IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton);
+        IconLoader iconLoader = new IconLoader(user, rewardButton, helpButton, exitButton);
         iconLoader.loadMenuIcons();
     }
 

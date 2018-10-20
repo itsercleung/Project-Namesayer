@@ -9,8 +9,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
-import namesayer.util.FXMLResource;
-import namesayer.util.FXMLResourceLoader;
+import namesayer.util.fxmlloader.FXMLResource;
+import namesayer.util.fxmlloader.FXMLResourceLoader;
 import namesayer.util.HelpDialog;
 
 import java.net.URL;

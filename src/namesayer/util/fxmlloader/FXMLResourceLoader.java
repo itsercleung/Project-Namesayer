@@ -1,4 +1,4 @@
-package namesayer.util;
+package namesayer.util.fxmlloader;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;

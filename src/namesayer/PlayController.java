@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import namesayer.login.Points;
 import namesayer.login.UserUtils;
 import namesayer.util.*;
+import namesayer.util.fxmlloader.FXMLResource;
 import org.controlsfx.control.Rating;
 
 /**

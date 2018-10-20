@@ -7,19 +7,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
-import namesayer.IconLoader;
+import namesayer.util.IconLoader;
 import namesayer.NameSayerMenuController;
-import namesayer.login.User;
-import namesayer.login.UserUtils;
-import namesayer.util.FXMLResource;
-import namesayer.util.FXMLResourceLoader;
+import namesayer.util.fxmlloader.FXMLResource;
 import namesayer.util.HelpDialog;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * RewardController: Controller which deals with actions and transitions around the reward scene. Deals with user handling
