@@ -34,14 +34,12 @@ import java.util.ResourceBundle;
  * table with its specified name, creator and rating. It provides play components, recording components and dynamic name
  * changing components.
  */
-public class PlayController implements Initializable {
+public class PlayController extends NameSayerMenuController implements Initializable {
 
-    @FXML private AnchorPane mainRoot;
     @FXML private TableView<Name> nameTable;
     @FXML private TableColumn<Name, String> nameCol, createdCol;
     @FXML private TableColumn<Name, Rating> ratingCol;
     @FXML private Label playLabel;
-    @FXML private Text userText, pointsText;
     @FXML private Button nextButton, recordButton, stopButton,
             playButton, prevButton, rewardButton,
             exitButton, helpButton;
@@ -54,9 +52,6 @@ public class PlayController implements Initializable {
     private String currSelectedName; //Current name row selected by user
     private RatingManager ratingManager; //Rating instance for rating changes and updates
     private User user;
-
-    //FXML loader and manager
-    private FXMLResourceLoader loader = new FXMLResourceLoader();
     private PlayManager playManager;
 
     //Record sidebar function
@@ -69,28 +64,23 @@ public class PlayController implements Initializable {
     private String tempAudioName = null; // for recording
     private CreateAudio createAudio;
 
+
+    @Override
     @FXML
-    void exitPressed(ActionEvent event) {
+    protected void exitPressed(ActionEvent event) {
         //Delete temp combined names if they exist
         MainController mainController = new MainController();
         mainController.deleteTemp();
 
-        StackPane practiseRoot = null;
-        loader.load(FXMLResource.PRACTISE, practiseRoot, mainRoot);
+        loader.load(FXMLResource.PRACTISE, new StackPane(), mainRoot);
     }
 
     //Help dialog loads
+    @Override
     @FXML
-    void helpPressed(ActionEvent event) {
+    protected void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane, 2);
-    }
-
-    //Load rewards window
-    @FXML
-    private void rewardPressed(ActionEvent event) {
-        StackPane rewardsRoot = null;
-        loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
     //Switches to next name audio if there exists next audio

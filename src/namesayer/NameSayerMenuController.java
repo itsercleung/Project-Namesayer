@@ -20,35 +20,35 @@ public abstract class NameSayerMenuController {
     @FXML protected Text userText, pointsText;
     @FXML protected Button helpButton, rewardButton, exitButton;
 
-    private FXMLResourceLoader loader = new FXMLResourceLoader();
+    protected FXMLResourceLoader loader = new FXMLResourceLoader();
 
-    @FXML private void exitPressed(ActionEvent event) {
+    @FXML protected void exitPressed(ActionEvent event) {
         loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
     }
 
     //Load help popup
-    @FXML private void helpPressed(ActionEvent event) {
+    @FXML protected void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane, 1);
     }
 
     //Load rewards window
-    @FXML private void rewardPressed(ActionEvent event) {
+    @FXML protected void rewardPressed(ActionEvent event) {
         loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
     }
 
-    @FXML private void testMicrophonePressed(ActionEvent event) {
+    @FXML protected void testMicrophonePressed(ActionEvent event) {
         //Load testMicrophone pane
         loader.load(FXMLResource.TEST_MICROPHONE,new StackPane(),mainRoot);
     }
 
     //Load practise pane
-    @FXML private void practisePressed(ActionEvent event) {
+    @FXML protected void practisePressed(ActionEvent event) {
         loader.load(FXMLResource.PRACTISE,new StackPane(),mainRoot);
     }
 
     //record new practise pane
-    @FXML private void recordNamePressed(ActionEvent event) {
+    @FXML protected void recordNamePressed(ActionEvent event) {
         loader.load(FXMLResource.RECORD_NEW,new StackPane(),mainRoot);
     }
 }
