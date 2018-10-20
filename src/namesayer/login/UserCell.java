@@ -55,23 +55,26 @@ public class UserCell extends ListCell<User> {
             username.setText(user.getUsername());
             points.setText(Integer.toString(user.getPoints()));
 
-            Image img;
-            if (user.getRewards() == null) {
-                img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));// no rewards
-            } else if (user.getRewards().contains("Bronze Trophy")) {
-                img = new Image(getClass().getResourceAsStream("../resources/icons/bronze.png"));
-            } else if (user.getRewards().contains("Silver Trophy")) {
-                img = new Image(getClass().getResourceAsStream("../resources/icons/silver.png"));
-            } else if (user.getRewards().contains("Gold Trophy")) {
-                img = new Image(getClass().getResourceAsStream("../resources/icons/gold.png"));
-            } else if (user.getRewards().contains("Platinum Trophy")) {
-                img = new Image(getClass().getResourceAsStream("../resources/icons/plat.png"));
-            } else if (user.getRewards().contains("The Clippy Guide")) {
-                img = new Image(getClass().getResourceAsStream("../resources/icons/clippy.png"));
-            }else {
-                img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));
+            Image img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));// no rewards
+            if (user.getRewards() != null) {
+                for (String str : user.getRewards()) {
+                    if (str == null) {
+                        img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));// no rewards
+                    } else if (str.equals("Bronze Trophy")) {
+                        img = new Image(getClass().getResourceAsStream("../resources/icons/bronze.png"));
+                    } else if (str.equals("Silver Trophy")) {
+                        img = new Image(getClass().getResourceAsStream("../resources/icons/silver.png"));
+                    } else if (str.equals("Gold Trophy")) {
+                        img = new Image(getClass().getResourceAsStream("../resources/icons/gold.png"));
+                    } else if (str.equals("Platinum Trophy")) {
+                        img = new Image(getClass().getResourceAsStream("../resources/icons/plat.png"));
+                    } else if (str.equals("   The Clippy Guide")) {
+                        img = new Image(getClass().getResourceAsStream("../resources/icons/clippy.png"));
+                    } else {
+                        img = new Image(getClass().getResourceAsStream("../resources/icons/profile.png"));
+                    }
+                }
             }
-
             image.setImage(img);
             setGraphic(root);
         }
