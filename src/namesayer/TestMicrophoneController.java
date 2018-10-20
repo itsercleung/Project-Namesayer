@@ -29,6 +29,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * TestMicrophoneController: Provides functionality to test microphone scene, where user may test their current microphone
+ * setup to check and compare if their microphone is at an appropriate level during recording. Also includes being able to
+ * record test audio and able to listen to their recording for additional comparison.
+ */
 public class TestMicrophoneController implements Initializable {
 
     @FXML private AnchorPane mainRoot;
@@ -41,7 +46,6 @@ public class TestMicrophoneController implements Initializable {
     @FXML private Text userText, pointsText;
 
     private Recorder recorder = null;
-    private User user;
     private FXMLResourceLoader loader = new FXMLResourceLoader();
 
     //When user completes test, let them play back recording to hear if their mic is viable
@@ -64,12 +68,14 @@ public class TestMicrophoneController implements Initializable {
         loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
+    //Load practise window
     @FXML private void practisePressed(ActionEvent event) {
         recorder.close();
         StackPane practiseRoot = null;
         loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
     }
 
+    //Load record name window
     @FXML private void recordNamePressed(ActionEvent event) {
         recorder.close();
         StackPane practiseRoot = null;
@@ -160,7 +166,7 @@ public class TestMicrophoneController implements Initializable {
         thread.start();
 
         //Set user current name and score
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
+        User user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         //Setting image icons to buttons
         //Testing navigation

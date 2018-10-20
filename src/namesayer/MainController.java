@@ -55,17 +55,17 @@ public class MainController implements Initializable {
         loader.load(FXMLResource.TEST_MICROPHONE,new StackPane(),mainRoot);
     }
 
+    //Load practise pane
     @FXML private void practisePressed(ActionEvent event) {
-        //Load practise pane
         loader.load(FXMLResource.PRACTISE,new StackPane(),mainRoot);
     }
 
+    //record new practise pane
     @FXML private void recordNamePressed(ActionEvent event) {
-        //record new practise pane
         loader.load(FXMLResource.RECORD_NEW,new StackPane(),mainRoot);
     }
 
-    //Method to delete all existing temp files within the folder
+    //Method to delete all existing temp files within the folder (usually deleted on startup)
     public void deleteTemp() {
         File temp = new File("temp/");
         if (temp.exists() && temp.isDirectory()) {

@@ -14,8 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -31,37 +29,32 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * PractiseController: Deals with user selecting names and creating them into a whole play list for the PlayController.
+ * Users are able to search on click and also provide an input of a text file (given the format) to input into the playList.
+ * Users are able to add names that are single names or full names. They are also provided with randomization selection and
+ * clear buttons for flexibility.
+ */
 public class PractiseController implements Initializable {
 
-    @FXML
-    private ToggleSwitch toggleRandomise;
-    @FXML
-    private Button playNames;
-    @FXML
-    private Button practiseButton, uploadButton;
-    @FXML
-    private Button helpButton, rewardButton, exitButton;
-    @FXML
-    private JFXTextField searchTextField;
-    @FXML
-    private AnchorPane mainRoot;
-    @FXML
-    private StackPane stackPane;
-    @FXML
-    private JFXListView<String> searchNamesView;
-    @FXML
-    private JFXListView<String> selectedNamesView;
-    @FXML
-    private Text userText, pointsText;
+    @FXML private ToggleSwitch toggleRandomise;
+    @FXML private Button playNames;
+    @FXML private Button practiseButton, uploadButton;
+    @FXML private Button helpButton, rewardButton, exitButton;
+    @FXML private JFXTextField searchTextField;
+    @FXML private AnchorPane mainRoot;
+    @FXML private StackPane stackPane;
+    @FXML private JFXListView<String> searchNamesView;
+    @FXML private JFXListView<String> selectedNamesView;
+    @FXML private Text userText, pointsText;
 
     private ObservableList<String> searchNameList = FXCollections.observableArrayList(); //List of all names
-    private ObservableList<String> selectedNameList = FXCollections.observableArrayList();
-    private static List<Name> namePlaylist = new ArrayList<>();
-    private static List<PlayAudio> playAudioList = new ArrayList<>();
+    private ObservableList<String> selectedNameList = FXCollections.observableArrayList(); //List of playList
+    private static List<Name> namePlaylist = new ArrayList<>(); //List of playList (names obj)
+    private static List<PlayAudio> playAudioList = new ArrayList<>(); //List of playList (playAudio obj)
+    private FilteredList<String> filteredData; //Search list
     private String concatName = "";
-    private FilteredList<String> filteredData;
     private boolean isRandomised = false;
-    private User user;
 
     private FXMLResourceLoader loader = new FXMLResourceLoader();
 
@@ -85,23 +78,23 @@ public class PractiseController implements Initializable {
         loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
+    //Load testMicrophone pane
     @FXML
     private void testMicrophonePressed(ActionEvent event) {
-        //Load testMicrophone pane
         StackPane testMicrophoneRoot = null;
         loader.load(FXMLResource.TEST_MICROPHONE, testMicrophoneRoot, mainRoot);
     }
 
+    //Load practise pane
     @FXML
     private void practisePressed(ActionEvent event) {
-        //Load practise pane
         StackPane practiseRoot = null;
         loader.load(FXMLResource.PRACTISE, practiseRoot, mainRoot);
     }
 
+    //record new practise pane
     @FXML
     private void recordNamePressed(ActionEvent event) {
-        //record new practise pane
         StackPane practiseRoot = null;
         loader.load(FXMLResource.RECORD_NEW, practiseRoot, mainRoot);
     }
@@ -201,6 +194,7 @@ public class PractiseController implements Initializable {
             }
         }
 
+        //Display helpdialog if user inputs duplicate name
         if (rejectList.size() > 0) {
             String label = "The following names are not available:\n\n";
 
@@ -212,11 +206,12 @@ public class PractiseController implements Initializable {
             HelpDialog helpDialog = new HelpDialog();
             helpDialog.showDuplicateDialog(stackPane, label);
         }
-
         selectedNamesView.setItems(selectedNameList);
     }
 
-    //Getting names of all name files in data/names
+    /**
+     * populateList: Getting names of all name files in data/names and puts into all names list (sorted)
+     */
     private void populateList() {
         File namesFolder = new File("./data/names");
         File[] listOfNames = namesFolder.listFiles();
@@ -243,7 +238,9 @@ public class PractiseController implements Initializable {
         Collections.sort(searchNameList);
     }
 
-    //Dynamically changes height of the listView (scales up to be similar to a search drop down)
+    /**
+     * changeHeightView: Dynamically changes height of the listView (scales up to be similar to a search drop down)
+     */
     private void changeHeightView() {
         double maxHeight = 180;
         double currentHeight = filteredData.size() * 30;
@@ -254,7 +251,10 @@ public class PractiseController implements Initializable {
         }
     }
 
-    //Handling if user enters a name into play list while name already exists in play list!
+    /**
+     * Handling if user enters a name into play list while name already exists in play list!
+     * @param name : name of audio being added onto playList
+     */
     private void duplicateCheck(String name) {
         //Show JFX dialog to warn user about duplicate play name
         if (selectedNameList.contains(name)) {
@@ -272,12 +272,18 @@ public class PractiseController implements Initializable {
         }
     }
 
-    //Used in PlayController to get current selected Playlist of users
+    /**
+     * getNamePlayList: Used in PlayController to get current selected Playlist of users
+     * @return returns list of play list (name obj) for PlayController
+     */
     public List<Name> getNamePlaylist() {
         return namePlaylist;
     }
 
-    //Used to concat existing PlayAudio
+    /**
+     * getPlayAudioList: Used to concat existing PlayAudio
+     * @return list of playList (play audio obj) for PlayController
+     */
     public List<PlayAudio> getPlayAudioList() {
         return playAudioList;
     }
@@ -407,7 +413,7 @@ public class PractiseController implements Initializable {
         toggleRandomise.disableProperty().bind(Bindings.size(selectedNameList).lessThan(2));
 
         // user details
-        user = UserUtils.getCurrentLoginUser(userText, pointsText);
+        User user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         // Reward and help Popup icons
         IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton);

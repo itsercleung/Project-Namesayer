@@ -29,28 +29,24 @@ import org.controlsfx.control.Rating;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * PlayController : Deals with users selected playList to practise names in. Using such playList it updates an existing
+ * table with its specified name, creator and rating. It provides play components, recording components and dynamic name
+ * changing components.
+ */
 public class PlayController implements Initializable {
 
-    @FXML
-    private AnchorPane mainRoot;
-    @FXML
-    private TableView<Name> nameTable;
-    @FXML
-    private TableColumn<Name, String> nameCol, createdCol;
-    @FXML
-    private TableColumn<Name, Rating> ratingCol;
-    @FXML
-    private Label playLabel;
-    @FXML
-    private Text userText, pointsText;
-    @FXML
-    private Button nextButton, recordButton, stopButton,
+    @FXML private AnchorPane mainRoot;
+    @FXML private TableView<Name> nameTable;
+    @FXML private TableColumn<Name, String> nameCol, createdCol;
+    @FXML private TableColumn<Name, Rating> ratingCol;
+    @FXML private Label playLabel;
+    @FXML private Text userText, pointsText;
+    @FXML private Button nextButton, recordButton, stopButton,
             playButton, prevButton, rewardButton,
             exitButton, helpButton;
-    @FXML
-    private Rating audioRating;
-    @FXML
-    private StackPane stackPane;
+    @FXML private Rating audioRating;
+    @FXML private StackPane stackPane;
 
     private PractiseController practiseController = new PractiseController();
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
@@ -58,6 +54,10 @@ public class PlayController implements Initializable {
     private String currSelectedName; //Current name row selected by user
     private RatingManager ratingManager; //Rating instance for rating changes and updates
     private User user;
+
+    //FXML loader and manager
+    private FXMLResourceLoader loader = new FXMLResourceLoader();
+    private PlayManager playManager;
 
     //Record sidebar function
     private JFXPopup recordPopup = new JFXPopup();
@@ -69,9 +69,6 @@ public class PlayController implements Initializable {
     private String tempAudioName = null; // for recording
     private CreateAudio createAudio;
 
-    private FXMLResourceLoader loader = new FXMLResourceLoader();
-    private PlayManager playManager;
-
     @FXML
     void exitPressed(ActionEvent event) {
         //Delete temp combined names if they exist
@@ -82,6 +79,7 @@ public class PlayController implements Initializable {
         loader.load(FXMLResource.PRACTISE, practiseRoot, mainRoot);
     }
 
+    //Help dialog loads
     @FXML
     void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
@@ -201,7 +199,9 @@ public class PlayController implements Initializable {
         stopButton.setDisable(true);
     }
 
-    //Populates users selected Play List in the Practice Controller - then forms table with appropriate details
+    /**
+     * populateTableView: populates users selected Play List in the Practice Controller - then forms table with appropriate details
+     */
     private void populateTableView() {
         //Create selectedList from playList in practiseController
         selectedList.addAll(practiseController.getNamePlaylist());
@@ -314,7 +314,7 @@ public class PlayController implements Initializable {
                 });
 
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(4000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -349,7 +349,7 @@ public class PlayController implements Initializable {
         VBox box = new VBox(recordSubButton, playOldButton, playNewButton, playCompare, saveButton); // can make HBox
         recordPopup.setPopupContent(box);
 
-
+        //Call icon loader for button icons
         IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton,
                  playButton,  stopButton,  prevButton,  nextButton,  recordButton,
                  recordSubButton,  playOldButton, playNewButton,  playCompare,  saveButton);

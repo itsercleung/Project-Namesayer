@@ -30,6 +30,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+/**
+ * RecordNewController: For dealing with functionality of record new scene, where users can record new names if they need to.
+ * This includes recording name for 4 seconds, and providing options to listen to recording, stop listening of recording and
+ * saving recording to database.
+ * This is included in case a new person is needed to be added into database easily.
+ */
 public class RecordNewController implements Initializable {
 
     @FXML private Button listenButton, recordButton, saveButton, recordNameButton;
@@ -69,25 +75,26 @@ public class RecordNewController implements Initializable {
         loader.load(FXMLResource.REWARD, rewardsRoot, mainRoot);
     }
 
+    //Load testMicrophone pane
     @FXML private void testMicrophonePressed(ActionEvent event) {
-        //Load testMicrophone pane
         StackPane testMicrophoneRoot = null;
         loader.load(FXMLResource.TEST_MICROPHONE,testMicrophoneRoot,mainRoot);
     }
 
+    //Load practise pane
     @FXML private void practisePressed(ActionEvent event) {
-        //Load practise pane
         StackPane practiseRoot = null;
         loader.load(FXMLResource.PRACTISE,practiseRoot,mainRoot);
     }
 
+    //record new practise pane
     @FXML private void recordNamePressed(ActionEvent event) {
-        //record new practise pane
         StackPane practiseRoot = null;
         loader.load(FXMLResource.RECORD_NEW,practiseRoot,mainRoot);
     }
 
-    //Allows user to record given the string of the nameField: (1) If name already exists, assign the name with version
+    //Allows user to record given the string of the nameField:
+    //(1) If name already exists, assign the name with version
     //(2) Else simply record the name
     @FXML
     private void recordPressed(ActionEvent event) {
@@ -289,7 +296,7 @@ public class RecordNewController implements Initializable {
     }
 
     /**
-     * disables correct buttons when recording
+     * disableButtons: disables correct buttons when recording
      */
     private void disableButtons() {
         recordButton.setDisable(true);
@@ -299,7 +306,7 @@ public class RecordNewController implements Initializable {
     }
 
     /**
-     * enables correct buttons after recording
+     * enableButtons: enables correct buttons after recording
      */
     private void enableButtons() {
         recordButton.setDisable(false);
@@ -310,6 +317,7 @@ public class RecordNewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Initialize correct button setup
         recordNameButton.setDisable(true);
         listenButton.setDisable(true);
         saveButton.setDisable(true);
@@ -321,8 +329,6 @@ public class RecordNewController implements Initializable {
 
         //Set user current name and score
         user = UserUtils.getCurrentLoginUser(userText,pointsText);
-
-
 
         // Reward and help Popup icons
         IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton,
