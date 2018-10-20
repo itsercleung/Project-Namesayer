@@ -29,36 +29,54 @@ public abstract class NameSayerMenuController implements Initializable {
     protected User user;
     protected FXMLResourceLoader loader = new FXMLResourceLoader();
 
+    /**
+     * Logout button pressed
+     * @param event
+     */
     @FXML protected void exitPressed(ActionEvent event) {
         loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
     }
 
-    //Load help popup
+    /**
+     * Loads the general help popup
+     */
     @FXML protected void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane, 1);
     }
 
-    //Load rewards window
+    /**
+     * Load rewards menu
+     */
     @FXML protected void rewardPressed(ActionEvent event) {
         loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
     }
 
+    /**
+     * Loads the test microphone menu
+     */
     @FXML protected void testMicrophonePressed(ActionEvent event) {
         //Load testMicrophone pane
         loader.load(FXMLResource.TEST_MICROPHONE,new StackPane(),mainRoot);
     }
 
-    //Load practise pane
+    /**
+     * Load practise pane
+     */
     @FXML protected void practisePressed(ActionEvent event) {
         loader.load(FXMLResource.PRACTISE,new StackPane(),mainRoot);
     }
 
-    //record new practise pane
+    /**
+     * record new practise pane
+     */
     @FXML protected void recordNamePressed(ActionEvent event) {
         loader.load(FXMLResource.RECORD_NEW,new StackPane(),mainRoot);
     }
 
+    /**
+     * Starts the controller with the initialize functions
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         user = UserUtils.getCurrentLoginUser(userText, pointsText); //Set user current name and score

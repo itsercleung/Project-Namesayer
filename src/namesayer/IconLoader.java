@@ -32,7 +32,7 @@ public class IconLoader {
     }
 
     /**
-     *
+     * Loads icons for PlayController
      */
     public IconLoader(User user, Button rewardButton, Button helpButton, Button exitButton,
                       Button playButton, Button stopButton, Button prevButton, Button nextButton, Button recordButton,
