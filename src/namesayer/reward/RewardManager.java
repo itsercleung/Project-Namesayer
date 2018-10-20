@@ -32,25 +32,25 @@ public class RewardManager {
         rewards = FXCollections.observableArrayList();
         rewards.add(new Reward("Bronze Trophy",
                 "You have earned 1,000 points \nto earn you a Bronze Trophy!",
-                1000, "../resources/icons/bronze.png",
+                1000, "/namesayer/resources/icons/bronze.png",
                 RewardType.TROPHY));
         rewards.add(new Reward("Silver Trophy",
                 "You have earned 5,000 points \nto earn you a Silver Trophy!",
-                5000,"../resources/icons/silver.png",
+                5000,"/namesayer/resources/icons/silver.png",
                 RewardType.TROPHY));
         rewards.add(new Reward("Gold Trophy",
                 "You have earned 10,000 points \nto earn you a Gold Trophy!",
                 10000,
-                "../resources/icons/gold.png",
+                "/namesayer/resources/icons/gold.png",
                 RewardType.TROPHY));
-        rewards.add(new Reward( "   The Clippy Guide",
+        rewards.add(new Reward( "The Clippy Guide",
                 "   Unlock Clippy for 20,000 points!\n   Will guide your way to Platinum!",
-                20000, "../resources/icons/clippy.png",
+                20000, "/namesayer/resources/icons/clippy.png",
                 RewardType.CLIPPY));
         rewards.add(new Reward("Platinum Trophy",
                 "You have earned 100,000 points \nto earn you a Platinum Trophy!",
                 100000,
-                "../resources/icons/plat.png",
+                "/namesayer/resources/icons/plat.png",
                 RewardType.TROPHY));
         rewardList.addAll(rewards);
     }
