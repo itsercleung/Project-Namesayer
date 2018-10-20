@@ -12,10 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Input of a string with destination of audio file to play -
+ * PlayAudio: Input of a string with destination of audio file to play -
  * uses AudioStream and AudioPlayer for .wav files
  */
-
 public class PlayAudio {
     private String audio;
     private List<String> combineAudio = new ArrayList<>();
@@ -30,7 +29,9 @@ public class PlayAudio {
         this.audio = audio;
     }
 
-    //Play audio given the path from (String audio) field
+    /**
+     * playAudio: Play audio given the path from (String audio) field
+     */
     public void playAudio() {
         Task task = new Task<Void>() {
             @Override
@@ -49,14 +50,18 @@ public class PlayAudio {
         new Thread(task).start();
     }
 
-    //Silence noise sections of each audio
+    /**
+     * filterCombinedAudio: Silence noise sections of each audio (to reduce long pauses)
+     */
     public void filterCombinedAudio() {
         Task task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 for (String nameAudio : combineAudio) {
+                    //ffmpeg bash command to remove silences
                     String silenceAudio = "cp data/names/" + nameAudio + ".wav temp/" + nameAudio + ".wav\n" +
                             "ffmpeg -i temp/" + nameAudio + ".wav -af silenceremove=1:0:-45dB:1:5:-45dB:0 temp/" + nameAudio + "CONCAT.wav\n";
+
                     ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", silenceAudio);
                     try {
                         processBuilder.start();
@@ -70,7 +75,9 @@ public class PlayAudio {
         new Thread (task).start();
     }
 
-    //Combine audio clips together - (1) Write onto txt file (2) Concat from txt file
+    /**
+     * concatCombinedAudio: Combine audio clips together - (1) Write onto txt file (2) Concat from txt file
+     */
     public void concatCombinedAudio() {
         FileWriter writer = null;
         try {
@@ -94,7 +101,9 @@ public class PlayAudio {
         }
     }
 
-    //Stop audio thread from playing
+    /**
+     * stopAudio: Stop audio thread from playing
+     */
     public void stopAudio() {
         AudioPlayer.player.stop(audioStream);
     }

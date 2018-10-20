@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Creates the list of rewards to populate a listview
+ * RewardManager: Creates the list of rewards to populate a listView. Can be edited easily through generateRewards() method
+ * which can customize reward descriptions, titles and images as well as adding additional rewards.
  */
 public class RewardManager {
 
     public enum RewardType {TROPHY,CLIPPY}
-
     private ObservableList<Reward> rewards;
     private List<Reward> rewardList = new ArrayList<>();
     private User user;
@@ -25,7 +25,9 @@ public class RewardManager {
         this.user = user;
     }
 
-    //Static rewards generated through generateRewards method - can easily add or remove within such method
+    /**
+     * Static rewards generated through generateRewards method - can easily add or remove within such method
+     */
     private void generateRewards() {
         rewards = FXCollections.observableArrayList();
         rewards.add(new Reward("Bronze Trophy",
@@ -50,7 +52,6 @@ public class RewardManager {
                 100000,
                 "../resources/icons/plat.png",
                 RewardType.TROPHY));
-
         rewardList.addAll(rewards);
     }
 
@@ -60,7 +61,7 @@ public class RewardManager {
 
     /**
      * Creates a list of Rewards based on what the user has redeemed or applied
-     * @return
+     * @return returns the reward list for RewardController to display
      */
     public ObservableList<Reward> build() {
         for (Reward reward :rewards) {
@@ -84,12 +85,20 @@ public class RewardManager {
         return rewards;
     }
 
+    /**
+     * applyReward: Updates users current applied reward to profile picture and other additional changes
+     * @param reward : given the reward selected
+     */
     public void applyReward(Reward reward) {
         reward.applyReward();
         UserUtils.updateUserRewards(user, reward);
         reward.setIsRedeemable(false);
     }
 
+    /**
+     * redeemReward: Updates users redeem rewarded to be unlocked
+     * @param reward : given the reward selected
+     */
     public void redeemReward(Reward reward) {
         reward.redeemReward();
         UserUtils.updateUserRewards(user,reward);

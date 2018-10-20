@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import namesayer.PractiseController;
 
 /**
- * PlayManager deals with timing, threading and button logic when playing
+ * PlayManager: deals with timing, threading and button logic when playing
  * audio in Play menu.
  */
 public class PlayManager {
@@ -20,10 +20,10 @@ public class PlayManager {
     }
 
     /**
-     * playOldAudio plays the currently selected audio
+     * playOldAudio: plays the currently selected audio
      * in the list in PractiseController.
-     * @param practiseController
-     * @param currentNameNum
+     * @param practiseController : Practice controller object to assign platform
+     * @param currentNameNum : current selected number to play
      */
     public void playOldAudio(PractiseController practiseController, int currentNameNum) {
         playPlatform(practiseController,currentNameNum);
@@ -32,9 +32,9 @@ public class PlayManager {
     }
 
     /**
-     * Used to play the old audio in playOldAudio and playAlternateAudio
-     * @param practiseController
-     * @param currentNameNum
+     * playPlatform: Used to play the old audio in playOldAudio and playAlternateAudio
+     * @param practiseController : Practice controller object to assign platform
+     * @param currentNameNum : current selected number to play
      */
     private void playPlatform(PractiseController practiseController, int currentNameNum) {
         Platform.runLater(() -> {
@@ -54,9 +54,9 @@ public class PlayManager {
     }
 
     /**
-     * Arbitrary delay to try and prevent RIFF errors
+     * setDelay: Arbitrary delay to try and prevent RIFF errors
      */
-    public void setDelay() {
+    private void setDelay() {
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
@@ -64,21 +64,21 @@ public class PlayManager {
         }
     }
 
-    public void enableButtons() {
+    private void enableButtons() {
         playButton.setDisable(true);
         recordButton.setDisable(true);
         stopButton.setDisable(false);
     }
 
-    public void disableButtons() {
+    private void disableButtons() {
         playButton.setDisable(false);
         recordButton.setDisable(false);
         stopButton.setDisable(true);
     }
 
     /**
-     * Plays the currently recorded audio.
-     * @param tempAudioName
+     * playNewAudio: Plays the currently recorded audio.
+     * @param tempAudioName : name of temporary created audio
      */
     public void playNewAudio(String tempAudioName) {
         Platform.runLater(() -> {
@@ -87,7 +87,6 @@ public class PlayManager {
             playAudio = new PlayAudio(path);
             playAudio.playAudio();
         });
-
         setDelay();
         Platform.runLater(this::disableButtons);
     }
@@ -97,10 +96,10 @@ public class PlayManager {
     }
 
     /**
-     * Alternates once between playOld and playNew audios.
-     * @param practiseController
-     * @param currentNameNum
-     * @param tempAudioName
+     * playAlternateAudio: Alternates once between playOld and playNew audios.
+     * @param practiseController : given practise controller
+     * @param currentNameNum : current name selected
+     * @param tempAudioName : current temp audio name created
      */
     public void playAlternateAudio(PractiseController practiseController, int currentNameNum, String tempAudioName) {
         playPlatform(practiseController,currentNameNum);

@@ -12,14 +12,14 @@ import namesayer.login.User;
 import java.io.IOException;
 
 /**
- * concepts copied from UserCell
+ * RewardCell: Similarly concepts copied from UserCell. Creates cell and stores information of each reward to be displayed
+ * in RewardController
  */
 public class RewardCell extends ListCell<Reward> {
     @FXML private AnchorPane root;
     @FXML private Label nameText, descriptionText;
     @FXML private ImageView image;
 
-    private FXMLLoader loader;
     private User user;
 
     public RewardCell(User user) {
@@ -27,6 +27,11 @@ public class RewardCell extends ListCell<Reward> {
         this.user = user;
     }
 
+    /**
+     * updateItem: Updates the cell given the information of the reward object (include name, description and picture)
+     * @param reward : set cell given the reward object
+     * @param empty
+     */
     @Override
     protected void updateItem(Reward reward, boolean empty) {
         super.updateItem(reward, empty);
@@ -35,7 +40,7 @@ public class RewardCell extends ListCell<Reward> {
 
         if (reward != null) {
             try {
-                loader = new FXMLLoader(getClass().getResource("../reward/RewardCell.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../reward/RewardCell.fxml"));
                 loader.setController(this);
                 loader.load();
             } catch (IOException e) {
@@ -45,8 +50,7 @@ public class RewardCell extends ListCell<Reward> {
             nameText.setText(reward.getRewardName());
             descriptionText.setText(reward.getRewardDescription());
             image.setImage(new Image(getClass().getResourceAsStream(reward.getImageURL())));
-            // set graphic here
-            setGraphic(root);
+            setGraphic(root); //Setting image graphic
 
             //If current user points are less than reward requirements - make greyed out
             if (reward.getMinPoints() > user.getPoints()) {

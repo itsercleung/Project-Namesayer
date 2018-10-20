@@ -10,6 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+/**
+ * PlayListCreator: creates a list of all selected names from txt input and search input from users Practice Controller panel.
+ * Deals with making appropriate single and concat names as well as dealing with making the audio files
+ */
 public class PlayListCreator {
     private ObservableList<String> selectedNameList;
     private List<Name> namePlaylist = new ArrayList<>();
@@ -25,7 +29,11 @@ public class PlayListCreator {
 
     public List<PlayAudio> getPlayAudioList() { return playAudioList; }
 
-    //When user sets rating on a name then makeRating set
+    /**
+     * makeRating: When user sets rating on a name then makeRating set
+     * @param rate : default rate to setup (existing and new rate)
+     * @return returns Rating component to display on PlayController
+     */
     private Rating makeRating(double rate) {
         Rating rating = new Rating();
         rating.setOrientation(Orientation.HORIZONTAL);
@@ -36,11 +44,12 @@ public class PlayListCreator {
         return rating;
     }
 
-    /* Makes playlist from selectedList names:
-    (1) Use name to find all audio files associating with name
-    (2) Get list of all audio files associating with name
-    (3) Create a Name object for each element in list
-    (4) Put into namePlayList to PLAY */
+    /** Makes playlist from selectedList names:
+        (1) Use name to find all audio files associating with name
+        (2) Get list of all audio files associating with name
+        (3) Create a Name object for each element in list
+        (4) Put into namePlayList to PLAY
+     */
     public void makePlayList() {
         //Getting names of all name files in data/names
         File namesFolder = new File("./data/names");
@@ -185,6 +194,9 @@ public class PlayListCreator {
         }
     }
 
+    /**
+     * filterSelectedVideos: Gets all filteredVideos and creates selected videos to be filtered through PlayAudio class
+     */
     public void filterSelectedVideos() {
         for (Name playName : namePlaylist) {
             String nameAudio = playName.toString() + ".wav";

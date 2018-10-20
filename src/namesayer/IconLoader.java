@@ -6,6 +6,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import namesayer.login.User;
 
+/**
+ * IconLoader: Provides code UI icon loaders towards buttons and components towards most buttons throughout namesayer
+ * controllers (includes sidebar, play bar, practise, record new etc).
+ */
 public class IconLoader {
 
     private User user;
@@ -16,6 +20,10 @@ public class IconLoader {
 
     /**
      * Loads icons for the main menu items
+     * @param user : current user logged in
+     * @param rewardButton : rewardButton component
+     * @param helpButton : helpButton component
+     * @param exitButton : exitButton component
      */
     public IconLoader(User user, Button rewardButton, Button helpButton, Button exitButton) {
         this.user = user;
@@ -25,7 +33,7 @@ public class IconLoader {
     }
 
     /**
-     * Loads icons for PlayController
+     *
      */
     public IconLoader(User user, Button rewardButton, Button helpButton, Button exitButton,
                       Button playButton, Button stopButton, Button prevButton, Button nextButton, Button recordButton,
@@ -41,8 +49,6 @@ public class IconLoader {
         this.playNewButton = playNew;
         this.playCompare = playCompare;
         this.saveButton = save;
-
-
     }
 
     /**
@@ -59,8 +65,8 @@ public class IconLoader {
 
     /**
      * Loads all common icons for most menus
+     * NOTE: currently based on icons on mainController
      */
-    // NOTE: currently based on icons on maincontroller
     public void loadMenuIcons() {
         // Reward Button
         Image reward = new Image(getClass().getResourceAsStream("resources/icons/rewards.png"));
@@ -72,6 +78,7 @@ public class IconLoader {
         // Help button
         Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
 
+        //Clippy setup if reward is set
         for (String str : user.getRewards())
         if (str == null) {
             help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
@@ -185,7 +192,6 @@ public class IconLoader {
      */
     public void loadRecordNewIcons() {
         //Set icons to specific buttons from resources/icons (credited in description).
-        //Set icons for record new menu
         Image rec = new Image(getClass().getResourceAsStream("resources/icons/microphone.png"));
         Image recHover = new Image(getClass().getResourceAsStream("resources/icons/microphoneHover.png"));
         recordButton.setGraphic(new ImageView(rec));

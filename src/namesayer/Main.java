@@ -10,12 +10,12 @@ import javafx.stage.StageStyle;
 import java.io.File;
 
 /**
- * Main initialises the entire NameSayer program.
+ * Main initialises the entire NameSayer program, including creating new directories and providing main scene settings
  */
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        // create folders
+        //Create important folders
         File dataFolder = new File("./data");
         if (!dataFolder.exists()) {
             dataFolder.mkdir();
@@ -24,6 +24,7 @@ public class Main extends Application {
             new File("./data/currentUser.txt").createNewFile();
         }
 
+        //Assign primary stage
         Parent root = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("NameSayer");

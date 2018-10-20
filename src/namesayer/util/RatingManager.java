@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * RatingManager - Allows for updating and getting current values of ratings from calling methods with appropriate values
+ * RatingManager: Allows for updating and getting current values of ratings from calling methods with appropriate values
  * such as retrieving the int position of the current name.
  * It must be that each RatingManager object must have such a selectedList and rating component.
  */
@@ -29,7 +29,10 @@ public class RatingManager {
         this.audioRating = audioRating;
     }
 
-    //Update editable rating component
+    /**
+     * ratingUpdate: update editable rating component on every change of name or startup
+     * @return list of names with updated ratings
+     */
     public ObservableList<Name> ratingUpdate() {
         //If txt doesnt exist then make one and append TITLE
         File pqFile = new File("./data/ratingAudio.txt");
@@ -65,7 +68,12 @@ public class RatingManager {
         return selectedList;
     }
 
-    //Update rating if user makes rate of specific audio row
+    /**
+     * ratingPressed: Update rating if user makes rate of specific audio row
+     * @param rating : current rating of name
+     * @param currentNameNum : current number position of current name
+     * @return returns string of updated rating
+     */
     public String ratingPressed(String rating, int currentNameNum) {
         //Append the listed poorQualityAudio if the audio hasn't been rated already
         try {
@@ -108,13 +116,18 @@ public class RatingManager {
         return null;
     }
 
-    //Update rating change on rateable component
+    /**
+     * updateRatingComponent: Update rating change on rateable component
+     * @param currentNameNum : current number of selected name in list
+     */
     public void updateRatingComponent(int currentNameNum) {
+        //Reading ratingAudio.txt
         try {
             byte[] bytes = Files.readAllBytes(Paths.get("./data/ratingAudio.txt"));
             String currentAudio = new String(bytes);
             String currentPlay = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
 
+            //Update rating component given the current name number
             if (currentAudio.contains(currentPlay)) {
                 Scanner scanner = new Scanner(currentAudio);
                 while (scanner.hasNextLine()) {
@@ -126,7 +139,7 @@ public class RatingManager {
                 }
             }
             else {
-                audioRating.setRating(0.0);
+                audioRating.setRating(0.0); //Update to 0.0 if rating of name doesn't exist
             }
 
         } catch (IOException e) {
@@ -134,7 +147,11 @@ public class RatingManager {
         }
     }
 
-    //Checking if currentName is concat or not and disables rating ability if true
+    /**
+     * checkConcatRating : checking if currentName is concat or not and disables rating ability if true
+     * @param currSelectedName : currently selected name
+     * @param audioRating : current audioRating component for the selected name
+     */
     public void checkConcatRating(String currSelectedName, Rating audioRating) {
         if (currSelectedName.contains(" ")) {
             audioRating.setDisable(true);

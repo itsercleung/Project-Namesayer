@@ -26,6 +26,11 @@ import namesayer.util.HelpDialog;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * RewardController: Controller which deals with actions and transitions around the reward scene. Deals with user handling
+ * rewards and applying such rewards and initializing users currently earned and locked rewards, including using RewardCell
+ * to display all rewards on the listView
+ */
 public class RewardController implements Initializable {
 
     @FXML private StackPane stackPane;
@@ -44,22 +49,26 @@ public class RewardController implements Initializable {
         loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
     }
 
+    //Display Rewards help dialog
     @FXML
     void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane ,3);
     }
 
+    //Change to practice panel
     @FXML
     void practisePressed(ActionEvent event) {
         loader.load(FXMLResource.PRACTISE, new StackPane(), mainRoot);
     }
 
+    //Change to record name panel
     @FXML
     void recordNamePressed(ActionEvent event) {
         loader.load(FXMLResource.RECORD_NEW, new StackPane(), mainRoot);
     }
 
+    //Change to test microphone panel
     @FXML
     void testMicrophonePressed(ActionEvent event) {
         loader.load(FXMLResource.TEST_MICROPHONE, new StackPane(), mainRoot);
@@ -70,6 +79,7 @@ public class RewardController implements Initializable {
         loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
     }
 
+    //Given reward is selected, apply reward to users profile.
     @FXML
     void applyPressed(ActionEvent event) {
         Reward reward = rewardList.getSelectionModel().getSelectedItem();
@@ -78,9 +88,9 @@ public class RewardController implements Initializable {
         applyButton.setDisable(true);
     }
 
+    //Determine if awards/achievements are redeemable (ie unlock-able through store rather than set num of points)
     @FXML
     void rewardRowClicked(MouseEvent event) {
-        //Determine if awards/achievements are redeemable (ie unlock-able through store rather than set num of points)
         if (!rewardList.getSelectionModel().getSelectedItem().getIsRedeemable()) {
             applyButton.setDisable(true);
         }

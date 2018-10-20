@@ -22,6 +22,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * MainController: Initializes functionality of the main sidebar menu and other components. Main menu doesn't have any
+ * functionality other than to welcome the user and provide sidemenu to navigate to other controllers
+ */
 public class MainController implements Initializable {
 
     @FXML private AnchorPane mainRoot;
@@ -29,7 +33,6 @@ public class MainController implements Initializable {
     @FXML private Text userText, pointsText;
     @FXML private Button helpButton, rewardButton, exitButton;
 
-    private User user;
     private FXMLResourceLoader loader = new FXMLResourceLoader();
 
     @FXML private void exitPressed(ActionEvent event) {
@@ -95,7 +98,7 @@ public class MainController implements Initializable {
         new File("./data/usernames").mkdirs();
 
         //Set user current name and score
-        user = UserUtils.getCurrentLoginUser(userText,pointsText);
+        User user = UserUtils.getCurrentLoginUser(userText, pointsText);
 
         // Reward and help Popup icons
         IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton);

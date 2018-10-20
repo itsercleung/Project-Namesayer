@@ -2,7 +2,9 @@ package namesayer.util;
 
 import java.io.IOException;
 
-//UPDATENAME Class: Allows for names to be moved from database if appropriate destination is given
+/**
+ * UpdateName: Allows for names to be moved from database if appropriate destination is given
+ */
 public class UpdateName {
     //Whenever a new name is made from recording of user, then single filter such recording and place in filteredNames folder
     public void updateNewName(String name) {

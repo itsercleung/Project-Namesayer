@@ -8,11 +8,15 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
+/**
+ * HelpDialog: Provides a display of different assistance dialogs displayed when user is unsure of what to do:
+ * They will consistently change depending on what scene they're in (play, main, rewards screens), including duplicate
+ * error handling dialog when user inputs an additional name while it already exists
+ */
 public class HelpDialog {
     private Button helpButton;
 
     public HelpDialog() {
-
     }
 
     public HelpDialog(Button helpButton) {
@@ -20,6 +24,11 @@ public class HelpDialog {
         helpButton.setDisable(true);
     }
 
+    /**
+     * showHelpDialog: Shows all help dialog
+     * @param stackPane : current stackPane to display on
+     * @param identifierVal : identifying what help dialog
+     */
     public void showHelpDialog(StackPane stackPane, int identifierVal) {
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
         Button button = new Button("Got it!");
@@ -38,6 +47,7 @@ public class HelpDialog {
         //Using identifier val to set up label type
         Label pracBody = new Label("");
 
+        //MAIN help screen
         if (identifierVal == 1) {
             pracBody = new Label("Practice: \n" +
                     "(1) Search for name (or combined) or Upload txt \n" +
@@ -54,6 +64,7 @@ public class HelpDialog {
                     "(2) Press Record button to record \n" +
                     "(3) Listen/Save recording");
         }
+        //PLAY help screen
         else if (identifierVal == 2) {
             pracBody = new Label("Navigating names: \n" +
                     "(1) Click NEXT or PREV button \n" +
@@ -69,6 +80,7 @@ public class HelpDialog {
                     "(2) Press RECORD (RED CIRCLE) symbol below \n" +
                     "(3) Press RECORD on popup (and listen or save)");
         }
+        //REWARD help screen
         else if (identifierVal == 3) {
             pracBody = new Label( "Reward system: \n" +
                     "-----------------------------------\n" +
@@ -83,7 +95,6 @@ public class HelpDialog {
                     "(2) Click APPLY button below \n" +
                     "(3) Done! See changes in login screen!");
         }
-
         dialogLayout.setBody(pracBody);
         dialogLayout.setActions(button);
         dialog.show();
@@ -93,11 +104,17 @@ public class HelpDialog {
         button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
     }
 
+    /**
+     * showDuplicateDialog: displays dialog to show that user has duplicated a name input in the playList.
+     * @param stackPane : current stackPane to display on
+     * @param label : name that has been duplicated
+     */
     public void showDuplicateDialog(StackPane stackPane, String label) {
-        //Checking which error dialog to run
+        //Make label for dialog
         label += " :(";
         Label dupLabel = new Label(label);
 
+        //Setup dialog
         Button button = new Button("Got it");
         button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
         JFXDialogLayout layout = new JFXDialogLayout();
@@ -113,7 +130,12 @@ public class HelpDialog {
         });
     }
 
+    /**
+     * showLongNameDialog: A given name is too long (over 50 chars) thus provide error dialog
+     * @param stackPane : display on current stackPane
+     */
     public void showLongNameDialog(StackPane stackPane) {
+        //Setup dialog for long name dialog
         Button button = new Button("Got it");
         button.getStylesheets().add("namesayer/resources/stylesheet/general.css");
         JFXDialogLayout layout = new JFXDialogLayout();
