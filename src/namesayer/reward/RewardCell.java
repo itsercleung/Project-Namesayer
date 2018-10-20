@@ -40,7 +40,7 @@ public class RewardCell extends ListCell<Reward> {
 
         if (reward != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../reward/RewardCell.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/reward/RewardCell.fxml"));
                 loader.setController(this);
                 loader.load();
             } catch (IOException e) {
