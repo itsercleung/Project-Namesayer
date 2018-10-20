@@ -1,7 +1,6 @@
 package namesayer;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import namesayer.login.User;
@@ -79,12 +78,10 @@ public class IconLoader {
         Image help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
 
         //Clippy setup if reward is set
-        for (String str : user.getRewards())
-        if (str == null) {
+        if (user.getRewards() == null) {
             help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
-        } else if (str.equals("   The Clippy Guide")) {
+        } else if (user.getRewards().contains("The Clippy Guide")) {
             help = new Image(getClass().getResourceAsStream("resources/icons/clippy.png"));
-            break;
         } else {
             help = new Image(getClass().getResourceAsStream("resources/icons/info.png"));
         }

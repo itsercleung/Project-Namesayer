@@ -46,14 +46,6 @@ public class Reward {
         return isRedeemed;
     }
 
-    public boolean isApplied() {
-        return isApplied;
-    }
-
-    public void setRedeemed(boolean bool) { isRedeemed = bool; }
-
-    public void setApplied(boolean bool) { isApplied = bool; }
-
     public void redeemReward() {
         isRedeemed = true;
     }
@@ -72,10 +64,6 @@ public class Reward {
 
     public boolean getIsRedeemable() {
         return isRedeemable;
-    }
-
-    public RewardManager.RewardType getRewardType() {
-        return rewardType;
     }
 
     @Override

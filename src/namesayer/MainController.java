@@ -26,44 +26,7 @@ import java.util.ResourceBundle;
  * MainController: Initializes functionality of the main sidebar menu and other components. Main menu doesn't have any
  * functionality other than to welcome the user and provide sidemenu to navigate to other controllers
  */
-public class MainController implements Initializable {
-
-    @FXML private AnchorPane mainRoot;
-    @FXML private StackPane stackPane;
-    @FXML private Text userText, pointsText;
-    @FXML private Button helpButton, rewardButton, exitButton;
-
-    private FXMLResourceLoader loader = new FXMLResourceLoader();
-
-    @FXML private void exitPressed(ActionEvent event) {
-        loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
-    }
-
-    //Load help popup
-    @FXML private void helpPressed(ActionEvent event) {
-        HelpDialog helpDialog = new HelpDialog(helpButton);
-        helpDialog.showHelpDialog(stackPane, 1);
-    }
-
-    //Load rewards window
-    @FXML private void rewardPressed(ActionEvent event) {
-        loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
-    }
-
-    @FXML private void testMicrophonePressed(ActionEvent event) {
-        //Load testMicrophone pane
-        loader.load(FXMLResource.TEST_MICROPHONE,new StackPane(),mainRoot);
-    }
-
-    //Load practise pane
-    @FXML private void practisePressed(ActionEvent event) {
-        loader.load(FXMLResource.PRACTISE,new StackPane(),mainRoot);
-    }
-
-    //record new practise pane
-    @FXML private void recordNamePressed(ActionEvent event) {
-        loader.load(FXMLResource.RECORD_NEW,new StackPane(),mainRoot);
-    }
+public class MainController extends NameSayerMenu implements Initializable {
 
     //Method to delete all existing temp files within the folder (usually deleted on startup)
     public void deleteTemp() {
