@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * LoginController: Deals with initialisation and actions of the login screen on startup - includes handling users and
+ * new users and entrance to main controller in namesayer
+ */
 public class LoginController implements Initializable {
 
     @FXML private JFXListView<User> userList;
@@ -25,9 +29,9 @@ public class LoginController implements Initializable {
         System.exit(0);
     }
 
+    // gets currently selected name to login to
     @FXML
     void loginButtonClicked(ActionEvent event) {
-        // gets currently selected name to login to
         UserUtils.setCurrentLoginUser(userList.getSelectionModel().getSelectedItem());
 
         StackPane practiseRoot = null;
@@ -39,9 +43,9 @@ public class LoginController implements Initializable {
         mainRoot.getChildren().setAll(practiseRoot);
     }
 
+    //Load new user pane for users to create new profile
     @FXML
     void newUserButtonClicked(ActionEvent event) {
-        //Load new user pane
         NewUserDialog newUserDialog = new NewUserDialog(userList);
         newUserDialog.showNewUserDialog(stackPane);
     }

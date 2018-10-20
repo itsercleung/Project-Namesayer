@@ -18,6 +18,10 @@ import javafx.scene.paint.Paint;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * NewUserDialog: Initialises a dialog box where user can create their new profile given that they have entered a correct
+ * username and presses create button
+ */
 public class NewUserDialog implements Initializable {
     private Button buttonCreate = new Button("Create");
     private Button buttonCancel = new Button("Cancel");
@@ -27,7 +31,6 @@ public class NewUserDialog implements Initializable {
     public NewUserDialog(JFXListView<User> userList) {
         this.userList = userList;
     }
-
 
     //Creates dialog to make new user
     public void showNewUserDialog(StackPane stackPane) {

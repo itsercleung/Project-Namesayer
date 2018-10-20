@@ -29,12 +29,17 @@ public class User {
         return this.points;
     }
 
+    //Add points to existing points within individual user
     protected void addPoints(Points points) {this.points += points.getPoints();}
 
     public HashSet<String> getRewards() {
         return rewards;
     }
 
+    /**
+     * Add current rewards into HashSet
+     * @param rewards : current rewards user has earned
+     */
     public void setRewards(HashSet<String> rewards) {
         this.rewards = rewards;
     }
