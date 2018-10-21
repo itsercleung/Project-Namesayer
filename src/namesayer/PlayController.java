@@ -44,7 +44,6 @@ public class PlayController extends NameSayerMenuController implements Initializ
 
     private PractiseController practiseController = new PractiseController();
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
-    private int currentNameNum = 0; //Current name being played
     private String currSelectedName; //Current name row selected by user
     private RatingManager ratingManager; //Rating instance for rating changes and updates
     private PlayManager playManager;
@@ -100,10 +99,10 @@ public class PlayController extends NameSayerMenuController implements Initializ
     //Plays current selected name audio for 5 seconds
     @FXML
     void playPressed(ActionEvent event) {
-        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(currentNameNum).getName()); //Change text to playing auddio
+        playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(playUtils.getCurrentNameNum()).getName()); //Change text to playing auddio
 
         new Thread(() ->
-                playManager.playOldAudio(practiseController, currentNameNum)).start();
+                playManager.playOldAudio(practiseController, playUtils.getCurrentNameNum())).start();
         if (currSelectedName.contains(" ")) {
             UserUtils.updateUser(user, Points.PRACTISE_CONCAT_NAME, userText, pointsText);
         } else {
@@ -133,8 +132,8 @@ public class PlayController extends NameSayerMenuController implements Initializ
 
         ratingManager = new RatingManager(selectedList, practiseController, audioRating);
         selectedList = ratingManager.ratingUpdate();
-        ratingManager.updateRatingComponent(currentNameNum);
-        playLabel.setText("CURRENTLY SELECTED: " + practiseController.getNamePlaylist().get(currentNameNum).getName()); //Set text to what name is selected
+        ratingManager.updateRatingComponent(playUtils.getCurrentNameNum());
+        playLabel.setText("CURRENTLY SELECTED: " + practiseController.getNamePlaylist().get(0).getName()); //Set text to what name is selected
 
         //Accounting for single audio in which button is disabled
         if (practiseController.getNamePlaylist().size() == 1) {
@@ -142,8 +141,8 @@ public class PlayController extends NameSayerMenuController implements Initializ
         }
         prevButton.setDisable(true);
         stopButton.setDisable(true);
-        nameTable.getSelectionModel().select(currentNameNum);
-        currSelectedName = practiseController.getNamePlaylist().get(currentNameNum).toString() + ".wav";
+        nameTable.getSelectionModel().select(playUtils.getCurrentNameNum());
+        currSelectedName = practiseController.getNamePlaylist().get(0).toString() + ".wav";
 
         //Concat multiple names selected
         new Thread(() -> {
@@ -158,17 +157,16 @@ public class PlayController extends NameSayerMenuController implements Initializ
 
         //When user selects rating, update
         audioRating.ratingProperty().addListener((observable, oldValue, newValue) -> {
-            currSelectedName = ratingManager.ratingPressed(newValue.toString(), currentNameNum);
+            currSelectedName = ratingManager.ratingPressed(newValue.toString(), playUtils.getCurrentNameNum());
             selectedList = ratingManager.ratingUpdate();
         });
 
+        //Instantiate manager and utils for play scene
         playManager = new PlayManager(playButton, recordButton, stopButton);
-
         playUtils = new PlayUtils(saveButton,playOldButton,playNewButton,playCompare,
                 recordSubButton,user,playLabel,userText,pointsText,
-                currSelectedName,playManager,practiseController,currentNameNum,
+                currSelectedName,playManager,practiseController,0,
                 tempAudioName,playButton,createAudio);
-
         playUtils.popupButtons();
 
         //INIT JFX-POPUP

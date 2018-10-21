@@ -9,7 +9,7 @@
 }
 
 .rating :disabled {
-    -fx-opacity: 1;
+    -fx-opacity: 0.8;
 }
 
 Button :disabled {
@@ -19,6 +19,7 @@ Button :disabled {
 Button {
     -fx-background-color: #212121;
     -fx-text-fill: white;
+    -fx-font-weight: bold;
     -fx-background-radius: 0;
 }
 
@@ -245,6 +246,8 @@ ToggleSwitch:selected .thumb-area {
     -fx-text-fill: white;
 }
 
+/* MAIN BUTTON COMPONENTS */
+
 /* LOGIN COMPONENTS */
 #background {
     -fx-background-image: url("../images/gradientBackground.jpg");;
@@ -253,6 +256,7 @@ ToggleSwitch:selected .thumb-area {
 #loginButton {
     -fx-background-color: white;
     -fx-text-fill: black;
+    -fx-font-weight: bold;
     -fx-font-size: 14px;
 }
 
@@ -264,6 +268,7 @@ ToggleSwitch:selected .thumb-area {
 #newUserButton {
     -fx-background-color: white;
     -fx-text-fill: black;
+    -fx-font-weight: bold;
     -fx-font-size: 14px;
 }
 
@@ -275,6 +280,7 @@ ToggleSwitch:selected .thumb-area {
 #exitButton {
     -fx-background-color: white;
     -fx-text-fill: black;
+    -fx-font-weight: bold;
     -fx-font-size: 14px;
 }
 

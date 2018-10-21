@@ -18,22 +18,22 @@ import namesayer.util.Name;
 import org.controlsfx.control.Rating;
 
 /**
- * Deals with the button logic in the PlayController
+ * PlayUtils: Deals with the button logic in the PlayController
  */
 public class PlayUtils {
 
-    Button saveButton, playOldButton, playNewButton,
+    private Button saveButton, playOldButton, playNewButton,
      playCompare,recordSubButton;
-    User user;
-    Label playLabel;
-    Text userText, pointsText;
-    String currSelectedName;
-    PlayManager playManager;
-    PractiseController practiseController;
-    int currentNameNum;
-    String tempAudioName;
-    Button playButton;
-    CreateAudio createAudio;
+    private User user;
+    private Label playLabel;
+    private Text userText, pointsText;
+    private String currSelectedName;
+    private PlayManager playManager;
+    private PractiseController practiseController;
+    private int currentNameNum;
+    private String tempAudioName;
+    private Button playButton;
+    private CreateAudio createAudio;
 
     public PlayUtils() {}
 
@@ -61,6 +61,9 @@ public class PlayUtils {
         this.createAudio = createAudio;
     }
 
+    /**
+     * popupButtons: handles record popup button functions
+     */
     public void popupButtons() {
         //JFXPOPUP BUTTON ACTIONS
         //PLAYOLD - plays current names audio file
@@ -161,7 +164,11 @@ public class PlayUtils {
         });
     }
 
-
+    /**
+     * recordPopup: Record popup appears with given buttons and layout
+     * @param recordPopup
+     * @param recordButton
+     */
     public void recordPopup(JFXPopup recordPopup, Button recordButton) {
         //Button sizes and style
         recordSubButton.setMinSize(130.0, 40);
@@ -175,6 +182,9 @@ public class PlayUtils {
         recordPopup.getPopupContent().setPrefWidth(130);
     }
 
+    /**
+     * rowClicked: on tables row click allows changes the names current selected name to be played
+     */
     public void rowClicked(TableView<Name> nameTable,
                            ObservableList<Name> selectedList,
                            Button prevButton,
@@ -208,9 +218,11 @@ public class PlayUtils {
         ratingManager.checkConcatRating(currSelectedName, audioRating);
     }
 
+    /**
+     * prevPressed: Switching to prev selected audio files if previous button is pressed
+     */
     public void prevPressed(Button prevButton, Button nextButton, TableView<Name> nameTable,
                             RatingManager ratingManager, Rating audioRating) {
-        //Switching to prev selected audio files
         currentNameNum--;
         if (currentNameNum == 0) {
             prevButton.setDisable(true);
@@ -225,9 +237,11 @@ public class PlayUtils {
         ratingManager.checkConcatRating(currSelectedName, audioRating);
     }
 
+    /**
+     * nextPressed: Switching to next selected audio files if next button is pressed
+     */
     public void nextPressed(Button prevButton, Button nextButton, TableView<Name> nameTable,
                             RatingManager ratingManager, Rating audioRating) {
-        //Switching to next selected audio files
         currentNameNum++;
         if (currentNameNum == practiseController.getNamePlaylist().size() - 1) {
             nextButton.setDisable(true);
@@ -244,6 +258,9 @@ public class PlayUtils {
         ratingManager.checkConcatRating(currSelectedName, audioRating);
     }
 
+    /**
+     * populateTableView: Populates table view on play controller given the selected names playlist
+     */
     public void populateTableView(PractiseController practiseController,
                                   ObservableList<Name> selectedList,
                                   TableView<Name> nameTable,
@@ -258,5 +275,13 @@ public class PlayUtils {
         nameCol.setCellValueFactory(new PropertyValueFactory<Name, String>("name"));
         createdCol.setCellValueFactory(new PropertyValueFactory<Name, String>("createdDesc"));
         ratingCol.setCellValueFactory(new PropertyValueFactory<Name, Rating>("rating"));
+    }
+
+    /**
+     * Gets the current integer position of current name to be played
+     * @return Current name position in selected playlist
+     */
+    public int getCurrentNameNum() {
+        return currentNameNum;
     }
 }

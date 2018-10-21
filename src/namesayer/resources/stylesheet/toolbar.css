@@ -5,6 +5,7 @@ Button{
     -fx-border-width: 0 0 0 3px;
     -fx-text-fill: white;
     -fx-background-radius: 0;
+    -fx-font-weight: bold;
 }
 
 Button:hover{
