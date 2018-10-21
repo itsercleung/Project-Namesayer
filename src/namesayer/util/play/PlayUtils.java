@@ -158,6 +158,8 @@ public class PlayUtils {
         //SAVE NEW - user attempt placed into database to add onto filtering
         saveButton.setOnMousePressed(event -> {
             saveButton.setDisable(true);
+            playCompare.setDisable(true);
+            playNewButton.setDisable(true);
             playLabel.setText("SAVED: " + practiseController.getNamePlaylist().get(currentNameNum).getName());
             createAudio.saveAudio();
             UserUtils.updateUser(user, Points.CREATE_NAME, userText, pointsText);
