@@ -83,11 +83,12 @@ public class HelpDialog {
         //REWARD help screen
         else if (identifierVal == 3) {
             pracBody = new Label( "Reward system: \n" +
-                    "-----------------------------------\n" +
-                    "|  Single name (100 pts)   |\n" +
-                    "|  Concat name (150 pts)  |\n" +
-                    "|  Saving name (250 pts)  |\n" +
-                    "-----------------------------------\n" +
+                    "-----------------------------------------\n" +
+                    "|  Single name (50 pts)            |\n" +
+                    "|  Concat name (100 pts)         |\n" +
+                    "|  Comparing names (200 pts) |\n" +
+                    "|  Saving name (200 pts)         |\n" +
+                    "-----------------------------------------\n" +
                     "* Rewards are displayed on profile picture on login \n" +
                     "\n" +
                     "Apply reward: \n" +

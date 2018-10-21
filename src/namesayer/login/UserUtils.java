@@ -157,7 +157,7 @@ public class UserUtils {
      * @param pointsText : text component displaying points
      */
     public static void updateUser(User user, Text userText, Text pointsText) {
-        userText.setText("User: " + user.getUsername());
+        userText.setText(user.getUsername());
         pointsText.setText("Points: " + user.getPoints());
 
         String path = "./data/usernames/" + user.getUsername() + ".txt";
