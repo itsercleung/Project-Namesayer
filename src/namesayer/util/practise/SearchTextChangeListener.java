@@ -8,6 +8,11 @@ import javafx.collections.transformation.FilteredList;
 
 import java.util.List;
 
+/**
+ *SearchTextChangeListener is used in PractiseController
+ * to find find the correct name when the user types in a name.
+ * @author Eric Leung, Kevin Xu
+ */
 public class SearchTextChangeListener implements ChangeListener<String> {
 
     private String concatName;

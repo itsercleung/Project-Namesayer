@@ -32,6 +32,8 @@ import java.util.List;
  * Users are able to search on click and also provide an input of a text file (given the format) to input into the playList.
  * Users are able to add names that are single names or full names. They are also provided with randomization selection and
  * clear buttons for flexibility.
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public class PractiseController extends NameSayerMenuController implements Initializable {
 

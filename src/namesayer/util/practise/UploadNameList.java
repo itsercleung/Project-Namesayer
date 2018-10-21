@@ -18,6 +18,7 @@ import java.util.Scanner;
 
 /**
  * UploadNameList deals with the data related to uploading a txt file.
+ * @author Eric Leung, Kevin Xu
  */
 public class UploadNameList {
 
