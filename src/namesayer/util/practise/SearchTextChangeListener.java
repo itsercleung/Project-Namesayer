@@ -15,6 +15,8 @@ public class SearchTextChangeListener implements ChangeListener<String> {
     private FilteredList<String> filteredData;
     private JFXListView<String> searchNamesView;
 
+    private PractiseUtils practiseUtils = new PractiseUtils();
+
     public SearchTextChangeListener(String concatName,
                                     ObservableList<String> searchNameList,
                                     FilteredList<String> filteredData,
@@ -41,6 +43,9 @@ public class SearchTextChangeListener implements ChangeListener<String> {
     @Override
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
         //IF "-" or " " exists from user input and such words exist in database, get the concatenated version and display on search
+        searchNameList.clear();
+        practiseUtils.populateList(searchNameList);
+
         String[] dispConcat;
         int wordCount = 0;
         if (newValue.contains("-") || newValue.contains(" ")) {

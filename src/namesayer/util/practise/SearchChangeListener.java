@@ -77,6 +77,7 @@ public class SearchChangeListener implements ChangeListener<String> {
             Platform.runLater(() -> {
                 searchTextField.clear();
                 searchNameList.clear();
+                practiseUtils.populateList(searchNameList);
                 mainRoot.requestFocus();
             });
 

@@ -17,6 +17,8 @@ import java.util.List;
  */
 public class PractiseUtils {
 
+    public PractiseUtils(){}
+
     public boolean duplicateCheck(String name,
                                ObservableList<String> selectedNameList,
                                JFXListView<String> searchNamesView,
