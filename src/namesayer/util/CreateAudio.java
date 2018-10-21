@@ -19,12 +19,12 @@ public class CreateAudio {
     }
 
     /**
-     *  Execute ffmpeg recording which creates audio file in temp
+     * Execute ffmpeg recording which creates audio file in temp
      */
     public void createSingleAudio() {
         //Create audio in linux ffmpeg command
         String userAudio = "cd temp\n" +
-                "ffmpeg -loglevel quiet -y -f alsa -i default -t 4.5 -ar 22050 -ac 1 " + name.replace(" ","") + ".wav";
+                "ffmpeg -loglevel quiet -y -f alsa -i default -t 4.5 -ar 22050 -ac 1 " + name.replace(" ", "") + ".wav";
 
         Task task = new Task<Void>() {
             @Override
@@ -48,8 +48,8 @@ public class CreateAudio {
      */
     public void saveAudio() {
         try {
-            Files.move(Paths.get("temp/" + name.replace(" ","") + ".wav"),
-                    Paths.get("./data/names/" + name.replace(" ","") + ".wav"),
+            Files.move(Paths.get("temp/" + name.replace(" ", "") + ".wav"),
+                    Paths.get("./data/names/" + name.replace(" ", "") + ".wav"),
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();

@@ -32,6 +32,7 @@ public class RatingManager {
 
     /**
      * ratingUpdate: update editable rating component on every change of name or startup
+     *
      * @return list of names with updated ratings
      */
     public ObservableList<Name> ratingUpdate() {
@@ -71,7 +72,8 @@ public class RatingManager {
 
     /**
      * ratingPressed: Update rating if user makes rate of specific audio row
-     * @param rating : current rating of name
+     *
+     * @param rating         : current rating of name
      * @param currentNameNum : current number position of current name
      * @return returns string of updated rating
      */
@@ -119,6 +121,7 @@ public class RatingManager {
 
     /**
      * updateRatingComponent: Update rating change on rateable component
+     *
      * @param currentNameNum : current number of selected name in list
      */
     public void updateRatingComponent(int currentNameNum) {
@@ -138,8 +141,7 @@ public class RatingManager {
                         audioRating.setRating(rating); //Set adjustable rating
                     }
                 }
-            }
-            else {
+            } else {
                 audioRating.setRating(0.0); //Update to 0.0 if rating of name doesn't exist
             }
 
@@ -150,17 +152,17 @@ public class RatingManager {
 
     /**
      * checkConcatRating : checking if currentName is concat or not and disables rating ability if true
+     *
      * @param currSelectedName : currently selected name
-     * @param audioRating : current audioRating component for the selected name
+     * @param audioRating      : current audioRating component for the selected name
      */
     public void checkConcatRating(String currSelectedName, Rating audioRating) {
         if (currSelectedName.contains(" ")) {
             audioRating.setDisable(true);
             audioRating.setOpacity(0.5);
-        }
-        else {
+        } else {
             audioRating.setDisable(false);
             audioRating.setOpacity(1);
         }
-     }
+    }
 }

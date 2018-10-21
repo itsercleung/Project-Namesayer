@@ -17,7 +17,7 @@ import namesayer.util.HelpDialog;
 public class SearchChangeListener implements ChangeListener<String> {
 
     private ObservableList<String> selectedNameList, searchNameList;
-    private JFXListView<String> searchNamesView,selectedNamesView;
+    private JFXListView<String> searchNamesView, selectedNamesView;
     private StackPane stackPane;
     private JFXTextField searchTextField;
     private AnchorPane mainRoot;

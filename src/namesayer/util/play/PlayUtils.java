@@ -23,7 +23,7 @@ import org.controlsfx.control.Rating;
 public class PlayUtils {
 
     private Button saveButton, playOldButton, playNewButton,
-     playCompare,recordSubButton;
+            playCompare, recordSubButton;
     private User user;
     private Label playLabel;
     private Text userText, pointsText;
@@ -35,14 +35,15 @@ public class PlayUtils {
     private Button playButton;
     private CreateAudio createAudio;
 
-    public PlayUtils() {}
+    public PlayUtils() {
+    }
 
     public PlayUtils(Button saveButton, Button playOldButton, Button playNewButton,
                      Button playCompare, Button recordSubButton,
                      User user, Label playLabel, Text userText, Text pointsText,
                      String currSelectedName, PlayManager playManager,
                      PractiseController practiseController, int currentNameNum,
-                     String tempAudioName,Button playButton, CreateAudio createAudio) {
+                     String tempAudioName, Button playButton, CreateAudio createAudio) {
         this.saveButton = saveButton;
         this.playOldButton = playOldButton;
         this.playNewButton = playNewButton;
@@ -166,6 +167,7 @@ public class PlayUtils {
 
     /**
      * recordPopup: Record popup appears with given buttons and layout
+     *
      * @param recordPopup
      * @param recordButton
      */
@@ -279,6 +281,7 @@ public class PlayUtils {
 
     /**
      * Gets the current integer position of current name to be played
+     *
      * @return Current name position in selected playlist
      */
     public int getCurrentNameNum() {

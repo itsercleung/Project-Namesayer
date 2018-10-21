@@ -28,8 +28,7 @@ public class Name {
         //Setting created to single name (depending if name is single or concat)
         if (!created.contains(" ")) {
             createdDesc = created;
-        }
-        else if (created.contains(" ")) {
+        } else if (created.contains(" ")) {
             createdDesc = "[COMBINED]";
         }
     }
@@ -42,9 +41,13 @@ public class Name {
         return created;
     }
 
-    public String getDate() { return date; }
+    public String getDate() {
+        return date;
+    }
 
-    public String getTime() { return time; }
+    public String getTime() {
+        return time;
+    }
 
     public Rating getRating() {
         return rating;
@@ -54,9 +57,13 @@ public class Name {
         return createdDesc;
     }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public void setCreated(String created) { this.created = created; }
+    public void setCreated(String created) {
+        this.created = created;
+    }
 
     public void setRating(Rating rating) {
         this.rating = rating;
@@ -64,9 +71,12 @@ public class Name {
 
     /**
      * If name is concat, we can replace the createdBy section with [COMBINATION] of users choice
+     *
      * @return description of concat name (CONCAT)
      */
-    public String replaceDesc() { return date + "_" + time + "_" + name; }
+    public String replaceDesc() {
+        return date + "_" + time + "_" + name;
+    }
 
     public String toString() {
         return created + "_" + date + "_" + time + "_" + name;

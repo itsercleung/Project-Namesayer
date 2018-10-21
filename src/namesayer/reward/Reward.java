@@ -54,9 +54,13 @@ public class Reward {
         isApplied = true;
     }
 
-    public int getMinPoints() { return minPoints; }
+    public int getMinPoints() {
+        return minPoints;
+    }
 
-    public String getImageURL() { return imageURL; }
+    public String getImageURL() {
+        return imageURL;
+    }
 
     public void setIsRedeemable(boolean bool) {
         isRedeemable = bool;

@@ -14,9 +14,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import namesayer.util.fxmlloader.FXMLResource;
 import namesayer.util.IconLoader;
 import namesayer.util.Recorder;
+import namesayer.util.fxmlloader.FXMLResource;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,35 +28,47 @@ import java.io.IOException;
  */
 public class TestMicrophoneController extends NameSayerMenuController implements Initializable {
 
-    @FXML private Button listenButton,testButton,testMicrophoneButton;
-    @FXML private MediaView mediaTest;
-    @FXML private Label testLabel;
-    @FXML private ProgressBar micLevel;
+    @FXML
+    private Button listenButton, testButton, testMicrophoneButton;
+    @FXML
+    private MediaView mediaTest;
+    @FXML
+    private Label testLabel;
+    @FXML
+    private ProgressBar micLevel;
 
     private Recorder recorder = null;
 
     //When user completes test, let them play back recording to hear if their mic is viable
-    @Override @FXML protected void exitPressed(ActionEvent event) {
+    @Override
+    @FXML
+    protected void exitPressed(ActionEvent event) {
         recorder.close();
         loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
     }
 
     //Load rewards window
-    @Override @FXML protected void rewardPressed(ActionEvent event) {
+    @Override
+    @FXML
+    protected void rewardPressed(ActionEvent event) {
         recorder.close();
         loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
     }
 
     //Load practise window
-    @Override @FXML protected void practisePressed(ActionEvent event) {
+    @Override
+    @FXML
+    protected void practisePressed(ActionEvent event) {
         recorder.close();
-        loader.load(FXMLResource.PRACTISE,new StackPane(),mainRoot);
+        loader.load(FXMLResource.PRACTISE, new StackPane(), mainRoot);
     }
 
     //Load record name window
-    @Override @FXML protected void recordNamePressed(ActionEvent event) {
+    @Override
+    @FXML
+    protected void recordNamePressed(ActionEvent event) {
         recorder.close();
-        loader.load(FXMLResource.RECORD_NEW,new StackPane(),mainRoot);
+        loader.load(FXMLResource.RECORD_NEW, new StackPane(), mainRoot);
     }
 
     //When user completes test, let them play back recording to hear if their mic is viable 
@@ -152,8 +164,9 @@ public class TestMicrophoneController extends NameSayerMenuController implements
         testButton.setOnMouseExited(e -> testButton.setGraphic(new ImageView(rec)));
 
         // Reward and help Popup icons
-        IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton);
-        iconLoader.loadMenuIcons();}
+        IconLoader iconLoader = new IconLoader(user, rewardButton, helpButton, exitButton);
+        iconLoader.loadMenuIcons();
+    }
 
 }
 

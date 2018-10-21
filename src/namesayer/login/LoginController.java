@@ -19,10 +19,14 @@ import java.util.ResourceBundle;
  */
 public class LoginController implements Initializable {
 
-    @FXML private JFXListView<User> userList;
-    @FXML private AnchorPane mainRoot;
-    @FXML private StackPane stackPane;
-    @FXML private Button loginButton;
+    @FXML
+    private JFXListView<User> userList;
+    @FXML
+    private AnchorPane mainRoot;
+    @FXML
+    private StackPane stackPane;
+    @FXML
+    private Button loginButton;
 
     @FXML
     private void exitButtonPressed(ActionEvent event) {

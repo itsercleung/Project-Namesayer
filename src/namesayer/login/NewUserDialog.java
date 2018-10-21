@@ -13,7 +13,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import namesayer.util.HelpDialog;
 
 import java.net.URL;
@@ -37,7 +36,7 @@ public class NewUserDialog implements Initializable {
     public void showNewUserDialog(StackPane stackPane) {
         //Components within dialog
         Label label = new Label("New Username: ");
-        HBox buttonBox = new HBox(buttonCreate,buttonCancel);
+        HBox buttonBox = new HBox(buttonCreate, buttonCancel);
         HBox bodyBox = new HBox(label, newUserText);
 
         //Set components onto JFXDialog
@@ -49,19 +48,18 @@ public class NewUserDialog implements Initializable {
         dialog.show();
 
         //Setting actions to dialog buttons and textField
-        buttonCreate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
+        buttonCreate.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
             if (!newUserText.getText().replace(" ", "").isEmpty() && newUserText.getText().replace(" ", "").length() <= 12) {
                 UserUtils.createUser(newUserText.getText().replace(" ", ""));
                 UserUtils.updateUserList(userList);
                 dialog.close();
-            }
-            else {
+            } else {
                 HelpDialog helpDialog = new HelpDialog();
                 helpDialog.showNewUserErrorDialog(stackPane);
             }
         });
 
-        buttonCancel.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
+        buttonCancel.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
             dialog.close();
         });
 

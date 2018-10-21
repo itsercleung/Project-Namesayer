@@ -28,10 +28,13 @@ public class PlayListCreator {
         return namePlaylist;
     }
 
-    public List<PlayAudio> getPlayAudioList() { return playAudioList; }
+    public List<PlayAudio> getPlayAudioList() {
+        return playAudioList;
+    }
 
     /**
      * makeRating: When user sets rating on a name then makeRating set
+     *
      * @param rate : default rate to setup (existing and new rate)
      * @return returns Rating component to display on PlayController
      */
@@ -45,11 +48,12 @@ public class PlayListCreator {
         return rating;
     }
 
-    /** Makes playlist from selectedList names:
-        (1) Use name to find all audio files associating with name
-        (2) Get list of all audio files associating with name
-        (3) Create a Name object for each element in list
-        (4) Put into namePlayList to PLAY
+    /**
+     * Makes playlist from selectedList names:
+     * (1) Use name to find all audio files associating with name
+     * (2) Get list of all audio files associating with name
+     * (3) Create a Name object for each element in list
+     * (4) Put into namePlayList to PLAY
      */
     public void makePlayList() {
         //Getting names of all name files in data/names
@@ -154,14 +158,14 @@ public class PlayListCreator {
                 //Make Name object and add to selectionList (combination)
                 String chosenName = chosenCombNames.get(0);
                 String[] parts = chosenName.split("_");
-                parts[3] = parts[3].substring(0,parts[3].lastIndexOf("."));
+                parts[3] = parts[3].substring(0, parts[3].lastIndexOf("."));
                 for (int i = 1; i < chosenCombNames.size(); i++) {
                     chosenName = chosenCombNames.get(i);
                     String[] addParts = chosenName.split("_");
                     parts[0] = parts[0] + " " + addParts[0];
                     parts[1] = parts[1] + " " + addParts[1];
                     parts[2] = parts[2] + " " + addParts[2];
-                    parts[3] = parts[3] + " " + addParts[3].substring(0,addParts[3].lastIndexOf("."));
+                    parts[3] = parts[3] + " " + addParts[3].substring(0, addParts[3].lastIndexOf("."));
                 }
                 namePlaylist.add(new Name(parts[3], parts[0], parts[1], parts[2], makeRating(0)));
             }

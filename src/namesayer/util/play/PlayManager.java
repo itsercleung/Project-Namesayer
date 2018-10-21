@@ -22,19 +22,21 @@ public class PlayManager {
     /**
      * playOldAudio: plays the currently selected audio
      * in the list in PractiseController.
+     *
      * @param practiseController : Practice controller object to assign platform
-     * @param currentNameNum : current selected number to play
+     * @param currentNameNum     : current selected number to play
      */
     public void playOldAudio(PractiseController practiseController, int currentNameNum) {
-        playPlatform(practiseController,currentNameNum);
+        playPlatform(practiseController, currentNameNum);
         setDelay();
         Platform.runLater(this::disableButtons);
     }
 
     /**
      * playPlatform: Used to play the old audio in playOldAudio and playAlternateAudio
+     *
      * @param practiseController : Practice controller object to assign platform
-     * @param currentNameNum : current selected number to play
+     * @param currentNameNum     : current selected number to play
      */
     private void playPlatform(PractiseController practiseController, int currentNameNum) {
         Platform.runLater(() -> {
@@ -78,6 +80,7 @@ public class PlayManager {
 
     /**
      * playNewAudio: Plays the currently recorded audio.
+     *
      * @param tempAudioName : name of temporary created audio
      */
     public void playNewAudio(String tempAudioName) {
@@ -97,12 +100,13 @@ public class PlayManager {
 
     /**
      * playAlternateAudio: Alternates once between playOld and playNew audios.
+     *
      * @param practiseController : given practise controller
-     * @param currentNameNum : current name selected
-     * @param tempAudioName : current temp audio name created
+     * @param currentNameNum     : current name selected
+     * @param tempAudioName      : current temp audio name created
      */
     public void playAlternateAudio(PractiseController practiseController, int currentNameNum, String tempAudioName) {
-        playPlatform(practiseController,currentNameNum);
+        playPlatform(practiseController, currentNameNum);
         setDelay();
         playNewAudio(tempAudioName);
         setDelay();

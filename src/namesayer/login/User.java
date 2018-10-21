@@ -17,7 +17,7 @@ public class User {
     }
 
     public User(String username, int points, HashSet<String> rewards) {
-        this(username,points);
+        this(username, points);
         this.rewards = rewards;
     }
 
@@ -30,7 +30,9 @@ public class User {
     }
 
     //Add points to existing points within individual user
-    protected void addPoints(Points points) {this.points += points.getPoints();}
+    protected void addPoints(Points points) {
+        this.points += points.getPoints();
+    }
 
     public HashSet<String> getRewards() {
         return rewards;
@@ -38,6 +40,7 @@ public class User {
 
     /**
      * Add current rewards into HashSet
+     *
      * @param rewards : current rewards user has earned
      */
     public void setRewards(HashSet<String> rewards) {
@@ -46,7 +49,7 @@ public class User {
 
     @Override
     public String toString() {
-       return this.username ;
+        return this.username;
     }
 
 }

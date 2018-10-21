@@ -7,7 +7,9 @@ import javafx.scene.text.Text;
 import namesayer.reward.Reward;
 
 import java.io.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Scanner;
 
 /**
  * UserUtils: is a group of functions that will deal with points,
@@ -61,6 +63,7 @@ public class UserUtils {
 
     /**
      * Sets current user upon logging in
+     *
      * @param user : Current user which has been selected by user of namesayer
      */
     public static void setCurrentLoginUser(User user) {
@@ -79,7 +82,8 @@ public class UserUtils {
 
     /**
      * getCurrentLoginUser gets and updates the currently selected user for each new view
-     * @param userText : Text component that displays username in text
+     *
+     * @param userText   : Text component that displays username in text
      * @param pointsText : Text component that displays users points in text
      */
     public static User getCurrentLoginUser(Text userText, Text pointsText) {
@@ -119,6 +123,7 @@ public class UserUtils {
 
     /**
      * Creates user and associated txt file.
+     *
      * @param name : name of created new username
      * @return
      */
@@ -146,8 +151,9 @@ public class UserUtils {
     /**
      * updateUser sets or updates user information on the Text
      * at top left corner.
-     * @param user : current selected user
-     * @param userText : text component displaying username
+     *
+     * @param user       : current selected user
+     * @param userText   : text component displaying username
      * @param pointsText : text component displaying points
      */
     public static void updateUser(User user, Text userText, Text pointsText) {
@@ -191,7 +197,8 @@ public class UserUtils {
 
     /**
      * updateUserRewards will disable or enable the current input reward.
-     * @param user : current selected user
+     *
+     * @param user   : current selected user
      * @param reward : current selected reward to apply
      */
     public static void updateUserRewards(User user, Reward reward) {

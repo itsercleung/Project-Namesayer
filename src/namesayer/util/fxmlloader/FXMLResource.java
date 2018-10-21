@@ -14,6 +14,12 @@ public enum FXMLResource {
     LOGOUT("/namesayer/resources/Login.fxml");
 
     private String resource;
-    FXMLResource(String resource) { this.resource = resource; }
-    public String getResourceURL() {return resource;}
+
+    FXMLResource(String resource) {
+        this.resource = resource;
+    }
+
+    public String getResourceURL() {
+        return resource;
+    }
 }
