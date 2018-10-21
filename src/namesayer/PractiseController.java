@@ -121,6 +121,14 @@ public class PractiseController extends NameSayerMenuController implements Initi
         searchNamesView.setVisible(false);
         practiseButton.setDisable(true);
 
+        // limits text field to 50 characters
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (searchTextField.getText().length() > 50) {
+                String name = searchTextField.getText().substring(0,50);
+                searchTextField.setText(name);
+            }
+        });
+
         //Populate and get information from directory
         PractiseUtils practiseUtils = new PractiseUtils();
         practiseUtils.populateList(searchNameList);
