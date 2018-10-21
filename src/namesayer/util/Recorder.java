@@ -72,5 +72,7 @@ public class Recorder implements Runnable {
         }
     }
 
-    public void close() { line.close(); }
+    public void close() {
+        line.close();
+    }
 }

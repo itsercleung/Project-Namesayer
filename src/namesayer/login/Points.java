@@ -5,9 +5,9 @@ package namesayer.login;
  * in relation to what a user is earning it for.
  */
 public enum Points {
-    PRACTISE_NAME (100),
-    PRACTISE_CONCAT_NAME (150),
-    CREATE_NAME (250),
+    PRACTISE_NAME(100),
+    PRACTISE_CONCAT_NAME(150),
+    CREATE_NAME(250),
     COMPARE_NAME(200);
 
     private final int points;

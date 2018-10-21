@@ -8,10 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import namesayer.util.IconLoader;
 import namesayer.NameSayerMenuController;
-import namesayer.util.fxmlloader.FXMLResource;
 import namesayer.util.HelpDialog;
+import namesayer.util.IconLoader;
+import namesayer.util.fxmlloader.FXMLResource;
 
 /**
  * RewardController: Controller which deals with actions and transitions around the reward scene. Deals with user handling
@@ -20,18 +20,23 @@ import namesayer.util.HelpDialog;
  */
 public class RewardController extends NameSayerMenuController implements Initializable {
 
-    @FXML private StackPane stackPane;
-    @FXML private Button applyButton;
-    @FXML private Label pointsToSpend;
-    @FXML private JFXListView<Reward> rewardList;
+    @FXML
+    private StackPane stackPane;
+    @FXML
+    private Button applyButton;
+    @FXML
+    private Label pointsToSpend;
+    @FXML
+    private JFXListView<Reward> rewardList;
 
     private RewardManager rb;
 
     //Display Rewards help dialog
-    @Override @FXML
+    @Override
+    @FXML
     protected void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
-        helpDialog.showHelpDialog(stackPane ,3);
+        helpDialog.showHelpDialog(stackPane, 3);
     }
 
     //Given reward is selected, apply reward to users profile.
@@ -39,7 +44,7 @@ public class RewardController extends NameSayerMenuController implements Initial
     void applyPressed(ActionEvent event) {
         Reward reward = rewardList.getSelectionModel().getSelectedItem();
         rb.applyReward(reward);
-        loader.load(FXMLResource.REWARD,new StackPane(),mainRoot);
+        loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
         applyButton.setDisable(true);
     }
 
@@ -48,8 +53,7 @@ public class RewardController extends NameSayerMenuController implements Initial
     void rewardRowClicked(MouseEvent event) {
         if (!rewardList.getSelectionModel().getSelectedItem().getIsRedeemable()) {
             applyButton.setDisable(true);
-        }
-        else if (rewardList.getSelectionModel().getSelectedItem().getIsRedeemable()) {
+        } else if (rewardList.getSelectionModel().getSelectedItem().getIsRedeemable()) {
             applyButton.setDisable(false);
         }
     }
@@ -68,7 +72,7 @@ public class RewardController extends NameSayerMenuController implements Initial
         pointsToSpend.setText(text);
 
         // Reward and help Popup icons
-        IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton);
+        IconLoader iconLoader = new IconLoader(user, rewardButton, helpButton, exitButton);
         iconLoader.loadMenuIcons();
     }
 }

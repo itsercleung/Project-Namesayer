@@ -2,7 +2,6 @@ package namesayer;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,13 +11,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import namesayer.login.Points;
 import namesayer.login.UserUtils;
-import namesayer.util.*;
+import namesayer.util.CreateAudio;
+import namesayer.util.HelpDialog;
+import namesayer.util.IconLoader;
+import namesayer.util.Name;
 import namesayer.util.fxmlloader.FXMLResource;
 import namesayer.util.play.PlayAudio;
 import namesayer.util.play.PlayManager;
@@ -57,8 +58,7 @@ public class PlayController extends NameSayerMenuController implements Initializ
     private JFXButton saveButton = new JFXButton("SAVE NEW");
     private String tempAudioName = null; // for recording
     private CreateAudio createAudio;
-
-    PlayUtils playUtils;
+    private PlayUtils playUtils;
 
     @Override
     @FXML
@@ -70,7 +70,9 @@ public class PlayController extends NameSayerMenuController implements Initializ
         loader.load(FXMLResource.PRACTISE, new StackPane(), mainRoot);
     }
 
-    //Help dialog loads
+    /**
+     * Help dialog loads
+     */
     @Override
     @FXML
     protected void helpPressed(ActionEvent event) {
@@ -78,25 +80,33 @@ public class PlayController extends NameSayerMenuController implements Initializ
         helpDialog.showHelpDialog(stackPane, 2);
     }
 
-    //Switches to next name audio if there exists next audio
+    /**
+     * Switches to next name audio if there exists next audio
+     */
     @FXML
     void nextPressed(ActionEvent event) {
         playUtils.nextPressed(prevButton,nextButton,nameTable,ratingManager,audioRating);
     }
 
-    //Switches back to previous name audio if there exists previous audio
+    /**
+     * Switches back to previous name audio if there exists previous audio
+     */
     @FXML
     void prevPressed(ActionEvent event) {
         playUtils.prevPressed(prevButton,nextButton,nameTable,ratingManager,audioRating);
     }
 
-    //Changes current audio to whatever user selects
+    /**
+     * Changes current audio to whatever user selects
+     */
     @FXML
     void rowClicked(MouseEvent event) {
         playUtils.rowClicked(nameTable,selectedList,prevButton,nextButton,ratingManager,audioRating);
     }
 
-    //Plays current selected name audio for 5 seconds
+    /**
+     * Plays current selected name audio for 5 seconds
+     */
     @FXML
     void playPressed(ActionEvent event) {
         playLabel.setText("CURRENTLY PLAYING: " + practiseController.getNamePlaylist().get(playUtils.getCurrentNameNum()).getName()); //Change text to playing auddio
@@ -110,13 +120,17 @@ public class PlayController extends NameSayerMenuController implements Initializ
         }
     }
 
-    //Creates a popup menu with record,compare plays, and save buttons for user to navigate
+    /**
+     * Creates a popup menu with record,compare plays, and save buttons for user to navigate
+     */
     @FXML
     void recordPressed(ActionEvent event) {
         playUtils.recordPopup(recordPopup,recordButton);
     }
 
-    //Stop currently playing name (in case user doesn't want to wait 5 seconds)
+    /**
+     * Stop currently playing name (in case user doesn't want to wait 5 seconds)
+     */
     @FXML
     void stopPressed(ActionEvent event) {
         playManager.stopAudio();

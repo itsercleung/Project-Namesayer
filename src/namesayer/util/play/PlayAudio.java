@@ -72,7 +72,7 @@ public class PlayAudio {
                 return null;
             }
         };
-        new Thread (task).start();
+        new Thread(task).start();
     }
 
     /**

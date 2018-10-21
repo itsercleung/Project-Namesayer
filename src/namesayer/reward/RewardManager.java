@@ -2,7 +2,6 @@ package namesayer.reward;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
 import namesayer.login.User;
 import namesayer.login.UserUtils;
 
@@ -15,7 +14,8 @@ import java.util.List;
  */
 public class RewardManager {
 
-    public enum RewardType {TROPHY,CLIPPY}
+    public enum RewardType {TROPHY, CLIPPY}
+
     private ObservableList<Reward> rewards;
     private List<Reward> rewardList = new ArrayList<>();
     private User user;
@@ -36,14 +36,14 @@ public class RewardManager {
                 RewardType.TROPHY));
         rewards.add(new Reward("Silver Trophy",
                 "You have earned 5,000 points \nto earn you a Silver Trophy!",
-                5000,"/namesayer/resources/icons/silver.png",
+                5000, "/namesayer/resources/icons/silver.png",
                 RewardType.TROPHY));
         rewards.add(new Reward("Gold Trophy",
                 "You have earned 10,000 points \nto earn you a Gold Trophy!",
                 10000,
                 "/namesayer/resources/icons/gold.png",
                 RewardType.TROPHY));
-        rewards.add(new Reward( "The Clippy Guide",
+        rewards.add(new Reward("The Clippy Guide",
                 "   Unlock Clippy for 20,000 points!\n   Will guide your way to Platinum!",
                 20000, "/namesayer/resources/icons/clippy.png",
                 RewardType.CLIPPY));
@@ -61,10 +61,11 @@ public class RewardManager {
 
     /**
      * Creates a list of Rewards based on what the user has redeemed or applied
+     *
      * @return returns the reward list for RewardController to display
      */
     public ObservableList<Reward> build() {
-        for (Reward reward :rewards) {
+        for (Reward reward : rewards) {
             String name = reward.getRewardName(); // if already redeemed
 
             if (reward.getMinPoints() <= user.getPoints()) {
@@ -87,6 +88,7 @@ public class RewardManager {
 
     /**
      * applyReward: Updates users current applied reward to profile picture and other additional changes
+     *
      * @param reward : given the reward selected
      */
     public void applyReward(Reward reward) {
@@ -97,11 +99,12 @@ public class RewardManager {
 
     /**
      * redeemReward: Updates users redeem rewarded to be unlocked
+     *
      * @param reward : given the reward selected
      */
     public void redeemReward(Reward reward) {
         reward.redeemReward();
-        UserUtils.updateUserRewards(user,reward);
+        UserUtils.updateUserRewards(user, reward);
         reward.setIsRedeemable(false);
     }
 }

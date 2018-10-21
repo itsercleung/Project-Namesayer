@@ -19,10 +19,11 @@ public class IconLoader {
 
     /**
      * Loads icons for the main menu items
-     * @param user : current user logged in
+     *
+     * @param user         : current user logged in
      * @param rewardButton : rewardButton component
-     * @param helpButton : helpButton component
-     * @param exitButton : exitButton component
+     * @param helpButton   : helpButton component
+     * @param exitButton   : exitButton component
      */
     public IconLoader(User user, Button rewardButton, Button helpButton, Button exitButton) {
         this.user = user;

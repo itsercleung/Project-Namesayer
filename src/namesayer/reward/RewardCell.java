@@ -16,9 +16,12 @@ import java.io.IOException;
  * in RewardController
  */
 public class RewardCell extends ListCell<Reward> {
-    @FXML private AnchorPane root;
-    @FXML private Label nameText, descriptionText;
-    @FXML private ImageView image;
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private Label nameText, descriptionText;
+    @FXML
+    private ImageView image;
 
     private User user;
 
@@ -29,6 +32,7 @@ public class RewardCell extends ListCell<Reward> {
 
     /**
      * updateItem: Updates the cell given the information of the reward object (include name, description and picture)
+     *
      * @param reward : set cell given the reward object
      * @param empty
      */
