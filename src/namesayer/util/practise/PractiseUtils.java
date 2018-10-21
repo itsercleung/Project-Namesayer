@@ -10,10 +10,10 @@ import namesayer.util.Name;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * PractiseUtils deals with a lot of common logic in PractiseController
+ * @author Eric Leung, Kevin Xu
  */
 public class PractiseUtils {
 
