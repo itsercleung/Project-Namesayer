@@ -10,13 +10,14 @@ import namesayer.util.Name;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * PractiseUtils deals with a lot of common logic in PractiseController
  */
 public class PractiseUtils {
 
-    public void duplicateCheck(String name,
+    public boolean duplicateCheck(String name,
                                ObservableList<String> selectedNameList,
                                JFXListView<String> searchNamesView,
                                JFXTextField searchTextField,
@@ -29,7 +30,10 @@ public class PractiseUtils {
 
             searchNamesView.setVisible(false);
             Platform.runLater(() -> searchTextField.clear());
+            return true; // isDuplicate
         }
+
+        return false; // notDuplicate
     }
 
     /**

@@ -82,6 +82,7 @@ public class UploadNameList {
                         for (String singleName : names) {
                             if (!searchNameList.contains(singleName.toLowerCase())) {
                                 canConcat = false;
+                                rejectList.add(name);
                                 break;
                             }
                         }
@@ -92,6 +93,7 @@ public class UploadNameList {
                                         searchNamesView,
                                         searchTextField,
                                         stackPane);
+
                             } else if (!selectedNameList.contains("[COMBINE]: " + name)) {
                                 selectedNameList.add("[COMBINE]: " + name);
                             }
