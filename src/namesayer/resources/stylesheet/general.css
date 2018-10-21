@@ -1,3 +1,5 @@
+/* General.css used for general components used throughout NameSayer except for within Login and MenuBar
+/* GENERAL STYLE COMPONENTS */
 .rating > .container > .button {
     -fx-background-image: url("../icons/star.png");
 }

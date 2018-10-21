@@ -1,9 +1,10 @@
-# Project-Namesayer
-● Recommended to read README through markdown support <br>
-● Credit: See end of README <br>
+# Project-NameSayer
+● Project-NameSayer created by Kevin Xu and Eric Leung <br>
+● Made for University Students to practise names <br>
+● Recommended to read README with markdown support <br>
+● Credits and Licenses: See end of README <br>
 
 ## How to Use
-
 ### To Run `Project-NameSayer.jar`
 1. Place `Project-NameSayer.jar` into appropriate working folder
 2. Extract names database into folder named `data/names` in the same directory as `Project-NameSayer.jar` (default set already there)
@@ -29,7 +30,7 @@
 <hr>
 ---
 
-### Credit to:
+### Credit and Licenses:
 ● The​ ​ControlsFX​ ​library​ ​is​ ​licensed​ ​under​ ​the​ ​BSD​ ​3-clause​ ​license <br/>
 ● The​ ​JFoenix​ ​library​ ​is​ ​licensed​ ​under​ ​the​ ​Apache​ ​License​ ​2.0  <br/>
 ● Music Icons made by Daniele De Santis from: [https://www.flaticon.com/packs/music] <br/>

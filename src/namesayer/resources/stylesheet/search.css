@@ -1,3 +1,4 @@
+/* Search.css for search list appearance */
 .list-view .list-cell:odd {
     -fx-background-color: #F4F4F4;
     -fx-text-fill: black;

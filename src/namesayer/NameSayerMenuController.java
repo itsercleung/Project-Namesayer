@@ -31,7 +31,6 @@ public abstract class NameSayerMenuController implements Initializable {
 
     /**
      * Logout button pressed
-     * @param event
      */
     @FXML protected void exitPressed(ActionEvent event) {
         loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
@@ -56,7 +55,6 @@ public abstract class NameSayerMenuController implements Initializable {
      * Loads the test microphone menu
      */
     @FXML protected void testMicrophonePressed(ActionEvent event) {
-        //Load testMicrophone pane
         loader.load(FXMLResource.TEST_MICROPHONE,new StackPane(),mainRoot);
     }
 
