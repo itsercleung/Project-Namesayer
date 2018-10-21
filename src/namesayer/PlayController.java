@@ -20,6 +20,9 @@ import namesayer.login.Points;
 import namesayer.login.UserUtils;
 import namesayer.util.*;
 import namesayer.util.fxmlloader.FXMLResource;
+import namesayer.util.play.PlayAudio;
+import namesayer.util.play.PlayManager;
+import namesayer.util.play.RatingManager;
 import org.controlsfx.control.Rating;
 
 /**

@@ -1,4 +1,4 @@
-package namesayer.util;
+package namesayer.util.play;
 
 import javafx.application.Platform;
 import javafx.scene.control.Button;

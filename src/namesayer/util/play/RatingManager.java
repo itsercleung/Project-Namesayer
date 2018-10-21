@@ -1,7 +1,8 @@
-package namesayer.util;
+package namesayer.util.play;
 
 import javafx.collections.ObservableList;
 import namesayer.PractiseController;
+import namesayer.util.Name;
 import org.controlsfx.control.Rating;
 
 import java.io.File;
