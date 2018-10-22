@@ -14,6 +14,8 @@ import java.util.*;
 /**
  * PlayListCreator: creates a list of all selected names from txt input and search input from users Practice Controller panel.
  * Deals with making appropriate single and concat names as well as dealing with making the audio files
+ *
+ * @author Eric Leung
  */
 public class PlayListCreator {
     private ObservableList<String> selectedNameList;

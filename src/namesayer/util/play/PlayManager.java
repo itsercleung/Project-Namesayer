@@ -7,6 +7,8 @@ import namesayer.PractiseController;
 /**
  * PlayManager: deals with timing, threading and button logic when playing
  * audio in Play menu.
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public class PlayManager {
 

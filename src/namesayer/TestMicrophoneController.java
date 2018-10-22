@@ -25,6 +25,8 @@ import java.io.IOException;
  * TestMicrophoneController: Provides functionality to test microphone scene, where user may test their current microphone
  * setup to check and compare if their microphone is at an appropriate level during recording. Also includes being able to
  * record test audio and able to listen to their recording for additional comparison.
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public class TestMicrophoneController extends NameSayerMenuController implements Initializable {
 
@@ -39,7 +41,10 @@ public class TestMicrophoneController extends NameSayerMenuController implements
 
     private Recorder recorder = null;
 
-    //When user completes test, let them play back recording to hear if their mic is viable
+    /**
+     * When user completes test, let them play back recording to
+     * hear if their mic is viable
+     */
     @Override
     @FXML
     protected void exitPressed(ActionEvent event) {
@@ -47,7 +52,11 @@ public class TestMicrophoneController extends NameSayerMenuController implements
         loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
     }
 
-    //Load rewards window
+    /**
+     * Load rewards window
+     *
+     * @param event
+     */
     @Override
     @FXML
     protected void rewardPressed(ActionEvent event) {
@@ -55,7 +64,11 @@ public class TestMicrophoneController extends NameSayerMenuController implements
         loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
     }
 
-    //Load practise window
+    /**
+     * Load practise window
+     *
+     * @param event
+     */
     @Override
     @FXML
     protected void practisePressed(ActionEvent event) {
@@ -63,7 +76,9 @@ public class TestMicrophoneController extends NameSayerMenuController implements
         loader.load(FXMLResource.PRACTISE, new StackPane(), mainRoot);
     }
 
-    //Load record name window
+    /**
+     * Load record name window
+     */
     @Override
     @FXML
     protected void recordNamePressed(ActionEvent event) {
@@ -71,7 +86,9 @@ public class TestMicrophoneController extends NameSayerMenuController implements
         loader.load(FXMLResource.RECORD_NEW, new StackPane(), mainRoot);
     }
 
-    //When user completes test, let them play back recording to hear if their mic is viable 
+    /**
+     * When user completes test, let them play back recording to hear if their mic is viable
+     */
     @FXML
     void listenPressed(ActionEvent event) {
         //When button is pressed disable button until audio is finished playing
