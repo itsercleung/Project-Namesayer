@@ -33,6 +33,8 @@ import java.util.Date;
  * This includes recording name for 4 seconds, and providing options to listen to recording, stop listening of recording and
  * saving recording to database.
  * This is included in case a new person is needed to be added into database easily.
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public class RecordNewController extends NameSayerMenuController implements Initializable {
 
@@ -50,9 +52,11 @@ public class RecordNewController extends NameSayerMenuController implements Init
 
     private static int RECORD_TOTAL_TIME = 5000; // to prevent RIFF exception
 
-    //Allows user to record given the string of the nameField:
-    //(1) If name already exists, assign the name with version
-    //(2) Else simply record the name
+    /**
+     * Allows user to record given the string of the nameField:
+     *     (1) If name already exists, assign the name with version
+     *     (2) Else simply record the name
+     */
     @FXML
     private void recordPressed(ActionEvent event) {
         String regex = "([a-zA-Z0-9])*"; // letters, numbers
@@ -188,7 +192,10 @@ public class RecordNewController extends NameSayerMenuController implements Init
         stopPlayButton.setDisable(false);
     }
 
-    //Listen to temp recording to see if user wants to save
+    /**
+     * Listen to temp recording to see if user wants to save
+     * @param event
+     */
     @FXML
     private void listenPressed(ActionEvent event) {
         new Thread() {
@@ -225,7 +232,9 @@ public class RecordNewController extends NameSayerMenuController implements Init
         playAudio.playAudio();
     }
 
-    //Once saved, place into unfilteredNames folder
+    /**
+     * Once saved, place into unfilteredNames folder
+     */
     @FXML
     void savePressed(ActionEvent event) {
         File file = new File("./data/names/" + officialName + ".wav");
