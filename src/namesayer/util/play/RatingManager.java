@@ -18,6 +18,8 @@ import java.util.Scanner;
  * RatingManager: Allows for updating and getting current values of ratings from calling methods with appropriate values
  * such as retrieving the int position of the current name.
  * It must be that each RatingManager object must have such a selectedList and rating component.
+ *
+ * @author Eric Leung
  */
 public class RatingManager {
     private ObservableList<Name> selectedList;
