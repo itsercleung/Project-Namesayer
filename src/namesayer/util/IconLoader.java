@@ -8,6 +8,8 @@ import namesayer.login.User;
 /**
  * IconLoader: Provides code UI icon loaders towards buttons and components towards most buttons throughout namesayer
  * controllers (includes sidebar, play bar, practise, record new etc).
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public class IconLoader {
 
