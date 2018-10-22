@@ -72,6 +72,10 @@ public class Recorder implements Runnable {
         }
     }
 
+    /**
+     * used to safely exit audio input line, to free up
+     * the microphone for use.
+     */
     public void close() {
         line.close();
     }
