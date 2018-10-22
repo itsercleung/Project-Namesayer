@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 /**
  * LoginController: Deals with initialisation and actions of the login screen on startup - includes handling users and
  * new users and entrance to main controller in namesayer
+ * @author Eric Leung, Kevin Xu
  */
 public class LoginController implements Initializable {
 
@@ -33,7 +34,9 @@ public class LoginController implements Initializable {
         System.exit(0);
     }
 
-    // gets currently selected name to login to
+    /**
+     * gets currently selected name to login to
+     */
     @FXML
     void loginButtonClicked(ActionEvent event) {
         UserUtils.setCurrentLoginUser(userList.getSelectionModel().getSelectedItem());

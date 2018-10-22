@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
 /**
  * NewUserDialog: Initialises a dialog box where user can create their new profile given that they have entered a correct
  * username and presses create button
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public class NewUserDialog implements Initializable {
     private Button buttonCreate = new Button("Create");
