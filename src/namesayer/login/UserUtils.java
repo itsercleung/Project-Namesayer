@@ -15,6 +15,8 @@ import java.util.Scanner;
  * UserUtils: is a group of functions that will deal with points,
  * user and reward information.
  * Call these utility functions via UserUtils.<method>()
+ *
+ * @author Kevin Xu
  */
 public class UserUtils {
 
