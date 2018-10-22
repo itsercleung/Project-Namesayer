@@ -19,6 +19,9 @@ public class PractiseUtils {
 
     public PractiseUtils(){}
 
+    /**
+     * Checks to see if the name exists on the Listview in Practise menu
+     */
     public boolean duplicateCheck(String name,
                                ObservableList<String> selectedNameList,
                                JFXListView<String> searchNamesView,
@@ -45,6 +48,7 @@ public class PractiseUtils {
         File namesFolder = new File("./data/names");
         File[] listOfNames = namesFolder.listFiles();
 
+        // iterate through list of audio files
         for (File file : listOfNames) {
             String fileName = file.getName();
             String[] parts = fileName.split("_");
