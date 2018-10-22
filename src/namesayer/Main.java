@@ -10,6 +10,7 @@ import java.io.File;
 
 /**
  * Main initialises the entire NameSayer program, including creating new directories and providing main scene settings
+ * @author Eric Leung, Kevin Xu
  */
 public class Main extends Application {
     @Override
@@ -23,7 +24,7 @@ public class Main extends Application {
             new File("./data/currentUser.txt").createNewFile();
         }
 
-        //Assign primary stage
+        //Assign primary stage, creates the window
         Parent root = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("NameSayer");
@@ -32,6 +33,9 @@ public class Main extends Application {
         root.requestFocus();
     }
 
+    /**
+     * entry point of NameSayer
+     */
     public static void main(String[] args) {
         launch(args);
     }
