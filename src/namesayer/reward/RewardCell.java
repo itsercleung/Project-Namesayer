@@ -12,8 +12,11 @@ import namesayer.login.User;
 import java.io.IOException;
 
 /**
- * RewardCell: Similarly concepts copied from UserCell. Creates cell and stores information of each reward to be displayed
+ * RewardCell: Similar concepts copied from UserCell.
+ * Creates cell and stores information of each reward to be displayed
  * in RewardController
+ *
+ * @author Kevin Xu
  */
 public class RewardCell extends ListCell<Reward> {
     @FXML
