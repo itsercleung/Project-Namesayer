@@ -31,6 +31,7 @@ import org.controlsfx.control.Rating;
  * PlayController : Deals with users selected playList to practise names in. Using such playList it updates an existing
  * table with its specified name, creator and rating. It provides play components, recording components and dynamic name
  * changing components.
+ * @author Eric Leung, Kevin Xu
  */
 public class PlayController extends NameSayerMenuController implements Initializable {
 

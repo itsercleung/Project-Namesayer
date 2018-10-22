@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 /**
  * NameSayerMenuController is the common implementation for all menus
  * of NameSayer.
+ * @author Eric Leung, Kevin Xu
  */
 public abstract class NameSayerMenuController implements Initializable {
     @FXML protected AnchorPane mainRoot;
