@@ -1,6 +1,9 @@
 # Project-NameSayer
 ● Project-NameSayer created by Kevin Xu and Eric Leung <br>
 ● Made for University Students to practise names <br>
+● For more information read Project-NameSayer Manual
+
+
 ● Recommended to read README with markdown support <br>
 ● Credits and Licenses: See end of README <br>
 
@@ -8,24 +11,24 @@
 ### To Run `Project-NameSayer.jar`
 1. Place `Project-NameSayer.jar` into appropriate working folder
 2. Extract names database into folder named `data/names` in the same directory as `Project-NameSayer.jar` (default set already there)
-3. Onto command line, change directory (`cd`) to appropriate folder
-4. Type `java -jar Project-NameSayer.jar`
+3. In console, change directory (`cd`) to appropriate folder where you have the .jar file
+4. Type in the console: `java -jar Project-NameSayer.jar`
 5. Have fun!
 
 <hr>
 
 ### Screenshots and images
-![NameSayer](src/namesayer/resources/images/main.png)
+![NameSayer](src/namesayer/resources/images/login.jpeg)
 
-![NameSayer](src/namesayer/resources/images/practise.png)
+![NameSayer](src/namesayer/resources/images/MainMenu.jpeg)
 
-![NameSayer](src/namesayer/resources/images/play.png)
+![NameSayer](src/namesayer/resources/images/Practise.jpeg)
 
-![NameSayer](src/namesayer/resources/images/testMic.png)
+![NameSayer](src/namesayer/resources/images/play.jpeg)
 
-![NameSayer](src/namesayer/resources/images/recordNew.png)
+![NameSayer](src/namesayer/resources/images/rewards.jpeg)
 
-![NameSayer](src/namesayer/resources/images/tips.png)
+![NameSayer](src/namesayer/resources/images/mic.jpeg)
 
 <hr>
 ---
