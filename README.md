@@ -1,7 +1,7 @@
 # Project-NameSayer
 ● Project-NameSayer created by Kevin Xu and Eric Leung <br>
 ● Made for University Students to practise names <br>
-● For more information read Project-NameSayer Manual
+● For more information read the [Project-NameSayer Manual] <br>
 
 
 ● Recommended to read README with markdown support <br>
