@@ -17,6 +17,7 @@ import namesayer.util.fxmlloader.FXMLResource;
  * RewardController: Controller which deals with actions and transitions around the reward scene. Deals with user handling
  * rewards and applying such rewards and initializing users currently earned and locked rewards, including using RewardCell
  * to display all rewards on the listView
+ * @author Kevin Xu
  */
 public class RewardController extends NameSayerMenuController implements Initializable {
 

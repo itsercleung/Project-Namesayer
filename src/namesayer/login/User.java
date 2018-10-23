@@ -5,6 +5,8 @@ import java.util.HashSet;
 /**
  * User describes the information related to a user.
  * A user has a username, points earned and rewards available.
+ *
+ * @author Kevin Xu
  */
 public class User {
     private String username;
@@ -29,7 +31,9 @@ public class User {
         return this.points;
     }
 
-    //Add points to existing points within individual user
+    /**
+     * Add points to existing points within individual user
+     */
     protected void addPoints(Points points) {
         this.points += points.getPoints();
     }

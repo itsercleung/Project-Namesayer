@@ -3,6 +3,7 @@ package namesayer.reward;
 /**
  * Reward class describes the information of a reward including name, description, applied, redeemable, image
  * type and minimum points to earn such reward
+ * @author Kevin Xu
  */
 public class Reward {
 

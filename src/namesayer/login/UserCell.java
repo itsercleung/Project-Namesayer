@@ -14,6 +14,8 @@ import java.util.HashSet;
 /**
  * UserCell: Has all the UI controller info about a listview cell for the User component in Login Controller. This stores
  * users profile picture, username and current points
+ *
+ * @author Kevin Xu
  */
 public class UserCell extends ListCell<User> {
 

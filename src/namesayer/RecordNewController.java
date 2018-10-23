@@ -33,14 +33,21 @@ import java.util.Date;
  * This includes recording name for 4 seconds, and providing options to listen to recording, stop listening of recording and
  * saving recording to database.
  * This is included in case a new person is needed to be added into database easily.
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public class RecordNewController extends NameSayerMenuController implements Initializable {
 
-    @FXML private Button listenButton, recordButton, saveButton, recordNameButton;
-    @FXML private StackPane stackPane;
-    @FXML private JFXTextField nameField;
-    @FXML private Button stopPlayButton;
-    @FXML private VBox vbox;
+    @FXML
+    private Button listenButton, recordButton, saveButton, recordNameButton;
+    @FXML
+    private StackPane stackPane;
+    @FXML
+    private JFXTextField nameField;
+    @FXML
+    private Button stopPlayButton;
+    @FXML
+    private VBox vbox;
 
     private String name;
     private String officialName;
@@ -50,23 +57,27 @@ public class RecordNewController extends NameSayerMenuController implements Init
 
     private static int RECORD_TOTAL_TIME = 5000; // to prevent RIFF exception
 
-    //Allows user to record given the string of the nameField:
-    //(1) If name already exists, assign the name with version
-    //(2) Else simply record the name
+    /**
+     * Allows user to record given the string of the nameField:
+     * (1) If name already exists, assign the name with version
+     * (2) Else simply record the name
+     */
     @FXML
     private void recordPressed(ActionEvent event) {
         String regex = "([a-zA-Z0-9])*"; // letters, numbers
         name = nameField.getText().trim().toLowerCase();
         if (!name.matches(regex) || name.isEmpty()) {
             String error = "[Invalid Name: Name must have letters or numbers only]";
-            if (message != null) {message.close();}
-            message.show(error,10000);
+            if (message != null) {
+                message.close();
+            }
+            message.show(error, 10000);
             return;
         }
 
         // patching playback issue
         if (name.contains(" ")) {
-            name = name.replace(" ","_");
+            name = name.replace(" ", "_");
         }
 
         //Setup official name for saved recording
@@ -82,7 +93,7 @@ public class RecordNewController extends NameSayerMenuController implements Init
             Process process = builder.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = reader.readLine();
-            version = Integer.valueOf(line)+1;
+            version = Integer.valueOf(line) + 1;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,7 +107,7 @@ public class RecordNewController extends NameSayerMenuController implements Init
             okButton.getStylesheets().add("namesayer/resources/stylesheet/general.css");
             cancelButton.getStylesheets().add("namesayer/resources/stylesheet/general.css");
             HBox buttonBox = new HBox();
-            buttonBox.getChildren().addAll(okButton,cancelButton);
+            buttonBox.getChildren().addAll(okButton, cancelButton);
             buttonBox.setSpacing(5);
 
             //Setting to JFXDialog
@@ -108,14 +119,14 @@ public class RecordNewController extends NameSayerMenuController implements Init
             dialog.show();
 
             //Giving user option to save duplicate or not
-            cancelButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
+            cancelButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
                 listenButton.setDisable(true);
                 saveButton.setDisable(true);
                 dialog.close();
             });
 
             //Continue with recording
-            okButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent )-> {
+            okButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent mouseEvent) -> {
                 dialog.close();
                 String messageString = "[Recording " + name + "]";
                 message.close();
@@ -162,8 +173,7 @@ public class RecordNewController extends NameSayerMenuController implements Init
                     });
                     try {
                         Thread.sleep(RECORD_TOTAL_TIME); //For until test.wav finishes
-                    }
-                    catch(InterruptedException e) {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     Platform.runLater(new Runnable() {
@@ -188,7 +198,11 @@ public class RecordNewController extends NameSayerMenuController implements Init
         stopPlayButton.setDisable(false);
     }
 
-    //Listen to temp recording to see if user wants to save
+    /**
+     * Listen to temp recording to see if user wants to save
+     *
+     * @param event
+     */
     @FXML
     private void listenPressed(ActionEvent event) {
         new Thread() {
@@ -204,8 +218,7 @@ public class RecordNewController extends NameSayerMenuController implements Init
                 });
                 try {
                     Thread.sleep(5000); //For until test.wav finishes
-                }
-                catch(InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 Platform.runLater(new Runnable() {
@@ -225,7 +238,9 @@ public class RecordNewController extends NameSayerMenuController implements Init
         playAudio.playAudio();
     }
 
-    //Once saved, place into unfilteredNames folder
+    /**
+     * Once saved, place into unfilteredNames folder
+     */
     @FXML
     void savePressed(ActionEvent event) {
         File file = new File("./data/names/" + officialName + ".wav");
@@ -277,8 +292,8 @@ public class RecordNewController extends NameSayerMenuController implements Init
         message.setStyle("-fx-font-size: 15px;");
 
         // Reward and help Popup icons
-        IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton,
-                recordButton,  saveButton, listenButton,  stopPlayButton);
+        IconLoader iconLoader = new IconLoader(user, rewardButton, helpButton, exitButton,
+                recordButton, saveButton, listenButton, stopPlayButton);
         iconLoader.loadMenuIcons();
         iconLoader.loadRecordNewIcons();
     }

@@ -13,7 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import namesayer.util.*;
+import namesayer.util.IconLoader;
+import namesayer.util.Name;
 import namesayer.util.fxmlloader.FXMLResource;
 import namesayer.util.play.PlayAudio;
 import namesayer.util.play.PlayListCreator;
@@ -32,6 +33,8 @@ import java.util.List;
  * Users are able to search on click and also provide an input of a text file (given the format) to input into the playList.
  * Users are able to add names that are single names or full names. They are also provided with randomization selection and
  * clear buttons for flexibility.
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public class PractiseController extends NameSayerMenuController implements Initializable {
 
@@ -54,7 +57,9 @@ public class PractiseController extends NameSayerMenuController implements Initi
     private String concatName = "";
     private boolean isRandomised = false;
 
-    //Load play practise pane
+    /**
+     * Load play practise pane
+     */
     @FXML
     private void pressedPlayNames(ActionEvent event) {
         //Call on PlayListCreator class to create the playList and filter such names
@@ -72,7 +77,9 @@ public class PractiseController extends NameSayerMenuController implements Initi
         loader.load(FXMLResource.PLAY, new AnchorPane(), mainRoot);
     }
 
-    //Clear all to initial state
+    /**
+     * Clear all to initial state
+     */
     @FXML
     private void clearButtonPressed(ActionEvent actionEvent) {
         namePlaylist.clear();
@@ -80,8 +87,10 @@ public class PractiseController extends NameSayerMenuController implements Initi
         toggleRandomise.setSelected(false);
     }
 
-    //User may have option to upload txt file for all names requested (as long as the name currently exists in system) and
-    //meets line requires for each name.
+    /**
+     * User may have option to upload txt file for all names requested (as long as the name currently exists in system) and
+     * meets line requires for each name.
+     */
     @FXML
     private void uploadButtonClicked(ActionEvent event) {
         UploadNameList uploadNameList = new UploadNameList(selectedNameList,
@@ -124,7 +133,7 @@ public class PractiseController extends NameSayerMenuController implements Initi
         // limits text field to 50 characters
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (searchTextField.getText().length() > 50) {
-                String name = searchTextField.getText().substring(0,50);
+                String name = searchTextField.getText().substring(0, 50);
                 searchTextField.setText(name);
             }
         });

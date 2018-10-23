@@ -19,6 +19,8 @@ import org.controlsfx.control.Rating;
 
 /**
  * PlayUtils: Deals with the button logic in the PlayController
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public class PlayUtils {
 

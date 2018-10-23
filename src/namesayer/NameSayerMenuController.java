@@ -19,12 +19,18 @@ import java.util.ResourceBundle;
 /**
  * NameSayerMenuController is the common implementation for all menus
  * of NameSayer.
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public abstract class NameSayerMenuController implements Initializable {
-    @FXML protected AnchorPane mainRoot;
-    @FXML protected StackPane stackPane;
-    @FXML protected Text userText, pointsText;
-    @FXML protected Button helpButton, rewardButton, exitButton;
+    @FXML
+    protected AnchorPane mainRoot;
+    @FXML
+    protected StackPane stackPane;
+    @FXML
+    protected Text userText, pointsText;
+    @FXML
+    protected Button helpButton, rewardButton, exitButton;
 
     protected User user;
     protected FXMLResourceLoader loader = new FXMLResourceLoader();
@@ -32,14 +38,16 @@ public abstract class NameSayerMenuController implements Initializable {
     /**
      * Logout button pressed
      */
-    @FXML protected void exitPressed(ActionEvent event) {
+    @FXML
+    protected void exitPressed(ActionEvent event) {
         loader.load(FXMLResource.LOGOUT, new StackPane(), mainRoot);
     }
 
     /**
      * Loads the general help popup
      */
-    @FXML protected void helpPressed(ActionEvent event) {
+    @FXML
+    protected void helpPressed(ActionEvent event) {
         HelpDialog helpDialog = new HelpDialog(helpButton);
         helpDialog.showHelpDialog(stackPane, 1);
     }
@@ -47,29 +55,33 @@ public abstract class NameSayerMenuController implements Initializable {
     /**
      * Load rewards menu
      */
-    @FXML protected void rewardPressed(ActionEvent event) {
+    @FXML
+    protected void rewardPressed(ActionEvent event) {
         loader.load(FXMLResource.REWARD, new StackPane(), mainRoot);
     }
 
     /**
      * Loads the test microphone menu
      */
-    @FXML protected void testMicrophonePressed(ActionEvent event) {
-        loader.load(FXMLResource.TEST_MICROPHONE,new StackPane(),mainRoot);
+    @FXML
+    protected void testMicrophonePressed(ActionEvent event) {
+        loader.load(FXMLResource.TEST_MICROPHONE, new StackPane(), mainRoot);
     }
 
     /**
      * Load practise pane
      */
-    @FXML protected void practisePressed(ActionEvent event) {
-        loader.load(FXMLResource.PRACTISE,new StackPane(),mainRoot);
+    @FXML
+    protected void practisePressed(ActionEvent event) {
+        loader.load(FXMLResource.PRACTISE, new StackPane(), mainRoot);
     }
 
     /**
      * record new practise pane
      */
-    @FXML protected void recordNamePressed(ActionEvent event) {
-        loader.load(FXMLResource.RECORD_NEW,new StackPane(),mainRoot);
+    @FXML
+    protected void recordNamePressed(ActionEvent event) {
+        loader.load(FXMLResource.RECORD_NEW, new StackPane(), mainRoot);
     }
 
     /**

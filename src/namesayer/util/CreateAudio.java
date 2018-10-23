@@ -10,6 +10,7 @@ import java.nio.file.StandardCopyOption;
 /**
  * CreateAudio: Creates temporary audio files given the name. Can be used for making test audio files, or
  * initial audio files that could be saved depending on the users choice.
+ * @author Eric Leung, Kevin Xu
  */
 public class CreateAudio {
     private String name;

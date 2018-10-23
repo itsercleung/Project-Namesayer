@@ -18,6 +18,7 @@ import java.util.Scanner;
 
 /**
  * UploadNameList deals with the data related to uploading a txt file.
+ * @author Eric Leung, Kevin Xu
  */
 public class UploadNameList {
 
@@ -44,6 +45,12 @@ public class UploadNameList {
         this.mainRoot = mainRoot;
     }
 
+    /**
+     * Sets up the upload txt file menu, and checks if the
+     * file is a valid txt file and checks if names
+     * on the txt file are valid.
+     * @param uploadButton
+     */
     public void upload(Button uploadButton) {
         // let the user select TXT files to upload
         FileChooser fc = new FileChooser();

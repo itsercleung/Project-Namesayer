@@ -31,17 +31,26 @@ import org.controlsfx.control.Rating;
  * PlayController : Deals with users selected playList to practise names in. Using such playList it updates an existing
  * table with its specified name, creator and rating. It provides play components, recording components and dynamic name
  * changing components.
+ *
+ * @author Eric Leung, Kevin Xu
  */
 public class PlayController extends NameSayerMenuController implements Initializable {
 
-    @FXML private TableView<Name> nameTable;
-    @FXML private TableColumn<Name, String> nameCol, createdCol;
-    @FXML private TableColumn<Name, Rating> ratingCol;
-    @FXML private Label playLabel;
-    @FXML private Button nextButton, recordButton, stopButton,
+    @FXML
+    private TableView<Name> nameTable;
+    @FXML
+    private TableColumn<Name, String> nameCol, createdCol;
+    @FXML
+    private TableColumn<Name, Rating> ratingCol;
+    @FXML
+    private Label playLabel;
+    @FXML
+    private Button nextButton, recordButton, stopButton,
             playButton, prevButton;
-    @FXML private Rating audioRating;
-    @FXML private StackPane stackPane;
+    @FXML
+    private Rating audioRating;
+    @FXML
+    private StackPane stackPane;
 
     private PractiseController practiseController = new PractiseController();
     private ObservableList<Name> selectedList = FXCollections.observableArrayList(); //List of all selected names
@@ -85,7 +94,7 @@ public class PlayController extends NameSayerMenuController implements Initializ
      */
     @FXML
     void nextPressed(ActionEvent event) {
-        playUtils.nextPressed(prevButton,nextButton,nameTable,ratingManager,audioRating);
+        playUtils.nextPressed(prevButton, nextButton, nameTable, ratingManager, audioRating);
     }
 
     /**
@@ -93,7 +102,7 @@ public class PlayController extends NameSayerMenuController implements Initializ
      */
     @FXML
     void prevPressed(ActionEvent event) {
-        playUtils.prevPressed(prevButton,nextButton,nameTable,ratingManager,audioRating);
+        playUtils.prevPressed(prevButton, nextButton, nameTable, ratingManager, audioRating);
     }
 
     /**
@@ -101,7 +110,7 @@ public class PlayController extends NameSayerMenuController implements Initializ
      */
     @FXML
     void rowClicked(MouseEvent event) {
-        playUtils.rowClicked(nameTable,selectedList,prevButton,nextButton,ratingManager,audioRating);
+        playUtils.rowClicked(nameTable, selectedList, prevButton, nextButton, ratingManager, audioRating);
     }
 
     /**
@@ -125,7 +134,7 @@ public class PlayController extends NameSayerMenuController implements Initializ
      */
     @FXML
     void recordPressed(ActionEvent event) {
-        playUtils.recordPopup(recordPopup,recordButton);
+        playUtils.recordPopup(recordPopup, recordButton);
     }
 
     /**
@@ -142,7 +151,7 @@ public class PlayController extends NameSayerMenuController implements Initializ
     public void init() {
         //Setting table and rating updates using RatingManager class
         playUtils = new PlayUtils();
-        playUtils.populateTableView(practiseController,selectedList,nameTable,nameCol,createdCol,ratingCol);
+        playUtils.populateTableView(practiseController, selectedList, nameTable, nameCol, createdCol, ratingCol);
 
         ratingManager = new RatingManager(selectedList, practiseController, audioRating);
         selectedList = ratingManager.ratingUpdate();
@@ -177,10 +186,10 @@ public class PlayController extends NameSayerMenuController implements Initializ
 
         //Instantiate manager and utils for play scene
         playManager = new PlayManager(playButton, recordButton, stopButton);
-        playUtils = new PlayUtils(saveButton,playOldButton,playNewButton,playCompare,
-                recordSubButton,user,playLabel,userText,pointsText,
-                currSelectedName,playManager,practiseController,0,
-                tempAudioName,playButton,createAudio);
+        playUtils = new PlayUtils(saveButton, playOldButton, playNewButton, playCompare,
+                recordSubButton, user, playLabel, userText, pointsText,
+                currSelectedName, playManager, practiseController, 0,
+                tempAudioName, playButton, createAudio);
         playUtils.popupButtons();
 
         //INIT JFX-POPUP
@@ -188,9 +197,9 @@ public class PlayController extends NameSayerMenuController implements Initializ
         recordPopup.setPopupContent(box);
 
         //Call icon loader for button icons
-        IconLoader iconLoader = new IconLoader(user,rewardButton,helpButton,exitButton,
-                playButton,  stopButton,  prevButton,  nextButton,  recordButton,
-                recordSubButton,  playOldButton, playNewButton,  playCompare,  saveButton);
+        IconLoader iconLoader = new IconLoader(user, rewardButton, helpButton, exitButton,
+                playButton, stopButton, prevButton, nextButton, recordButton,
+                recordSubButton, playOldButton, playNewButton, playCompare, saveButton);
         iconLoader.loadMenuIcons();
         iconLoader.loadPlayMenuIcons();
     }

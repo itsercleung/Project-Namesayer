@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * PlayAudio: Input of a string with destination of audio file to play -
  * uses AudioStream and AudioPlayer for .wav files
+ * @author Eric Leung, Kevin Xu
  */
 public class PlayAudio {
     private String audio;

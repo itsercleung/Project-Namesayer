@@ -11,6 +11,8 @@ import java.util.List;
 /**
  * RewardManager: Creates the list of rewards to populate a listView. Can be edited easily through generateRewards() method
  * which can customize reward descriptions, titles and images as well as adding additional rewards.
+ *
+ * @author Kevin Xu
  */
 public class RewardManager {
 

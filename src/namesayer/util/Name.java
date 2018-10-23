@@ -5,6 +5,8 @@ import org.controlsfx.control.Rating;
 /**
  * Name: Stores all properties of each audio file. Can use tableView to provide information, or if we need to compare
  * such objects, or if we need to rename an audio name file appropriately using toString().
+ *
+ * @author Eric Leung
  */
 public class Name {
     private String name;

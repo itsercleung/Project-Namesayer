@@ -13,6 +13,7 @@ import namesayer.util.HelpDialog;
 /**
  * SearchChangeListener is a ChangeListener that detects and populates
  * a list when the user types in a name to search.
+ * @author Eric Leung, Kevin Xu
  */
 public class SearchChangeListener implements ChangeListener<String> {
 

@@ -2,6 +2,8 @@ package namesayer.util.fxmlloader;
 
 /**
  * FXMLResource: Allows for calling constant fxml menu scenes for each scene change
+ *
+ * @author Kevin Xu
  */
 public enum FXMLResource {
     LOGIN("/namesayer/resources/Login.fxml"),

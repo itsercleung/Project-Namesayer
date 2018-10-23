@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
  * HelpDialog: Provides a display of different assistance dialogs displayed when user is unsure of what to do:
  * They will consistently change depending on what scene they're in (play, main, rewards screens), including duplicate
  * error handling dialog when user inputs an additional name while it already exists
+ * @author Eric Leung
  */
 public class HelpDialog {
     private Button helpButton;

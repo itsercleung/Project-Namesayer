@@ -8,6 +8,12 @@ import javafx.collections.transformation.FilteredList;
 
 import java.util.List;
 
+/**
+ * SearchTextChangeListener is used in PractiseController
+ * to find find the correct name when the user types in a name.
+ *
+ * @author Eric Leung, Kevin Xu
+ */
 public class SearchTextChangeListener implements ChangeListener<String> {
 
     private String concatName;
@@ -33,8 +39,11 @@ public class SearchTextChangeListener implements ChangeListener<String> {
     private void changeHeightView() {
         double maxHeight = 180;
         double currentHeight = filteredData.size() * 30;
+
         if (currentHeight >= maxHeight) {
             searchNamesView.setMaxHeight(180);
+        } else if (currentHeight == 0 && searchNameList.size() == 1) {
+            searchNamesView.setMaxHeight(30);
         } else {
             searchNamesView.setMaxHeight(currentHeight);
         }
@@ -48,6 +57,8 @@ public class SearchTextChangeListener implements ChangeListener<String> {
 
         String[] dispConcat;
         int wordCount = 0;
+
+        // if a full name is detected
         if (newValue.contains("-") || newValue.contains(" ")) {
             dispConcat = newValue.split("[-\\s+]"); // whitespace delimiter with hyphen
             for (String singleName : dispConcat) {
