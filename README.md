@@ -9,10 +9,10 @@
 
 ## How to Use
 ### To Run `Project-NameSayer.jar`
-1. Place `Project-NameSayer.jar` into appropriate working folder
+1. Go into `NameSayerProgram` folder in the zip file
 2. Extract names database into folder named `data/names` in the same directory as `Project-NameSayer.jar` (default set already there)
-3. In console, change directory (`cd`) to appropriate folder where you have the .jar file
-4. Type in the console: `java -jar Project-NameSayer.jar`
+3. Onto command line, change directory (`cd`) to appropriate folder
+4. Type `java -jar Project-NameSayer.jar`
 5. Have fun!
 
 <hr>
