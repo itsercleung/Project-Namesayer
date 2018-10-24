@@ -34,8 +34,6 @@
 ---
 
 ### Credit and Licenses:
-● The​ ​ControlsFX​ ​library​ ​is​ ​licensed​ ​under​ ​the​ ​BSD​ ​3-clause​ ​license <br/>
-● The​ ​JFoenix​ ​library​ ​is​ ​licensed​ ​under​ ​the​ ​Apache​ ​License​ ​2.0  <br/>
 ● Music Icons made by Daniele De Santis from: [https://www.flaticon.com/packs/music] <br/>
 ● Microphone Icon made by Smashicons from: [https://www.flaticon.com/free-icon/microphone_149427#term=record&page=1&position=1] <br/>
 ● Star Icon made by Dave Gandy from: [https://www.flaticon.com/free-icon/star_25291#term=star&page=1&position=39] <br/>
